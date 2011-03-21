@@ -1,0 +1,13 @@
+.classpath
+.project
+.settings/
+.springBeans
+war/WEB-INF/classes/
+war/inspector
+extras/
+*Css.java
+.*.swp
+war/WEB-INF/lib/gwt-servlet.jar
+war/WEB-INF/lib/gwt-servlet-deps.jar
+.gwt/
+.DS_Store
