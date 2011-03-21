@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="inspector">
+	<inherits name="com.google.gwt.user.User"/>
+
+	<!-- Inherit the default GWT style sheet. You can change -->
+	<!-- the theme of your GWT application by uncommenting -->
+	<!-- any one of the following lines. -->
+	<inherits name="com.google.gwt.user.theme.standard.Standard"/>
+	<!-- <inherits name="com.google.gwt.user.theme.chrome.Chrome"/> -->
+	<!-- <inherits name="com.google.gwt.user.theme.dark.Dark"/> -->
+
+	<!-- Other module inherits -->
+	<inherits name="com.google.gwt.inject.Inject"/>
+	<inherits name="net.customware.gwt.presenter.Presenter"/>
+	<inherits name="net.sf.gilead.Gilead4Gwt"/>
+	<inherits name="com.google.gwt.i18n.I18N"/>
+
+	<extend-property name="locale" values="es"/>
+	<set-property name="locale" value="es"/>
+
+	<!-- Specify the app entry point class. -->
+
+	<!-- Specify the paths for translatable code -->
+	<source path="client"/>
+	<source path="model"/>
+	<source path="shared"/>
+</module>

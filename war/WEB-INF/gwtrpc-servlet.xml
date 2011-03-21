@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- Setup transaction handling -->
+	<aop:config>
+		<aop:pointcut id="hb4GwtInvocation"
+			expression="execution(* org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter.invokeMethodOnService(..))" />
+		<aop:advisor pointcut-ref="hb4GwtInvocation" advice-ref="defaultTxAdvice" />
+	</aop:config>
+
+	<tx:advice id="defaultTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<map>
+				<!-- Here goes every service defined in the section below like this -->
+				<!-- <entry key="/foobar" value-ref="gileadFoobarService" /> -->
+			</map>
+		</property>
+	</bean>
+
+	<!-- Each mapped service is defined like this -->
+	<!--
+	<bean id="gileadFoobarService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="fooBarService" />
+	</bean>
+
+	<bean id="foobarService"
+		class="cl.votainteligente.inspector.server.services.FoobarServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	-->
+</beans>
