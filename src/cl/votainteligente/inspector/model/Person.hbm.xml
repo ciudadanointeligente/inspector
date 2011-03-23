@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cl.votainteligente.inspector.model">
+	<class name="Person">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="uid" />
+		<property name="birthDate" />
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="civilStatus" />
+		<many-to-one name="spouse" column="spouseId" />
+		<set name="children" table="PersonChildren">
+			<key column="personId" />
+			<many-to-many column="childId" class="Person" />
+		</set>
+	</class>
+</hibernate-mapping>

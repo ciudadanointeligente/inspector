@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cl.votainteligente.inspector.model">
+	<class name="Society">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="societyType" column="societyTypeId" />
+		<property name="creationDate" />
+		<property name="publishDate" />
+		<many-to-one name="notary" column="notaryId" />
+		<property name="address" />
+		<property name="name" />
+		<property name="fantasyName" />
+		<property name="uid" />
+		<property name="classification" />
+		<set name="members" table="SocietyMembers">
+			<key column="societyId" />
+			<many-to-many column="personId" class="Person" />
+		</set>
+		<property name="subject" />
+		<property name="initialStock" />
+		<property name="currentStock" />
+		<set name="categories" table="SocietyCategories">
+			<key column="societyId" />
+			<many-to-many column="categoryId" class="Category" />
+		</set>
+	</class>
+</hibernate-mapping>

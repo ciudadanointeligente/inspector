@@ -22,6 +22,23 @@
 			<list>
 				<!-- Each model must be added this way -->
 				<!-- <value>cl/votainteligente/inspector/model/Foobar.hbm.xml</value> -->
+				<value>cl/votainteligente/inspector/model/Bill.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/BillType.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Category.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Chamber.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Commission.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/District.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/DistrictType.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/InitiativeType.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Notary.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Parlamentarian.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/ParlamentarianType.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Party.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Person.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Society.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/SocietyType.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Stage.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Urgency.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cl.votainteligente.inspector.model">
+	<joined-subclass name="Parlamentarian" extends="Person" lazy="false">
+		<key column="id" />
+		<many-to-one name="parlamentarianType" column="parlamentarianTypeId" />
+		<set name="specialCommissions" table="SpecialCommissions">
+			<key column="parlamentarianId" />
+			<many-to-many column="commissionId" class="Commission" />
+		</set>
+		<many-to-one name="party" column="partyId" />
+		<many-to-one name="district" column="districtId" />
+		<property name="active" />
+		<set name="societies" table="ParlamentarianSocieties">
+			<key column="parlamentarianId" />
+			<many-to-many column="societyId" class="Society" />
+		</set>
+	</joined-subclass>
+</hibernate-mapping>
