@@ -19,6 +19,7 @@
 	<set-property name="locale" value="es"/>
 
 	<!-- Specify the app entry point class. -->
+	<entry-point class="cl.votainteligente.inspector.client.Inspector"/>
 
 	<!-- Specify the paths for translatable code -->
 	<source path="client"/>
