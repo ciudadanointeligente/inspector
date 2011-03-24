@@ -1,0 +1,22 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style src="BillView.css" />
+	<g:HTMLPanel>
+		<g:HTMLPanel ui:field="billPanel">
+			Título: <g:Label ui:field="billName"/>
+			Fecha Ingreso: <g:Label ui:field="billDate"/>
+			Moción: <g:Label ui:field="billVote"/>
+			Estado: <g:Label ui:field="billStatus"/>
+		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="parlamentarianPanel">
+			Parlamentarios en conflicto:
+			<c:CellTable ui:field="parlamentarianTable"/>
+		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="societyPanel">
+			Sociedades en conflicto:
+			<c:CellTable ui:field="societyTable"/>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>
