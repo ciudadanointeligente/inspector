@@ -1,0 +1,12 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style src="MainView.css" />
+	<g:HTMLPanel>
+		<h3>Inspector de Intereses</h3>
+		<a href="#home">HOME</a>
+		<br />
+		<a href="#bill">Proyecto</a>
+		<g:FlowPanel ui:field="mainPanel"></g:FlowPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>
