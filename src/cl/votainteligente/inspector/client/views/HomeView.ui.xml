@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style src="HomeView.css" />
+	<g:HTMLPanel>
+		<g:HTMLPanel ui:field="parlamentarianPanel">
+			<g:Label ui:field="parlamentarianLabel"/>
+			<g:TextBox ui:field="parlamentarianSearch"/>
+			<c:CellTable ui:field="parlamentarianTable"/>
+		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="categoryPanel">
+			<g:Label ui:field="categoryLabel"/>
+			<g:TextBox ui:field="categorySearch"/>
+			<c:CellTable ui:field="categoryTable"/>
+		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="billPanel">
+			<c:CellTable ui:field="billTable"/>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>
