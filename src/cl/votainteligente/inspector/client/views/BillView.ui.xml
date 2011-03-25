@@ -5,10 +5,14 @@
 	<ui:style src="BillView.css" />
 	<g:HTMLPanel>
 		<g:HTMLPanel ui:field="billPanel">
-			Título: <g:Label ui:field="billName"/>
-			Fecha Ingreso: <g:Label ui:field="billDate"/>
-			Moción: <g:Label ui:field="billVote"/>
-			Estado: <g:Label ui:field="billStatus"/>
+			Boletín: <g:Label ui:field="billBulletinNumber"/>
+			Título: <g:Label ui:field="billTitle"/>
+			Fecha Ingreso: <g:Label ui:field="billEntryDate"/>
+			Moción: <g:Label ui:field="billInitiativeType"/>
+			Tipo: <g:Label ui:field="billType"/>
+			Cámara: <g:Label ui:field="billOriginChamber"/>
+			Urgencia: <g:Label ui:field="billUrgency"/>
+			Estado: <g:Label ui:field="billStage"/>
 		</g:HTMLPanel>
 		<g:HTMLPanel ui:field="parlamentarianPanel">
 			Parlamentarios en conflicto:
