@@ -1,7 +1,6 @@
 package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.MainPresenter;
-import cl.votainteligente.inspector.client.presenters.MainPresenterIface;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -16,20 +15,27 @@ public class MainView extends Composite implements MainPresenter.Display {
 
 	@UiField FlowPanel mainPanel;
 
-	MainPresenterIface presenter;
-
 	public MainView() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
 	@Override
-	public Widget asWidget() {
-		return this;
+	public void addWidget(Widget widget) {
 	}
 
 	@Override
-	public void setPresenter(MainPresenterIface presenter) {
-		this.presenter = presenter;
+	public void removeWidget(Widget widget) {
+	}
+
+	@Override
+	public void showWidget(Widget widget) {
+		mainPanel.clear();
+		mainPanel.add(widget);
+	}
+
+	@Override
+	public Widget asWidget() {
+		return this;
 	}
 
 	@Override

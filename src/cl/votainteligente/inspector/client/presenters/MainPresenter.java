@@ -1,37 +1,20 @@
 package cl.votainteligente.inspector.client.presenters;
 
+import net.customware.gwt.presenter.client.EventBus;
+import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
+import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
+
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.inject.Inject;
 
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
-
-public class MainPresenter extends CustomWidgetPresenter<MainPresenter.Display> implements MainPresenterIface {
-	public interface Display extends WidgetDisplay {
-		void setPresenter(MainPresenterIface presenter);
+public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Display> {
+	public interface Display extends WidgetContainerDisplay {
 		FlowPanel getLayout();
 	}
 
 	@Inject
-	public MainPresenter(Display display, EventBus eventBus) {
-		super(display, eventBus);
+	public MainPresenter(Display display, EventBus eventBus, HomePresenter homePresenter, BillPresenter billPresenter) {
+		super(display, eventBus, homePresenter, billPresenter);
 		bind();
-	}
-
-	@Override
-	public void setup() {
-	}
-
-	@Override
-	protected void onBind() {
-		display.setPresenter(this);
-	}
-
-	@Override
-	protected void onUnbind() {
-	}
-
-	@Override
-	protected void onRevealDisplay() {
 	}
 }

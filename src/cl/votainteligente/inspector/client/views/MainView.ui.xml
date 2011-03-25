@@ -4,9 +4,8 @@
 	<ui:style src="MainView.css" />
 	<g:HTMLPanel>
 		<h3>Inspector de Intereses</h3>
-		<a href="#home">HOME</a>
-		<br />
-		<a href="#bill">Proyecto</a>
-		<g:FlowPanel ui:field="mainPanel"></g:FlowPanel>
+		<g:Hyperlink targetHistoryToken="home">Home</g:Hyperlink>
+		<g:Hyperlink targetHistoryToken="bill">Proyecto</g:Hyperlink>
+		<g:FlowPanel ui:field="mainPanel"/>
 	</g:HTMLPanel>
 </ui:UiBinder>

@@ -6,11 +6,12 @@ import cl.votainteligente.inspector.model.Parlamentarian;
 
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
+import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 
-public class HomePresenter extends CustomWidgetPresenter<HomePresenter.Display> implements HomePresenterIface {
+public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implements HomePresenterIface {
 	public interface Display extends WidgetDisplay {
 		void setPresenter(HomePresenterIface presenter);
 		void setParlamentaryData(ListDataProvider<Parlamentarian> data);
@@ -24,10 +25,6 @@ public class HomePresenter extends CustomWidgetPresenter<HomePresenter.Display> 
 	public HomePresenter(Display display, EventBus eventBus) {
 		super(display, eventBus);
 		bind();
-	}
-
-	@Override
-	public void setup() {
 	}
 
 	@Override
