@@ -3,9 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
 	<!-- Setup transaction handling -->
 	<aop:config>
@@ -25,7 +25,22 @@
 			<map>
 				<!-- Here goes every service defined in the section below like this -->
 				<!-- <entry key="/foobar" value-ref="gileadFoobarService" /> -->
+				<entry key="/bill" value-ref="gileadBillService" />
+				<entry key="/billType" value-ref="gileadBillTypeService" />
+				<entry key="/category" value-ref="gileadCategoryService" />
+				<entry key="/chamber" value-ref="gileadChamberService" />
+				<entry key="/commission" value-ref="gileadCommissionService" />
+				<entry key="/district" value-ref="gileadDistrictService" />
+				<entry key="/districtType" value-ref="gileadDistrictTypeService" />
+				<entry key="/initiativeType" value-ref="gileadInitiativeTypeService" />
+				<entry key="/notary" value-ref="gileadNotaryService" />
+				<entry key="/parlamentarian" value-ref="gileadParlamentarianService" />
 				<entry key="/party" value-ref="gileadPartyService" />
+				<entry key="/person" value-ref="gileadPersonService" />
+				<entry key="/society" value-ref="gileadSocietyService" />
+				<entry key="/societyType" value-ref="gileadSocietyTypeService" />
+				<entry key="/stage" value-ref="gileadStageService" />
+				<entry key="/urgency" value-ref="gileadUrgencyService" />
 			</map>
 		</property>
 	</bean>
@@ -44,6 +59,116 @@
 	</bean>
 	-->
 
+	<bean id="gileadBillService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="billService" />
+	</bean>
+
+	<bean id="billService"
+		class="cl.votainteligente.inspector.server.services.BillServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadBillTypeService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="billTypeService" />
+	</bean>
+
+	<bean id="billTypeService"
+		class="cl.votainteligente.inspector.server.services.BillTypeServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadCategoryService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="categoryService" />
+	</bean>
+
+	<bean id="categoryService"
+		class="cl.votainteligente.inspector.server.services.CategoryServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadChamberService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="chamberService" />
+	</bean>
+
+	<bean id="chamberService"
+		class="cl.votainteligente.inspector.server.services.ChamberServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadCommissionService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="commissionService" />
+	</bean>
+
+	<bean id="commissionService"
+		class="cl.votainteligente.inspector.server.services.CommissionServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadDistrictService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="districtService" />
+	</bean>
+
+	<bean id="districtService"
+		class="cl.votainteligente.inspector.server.services.DistrictServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadDistrictTypeService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="districtTypeService" />
+	</bean>
+
+	<bean id="districtTypeService"
+		class="cl.votainteligente.inspector.server.services.DistrictTypeServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadInitiativeTypeService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="initiativeTypeService" />
+	</bean>
+
+	<bean id="initiativeTypeService"
+		class="cl.votainteligente.inspector.server.services.InitiativeTypeServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadNotaryService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="notaryService" />
+	</bean>
+
+	<bean id="notaryService"
+		class="cl.votainteligente.inspector.server.services.NotaryServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadParlamentarianService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="parlamentarianService" />
+	</bean>
+
+	<bean id="parlamentarianService"
+		class="cl.votainteligente.inspector.server.services.ParlamentarianServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
 	<bean id="gileadPartyService"
 		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -52,6 +177,50 @@
 
 	<bean id="partyService"
 		class="cl.votainteligente.inspector.server.services.PartyServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadSocietyService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="societyService" />
+	</bean>
+
+	<bean id="societyService"
+		class="cl.votainteligente.inspector.server.services.SocietyServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadSocietyTypeService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="societyTypeService" />
+	</bean>
+
+	<bean id="societyTypeService"
+		class="cl.votainteligente.inspector.server.services.SocietyTypeServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadStageService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="stageService" />
+	</bean>
+
+	<bean id="stageService"
+		class="cl.votainteligente.inspector.server.services.StageServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadUrgencyService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="urgencyService" />
+	</bean>
+
+	<bean id="urgencyService"
+		class="cl.votainteligente.inspector.server.services.UrgencyServiceImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>
