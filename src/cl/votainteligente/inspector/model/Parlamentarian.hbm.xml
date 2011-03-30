@@ -16,5 +16,13 @@
 			<key column="parlamentarianId" />
 			<many-to-many column="societyId" class="Society" />
 		</set>
+		<set name="authoredBills" table="ParlamentarianAuthoredBills">
+			<key column="parlamentarianId" />
+			<many-to-many column="billId" class="Bill" />
+		</set>
+		<set name="votedBills" table="ParlamentarianVotedBills">
+			<key column="parlamentarianId" />
+			<many-to-many column="billId" class="Bill" />
+		</set>
 	</joined-subclass>
 </hibernate-mapping>

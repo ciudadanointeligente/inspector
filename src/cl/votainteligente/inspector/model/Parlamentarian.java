@@ -9,6 +9,8 @@ public class Parlamentarian extends Person {
 	private District district;
 	private Boolean active;
 	private Set<Society> societies;
+	private Set<Bill> authoredBills;
+	private Set<Bill> votedBills;
 
 	public ParlamentarianType getParlamentarianType() {
 		return parlamentarianType;
@@ -56,5 +58,21 @@ public class Parlamentarian extends Person {
 
 	public void setSocieties(Set<Society> societies) {
 		this.societies = societies;
+	}
+
+	public Set<Bill> getAuthoredBills() {
+		return authoredBills;
+	}
+
+	public void setAuthoredBills(Set<Bill> authoredBills) {
+		this.authoredBills = authoredBills;
+	}
+
+	public Set<Bill> getVotedBills() {
+		return votedBills;
+	}
+
+	public void setVotedBills(Set<Bill> votedBills) {
+		this.votedBills = votedBills;
 	}
 }
