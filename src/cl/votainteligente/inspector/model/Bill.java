@@ -3,6 +3,7 @@ package cl.votainteligente.inspector.model;
 import net.sf.gilead.pojo.gwt.LightEntity;
 
 import java.util.Date;
+import java.util.Set;
 
 public class Bill extends LightEntity {
 	private Long id;
@@ -14,6 +15,7 @@ public class Bill extends LightEntity {
 	private Chamber originChamber;
 	private Urgency urgency;
 	private Stage stage;
+	private Set<Category> categories;
 
 	public Long getId() {
 		return id;
@@ -85,5 +87,13 @@ public class Bill extends LightEntity {
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
+	}
+
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
 	}
 }

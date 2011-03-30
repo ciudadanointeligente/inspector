@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-
 <hibernate-mapping package="cl.votainteligente.inspector.model">
 	<class name="Bill">
 		<id name="id">
@@ -17,5 +16,9 @@
 		<many-to-one name="originChamber" column="originChamber" />
 		<many-to-one name="urgency" column="urgencyId" />
 		<many-to-one name="stage" column="stageId" />
+		<set name="categories" table="BillCategories">
+			<key column="billId" />
+			<many-to-many column="categoryId" class="Category" />
+		</set>
 	</class>
 </hibernate-mapping>
