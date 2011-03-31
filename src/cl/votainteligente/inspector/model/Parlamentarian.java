@@ -1,14 +1,16 @@
 package cl.votainteligente.inspector.model;
 
+import java.util.Map;
 import java.util.Set;
 
 public class Parlamentarian extends Person {
 	private ParlamentarianType parlamentarianType;
+	private Set<Commission> permanentCommissions;
 	private Set<Commission> specialCommissions;
 	private Party party;
 	private District district;
 	private Boolean active;
-	private Set<Society> societies;
+	private Map<Society, Boolean> societies;
 	private Set<Bill> authoredBills;
 	private Set<Bill> votedBills;
 
@@ -18,6 +20,14 @@ public class Parlamentarian extends Person {
 
 	public void setParlamentarianType(ParlamentarianType parlamentarianType) {
 		this.parlamentarianType = parlamentarianType;
+	}
+
+	public Set<Commission> getPermanentCommissions() {
+		return permanentCommissions;
+	}
+
+	public void setPermanentCommissions(Set<Commission> permanentCommissions) {
+		this.permanentCommissions = permanentCommissions;
 	}
 
 	public Set<Commission> getSpecialCommissions() {
@@ -52,11 +62,11 @@ public class Parlamentarian extends Person {
 		this.active = active;
 	}
 
-	public Set<Society> getSocieties() {
+	public Map<Society, Boolean> getSocieties() {
 		return societies;
 	}
 
-	public void setSocieties(Set<Society> societies) {
+	public void setSocieties(Map<Society, Boolean> societies) {
 		this.societies = societies;
 	}
 
