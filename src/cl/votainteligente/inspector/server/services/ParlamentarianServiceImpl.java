@@ -2,10 +2,9 @@ package cl.votainteligente.inspector.server.services;
 
 import cl.votainteligente.inspector.client.services.ParlamentarianService;
 import cl.votainteligente.inspector.model.Parlamentarian;
+import cl.votainteligente.inspector.model.Society;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 
 import java.util.List;
 
@@ -42,6 +41,12 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 		try {
 			hibernate.beginTransaction();
 			Parlamentarian parlamentarian = (Parlamentarian) hibernate.get(Parlamentarian.class, parlamentarianId);
+
+			for (Society society : parlamentarian.getSocieties().keySet()) {
+				Hibernate.initialize(society);
+				Hibernate.initialize(society.getCategories());
+			}
+
 			hibernate.getTransaction().commit();
 			return parlamentarian;
 		} catch (Exception ex) {
