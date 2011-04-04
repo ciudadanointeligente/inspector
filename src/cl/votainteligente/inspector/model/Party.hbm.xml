@@ -7,6 +7,5 @@
 			<generator class="identity" />
 		</id>
 		<property name="name" />
-		<property name="image" />
 	</class>
 </hibernate-mapping>
