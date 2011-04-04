@@ -1,5 +1,7 @@
 package cl.votainteligente.inspector.model;
 
+import cl.votainteligente.inspector.shared.CivilStatus;
+
 import net.sf.gilead.pojo.gwt.LightEntity;
 
 import java.util.Date;
@@ -11,7 +13,7 @@ public class Person extends LightEntity {
 	private Date birthDate;
 	private String firstName;
 	private String lastName;
-	private String civilStatus;
+	private CivilStatus civilStatus;
 	private Person spouse;
 	private Set<Person> children;
 
@@ -55,11 +57,11 @@ public class Person extends LightEntity {
 		this.lastName = lastName;
 	}
 
-	public String getCivilStatus() {
+	public CivilStatus getCivilStatus() {
 		return civilStatus;
 	}
 
-	public void setCivilStatus(String civilStatus) {
+	public void setCivilStatus(CivilStatus civilStatus) {
 		this.civilStatus = civilStatus;
 	}
 

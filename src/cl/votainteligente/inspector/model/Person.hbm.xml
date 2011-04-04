@@ -10,7 +10,11 @@
 		<property name="birthDate" />
 		<property name="firstName" />
 		<property name="lastName" />
-		<property name="civilStatus" />
+		<property name="civilStatus">
+			<type name="cl.votainteligente.inspector.server.EnumUserType">
+				<param name="enumClassName">cl.votainteligente.inspector.shared.CivilStatus</param>
+			</type>
+		</property>
 		<many-to-one name="spouse" column="spouseId" />
 		<set name="children" table="PersonChildren">
 			<key column="personId" />
