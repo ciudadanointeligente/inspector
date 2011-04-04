@@ -1,5 +1,6 @@
 package cl.votainteligente.inspector.client.inject;
 
+import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.places.BasicPlaceManager;
 import cl.votainteligente.inspector.client.presenters.BillPresenter;
 import cl.votainteligente.inspector.client.presenters.HomePresenter;
@@ -20,6 +21,7 @@ import com.google.inject.Singleton;
 public class PresenterModule extends AbstractPresenterModule {
 	@Override
 	protected void configure() {
+		bind(ApplicationMessages.class).in(Singleton.class);
 		bind(EventBus.class).to(DefaultEventBus.class).in(Singleton.class);
 		bind(TokenFormatter.class).to(ParameterTokenFormatter.class);
 		bind(PlaceManager.class).to(BasicPlaceManager.class).asEagerSingleton();

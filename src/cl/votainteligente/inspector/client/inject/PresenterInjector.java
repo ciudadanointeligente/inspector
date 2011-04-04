@@ -1,5 +1,6 @@
 package cl.votainteligente.inspector.client.inject;
 
+import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.presenters.BillPresenter;
 import cl.votainteligente.inspector.client.presenters.HomePresenter;
 import cl.votainteligente.inspector.client.presenters.MainPresenter;
@@ -12,6 +13,7 @@ import com.google.gwt.inject.client.Ginjector;
 
 @GinModules(PresenterModule.class)
 public interface PresenterInjector extends Ginjector {
+	public ApplicationMessages getApplicationMessages();
 	public EventBus getEventBus();
 	public PlaceManager getPlaceManager();
 	public MainPresenter getMainPresenter();
