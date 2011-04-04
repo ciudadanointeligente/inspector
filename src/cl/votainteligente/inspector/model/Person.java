@@ -80,4 +80,9 @@ public class Person extends LightEntity {
 	public void setChildren(Set<Person> children) {
 		this.children = children;
 	}
+
+	@Override
+	public String toString() {
+		return getFirstName() + " " + getLastName();
+	}
 }

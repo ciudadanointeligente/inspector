@@ -39,4 +39,9 @@ public class District extends LightEntity {
 	public void setParentDistrict(District parentDistrict) {
 		this.parentDistrict = parentDistrict;
 	}
+
+	@Override
+	public String toString() {
+		return getDistrictType().toString() + " " + getName();
+	}
 }

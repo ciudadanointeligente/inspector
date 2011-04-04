@@ -30,4 +30,9 @@ public class Party extends LightEntity {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 }
