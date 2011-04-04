@@ -1,9 +1,11 @@
 package cl.votainteligente.inspector.model;
 
+import com.google.gwt.view.client.ProvidesKey;
+
 import java.util.Map;
 import java.util.Set;
 
-public class Parlamentarian extends Person {
+public class Parlamentarian extends Person implements Comparable<Parlamentarian> {
 	private ParlamentarianType parlamentarianType;
 	private Set<Commission> permanentCommissions;
 	private Set<Commission> specialCommissions;
@@ -13,6 +15,12 @@ public class Parlamentarian extends Person {
 	private Map<Society, Boolean> societies;
 	private Set<Bill> authoredBills;
 	private Set<Bill> votedBills;
+
+	public static final ProvidesKey<Parlamentarian> KEY_PROVIDER = new ProvidesKey<Parlamentarian>() {
+		public Object getKey(Parlamentarian parlamentarian) {
+			return parlamentarian == null ? null : parlamentarian.getId();
+		}
+	};
 
 	public ParlamentarianType getParlamentarianType() {
 		return parlamentarianType;
@@ -84,5 +92,10 @@ public class Parlamentarian extends Person {
 
 	public void setVotedBills(Set<Bill> votedBills) {
 		this.votedBills = votedBills;
+	}
+
+	@Override
+	public int compareTo(Parlamentarian obj) {
+		return (obj == null || obj.getLastName() == null) ? -1 : -obj.getLastName().compareTo(this.getLastName());
 	}
 }
