@@ -1,9 +1,7 @@
 package cl.votainteligente.inspector.client.inject;
 
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
-import cl.votainteligente.inspector.client.presenters.BillPresenter;
-import cl.votainteligente.inspector.client.presenters.HomePresenter;
-import cl.votainteligente.inspector.client.presenters.MainPresenter;
+import cl.votainteligente.inspector.client.presenters.*;
 
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.PlaceManager;
@@ -19,4 +17,5 @@ public interface PresenterInjector extends Ginjector {
 	public MainPresenter getMainPresenter();
 	public HomePresenter getHomePresenter();
 	public BillPresenter getBillPresenter();
+	public ParlamentarianPresenter getParlamentarianPresenter();
 }

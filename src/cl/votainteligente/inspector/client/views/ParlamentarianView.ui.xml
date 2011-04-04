@@ -1,0 +1,42 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style src="ParlamentarianView.css" />
+	<g:HTMLPanel>
+		<g:HTMLPanel>
+			<g:Label ui:field="parlamentarianName" />
+			<g:Label ui:field="parlamentarianDescription" />
+			<div>Fecha nacimiento:</div>
+			<g:Label ui:field="parlamentarianBirthDate" />
+		</g:HTMLPanel>
+		<g:HTMLPanel>
+			<div>Relaciones Familiares</div>
+			<div>Estado Civil:</div>
+			<g:Label ui:field="parlamentarianCivilStatus" />
+			<div>Cónyuge:</div>
+			<g:Label ui:field="parlamentarianSpouse" />
+			<div>Hijos:</div>
+			<g:Label ui:field="parlamentarianChildren" />
+		</g:HTMLPanel>
+		<g:HTMLPanel>
+			<div>Comisiones en que participa</div>
+			<div>Permanentes</div>
+			<g:Label ui:field="parlamentarianPermanentCommissions" />
+			<div>Especiales</div>
+			<g:Label ui:field="parlamentarianSpecialCommissions" />
+		</g:HTMLPanel>
+		<g:HTMLPanel>
+			<div>Partido</div>
+			<g:Label ui:field="parlamentarianParty" />
+		</g:HTMLPanel>
+		<g:HTMLPanel>
+			<g:Anchor ui:field="interestDeclarationLink">Ver declaración de Intereses</g:Anchor>
+			<g:Anchor ui:field="patrimonyDeclarationLink">Ver declaración de Patrimonio</g:Anchor>
+		</g:HTMLPanel>
+		<g:HTMLPanel>
+			<!-- TODO: chart -->
+		</g:HTMLPanel>
+		<c:CellTable ui:field="societyTable"/>
+	</g:HTMLPanel>
+</ui:UiBinder>

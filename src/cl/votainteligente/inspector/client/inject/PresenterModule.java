@@ -2,12 +2,8 @@ package cl.votainteligente.inspector.client.inject;
 
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.places.BasicPlaceManager;
-import cl.votainteligente.inspector.client.presenters.BillPresenter;
-import cl.votainteligente.inspector.client.presenters.HomePresenter;
-import cl.votainteligente.inspector.client.presenters.MainPresenter;
-import cl.votainteligente.inspector.client.views.BillView;
-import cl.votainteligente.inspector.client.views.HomeView;
-import cl.votainteligente.inspector.client.views.MainView;
+import cl.votainteligente.inspector.client.presenters.*;
+import cl.votainteligente.inspector.client.views.*;
 
 import net.customware.gwt.presenter.client.DefaultEventBus;
 import net.customware.gwt.presenter.client.EventBus;
@@ -28,5 +24,6 @@ public class PresenterModule extends AbstractPresenterModule {
 		bindPresenter(MainPresenter.class, MainPresenter.Display.class, MainView.class);
 		bindPresenter(HomePresenter.class, HomePresenter.Display.class, HomeView.class);
 		bindPresenter(BillPresenter.class, BillPresenter.Display.class, BillView.class);
+		bindPresenter(ParlamentarianPresenter.class, ParlamentarianPresenter.Display.class, ParlamentarianView.class);
 	}
 }

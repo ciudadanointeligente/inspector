@@ -9,8 +9,8 @@ import com.google.inject.Inject;
 public class BasicPlaceManager extends DefaultPlaceManager {
 
 	@Inject
-	public BasicPlaceManager(EventBus eventBus, TokenFormatter tokenFormatter, HomePlace homePlace, BillPlace billPlace) {
-		super(eventBus, tokenFormatter, homePlace, billPlace);
+	public BasicPlaceManager(EventBus eventBus, TokenFormatter tokenFormatter, HomePlace homePlace, BillPlace billPlace, ParlamentarianPlace parlamentarianPlace) {
+		super(eventBus, tokenFormatter, homePlace, billPlace, parlamentarianPlace);
 	}
 
 }
