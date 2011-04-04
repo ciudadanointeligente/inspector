@@ -15,6 +15,8 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 	private Map<Society, Boolean> societies;
 	private Set<Bill> authoredBills;
 	private Set<Bill> votedBills;
+	private String interestDeclarationFile;
+	private String patrimonyDeclarationFile;
 
 	public static final ProvidesKey<Parlamentarian> KEY_PROVIDER = new ProvidesKey<Parlamentarian>() {
 		public Object getKey(Parlamentarian parlamentarian) {
@@ -92,6 +94,22 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 
 	public void setVotedBills(Set<Bill> votedBills) {
 		this.votedBills = votedBills;
+	}
+
+	public String getInterestDeclarationFile() {
+		return interestDeclarationFile;
+	}
+
+	public void setInterestDeclarationFile(String interestDeclarationFile) {
+		this.interestDeclarationFile = interestDeclarationFile;
+	}
+
+	public String getPatrimonyDeclarationFile() {
+		return patrimonyDeclarationFile;
+	}
+
+	public void setPatrimonyDeclarationFile(String patrimonyDeclarationFile) {
+		this.patrimonyDeclarationFile = patrimonyDeclarationFile;
 	}
 
 	@Override
