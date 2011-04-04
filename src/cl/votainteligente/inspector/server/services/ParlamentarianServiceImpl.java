@@ -47,6 +47,13 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 				Hibernate.initialize(society.getCategories());
 			}
 
+			Hibernate.initialize(parlamentarian.getParty());
+			Hibernate.initialize(parlamentarian.getParlamentarianType());
+			Hibernate.initialize(parlamentarian.getDistrict());
+			Hibernate.initialize(parlamentarian.getDistrict().getDistrictType());
+			Hibernate.initialize(parlamentarian.getPermanentCommissions());
+			Hibernate.initialize(parlamentarian.getSpecialCommissions());
+
 			hibernate.getTransaction().commit();
 			return parlamentarian;
 		} catch (Exception ex) {
