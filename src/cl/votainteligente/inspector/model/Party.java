@@ -5,6 +5,7 @@ import net.sf.gilead.pojo.gwt.LightEntity;
 public class Party extends LightEntity {
 	private Long id;
 	private String name;
+	private String image;
 
 	public Long getId() {
 		return id;
@@ -20,5 +21,13 @@ public class Party extends LightEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 }
