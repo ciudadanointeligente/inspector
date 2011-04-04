@@ -2,10 +2,12 @@ package cl.votainteligente.inspector.model;
 
 import net.sf.gilead.pojo.gwt.LightEntity;
 
+import com.google.gwt.view.client.ProvidesKey;
+
 import java.util.Date;
 import java.util.Set;
 
-public class Bill extends LightEntity {
+public class Bill extends LightEntity implements Comparable<Bill> {
 	private Long id;
 	private String bulletinNumber;
 	private String title;
@@ -16,6 +18,12 @@ public class Bill extends LightEntity {
 	private Urgency urgency;
 	private Stage stage;
 	private Set<Category> categories;
+
+	public static final ProvidesKey<Bill> KEY_PROVIDER = new ProvidesKey<Bill>() {
+		public Object getKey(Bill bill) {
+			return bill == null ? null : bill.getId();
+		}
+	};
 
 	public Long getId() {
 		return id;
@@ -95,5 +103,10 @@ public class Bill extends LightEntity {
 
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
+	}
+
+	@Override
+	public int compareTo(Bill obj) {
+		return (obj == null || obj.getBulletinNumber() == null) ? -1 : -obj.getBulletinNumber().compareTo(bulletinNumber);
 	}
 }
