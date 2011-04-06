@@ -1,14 +1,19 @@
 package cl.votainteligente.inspector.client.views;
 
+import cl.votainteligente.inspector.client.PieChart;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenterIface;
 import cl.votainteligente.inspector.model.Society;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.*;
+
+import java.util.Map;
 
 public class ParlamentarianView extends Composite implements ParlamentarianPresenter.Display {
 
@@ -29,11 +34,13 @@ public class ParlamentarianView extends Composite implements ParlamentarianPrese
 	@UiField Anchor interestDeclarationLink;
 	@UiField Anchor patrimonyDeclarationLink;
 	@UiField CellTable<Society> societyTable;
+	private PieChart pieChart;
 
 	private ParlamentarianPresenterIface presenter;
 
 	public ParlamentarianView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		pieChart = new PieChart();
 	}
 
 	@Override
@@ -115,4 +122,68 @@ public class ParlamentarianView extends Composite implements ParlamentarianPrese
 	public CellTable<Society> getSocietyTable() {
 		return societyTable;
 	}
+
+	@Override
+	public void setChartData(Map<String, Double> chartData) {
+		pieChart.initChart(getChartOptions(getJsData(chartData)));
+	}
+
+	private JavaScriptObject getJsData(Map<String, Double> chartData) {
+		JsArrayMixed jsData = JsArrayMixed.createArray().cast();
+
+		for (String key : chartData.keySet()) {
+			JsArrayMixed value = JsArrayMixed.createArray().cast();
+			value.push(key);
+			value.push(chartData.get(key));
+			jsData.push(value);
+		}
+
+		return jsData;
+	};
+
+	private native JavaScriptObject getChartOptions(JavaScriptObject chartData) /*-{
+		var options = {
+			chart: {
+				renderTo: 'parlamentarianDeclarationChart',
+				margin: [25, 100, 30, 85],
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false
+			},
+			title: {
+				text: 'Indice de consistencia: Soc. Declaradas v/s No declaradas'
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>' + this.point.name + '</b>: ' + this.y + '%';
+				}
+			},
+			plotOptions: {
+				pie: {
+					animation: false,
+					allowPointSelect: false,
+					dataLabels: {
+						enabled: true,
+						formatter: function() {
+							return this.point.name;
+						},
+						color: 'black',
+						style: {
+							font: '10px Trebuchet MS, Verdana, sans-serif'
+						}
+					}
+				}
+			},
+			series: [{
+				type: 'pie',
+				name: 'sociedades',
+				data: chartData
+			}],
+			credits: {
+				enabled: false
+			}
+		};
+
+		return options;
+	}-*/;
 }

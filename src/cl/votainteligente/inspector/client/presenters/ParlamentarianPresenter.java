@@ -25,8 +25,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPresenter.Display> implements ParlamentarianPresenterIface {
 
@@ -45,6 +44,7 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 		void setInterestDeclarationLink(String interestDeclarationLink);
 		void setPatrimonyDeclarationLink(String patrimonyDeclarationLink);
 		CellTable<Society> getSocietyTable();
+		void setChartData(Map<String, Double> chartData);
 	}
 
 	private static final ServiceInjector serviceInjector = GWT.create(ServiceInjector.class);
@@ -201,6 +201,22 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 
 				ListDataProvider<Society> societyData = new ListDataProvider<Society>(new ArrayList<Society>(result.getSocieties().keySet()));
 				societyData.addDataDisplay(display.getSocietyTable());
+
+				Double declaredSocieties = 0d;
+				Double undeclaredSocieties = 0d;
+
+				for (Boolean declared : parlamentarian.getSocieties().values()) {
+					if (declared) {
+						declaredSocieties++;
+					} else {
+						undeclaredSocieties++;
+					}
+				}
+
+				Map<String, Double> chartData = new HashMap<String, Double>();
+				chartData.put("Declaradas", 100d * declaredSocieties / (declaredSocieties + undeclaredSocieties));
+				chartData.put("No declaradas", 100d * undeclaredSocieties / (declaredSocieties + undeclaredSocieties));
+				display.setChartData(chartData);
 			}
 		});
 	}

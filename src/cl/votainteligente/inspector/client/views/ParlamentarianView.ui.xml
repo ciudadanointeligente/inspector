@@ -35,7 +35,7 @@
 			<g:Anchor ui:field="patrimonyDeclarationLink">Ver declaración de Patrimonio</g:Anchor>
 		</g:HTMLPanel>
 		<g:HTMLPanel>
-			<!-- TODO: chart -->
+			<div id="parlamentarianDeclarationChart" style="width: 500px; height: 400px;"></div>
 		</g:HTMLPanel>
 		<c:CellTable ui:field="societyTable"/>
 	</g:HTMLPanel>

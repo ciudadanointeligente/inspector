@@ -5,7 +5,9 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="gwt:property" content="locale=es_CL">
     <title>Inspector</title>
-    <script type="text/javascript" language="javascript" src="inspector/inspector.nocache.js"></script>
+    <script type="text/javascript" src="inspector/inspector.nocache.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
   </head>
 
   <body>
