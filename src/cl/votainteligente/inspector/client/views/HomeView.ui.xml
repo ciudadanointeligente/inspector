@@ -14,6 +14,9 @@
 			<g:TextBox ui:field="categorySearch"/>
 			<c:CellTable ui:field="categoryTable"/>
 		</g:HTMLPanel>
+		<g:HTMLPanel>
+			<g:Label ui:field="parlamentarianDisplay"></g:Label> + <g:Label ui:field="categoryDisplay"></g:Label>
+		</g:HTMLPanel>
 		<g:HTMLPanel ui:field="billPanel">
 			<c:CellTable ui:field="billTable"/>
 		</g:HTMLPanel>
