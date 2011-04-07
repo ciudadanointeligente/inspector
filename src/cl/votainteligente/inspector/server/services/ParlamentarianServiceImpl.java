@@ -22,6 +22,8 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 		try {
 			hibernate.beginTransaction();
 			Criteria criteria = hibernate.createCriteria(Parlamentarian.class);
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			criteria.setFetchMode("party", FetchMode.JOIN);
 			List<Parlamentarian> parlamentarians = criteria.list();
 			hibernate.getTransaction().commit();
 			return parlamentarians;
