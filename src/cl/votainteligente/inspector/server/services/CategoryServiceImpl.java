@@ -1,13 +1,12 @@
 package cl.votainteligente.inspector.server.services;
 
 import cl.votainteligente.inspector.client.services.CategoryService;
-import cl.votainteligente.inspector.model.Category;
+import cl.votainteligente.inspector.model.*;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
+import org.hibernate.criterion.*;
 
-import java.util.List;
+import java.util.*;
 
 public class CategoryServiceImpl implements CategoryService {
 	private SessionFactory sessionFactory;
@@ -79,6 +78,96 @@ public class CategoryServiceImpl implements CategoryService {
 			hibernate.beginTransaction();
 			hibernate.delete(category);
 			hibernate.getTransaction().commit();
+		} catch (Exception ex) {
+			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
+				hibernate.getTransaction().rollback();
+			}
+
+			throw ex;
+		}
+	}
+
+	@Override
+	public List<Category> searchCategory(String keyWord) throws Exception {
+		Session hibernate = sessionFactory.getCurrentSession();
+
+		try {
+			hibernate.beginTransaction();
+			Criteria criteria = hibernate.createCriteria(Category.class);
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			if (keyWord != null && !keyWord.equals("")) {
+				Conjunction keywordConjunction = Restrictions.conjunction();
+				Disjunction keyWordDisjunction;
+				String[] keyWords = keyWord.split("[ ]");
+
+				for (int i = 0; i < keyWords.length; i++) {
+					keyWords[i]  = keyWords[i].replaceAll("\\W", "");
+					keyWordDisjunction = Restrictions.disjunction();
+					keyWordDisjunction.add(Restrictions.ilike("name", keyWords[i], MatchMode.ANYWHERE));
+					keywordConjunction.add(keyWordDisjunction);
+				}
+				criteria.add(keywordConjunction);
+			}
+
+			List<Category> categories = (List<Category>) criteria.list();
+			hibernate.getTransaction().commit();
+			return categories;
+		} catch (Exception ex) {
+			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
+				hibernate.getTransaction().rollback();
+			}
+
+			throw ex;
+		}
+	}
+
+	@Override
+	public List<Category> searchCategory(List<Parlamentarian> parlamentarians) throws Exception {
+		Session hibernate = sessionFactory.getCurrentSession();
+
+		try {
+			hibernate.beginTransaction();
+			Set<Long> parlamentarianIds = new HashSet<Long>();
+
+			for (Parlamentarian parlamentarian : parlamentarians) {
+				parlamentarianIds.add(parlamentarian.getId());
+			}
+
+			Criteria criteria = hibernate.createCriteria(Parlamentarian.class);
+			criteria.add(Restrictions.in("id", parlamentarianIds));
+			criteria.setFetchMode("authoredBills", FetchMode.JOIN);
+			criteria.setFetchMode("votedBills", FetchMode.JOIN);
+			criteria.setFetchMode("societies", FetchMode.JOIN);
+			parlamentarians = criteria.list();
+
+			Set<Bill> bills = new HashSet<Bill>();
+			Set<Category> categories = new HashSet<Category>();
+
+			for (Parlamentarian parlamentarian : parlamentarians) {
+				for (Bill bill : parlamentarian.getAuthoredBills()) {
+					bills.add(bill);
+				}
+
+				for (Bill bill : parlamentarian.getVotedBills()) {
+					bills.add(bill);
+				}
+
+				for (Society society : parlamentarian.getSocieties().keySet()) {
+					for (Category category : society.getCategories()) {
+						categories.add(category);
+					}
+				}
+			}
+
+			for (Bill bill : bills) {
+				for (Category category : bill.getCategories()) {
+					categories.add(category);
+				}
+			}
+
+			hibernate.getTransaction().commit();
+			return new ArrayList<Category>(categories);
 		} catch (Exception ex) {
 			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
 				hibernate.getTransaction().rollback();

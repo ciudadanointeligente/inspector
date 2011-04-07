@@ -1,6 +1,7 @@
 package cl.votainteligente.inspector.client.services;
 
 import cl.votainteligente.inspector.model.Category;
+import cl.votainteligente.inspector.model.Parlamentarian;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -11,4 +12,6 @@ public interface CategoryServiceAsync {
 	void getCategory(Long categoryId, AsyncCallback<Category> callback);
 	void saveCategory(Category category, AsyncCallback<Category> callback);
 	void deleteCategory(Category category, AsyncCallback<Void> callback);
+	void searchCategory(String keyWord, AsyncCallback<List<Category>> callback);
+	void searchCategory(List<Parlamentarian> parlamentarians, AsyncCallback<List<Category>> callback);
 }
