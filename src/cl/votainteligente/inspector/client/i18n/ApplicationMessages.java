@@ -10,17 +10,32 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.category")
 	public String getGeneralCategory();
 
+	@Key("general.chamber")
+	public String getGeneralChamber();
+
 	@Key("general.district")
 	public String getGeneralDistrict();
 
+	@Key("general.initiativeType")
+	public String getGeneralInitiativeType();
+
 	@Key("general.parlamentarian")
 	public String getGeneralParlamentarian();
+
+	@Key("general.parliamentariansInConflict")
+	public String getGeneralParlamentariansInConflict();
 
 	@Key("general.party")
 	public String getGeneralParty();
 
 	@Key("general.society")
 	public String getGeneralSociety();
+
+	@Key("general.societiesInConflict")
+	public String getGeneralSocietiesInConflict();
+
+	@Key("general.stage")
+	public String getGeneralStage();
 
 	@Key("general.suscribe")
 	public String getGeneralSusbcribe();
@@ -31,11 +46,20 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.title")
 	public String getGeneralTitle();
 
+	@Key("general.type")
+	public String getGeneralType();
+
+	@Key("general.urgency")
+	public String getGeneralUrgency();
+
 	@Key("error.parlamentarian.list")
 	public String getErrorParlamentarianList();
 
 	@Key("error.parlamentarian.search")
 	public String getErrorParlamentarianSearch();
+
+	@Key("error.parlamentarian.billSearch")
+	public String getErrorParlamentarianBillSearch();
 
 	@Key("error.parlamentarian.categorySearch")
 	public String getErrorParlamentarianCategorySearch();
@@ -49,11 +73,20 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.category.parlamentarianSearch")
 	public String getErrorCategoryParlamentarianSearch();
 
+	@Key("error.bill")
+	public String getErrorBill();
+
 	@Key("error.bill.list")
 	public String getErrorBillList();
 
 	@Key("bill.bulletin")
 	public String getBillBulletin();
+
+	@Key("bill.entryDate")
+	public String getBillEntryDate();
+
+	@Key("bill.originChamber")
+	public String getBillOriginChamber();
 
 	@Key("parlamentarian.societies")
 	public String getParlamentarianSocieties();
@@ -84,4 +117,10 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("person.civilStatusWidowed")
 	public String getCivilStatusWidowed();
+
+	@Key("society.reported")
+	public String getSocietyReported();
+
+	@Key("society.unreported")
+	public String getSocietyUnreported();
 }
