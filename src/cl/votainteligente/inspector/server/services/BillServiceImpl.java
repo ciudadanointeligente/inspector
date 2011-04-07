@@ -2,12 +2,13 @@ package cl.votainteligente.inspector.server.services;
 
 import cl.votainteligente.inspector.client.services.BillService;
 import cl.votainteligente.inspector.model.Bill;
+import cl.votainteligente.inspector.model.Category;
+import cl.votainteligente.inspector.model.Parlamentarian;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
+import org.hibernate.criterion.*;
 
-import java.util.List;
+import java.util.*;
 
 public class BillServiceImpl implements BillService {
 	private SessionFactory sessionFactory;
@@ -79,6 +80,52 @@ public class BillServiceImpl implements BillService {
 			hibernate.beginTransaction();
 			hibernate.delete(bill);
 			hibernate.getTransaction().commit();
+		} catch (Exception ex) {
+			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
+				hibernate.getTransaction().rollback();
+			}
+
+			throw ex;
+		}
+	}
+
+	@Override
+	public List<Bill> searchBills(Parlamentarian parlamentarian, Category category) throws Exception {
+		Session hibernate = sessionFactory.getCurrentSession();
+
+		try {
+			hibernate.beginTransaction();
+			// TODO: optimize method
+			parlamentarian = (Parlamentarian) hibernate.load(Parlamentarian.class, parlamentarian.getId());
+
+			Set<Long> billIds = new HashSet<Long>();
+			List<Bill> filteredBills = new ArrayList<Bill>();
+
+			for (Bill bill : parlamentarian.getAuthoredBills()) {
+				billIds.add(bill.getId());
+			}
+
+			for (Bill bill : parlamentarian.getVotedBills()) {
+				billIds.add(bill.getId());
+			}
+
+			if (billIds.size() > 0) {
+				List<Bill> bills = new ArrayList<Bill>();
+				Criteria criteria = hibernate.createCriteria(Bill.class);
+				criteria.add(Restrictions.in("id", billIds.toArray()));
+				bills = criteria.list();
+
+				for (Bill bill : bills) {
+					for (Category billCategory : bill.getCategories())
+					{
+						if (billCategory.getId().equals(category.getId())) {
+							filteredBills.add(bill);
+						}
+					}
+				}
+			}
+			hibernate.getTransaction().commit();
+			return filteredBills;
 		} catch (Exception ex) {
 			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
 				hibernate.getTransaction().rollback();
