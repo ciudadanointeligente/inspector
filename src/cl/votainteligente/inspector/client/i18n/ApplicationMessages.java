@@ -52,6 +52,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.urgency")
 	public String getGeneralUrgency();
 
+	@Key("error.parlamentarian")
+	public String getErrorParlamentarian();
+
 	@Key("error.parlamentarian.list")
 	public String getErrorParlamentarianList();
 

@@ -74,7 +74,7 @@ public class BillPresenter extends WidgetPresenter<BillPresenter.Display> implem
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("No se ha podido cargar el proyecto de ley");
+				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorBill());
 			}
 
 			@Override

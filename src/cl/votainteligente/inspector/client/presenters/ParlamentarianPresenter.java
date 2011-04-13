@@ -88,7 +88,7 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 		Inspector.getServiceInjector().getParlamentarianService().getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("No se ha podido cargar la informacion del parlamentario");
+				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorParlamentarian());
 			}
 
 			@Override
