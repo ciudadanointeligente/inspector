@@ -8,6 +8,7 @@ import java.util.Set;
 public class Society extends LightEntity {
 	private Long id;
 	private SocietyType societyType;
+	private SocietyStatus societyStatus;
 	private Date creationDate;
 	private Date publishDate;
 	private Notary notary;
@@ -36,6 +37,14 @@ public class Society extends LightEntity {
 
 	public void setSocietyType(SocietyType societyType) {
 		this.societyType = societyType;
+	}
+
+	public SocietyStatus getSocietyStatus() {
+		return societyStatus;
+	}
+
+	public void setSocietyStatus(SocietyStatus societyStatus) {
+		this.societyStatus = societyStatus;
 	}
 
 	public Date getCreationDate() {

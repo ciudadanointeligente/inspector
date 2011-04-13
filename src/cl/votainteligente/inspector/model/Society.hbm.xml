@@ -7,6 +7,7 @@
 			<generator class="identity" />
 		</id>
 		<many-to-one name="societyType" column="societyTypeId" />
+		<many-to-one name="societyStatus" column="societyStatusId" />
 		<property name="creationDate" />
 		<property name="publishDate" />
 		<many-to-one name="notary" column="notaryId" />
