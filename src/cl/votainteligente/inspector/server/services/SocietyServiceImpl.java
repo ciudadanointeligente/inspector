@@ -3,9 +3,7 @@ package cl.votainteligente.inspector.server.services;
 import cl.votainteligente.inspector.client.services.SocietyService;
 import cl.votainteligente.inspector.model.Society;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 
 import java.util.List;
 
@@ -42,6 +40,11 @@ public class SocietyServiceImpl implements SocietyService {
 		try {
 			hibernate.beginTransaction();
 			Society society = (Society) hibernate.get(Society.class, societyId);
+			Hibernate.initialize(society.getSocietyType());
+			Hibernate.initialize(society.getSocietyStatus());
+			Hibernate.initialize(society.getNotary());
+			Hibernate.initialize(society.getMembers());
+			Hibernate.initialize(society.getCategories());
 			hibernate.getTransaction().commit();
 			return society;
 		} catch (Exception ex) {

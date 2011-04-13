@@ -76,6 +76,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.category.parlamentarianSearch")
 	public String getErrorCategoryParlamentarianSearch();
 
+	@Key("error.society")
+	public String getErrorSociety();
+
 	@Key("error.bill")
 	public String getErrorBill();
 

@@ -18,4 +18,5 @@ public interface PresenterInjector extends Ginjector {
 	public HomePresenter getHomePresenter();
 	public BillPresenter getBillPresenter();
 	public ParlamentarianPresenter getParlamentarianPresenter();
+	public SocietyPresenter getSocietyPresenter();
 }

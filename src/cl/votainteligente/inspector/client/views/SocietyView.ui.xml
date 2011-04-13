@@ -1,0 +1,39 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style src="SocietyView.css" />
+	<g:HTMLPanel>
+		<g:HTMLPanel>
+			<g:Label ui:field="societyName" />
+			<div>Nombre de fantasía:</div>
+			<g:Label ui:field="societyFantasyName" />
+			<div>RUT Sociedad:</div>
+			<g:Label ui:field="societyUid" />
+			<div>Fecha de constitución:</div>
+			<g:Label ui:field="societyCreationDate" />
+			<div>Último capital declarado:</div>
+			<g:Label ui:field="societyCurrentStock" />
+			<div>Situación tributaria:</div>
+			<g:Label ui:field="societyStatus" />
+			<div>Objeto de la sociedad:</div>
+			<g:Label ui:field="societySubject" />
+			<div>Tipo de sociedad:</div>
+			<g:Label ui:field="societyType" />
+			<div>Socios actuales:</div>
+			<g:Label ui:field="societyMembers" />
+		</g:HTMLPanel>
+		<g:HTMLPanel>
+			<div>Otros datos de la sociedad:</div>
+			<div>Capital inicial:</div>
+			<g:Label ui:field="societyInitialStock" />
+			<div>Capital aportado por el parlamentario:</div>
+			<g:Label ui:field="parlamentarianStock" />
+			<div>Domicilio:</div>
+			<g:Label ui:field="societyAddress" />
+			<div>Fecha de publicación:</div>
+			<g:Label ui:field="societyPublishDate" />
+			<div>Notaría:</div>
+			<g:Label ui:field="notaryName" />
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>
