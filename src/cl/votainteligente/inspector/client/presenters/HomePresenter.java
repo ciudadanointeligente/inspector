@@ -1,7 +1,6 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.inject.PresenterInjector;
-import cl.votainteligente.inspector.client.inject.ServiceInjector;
+import cl.votainteligente.inspector.client.Inspector;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
@@ -14,7 +13,6 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.Cell;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.*;
@@ -39,8 +37,6 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		void setCategoryDisplay(String categoryName);
 	}
 
-	private static final ServiceInjector serviceInjector = GWT.create(ServiceInjector.class);
-	private static final PresenterInjector presenterInjector = GWT.create(PresenterInjector.class);
 	private AbstractDataProvider<Parlamentarian> parlamentarianData;
 	private AbstractDataProvider<Category> categoryData;
 	private AbstractDataProvider<Bill> billData;
@@ -65,8 +61,8 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		initCategoryTable();
 		initBillTable();
 		initDataLoad();
-		display.setParlamentarianDisplay(presenterInjector.getApplicationMessages().getGeneralParlamentarian());
-		display.setCategoryDisplay(presenterInjector.getApplicationMessages().getGeneralCategory());
+		display.setParlamentarianDisplay(Inspector.getPresenterInjector().getApplicationMessages().getGeneralParlamentarian());
+		display.setCategoryDisplay(Inspector.getPresenterInjector().getApplicationMessages().getGeneralCategory());
 	}
 
 	@Override
@@ -79,11 +75,11 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 
 	@Override
 	public void initDataLoad() {
-		serviceInjector.getParlamentarianService().getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
+		Inspector.getServiceInjector().getParlamentarianService().getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(presenterInjector.getApplicationMessages().getErrorParlamentarianList());
+				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorParlamentarianList());
 			}
 
 			@Override
@@ -95,11 +91,11 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 			}
 		});
 
-		serviceInjector.getCategoryService().getAllCategories(new AsyncCallback<List<Category>>() {
+		Inspector.getServiceInjector().getCategoryService().getAllCategories(new AsyncCallback<List<Category>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(presenterInjector.getApplicationMessages().getErrorCategoryList());
+				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorCategoryList());
 			}
 
 			@Override
@@ -115,11 +111,11 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 
 	@Override
 	public void searchParlamentarian(String keyWord) {
-		serviceInjector.getParlamentarianService().searchParlamentarian(keyWord, new AsyncCallback<List<Parlamentarian>>() {
+		Inspector.getServiceInjector().getParlamentarianService().searchParlamentarian(keyWord, new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(presenterInjector.getApplicationMessages().getErrorParlamentarianSearch());
+				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorParlamentarianSearch());
 			}
 
 			@Override
@@ -135,11 +131,11 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 
 	@Override
 	public void searchParlamentarian(List<Category> categories) {
-		serviceInjector.getParlamentarianService().searchParlamentarian(categories, new AsyncCallback<List<Parlamentarian>>() {
+		Inspector.getServiceInjector().getParlamentarianService().searchParlamentarian(categories, new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(presenterInjector.getApplicationMessages().getErrorParlamentarianCategorySearch());
+				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorParlamentarianCategorySearch());
 			}
 
 			@Override
@@ -154,11 +150,11 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 
 	@Override
 	public void searchCategory(String keyWord) {
-		serviceInjector.getCategoryService().searchCategory(keyWord, new AsyncCallback<List<Category>>() {
+		Inspector.getServiceInjector().getCategoryService().searchCategory(keyWord, new AsyncCallback<List<Category>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(presenterInjector.getApplicationMessages().getErrorCategorySearch());
+				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorCategorySearch());
 			}
 
 			@Override
@@ -174,11 +170,11 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 
 	@Override
 	public void searchCategory(List<Parlamentarian> parlamentarians) {
-		serviceInjector.getCategoryService().searchCategory(parlamentarians, new AsyncCallback<List<Category>>() {
+		Inspector.getServiceInjector().getCategoryService().searchCategory(parlamentarians, new AsyncCallback<List<Category>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(presenterInjector.getApplicationMessages().getErrorCategoryParlamentarianSearch());
+				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorCategoryParlamentarianSearch());
 			}
 
 			@Override
@@ -193,11 +189,11 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 
 	@Override
 	public void searchBill(Parlamentarian parlamentarian, Category category) {
-		serviceInjector.getBillService().searchBills(parlamentarian, category, new AsyncCallback<List<Bill>>() {
+		Inspector.getServiceInjector().getBillService().searchBills(parlamentarian, category, new AsyncCallback<List<Bill>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(presenterInjector.getApplicationMessages().getErrorBillList());
+				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorBillList());
 			}
 
 			@Override
@@ -264,7 +260,7 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		});
 
 		// Adds name column to table
-		display.getParlamentarianTable().addColumn(nameColumn, presenterInjector.getApplicationMessages().getGeneralParlamentarian());
+		display.getParlamentarianTable().addColumn(nameColumn, Inspector.getPresenterInjector().getApplicationMessages().getGeneralParlamentarian());
 
 		// Creates party column
 		TextColumn<Parlamentarian> partyColumn = new TextColumn<Parlamentarian>() {
@@ -285,7 +281,7 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		});
 
 		// Adds party column to table
-		display.getParlamentarianTable().addColumn(partyColumn, presenterInjector.getApplicationMessages().getGeneralParty());
+		display.getParlamentarianTable().addColumn(partyColumn, Inspector.getPresenterInjector().getApplicationMessages().getGeneralParty());
 
 		// Creates action profile column
 		Column<Parlamentarian, Parlamentarian> profileColumn = new Column<Parlamentarian, Parlamentarian>(new ActionCell<Parlamentarian>("", new ActionCell.Delegate<Parlamentarian>() {
@@ -315,7 +311,7 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		};
 
 		// Adds action profile column to table
-		display.getParlamentarianTable().addColumn(profileColumn, presenterInjector.getApplicationMessages().getGeneralProfile());
+		display.getParlamentarianTable().addColumn(profileColumn, Inspector.getPresenterInjector().getApplicationMessages().getGeneralProfile());
 
 		// Sets selection model for each row
 		final SingleSelectionModel<Parlamentarian> selectionModel = new SingleSelectionModel<Parlamentarian>(Parlamentarian.KEY_PROVIDER);
@@ -350,7 +346,7 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		});
 
 		// Adds name column to table
-		display.getCategoryTable().addColumn(nameColumn, presenterInjector.getApplicationMessages().getGeneralCategory());
+		display.getCategoryTable().addColumn(nameColumn, Inspector.getPresenterInjector().getApplicationMessages().getGeneralCategory());
 
 		// Creates action suscription column
 		Column<Category, Category> suscriptionColumn = new Column<Category, Category>(new ActionCell<Category>("", new ActionCell.Delegate<Category>() {
@@ -379,7 +375,7 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		};
 
 		// Adds action suscription column to table
-		display.getCategoryTable().addColumn(suscriptionColumn, presenterInjector.getApplicationMessages().getGeneralSusbcribe());
+		display.getCategoryTable().addColumn(suscriptionColumn, Inspector.getPresenterInjector().getApplicationMessages().getGeneralSusbcribe());
 
 		// Sets selection model for each row
 		final SingleSelectionModel<Category> selectionModel = new SingleSelectionModel<Category>(Category.KEY_PROVIDER);
@@ -413,7 +409,7 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		});
 
 		// Adds bulletin column to table
-		display.getBillTable().addColumn(bulletinColumn, presenterInjector.getApplicationMessages().getBillBulletin());
+		display.getBillTable().addColumn(bulletinColumn, Inspector.getPresenterInjector().getApplicationMessages().getBillBulletin());
 
 		// Creates title column
 		TextColumn<Bill> titleColumn = new TextColumn<Bill>() {
@@ -433,7 +429,7 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		});
 
 		// Adds title column to table
-		display.getBillTable().addColumn(titleColumn, presenterInjector.getApplicationMessages().getGeneralTitle());
+		display.getBillTable().addColumn(titleColumn, Inspector.getPresenterInjector().getApplicationMessages().getGeneralTitle());
 
 		// Creates action suscription column
 		Column<Bill, Bill> suscriptionColumn = new Column<Bill, Bill>(new ActionCell<Bill>("", new ActionCell.Delegate<Bill>() {
@@ -462,7 +458,7 @@ public class HomePresenter extends WidgetPresenter<HomePresenter.Display> implem
 		};
 
 		// Adds action suscription column to table
-		display.getBillTable().addColumn(suscriptionColumn, presenterInjector.getApplicationMessages().getGeneralSusbcribe());
+		display.getBillTable().addColumn(suscriptionColumn, Inspector.getPresenterInjector().getApplicationMessages().getGeneralSusbcribe());
 	}
 
 	@Override

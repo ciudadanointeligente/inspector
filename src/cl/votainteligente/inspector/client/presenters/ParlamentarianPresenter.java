@@ -1,7 +1,6 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.inject.PresenterInjector;
-import cl.votainteligente.inspector.client.inject.ServiceInjector;
+import cl.votainteligente.inspector.client.Inspector;
 import cl.votainteligente.inspector.model.*;
 
 import net.customware.gwt.presenter.client.EventBus;
@@ -13,7 +12,6 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.ImageCell;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -47,8 +45,6 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 		void setChartData(Map<String, Double> chartData);
 	}
 
-	private static final ServiceInjector serviceInjector = GWT.create(ServiceInjector.class);
-	private static final PresenterInjector presenterInjector = GWT.create(PresenterInjector.class);
 	private Long parlamentarianId;
 	private Parlamentarian parlamentarian;
 
@@ -89,7 +85,7 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 
 	@Override
 	public void getParlamentarian(Long parlamentarianId) {
-		serviceInjector.getParlamentarianService().getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
+		Inspector.getServiceInjector().getParlamentarianService().getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("No se ha podido cargar la informacion del parlamentario");
@@ -116,19 +112,19 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 				if (parlamentarian.getCivilStatus() != null) {
 					switch (parlamentarian.getCivilStatus()) {
 						case SINGLE:
-							display.setParlamentarianCivilStatus(presenterInjector.getApplicationMessages().getCivilStatusSingle());
+							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusSingle());
 							break;
 						case MARRIED:
-							display.setParlamentarianCivilStatus(presenterInjector.getApplicationMessages().getCivilStatusMarried());
+							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusMarried());
 							break;
 						case SEPARATED:
-							display.setParlamentarianCivilStatus(presenterInjector.getApplicationMessages().getCivilStatusSeparated());
+							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusSeparated());
 							break;
 						case DIVORCED:
-							display.setParlamentarianCivilStatus(presenterInjector.getApplicationMessages().getCivilStatusDivorced());
+							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusDivorced());
 							break;
 						case WIDOWED:
-							display.setParlamentarianCivilStatus(presenterInjector.getApplicationMessages().getCivilStatusWidowed());
+							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusWidowed());
 					}
 				}
 

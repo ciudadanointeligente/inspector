@@ -1,13 +1,12 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.inject.ServiceInjector;
+import cl.votainteligente.inspector.client.Inspector;
 import cl.votainteligente.inspector.model.Bill;
 
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
@@ -36,7 +35,6 @@ public class BillPresenter extends WidgetPresenter<BillPresenter.Display> implem
 	}
 
 	private Long billId;
-	private static final ServiceInjector serviceInjector = GWT.create(ServiceInjector.class);
 
 	@Inject
 	public BillPresenter(Display display, EventBus eventBus) {
@@ -72,7 +70,7 @@ public class BillPresenter extends WidgetPresenter<BillPresenter.Display> implem
 
 	@Override
 	public void showBill() {
-		serviceInjector.getBillService().getBill(billId, new AsyncCallback<Bill>() {
+		Inspector.getServiceInjector().getBillService().getBill(billId, new AsyncCallback<Bill>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
