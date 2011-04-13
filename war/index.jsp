@@ -8,6 +8,7 @@
     <script type="text/javascript" src="inspector/inspector.nocache.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/highcharts-gwt-adapter.js"></script>
   </head>
 
   <body>

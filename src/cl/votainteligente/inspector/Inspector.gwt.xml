@@ -14,6 +14,7 @@
 	<inherits name="net.customware.gwt.presenter.Presenter"/>
 	<inherits name="net.sf.gilead.Gilead4Gwt"/>
 	<inherits name="com.google.gwt.i18n.I18N"/>
+	<inherits name="org.adapters.highcharts.gwt.gwthighcharts"/>
 
 	<extend-property name="locale" values="en"/>
 	<extend-property name="locale" values="es_CL"/>

@@ -1,13 +1,14 @@
 package cl.votainteligente.inspector.client.views;
 
-import cl.votainteligente.inspector.client.PieChart;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenterIface;
 import cl.votainteligente.inspector.model.Society;
 
+import org.adapters.highcharts.codegen.sections.options.OptionPath;
+import org.adapters.highcharts.codegen.types.SeriesType;
+import org.adapters.highcharts.gwt.widgets.HighChart;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
@@ -33,14 +34,13 @@ public class ParlamentarianView extends Composite implements ParlamentarianPrese
 	@UiField Label parlamentarianParty;
 	@UiField Anchor interestDeclarationLink;
 	@UiField Anchor patrimonyDeclarationLink;
+	@UiField FlowPanel declarationChartPanel;
 	@UiField CellTable<Society> societyTable;
-	private PieChart pieChart;
 
 	private ParlamentarianPresenterIface presenter;
 
 	public ParlamentarianView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		pieChart = new PieChart();
 	}
 
 	@Override
@@ -61,6 +61,7 @@ public class ParlamentarianView extends Composite implements ParlamentarianPrese
 		parlamentarianParty.setText("");
 		interestDeclarationLink.setHref("");
 		patrimonyDeclarationLink.setHref("");
+		declarationChartPanel.clear();
 	}
 
 	@Override
@@ -125,65 +126,32 @@ public class ParlamentarianView extends Composite implements ParlamentarianPrese
 
 	@Override
 	public void setChartData(Map<String, Double> chartData) {
-		pieChart.initChart(getChartOptions(getJsData(chartData)));
-	}
+		try {
+			HighChart declarationChart = new HighChart();
+			declarationChart.setAutoResize(true);
+			declarationChart.setOption(new OptionPath("/title/text"), "Indice de consistencia");
+			declarationChart.setOption(new OptionPath("/subtitle/text"), "Soc. Declaradas v/s No declaradas");
+			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {25, 100, 30, 85});
+			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
+			declarationChart.setOption(new OptionPath("/credits/enabled"), false);
+			declarationChart.setOption(new OptionPath("/tooltip/enabled"), false);
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/animation"), false);
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/allowPointSelect"), false);
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/enabled"), true);
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/color"), "black");
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/style/font"), "10px Trebuchet MS, Verdana, sans-serif");
 
-	private JavaScriptObject getJsData(Map<String, Double> chartData) {
-		JsArrayMixed jsData = JsArrayMixed.createArray().cast();
+			SeriesType series = new SeriesType("Sociedades");
+			series.setType("pie");
 
-		for (String key : chartData.keySet()) {
-			JsArrayMixed value = JsArrayMixed.createArray().cast();
-			value.push(key);
-			value.push(chartData.get(key));
-			jsData.push(value);
-		}
-
-		return jsData;
-	};
-
-	private native JavaScriptObject getChartOptions(JavaScriptObject chartData) /*-{
-		var options = {
-			chart: {
-				renderTo: 'parlamentarianDeclarationChart',
-				margin: [25, 100, 30, 85],
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false
-			},
-			title: {
-				text: 'Indice de consistencia: Soc. Declaradas v/s No declaradas'
-			},
-			tooltip: {
-				formatter: function() {
-					return '<b>' + this.point.name + '</b>: ' + this.y + '%';
-				}
-			},
-			plotOptions: {
-				pie: {
-					animation: false,
-					allowPointSelect: false,
-					dataLabels: {
-						enabled: true,
-						formatter: function() {
-							return this.point.name;
-						},
-						color: 'black',
-						style: {
-							font: '10px Trebuchet MS, Verdana, sans-serif'
-						}
-					}
-				}
-			},
-			series: [{
-				type: 'pie',
-				name: 'sociedades',
-				data: chartData
-			}],
-			credits: {
-				enabled: false
+			for (String key : chartData.keySet()) {
+				series.addEntry(new SeriesType.SeriesDataEntry(key, chartData.get(key)));
 			}
-		};
 
-		return options;
-	}-*/;
+			declarationChart.addSeries(series);
+			declarationChartPanel.add(declarationChart);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
