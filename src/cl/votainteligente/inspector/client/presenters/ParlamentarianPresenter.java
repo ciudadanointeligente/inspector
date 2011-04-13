@@ -13,6 +13,7 @@ import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.ImageCell;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
@@ -106,7 +107,7 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 				}
 
 				if (parlamentarian.getBirthDate() != null) {
-					display.setParlamentarianBirthDate(DateTimeFormat.getFormat("dd/MM/yyyy").format(parlamentarian.getBirthDate()));
+					display.setParlamentarianBirthDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(parlamentarian.getBirthDate()));
 				}
 
 				if (parlamentarian.getCivilStatus() != null) {
