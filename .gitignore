@@ -3,6 +3,7 @@
 .settings/
 .springBeans
 war/WEB-INF/classes/
+war/WEB-INF/deploy/
 war/inspector
 extras/
 *Css.java
