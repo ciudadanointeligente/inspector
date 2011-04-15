@@ -15,6 +15,7 @@ public interface PresenterInjector extends Ginjector {
 	public EventBus getEventBus();
 	public PlaceManager getPlaceManager();
 	public MainPresenter getMainPresenter();
+	public PopupPresenter getPopupPresenter();
 	public HomePresenter getHomePresenter();
 	public BillPresenter getBillPresenter();
 	public ParlamentarianPresenter getParlamentarianPresenter();

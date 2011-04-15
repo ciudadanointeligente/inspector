@@ -22,6 +22,7 @@ public class PresenterModule extends AbstractPresenterModule {
 		bind(TokenFormatter.class).to(ParameterTokenFormatter.class);
 		bind(PlaceManager.class).to(BasicPlaceManager.class).asEagerSingleton();
 		bindPresenter(MainPresenter.class, MainPresenter.Display.class, MainView.class);
+		bindPresenter(PopupPresenter.class, PopupPresenter.Display.class, PopupView.class);
 		bindPresenter(HomePresenter.class, HomePresenter.Display.class, HomeView.class);
 		bindPresenter(BillPresenter.class, BillPresenter.Display.class, BillView.class);
 		bindPresenter(ParlamentarianPresenter.class, ParlamentarianPresenter.Display.class, ParlamentarianView.class);

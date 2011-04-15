@@ -22,6 +22,7 @@ public class Inspector implements EntryPoint {
 		EventBus eventBus = presenterInjector.getEventBus();
 
 		RootPanel.get().add(presenterInjector.getMainPresenter().getDisplay().asWidget());
+		RootPanel.get().add(presenterInjector.getPopupPresenter().getDisplay().asWidget());
 
 		PlaceManager placeManager = presenterInjector.getPlaceManager();
 

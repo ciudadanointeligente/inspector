@@ -13,8 +13,8 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 	}
 
 	@Inject
-	public MainPresenter(Display display, EventBus eventBus, HomePresenter homePresenter, BillPresenter billPresenter, ParlamentarianPresenter parlamentarianPresenter, SocietyPresenter societyPresenter) {
-		super(display, eventBus, homePresenter, billPresenter, parlamentarianPresenter, societyPresenter);
+	public MainPresenter(Display display, EventBus eventBus, HomePresenter homePresenter, BillPresenter billPresenter, ParlamentarianPresenter parlamentarianPresenter) {
+		super(display, eventBus, homePresenter, billPresenter, parlamentarianPresenter);
 		bind();
 	}
 }
