@@ -1,17 +1,19 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.Inspector;
+import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
+import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.model.*;
 
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
-import net.customware.gwt.presenter.client.place.PlaceRequestEvent;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
-import net.customware.gwt.presenter.client.widget.WidgetPresenter;
+import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.View;
+import com.gwtplatform.mvp.client.annotations.NameToken;
+import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.*;
 
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.ImageCell;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.safehtml.shared.SafeHtml;
@@ -26,9 +28,11 @@ import com.google.inject.Inject;
 
 import java.util.*;
 
-public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPresenter.Display> implements ParlamentarianPresenterIface {
+public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.MyView, ParlamentarianPresenter.MyProxy> implements ParlamentarianPresenterIface {
+	public static final String PLACE = "parlamentarian";
+	public static final String PARAM_PARLAMENTARIAN_ID = "parlamentarianId";
 
-	public interface Display extends WidgetDisplay {
+	public interface MyView extends View {
 		void setPresenter(ParlamentarianPresenterIface presenter);
 		void clearParlamentarianData();
 		void setParlamentarianName(String parlamentarianName);
@@ -46,31 +50,53 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 		void setChartData(Map<String, Double> chartData);
 	}
 
+	@ProxyStandard
+	@NameToken(PLACE)
+	public interface MyProxy extends ProxyPlace<ParlamentarianPresenter> {
+	}
+
+	@Inject
+	private ApplicationMessages applicationMessages;
+	@Inject
+	private PlaceManager placeManager;
+	@Inject
+	private ParlamentarianServiceAsync parlamentarianService;
 	private Long parlamentarianId;
 	private Parlamentarian parlamentarian;
 
 	@Inject
-	public ParlamentarianPresenter(Display display, EventBus eventBus) {
-		super(display, eventBus);
-		bind();
+	public ParlamentarianPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
+		super(eventBus, view, proxy);
 	}
 
 	@Override
 	protected void onBind() {
-		display.setPresenter(this);
+		getView().setPresenter(this);
 		initSocietyTableColumns();
 	}
 
 	@Override
-	protected void onUnbind() {
-	}
-
-	@Override
-	protected void onRevealDisplay() {
-		display.clearParlamentarianData();
+	protected void onReset() {
+		getView().clearParlamentarianData();
 
 		if (parlamentarianId != null) {
 			getParlamentarian(parlamentarianId);
+		}
+	}
+
+	@Override
+	protected void revealInParent() {
+		fireEvent(new RevealContentEvent(MainPresenter.TYPE_MAIN_CONTENT, this));
+	}
+
+	@Override
+	public void prepareFromRequest(PlaceRequest placeRequest) {
+		super.prepareFromRequest(placeRequest);
+
+		try {
+			parlamentarianId = Long.parseLong(placeRequest.getParameter(PARAM_PARLAMENTARIAN_ID, null));
+		} catch (NumberFormatException nfe) {
+			parlamentarianId = null;
 		}
 	}
 
@@ -86,51 +112,51 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 
 	@Override
 	public void getParlamentarian(Long parlamentarianId) {
-		Inspector.getServiceInjector().getParlamentarianService().getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
+		parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorParlamentarian());
+				Window.alert(applicationMessages.getErrorParlamentarian());
 			}
 
 			@Override
 			public void onSuccess(Parlamentarian result) {
 				parlamentarian = result;
 
-				display.setParlamentarianName(parlamentarian.toString());
+				getView().setParlamentarianName(parlamentarian.toString());
 
 				if (parlamentarian.getParlamentarianType() != null) {
 					if (parlamentarian.getDistrict() != null) {
-						display.setParlamentarianDescription(parlamentarian.getParlamentarianType().toString() + " por " + parlamentarian.getDistrict().toString());
+						getView().setParlamentarianDescription(parlamentarian.getParlamentarianType().toString() + " por " + parlamentarian.getDistrict().toString());
 					} else {
-						display.setParlamentarianDescription(parlamentarian.getParlamentarianType().toString());
+						getView().setParlamentarianDescription(parlamentarian.getParlamentarianType().toString());
 					}
 				}
 
 				if (parlamentarian.getBirthDate() != null) {
-					display.setParlamentarianBirthDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(parlamentarian.getBirthDate()));
+					getView().setParlamentarianBirthDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(parlamentarian.getBirthDate()));
 				}
 
 				if (parlamentarian.getCivilStatus() != null) {
 					switch (parlamentarian.getCivilStatus()) {
 						case SINGLE:
-							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusSingle());
+							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusSingle());
 							break;
 						case MARRIED:
-							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusMarried());
+							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusMarried());
 							break;
 						case SEPARATED:
-							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusSeparated());
+							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusSeparated());
 							break;
 						case DIVORCED:
-							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusDivorced());
+							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusDivorced());
 							break;
 						case WIDOWED:
-							display.setParlamentarianCivilStatus(Inspector.getPresenterInjector().getApplicationMessages().getCivilStatusWidowed());
+							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusWidowed());
 					}
 				}
 
 				if (parlamentarian.getSpouse() != null) {
-					display.setParlamentarianSpouse(parlamentarian.getSpouse().toString());
+					getView().setParlamentarianSpouse(parlamentarian.getSpouse().toString());
 				}
 
 				if (parlamentarian.getChildren() != null && !parlamentarian.getChildren().isEmpty()) {
@@ -147,7 +173,7 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 						}
 					}
 
-					display.setParlamentarianChildren(sb.toString());
+					getView().setParlamentarianChildren(sb.toString());
 				}
 
 				if (parlamentarian.getPermanentCommissions() != null && !parlamentarian.getPermanentCommissions().isEmpty()) {
@@ -164,7 +190,7 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 						}
 					}
 
-					display.setParlamentarianPermanentCommissions(sb.toString());
+					getView().setParlamentarianPermanentCommissions(sb.toString());
 				}
 
 				if (parlamentarian.getSpecialCommissions() != null && !parlamentarian.getSpecialCommissions().isEmpty()) {
@@ -181,23 +207,23 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 						}
 					}
 
-					display.setParlamentarianSpecialCommissions(sb.toString());
+					getView().setParlamentarianSpecialCommissions(sb.toString());
 				}
 
 				if (parlamentarian.getParty() != null) {
-					display.setParlamentarianParty(parlamentarian.getParty().toString());
+					getView().setParlamentarianParty(parlamentarian.getParty().toString());
 				}
 
 				if (parlamentarian.getInterestDeclarationFile() != null) {
-					display.setInterestDeclarationLink(parlamentarian.getInterestDeclarationFile());
+					getView().setInterestDeclarationLink(parlamentarian.getInterestDeclarationFile());
 				}
 
 				if (parlamentarian.getPatrimonyDeclarationFile() != null) {
-					display.setPatrimonyDeclarationLink(parlamentarian.getPatrimonyDeclarationFile());
+					getView().setPatrimonyDeclarationLink(parlamentarian.getPatrimonyDeclarationFile());
 				}
 
 				ListDataProvider<Society> societyData = new ListDataProvider<Society>(new ArrayList<Society>(result.getSocieties().keySet()));
-				societyData.addDataDisplay(display.getSocietyTable());
+				societyData.addDataDisplay(getView().getSocietyTable());
 
 				Double declaredSocieties = 0d;
 				Double undeclaredSocieties = 0d;
@@ -213,13 +239,13 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 				Map<String, Double> chartData = new HashMap<String, Double>();
 				chartData.put("Declaradas", 100d * declaredSocieties / (declaredSocieties + undeclaredSocieties));
 				chartData.put("No declaradas", 100d * undeclaredSocieties / (declaredSocieties + undeclaredSocieties));
-				display.setChartData(chartData);
+				getView().setChartData(chartData);
 			}
 		});
 	}
 
 	private void initSocietyTableColumns() {
-		CellTable<Society> societyTable = display.getSocietyTable();
+		CellTable<Society> societyTable = getView().getSocietyTable();
 
 		societyTable.addColumn(new TextColumn<Society>() {
 			@Override
@@ -264,8 +290,8 @@ public class ParlamentarianPresenter extends WidgetPresenter<ParlamentarianPrese
 		societyTable.addColumn(new Column<Society, Society>(new ActionCell<Society>("", new ActionCell.Delegate<Society>() {
 			@Override
 			public void execute(Society society) {
-				PlaceRequest placeRequest = new PlaceRequest("society");
-				eventBus.fireEvent(new PlaceRequestEvent(placeRequest.with("societyId", society.getId().toString())));
+				PlaceRequest placeRequest = new PlaceRequest(SocietyPresenter.PLACE);
+				placeManager.revealPlace(placeRequest.with(SocietyPresenter.PARAM_SOCIETY_ID, society.getId().toString()));
 			}
 		}) {
 			@Override

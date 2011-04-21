@@ -6,21 +6,23 @@ import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
 
+import com.gwtplatform.mvp.client.ViewImpl;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
 
-public class HomeView extends Composite implements HomePresenter.Display {
+public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	private static HomeViewUiBinder uiBinder = GWT.create(HomeViewUiBinder.class);
-
-	interface HomeViewUiBinder extends UiBinder<Widget, HomeView> {
-	}
+	interface HomeViewUiBinder extends UiBinder<Widget, HomeView> {}
+	private final Widget widget;
 
 	@UiField TextBox parlamentarianSearch;
 	@UiField CellTable<Parlamentarian> parlamentarianTable;
@@ -33,12 +35,12 @@ public class HomeView extends Composite implements HomePresenter.Display {
 	private HomePresenterIface presenter;
 
 	public HomeView() {
-		initWidget(uiBinder.createAndBindUi(this));
+		widget = uiBinder.createAndBindUi(this);
 	}
 
 	@Override
 	public Widget asWidget() {
-		return this;
+		return widget;
 	}
 
 	@Override

@@ -1,20 +1,27 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.Inspector;
+import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
+import cl.votainteligente.inspector.client.services.BillServiceAsync;
 import cl.votainteligente.inspector.model.Bill;
 
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
-import net.customware.gwt.presenter.client.widget.WidgetPresenter;
+import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.View;
+import com.gwtplatform.mvp.client.annotations.NameToken;
+import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.*;
 
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 import java.util.Date;
 
-public class BillPresenter extends WidgetPresenter<BillPresenter.Display> implements BillPresenterIface {
-	public interface Display extends WidgetDisplay {
+public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter.MyProxy> implements BillPresenterIface {
+	public static final String PLACE = "bill";
+	public static final String PARAM_BILL_ID = "billId";
+
+	public interface MyView extends View {
 		void setPresenter(BillPresenterIface presenter);
 		String getBillBulletinNumber();
 		void setBillBulletinNumber(String billBulletinNumber);
@@ -34,27 +41,47 @@ public class BillPresenter extends WidgetPresenter<BillPresenter.Display> implem
 		void setBillStage(String billStage);
 	}
 
+	@ProxyStandard
+	@NameToken(PLACE)
+	public interface MyProxy extends ProxyPlace<BillPresenter> {
+	}
+
+	@Inject
+	private BillServiceAsync billService;
+	@Inject
+	private ApplicationMessages applicationMessages;
 	private Long billId;
 
 	@Inject
-	public BillPresenter(Display display, EventBus eventBus) {
-		super(display, eventBus);
-		bind();
+	public BillPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
+		super(eventBus, view, proxy);
 	}
 
 	@Override
 	protected void onBind() {
-		display.setPresenter(this);
+		getView().setPresenter(this);
 	}
 
 	@Override
-	protected void onUnbind() {
-	}
-
-	@Override
-	protected void onRevealDisplay() {
+	protected void onReset() {
 		if (billId != null) {
 			showBill();
+		}
+	}
+
+	@Override
+	protected void revealInParent() {
+		fireEvent(new RevealContentEvent(MainPresenter.TYPE_MAIN_CONTENT, this));
+	}
+
+	@Override
+	public void prepareFromRequest(PlaceRequest placeRequest) {
+		super.prepareFromRequest(placeRequest);
+
+		try {
+			billId = Long.parseLong(placeRequest.getParameter(PARAM_BILL_ID, null));
+		} catch (NumberFormatException nfe) {
+			billId = null;
 		}
 	}
 
@@ -70,23 +97,23 @@ public class BillPresenter extends WidgetPresenter<BillPresenter.Display> implem
 
 	@Override
 	public void showBill() {
-		Inspector.getServiceInjector().getBillService().getBill(billId, new AsyncCallback<Bill>() {
+		billService.getBill(billId, new AsyncCallback<Bill>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorBill());
+				Window.alert(applicationMessages.getErrorBill());
 			}
 
 			@Override
 			public void onSuccess(Bill result) {
-				display.setBillBulletinNumber(result.getBulletinNumber());
-				display.setBillTitle(result.getTitle());
-				display.setBillEntryDate(result.getEntryDate());
-				display.setBillInitiativeType(result.getInitiativeType().getName());
-				display.setBillType(result.getBillType().getName());
-				display.setBillOriginChamber(result.getOriginChamber().getName());
-				display.setBillUrgency(result.getUrgency().getName());
-				display.setBillStage(result.getStage().getName());
+				getView().setBillBulletinNumber(result.getBulletinNumber());
+				getView().setBillTitle(result.getTitle());
+				getView().setBillEntryDate(result.getEntryDate());
+				getView().setBillInitiativeType(result.getInitiativeType().getName());
+				getView().setBillType(result.getBillType().getName());
+				getView().setBillOriginChamber(result.getOriginChamber().getName());
+				getView().setBillUrgency(result.getUrgency().getName());
+				getView().setBillStage(result.getStage().getName());
 			}
 		});
 	}

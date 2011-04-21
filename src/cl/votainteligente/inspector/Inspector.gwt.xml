@@ -11,10 +11,13 @@
 
 	<!-- Other module inherits -->
 	<inherits name="com.google.gwt.inject.Inject"/>
-	<inherits name="net.customware.gwt.presenter.Presenter"/>
+	<inherits name="com.gwtplatform.mvp.Mvp"/>
 	<inherits name="net.sf.gilead.Gilead4Gwt"/>
 	<inherits name="com.google.gwt.i18n.I18N"/>
 	<inherits name="org.adapters.highcharts.gwt.gwthighcharts"/>
+
+	<define-configuration-property name="gin.ginjector" is-multi-valued="false"/>
+	<set-configuration-property name="gin.ginjector" value="cl.votainteligente.inspector.client.inject.MyInjector"/>
 
 	<extend-property name="locale" values="en"/>
 	<extend-property name="locale" values="es_CL"/>

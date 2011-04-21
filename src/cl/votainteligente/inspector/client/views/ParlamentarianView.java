@@ -4,6 +4,8 @@ import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenterIface;
 import cl.votainteligente.inspector.model.Society;
 
+import com.gwtplatform.mvp.client.ViewImpl;
+
 import org.adapters.highcharts.codegen.sections.options.OptionPath;
 import org.adapters.highcharts.codegen.types.SeriesType;
 import org.adapters.highcharts.gwt.widgets.HighChart;
@@ -16,12 +18,10 @@ import com.google.gwt.user.client.ui.*;
 
 import java.util.Map;
 
-public class ParlamentarianView extends Composite implements ParlamentarianPresenter.Display {
-
+public class ParlamentarianView extends ViewImpl implements ParlamentarianPresenter.MyView {
 	private static ParlamentarianViewUiBinder uiBinder = GWT.create(ParlamentarianViewUiBinder.class);
-
-	interface ParlamentarianViewUiBinder extends UiBinder<Widget, ParlamentarianView> {
-	}
+	interface ParlamentarianViewUiBinder extends UiBinder<Widget, ParlamentarianView> {}
+	private final Widget widget;
 
 	@UiField Label parlamentarianName;
 	@UiField Label parlamentarianDescription;
@@ -40,7 +40,12 @@ public class ParlamentarianView extends Composite implements ParlamentarianPrese
 	private ParlamentarianPresenterIface presenter;
 
 	public ParlamentarianView() {
-		initWidget(uiBinder.createAndBindUi(this));
+		widget = uiBinder.createAndBindUi(this);
+	}
+
+	@Override
+	public Widget asWidget() {
+		return widget;
 	}
 
 	@Override

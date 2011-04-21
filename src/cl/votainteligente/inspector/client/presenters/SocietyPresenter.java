@@ -1,13 +1,17 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.Inspector;
+import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
+import cl.votainteligente.inspector.client.services.SocietyServiceAsync;
 import cl.votainteligente.inspector.model.Person;
 import cl.votainteligente.inspector.model.Society;
 
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
-import net.customware.gwt.presenter.client.widget.WidgetPresenter;
+import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.View;
+import com.gwtplatform.mvp.client.annotations.NameToken;
+import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.*;
 
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.i18n.client.NumberFormat;
@@ -17,9 +21,11 @@ import com.google.inject.Inject;
 
 import java.util.Iterator;
 
-public class SocietyPresenter extends WidgetPresenter<SocietyPresenter.Display> implements SocietyPresenterIface {
+public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, SocietyPresenter.MyProxy> implements SocietyPresenterIface {
+	public static final String PLACE = "society";
+	public static final String PARAM_SOCIETY_ID = "societyId";
 
-	public interface Display extends WidgetDisplay {
+	public interface MyView extends View {
 		void setPresenter(SocietyPresenterIface presenter);
 		void clearSocietyData();
 		void setSocietyName(String societyName);
@@ -38,30 +44,50 @@ public class SocietyPresenter extends WidgetPresenter<SocietyPresenter.Display> 
 		void setNotaryName(String notaryName);
 	}
 
+	@ProxyStandard
+	@NameToken(PLACE)
+	public interface MyProxy extends ProxyPlace<SocietyPresenter> {
+	}
+
+	@Inject
+	private ApplicationMessages applicationMessages;
+	@Inject
+	private SocietyServiceAsync societyService;
 	private Long societyId;
 	private Society society;
 
 	@Inject
-	public SocietyPresenter(Display display, EventBus eventBus) {
-		super(display, eventBus);
-		bind();
+	public SocietyPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
+		super(eventBus, view, proxy);
 	}
 
 	@Override
 	protected void onBind() {
-		display.setPresenter(this);
+		getView().setPresenter(this);
 	}
 
 	@Override
-	protected void onUnbind() {
-	}
-
-	@Override
-	protected void onRevealDisplay() {
-		display.clearSocietyData();
+	protected void onReset() {
+		getView().clearSocietyData();
 
 		if (societyId != null) {
 			getSociety(societyId);
+		}
+	}
+
+	@Override
+	protected void revealInParent() {
+		fireEvent(new RevealContentEvent(MainPresenter.TYPE_MAIN_CONTENT, this));
+	}
+
+	@Override
+	public void prepareFromRequest(PlaceRequest placeRequest) {
+		super.prepareFromRequest(placeRequest);
+
+		try {
+			societyId = Long.parseLong(placeRequest.getParameter(PARAM_SOCIETY_ID, null));
+		} catch (NumberFormatException nfe) {
+			societyId = null;
 		}
 	}
 
@@ -77,10 +103,10 @@ public class SocietyPresenter extends WidgetPresenter<SocietyPresenter.Display> 
 
 	@Override
 	public void getSociety(Long societyId) {
-		Inspector.getServiceInjector().getSocietyService().getSociety(societyId, new AsyncCallback<Society>() {
+		societyService.getSociety(societyId, new AsyncCallback<Society>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(Inspector.getPresenterInjector().getApplicationMessages().getErrorSociety());
+				Window.alert(applicationMessages.getErrorSociety());
 			}
 
 			@Override
@@ -90,31 +116,31 @@ public class SocietyPresenter extends WidgetPresenter<SocietyPresenter.Display> 
 				society = result;
 
 				if (society.getName() != null) {
-					display.setSocietyName(society.getName());
+					getView().setSocietyName(society.getName());
 				}
 
 				if (society.getFantasyName() != null) {
-					display.setSocietyFantasyName(society.getFantasyName());
+					getView().setSocietyFantasyName(society.getFantasyName());
 				}
 
 				if (society.getUid() != null) {
-					display.setSocietyUid(society.getUid());
+					getView().setSocietyUid(society.getUid());
 				}
 
 				if (society.getCreationDate() != null) {
-					display.setSocietyCreationDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(society.getCreationDate()));
+					getView().setSocietyCreationDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(society.getCreationDate()));
 				}
 
 				if (society.getCurrentStock() != null) {
-					display.setSocietyCurrentStock(NumberFormat.getCurrencyFormat().format(society.getCurrentStock()));
+					getView().setSocietyCurrentStock(NumberFormat.getCurrencyFormat().format(society.getCurrentStock()));
 				}
 
 				if (society.getSocietyStatus() != null) {
-					display.setSocietyStatus(society.getSocietyStatus().getName());
+					getView().setSocietyStatus(society.getSocietyStatus().getName());
 				}
 
 				if (society.getSocietyType() != null) {
-					display.setSocietyType(society.getSocietyType().getName());
+					getView().setSocietyType(society.getSocietyType().getName());
 				}
 
 				if (society.getMembers() != null && !society.getMembers().isEmpty()) {
@@ -131,23 +157,23 @@ public class SocietyPresenter extends WidgetPresenter<SocietyPresenter.Display> 
 						}
 					}
 
-					display.setSocietyMembers(sb.toString());
+					getView().setSocietyMembers(sb.toString());
 				}
 
 				if (society.getInitialStock() != null) {
-					display.setSocietyInitialStock(NumberFormat.getCurrencyFormat().format(society.getInitialStock()));
+					getView().setSocietyInitialStock(NumberFormat.getCurrencyFormat().format(society.getInitialStock()));
 				}
 
 				if (society.getAddress() != null) {
-					display.setSocietyAddress(society.getAddress());
+					getView().setSocietyAddress(society.getAddress());
 				}
 
 				if (society.getPublishDate() != null) {
-					display.setSocietyPublishDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(society.getPublishDate()));
+					getView().setSocietyPublishDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(society.getPublishDate()));
 				}
 
 				if (society.getNotary() != null) {
-					display.setNotaryName(society.getNotary().getName());
+					getView().setNotaryName(society.getNotary().getName());
 				}
 			}
 		});

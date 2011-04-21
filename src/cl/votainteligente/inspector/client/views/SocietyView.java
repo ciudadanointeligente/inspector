@@ -3,19 +3,18 @@ package cl.votainteligente.inspector.client.views;
 import cl.votainteligente.inspector.client.presenters.SocietyPresenter;
 import cl.votainteligente.inspector.client.presenters.SocietyPresenterIface;
 
+import com.gwtplatform.mvp.client.ViewImpl;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class SocietyView extends Composite implements SocietyPresenter.Display {
-
+public class SocietyView extends ViewImpl implements SocietyPresenter.MyView {
 	private static SocietyViewUiBinder uiBinder = GWT.create(SocietyViewUiBinder.class);
-
-	interface SocietyViewUiBinder extends UiBinder<Widget, SocietyView> {
-	}
+	interface SocietyViewUiBinder extends UiBinder<Widget, SocietyView> {}
+	private final Widget widget;
 
 	@UiField Label societyName;
 	@UiField Label societyFantasyName;
@@ -35,7 +34,12 @@ public class SocietyView extends Composite implements SocietyPresenter.Display {
 	private SocietyPresenterIface presenter;
 
 	public SocietyView() {
-		initWidget(uiBinder.createAndBindUi(this));
+		widget = uiBinder.createAndBindUi(this);
+	}
+
+	@Override
+	public Widget asWidget() {
+		return widget;
 	}
 
 	@Override
@@ -130,5 +134,4 @@ public class SocietyView extends Composite implements SocietyPresenter.Display {
 	public void setNotaryName(String notaryName) {
 		this.notaryName.setText(notaryName);
 	}
-
 }

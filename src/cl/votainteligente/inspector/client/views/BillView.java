@@ -5,20 +5,22 @@ import cl.votainteligente.inspector.client.presenters.BillPresenterIface;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.Society;
 
+import com.gwtplatform.mvp.client.ViewImpl;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.Date;
 
-public class BillView extends Composite implements BillPresenter.Display {
+public class BillView extends ViewImpl implements BillPresenter.MyView {
 	private static BillViewUiBinder uiBinder = GWT.create(BillViewUiBinder.class);
 	interface BillViewUiBinder extends UiBinder<Widget, BillView> {}
+	private final Widget widget;
 
 	@UiField Label billBulletinNumber;
 	@UiField Label billTitle;
@@ -34,12 +36,12 @@ public class BillView extends Composite implements BillPresenter.Display {
 	BillPresenterIface presenter;
 
 	public BillView() {
-		initWidget(uiBinder.createAndBindUi(this));
+		widget = uiBinder.createAndBindUi(this);
 	}
 
 	@Override
 	public Widget asWidget() {
-		return this;
+		return widget;
 	}
 
 	@Override

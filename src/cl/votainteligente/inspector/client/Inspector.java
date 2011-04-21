@@ -1,43 +1,18 @@
 package cl.votainteligente.inspector.client;
 
-import cl.votainteligente.inspector.client.inject.PresenterInjector;
-import cl.votainteligente.inspector.client.inject.ServiceInjector;
+import cl.votainteligente.inspector.client.inject.MyInjector;
 
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.PlaceManager;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
-import net.customware.gwt.presenter.client.place.PlaceRequestEvent;
+import com.gwtplatform.mvp.client.DelayedBindRegistry;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class Inspector implements EntryPoint {
-	private static final PresenterInjector presenterInjector = GWT.create(PresenterInjector.class);
-	private static final ServiceInjector serviceInjector = GWT.create(ServiceInjector.class);
+	public final MyInjector ginjector = GWT.create(MyInjector.class);
 
 	@Override
 	public void onModuleLoad() {
-		EventBus eventBus = presenterInjector.getEventBus();
-
-		RootPanel.get("applicationContent").add(presenterInjector.getMainPresenter().getDisplay().asWidget());
-		RootPanel.get().add(presenterInjector.getPopupPresenter().getDisplay().asWidget());
-
-		PlaceManager placeManager = presenterInjector.getPlaceManager();
-
-		if (History.getToken().isEmpty()) {
-			eventBus.fireEvent(new PlaceRequestEvent(new PlaceRequest("home")));
-		} else {
-			placeManager.fireCurrentPlace();
-		}
-	}
-
-	public static PresenterInjector getPresenterInjector() {
-		return presenterInjector;
-	}
-
-	public static ServiceInjector getServiceInjector() {
-		return serviceInjector;
+		DelayedBindRegistry.bind(ginjector);
+		ginjector.getPlaceManager().revealCurrentPlace();
 	}
 }

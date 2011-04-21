@@ -1,20 +1,35 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
-import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
+import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.View;
+import com.gwtplatform.mvp.client.annotations.ContentSlot;
+import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.Proxy;
+import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
+import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 
-import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;
 
-public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Display> {
-	public interface Display extends WidgetContainerDisplay {
-		FlowPanel getLayout();
+public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter.MyProxy> {
+	@ContentSlot
+	public static final Type<RevealContentHandler<?>> TYPE_MAIN_CONTENT = new Type<RevealContentHandler<?>>();
+
+	public interface MyView extends View {
+	}
+
+	@ProxyStandard
+	public interface MyProxy extends Proxy<MainPresenter> {
 	}
 
 	@Inject
-	public MainPresenter(Display display, EventBus eventBus, HomePresenter homePresenter, BillPresenter billPresenter, ParlamentarianPresenter parlamentarianPresenter) {
-		super(display, eventBus, homePresenter, billPresenter, parlamentarianPresenter);
-		bind();
+	public MainPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
+		super(eventBus, view, proxy);
+	}
+
+	@Override
+	protected void revealInParent() {
+		fireEvent(new RevealRootContentEvent(this));
 	}
 }
