@@ -15,7 +15,7 @@
   <body class="body">
 	  <div id="headerLine">
 	  	<div id="header">
-	  		<div id="headLogo">&nbsp;</div>
+	  		<a id="headLogo" href="#home"></a>
 	  	</div>
 	  </div>
 	  <div id="container">

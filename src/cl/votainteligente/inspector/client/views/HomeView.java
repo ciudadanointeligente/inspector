@@ -25,8 +25,10 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	private final Widget widget;
 
 	@UiField HTMLPanel parlamentarianPanel;
+	@UiField HTMLPanel parlamentarianTableContainer;
 	@UiField TextBox parlamentarianSearch;
 	@UiField HTMLPanel categoryPanel;
+	@UiField HTMLPanel categoryTableContainer;
 	@UiField TextBox categorySearch;
 	@UiField Label parlamentarianDisplay;
 	@UiField Label categoryDisplay;
@@ -44,8 +46,8 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
 		categoryTable = new CellTable<Category>(15, searchResource);
 		billTable = new CellTable<Bill>(15, displayResource);
-		parlamentarianPanel.add(parlamentarianTable);
-		categoryPanel.add(categoryTable);
+		parlamentarianTableContainer.add(parlamentarianTable);
+		categoryTableContainer.add(categoryTable);
 		billPanel.add(billTable);
 	}
 

@@ -3,9 +3,6 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style src="MainView.css" />
 	<g:HTMLPanel>
-		<h3>Inspector de Intereses</h3>
-		<g:Hyperlink targetHistoryToken="home">Home</g:Hyperlink>
-		<g:Hyperlink targetHistoryToken="bill">Proyecto</g:Hyperlink>
 		<g:FlowPanel ui:field="mainPanel"/>
 	</g:HTMLPanel>
 </ui:UiBinder>

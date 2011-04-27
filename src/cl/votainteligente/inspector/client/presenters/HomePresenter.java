@@ -328,7 +328,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 					@Override
 					public String asString() {
-						return "<img src=\"images/explore.png\"/>";
+						return "<div class=\"profileButton\"></div>";
 					}
 				});
 			}
@@ -396,7 +396,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 					@Override
 					public String asString() {
-						return "<img src=\"images/suscribe.png\"/>";
+						return "<div class=\"suscribeButtonCategory\"></div>";
 					}
 				});
 			}
@@ -483,7 +483,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 					@Override
 					public String asString() {
-						return "<img src=\"images/suscribe.png\"/>";
+						return "<div class=\"suscribeButtonBill\"></div>";
 					}
 				});
 			}
