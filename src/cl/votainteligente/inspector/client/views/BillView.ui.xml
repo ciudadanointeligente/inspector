@@ -3,21 +3,31 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style src="BillView.css" />
 	<g:HTMLPanel>
+		<h2>Proyecto de Ley:</h2>
 		<g:HTMLPanel ui:field="billPanel">
-			Boletín: <g:Label ui:field="billBulletinNumber"/>
-			Título: <g:Label ui:field="billTitle"/>
-			Fecha Ingreso: <g:Label ui:field="billEntryDate"/>
-			Moción: <g:Label ui:field="billInitiativeType"/>
-			Tipo: <g:Label ui:field="billType"/>
-			Cámara: <g:Label ui:field="billOriginChamber"/>
-			Urgencia: <g:Label ui:field="billUrgency"/>
-			Estado: <g:Label ui:field="billStage"/>
+			<g:Label addStyleNames="billTitle" ui:field="billTitle"/>
+			<div class="{style.billdescription}">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+			</div>
+			<div class="{style.billData}">
+				N° Boletín: <g:Label ui:field="billBulletinNumber"/>
+				Fecha de ingreso: <g:Label ui:field="billEntryDate"/>
+				Iniciativa: <g:Label ui:field="billInitiativeType"/>
+				Tipo: <g:Label ui:field="billType"/>
+				Cámara de origen: <g:Label ui:field="billOriginChamber"/>
+				Urgencia: <g:Label ui:field="billUrgency"/>
+				Estado: <g:Label ui:field="billStage"/>
+			</div>
 		</g:HTMLPanel>
-		<g:HTMLPanel ui:field="parlamentarianPanel">
-			Parlamentarios en conflicto:
-		</g:HTMLPanel>
-		<g:HTMLPanel ui:field="societyPanel">
-			Sociedades en conflicto:
-		</g:HTMLPanel>
+		<div class="{style.conflictWrapper}">
+			<g:HTMLPanel addStyleNames="{style.societyPanel}" ui:field="societyPanel">
+				Sociedades en conflicto:
+				<g:HTMLPanel ui:field="societyTableContainer"></g:HTMLPanel>
+			</g:HTMLPanel>
+			<g:HTMLPanel addStyleNames="{style.parlamentarianPanel}" ui:field="parlamentarianPanel">
+				Parlamentarios en conflicto:
+				<g:HTMLPanel ui:field="parlamentarianTableContainer"></g:HTMLPanel>
+			</g:HTMLPanel>
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

@@ -1,0 +1,44 @@
+@external .billTitle ;
+h2 {
+	padding: 5px 20px;
+	font-family: DeliciousHeavyRegular;
+	font-size: 16px;
+	color: black;
+	font-weight: normal;
+}
+
+.billTitle {
+	background: url("images/bg_grad.jpg") repeat-x scroll 0 bottom white;
+	color: black;
+	font-family: DeliciousBold;
+	font-size: 17px;
+	height: 27px;
+	padding: 10px 20px;
+	border-top: 1px solid white;
+}
+
+.billData {
+	background-color: white;
+	padding: 15px;
+	display: block;
+	float: left;
+	min-width: 260px;
+}
+
+.conflictWrapper {
+	clear: both;
+}
+
+.parlamentarianPanel {
+	float: left:
+}
+
+.societyPanel {
+	float: left:
+}
+.billdescription{
+	float: left;
+    padding: 15px 29px 15px 0;
+    width: 630px;
+	
+}

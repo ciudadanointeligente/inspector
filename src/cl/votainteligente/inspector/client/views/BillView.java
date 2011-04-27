@@ -33,7 +33,9 @@ public class BillView extends ViewImpl implements BillPresenter.MyView {
 	@UiField Label billUrgency;
 	@UiField Label billStage;
 	@UiField HTMLPanel parlamentarianPanel;
+	@UiField HTMLPanel parlamentarianTableContainer;
 	@UiField HTMLPanel societyPanel;
+	@UiField HTMLPanel societyTableContainer;
 	CellTable<Parlamentarian> parlamentarianTable;
 	CellTable<Society> societyTable;
 
@@ -44,9 +46,9 @@ public class BillView extends ViewImpl implements BillPresenter.MyView {
 		SearchCellTableResource searchResource = GWT.create(SearchCellTableResource.class);
 		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
 		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
-		parlamentarianPanel.add(parlamentarianTable);
+		parlamentarianTableContainer.add(parlamentarianTable);
 		societyTable = new CellTable<Society>(15, displayResource);
-		societyPanel.add(societyTable);
+		societyTableContainer.add(societyTable);
 	}
 
 	@Override
