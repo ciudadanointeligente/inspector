@@ -2,6 +2,8 @@ package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenterIface;
+import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
+import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.Society;
 
 import com.gwtplatform.mvp.client.ViewImpl;
@@ -35,12 +37,16 @@ public class ParlamentarianView extends ViewImpl implements ParlamentarianPresen
 	@UiField Anchor interestDeclarationLink;
 	@UiField Anchor patrimonyDeclarationLink;
 	@UiField FlowPanel declarationChartPanel;
-	@UiField CellTable<Society> societyTable;
+	@UiField HTMLPanel societyPanel;
+	CellTable<Society> societyTable;
 
 	private ParlamentarianPresenterIface presenter;
 
 	public ParlamentarianView() {
 		widget = uiBinder.createAndBindUi(this);
+		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
+		societyTable = new CellTable<Society>(15, displayResource);
+		societyPanel.add(societyTable);
 	}
 
 	@Override

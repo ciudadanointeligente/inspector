@@ -2,6 +2,8 @@ package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.HomePresenter;
 import cl.votainteligente.inspector.client.presenters.HomePresenterIface;
+import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
+import cl.votainteligente.inspector.client.resources.SearchCellTableResource;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
@@ -15,27 +17,36 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 
 public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	private static HomeViewUiBinder uiBinder = GWT.create(HomeViewUiBinder.class);
 	interface HomeViewUiBinder extends UiBinder<Widget, HomeView> {}
 	private final Widget widget;
 
+	@UiField HTMLPanel parlamentarianPanel;
 	@UiField TextBox parlamentarianSearch;
-	@UiField CellTable<Parlamentarian> parlamentarianTable;
+	@UiField HTMLPanel categoryPanel;
 	@UiField TextBox categorySearch;
-	@UiField CellTable<Category> categoryTable;
 	@UiField Label parlamentarianDisplay;
 	@UiField Label categoryDisplay;
-	@UiField CellTable<Bill> billTable;
+	CellTable<Parlamentarian> parlamentarianTable;
+	CellTable<Category> categoryTable;
+	@UiField HTMLPanel billPanel;
+	CellTable<Bill> billTable;
 
 	private HomePresenterIface presenter;
 
 	public HomeView() {
 		widget = uiBinder.createAndBindUi(this);
+		SearchCellTableResource searchResource = GWT.create(SearchCellTableResource.class);
+		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
+		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
+		categoryTable = new CellTable<Category>(15, searchResource);
+		billTable = new CellTable<Bill>(15, displayResource);
+		parlamentarianPanel.add(parlamentarianTable);
+		categoryPanel.add(categoryTable);
+		billPanel.add(billTable);
 	}
 
 	@Override

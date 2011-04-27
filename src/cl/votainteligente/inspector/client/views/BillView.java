@@ -2,8 +2,9 @@ package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.BillPresenter;
 import cl.votainteligente.inspector.client.presenters.BillPresenterIface;
-import cl.votainteligente.inspector.model.Parlamentarian;
-import cl.votainteligente.inspector.model.Society;
+import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
+import cl.votainteligente.inspector.client.resources.SearchCellTableResource;
+import cl.votainteligente.inspector.model.*;
 
 import com.gwtplatform.mvp.client.ViewImpl;
 
@@ -12,6 +13,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -30,13 +32,21 @@ public class BillView extends ViewImpl implements BillPresenter.MyView {
 	@UiField Label billOriginChamber;
 	@UiField Label billUrgency;
 	@UiField Label billStage;
-	@UiField CellTable<Parlamentarian> parlamentarianTable;
-	@UiField CellTable<Society> societyTable;
+	@UiField HTMLPanel parlamentarianPanel;
+	@UiField HTMLPanel societyPanel;
+	CellTable<Parlamentarian> parlamentarianTable;
+	CellTable<Society> societyTable;
 
 	BillPresenterIface presenter;
 
 	public BillView() {
 		widget = uiBinder.createAndBindUi(this);
+		SearchCellTableResource searchResource = GWT.create(SearchCellTableResource.class);
+		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
+		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
+		parlamentarianPanel.add(parlamentarianTable);
+		societyTable = new CellTable<Society>(15, displayResource);
+		societyPanel.add(societyTable);
 	}
 
 	@Override
