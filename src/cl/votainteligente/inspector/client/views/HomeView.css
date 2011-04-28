@@ -1,4 +1,5 @@
-@external .selectionDisplay .searchBox .parlamentarianPanel .categoryPanel .selectionWrapper .searchTable .selectedParlamentarian .selectedCategory .plus;
+@external .selectionDisplay .searchBox .parlamentarianPanel .categoryPanel .selectionWrapper .selectedParlamentarian .selectedCategory .plus .searchTableScroll;
+/* TODO: remove external */
 .parlamentarianPanel,.categoryPanel {
 	display: block;
 	overflow: hidden;
@@ -40,57 +41,6 @@
 	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
 	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
 	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
-}
-
-.searchTable {
-	left: 12px;
-	width: 370px;
-	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
-	-moz-box-shadow: 0px 0px 4px #000000 inset; /* FF3.5+ */
-	-webkit-box-shadow: 0px 0px 4px #000000 inset; /* Saf3.0+, Chrome */
-	box-shadow: 0px 0px 4px #000000 inset;
-	/* Opera 10.5, IE9, Chrome 10+ */
-	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
-	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
-	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
-	color: white;
-	font-weight: normal;
-}
-
-.searchTable th {
-	background: url("images/bg_black45.png") repeat scroll 0 0 transparent;
-	border-bottom: 3px solid #272727;
-	color: #848484;
-	font-size: 11px;
-	font-weight: normal;
-	padding-top: 7px;
-	text-shadow: none;
-}
-
-.searchTable tr {
-	background: transparent;
-}
-
-.searchTable tr:last-child {
-	border-bottom: none;
-}
-
-.searchTable tr:last-child td {
-	border-bottom: none;
-}
-
-.searchTable td {
-	height: 48px;
-	border-top: 1px solid #4d4d4d;
-	border-bottom: 1px solid #272727;
-	border-right: none;
-	border-left: none;
-	font-size: 11px;
-}
-
-.searchTable td:last-child {
-	padding-right: 0px;
-	width: 40px;
 }
 
 .selectionWrapper {
