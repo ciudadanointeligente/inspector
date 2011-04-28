@@ -17,6 +17,7 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 	private Set<Bill> votedBills;
 	private String interestDeclarationFile;
 	private String patrimonyDeclarationFile;
+	private String image;
 
 	public static final ProvidesKey<Parlamentarian> KEY_PROVIDER = new ProvidesKey<Parlamentarian>() {
 		public Object getKey(Parlamentarian parlamentarian) {
@@ -115,5 +116,13 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 	@Override
 	public int compareTo(Parlamentarian obj) {
 		return (obj == null || obj.getLastName() == null) ? -1 : -obj.getLastName().compareTo(this.getLastName());
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

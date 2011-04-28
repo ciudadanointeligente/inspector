@@ -31,5 +31,6 @@
 		</set>
 		<property name="interestDeclarationFile" />
 		<property name="patrimonyDeclarationFile" />
+		<property name="image" />
 	</joined-subclass>
 </hibernate-mapping>
