@@ -94,6 +94,15 @@ public interface ApplicationMessages extends Messages {
 	@Key("bill.originChamber")
 	public String getBillOriginChamber();
 
+	@Key("bill.conflictedBills")
+	public String getBillConflictedBill();
+
+	@Key("bill.isAuthoredBill")
+	public String getBillIsAuthoredBill();
+
+	@Key("bill.votedInChamber")
+	public String getBillVotedInChamber();
+
 	@Key("parlamentarian.societies")
 	public String getParlamentarianSocieties();
 

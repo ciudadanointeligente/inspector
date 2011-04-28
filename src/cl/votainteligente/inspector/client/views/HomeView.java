@@ -11,6 +11,7 @@ import cl.votainteligente.inspector.model.Parlamentarian;
 import com.gwtplatform.mvp.client.ViewImpl;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -30,7 +31,9 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	@UiField HTMLPanel categoryPanel;
 	@UiField HTMLPanel categoryTableContainer;
 	@UiField TextBox categorySearch;
+	@UiField Image parlamentarianImage;
 	@UiField Label parlamentarianDisplay;
+	@UiField Label parlamentarianProfileLink;
 	@UiField Label categoryDisplay;
 	CellTable<Parlamentarian> parlamentarianTable;
 	CellTable<Category> categoryTable;
@@ -92,6 +95,11 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	}
 
 	@Override
+	public void setParlamentarianImage(String parlamentarianImage) {
+		this.parlamentarianImage.setUrl(parlamentarianImage);
+	}
+
+	@Override
 	public void setCategoryDisplay(String categoryName) {
 		categoryDisplay.setText(categoryName);
 	}
@@ -104,6 +112,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 				(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
 				event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
 				presenter.searchParlamentarian(parlamentarianSearch.getText());
+				categorySearch.setText("");
 			}
 		}
 	}
@@ -116,7 +125,15 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 				(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
 				event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
 				presenter.searchCategory(categorySearch.getText());
+				parlamentarianSearch.setText("");
 			}
+		}
+	}
+
+	@UiHandler("parlamentarianProfileLink")
+	public void onClickParlamentarianProfileLink(ClickEvent event) {
+		if (presenter != null) {
+			presenter.showParlamentarianProfile();
 		}
 	}
 }

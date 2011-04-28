@@ -16,6 +16,7 @@ import com.gwtplatform.mvp.client.proxy.*;
 
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.Cell;
+import com.google.gwt.cell.client.ImageCell;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -41,6 +42,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		CellTable<Bill> getBillTable();
 		void setParlamentarianDisplay(String parlamentarianName);
 		void setCategoryDisplay(String categoryName);
+		void setParlamentarianImage(String parlamentarianImage);
 	}
 
 	@ProxyStandard
@@ -50,16 +52,12 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Inject
 	private ApplicationMessages applicationMessages;
-
 	@Inject
 	private PlaceManager placeManager;
-
 	@Inject
 	private ParlamentarianServiceAsync parlamentarianService;
-
 	@Inject
 	private CategoryServiceAsync categoryService;
-
 	@Inject
 	private BillServiceAsync billService;
 
@@ -91,6 +89,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		initBillTable();
 		initDataLoad();
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
+		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
 	}
 
@@ -137,6 +136,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	public void searchParlamentarian(String keyWord) {
+		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
+		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
+		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
 		parlamentarianService.searchParlamentarian(keyWord, new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
@@ -176,6 +178,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	public void searchCategory(String keyWord) {
+		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
+		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
+		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
 		categoryService.searchCategory(keyWord, new AsyncCallback<List<Category>>() {
 
 			@Override
@@ -271,6 +276,17 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			getView().getParlamentarianTable().removeColumn(0);
 		}
 
+		// Creates image column
+		Column<Parlamentarian, String> imageColumn = new Column<Parlamentarian, String>(new ImageCell()){
+			@Override
+			public String getValue(Parlamentarian parlamentarian) {
+				return "images/parlamentarian/small/" + parlamentarian.getImage();
+			}
+		};
+
+		// Adds name column to table
+		getView().getParlamentarianTable().addColumn(imageColumn, "");
+
 		// Creates name column
 		TextColumn<Parlamentarian> nameColumn = new TextColumn<Parlamentarian>() {
 			@Override
@@ -350,6 +366,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			public void onSelectionChange(SelectionChangeEvent event) {
 				selectedParlamentarian = selectionModel.getSelectedObject();
 				getView().setParlamentarianDisplay(selectedParlamentarian.getFirstName() + " " + selectedParlamentarian.getLastName());
+				if (selectedParlamentarian.getImage() == null) {
+					getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
+				} else {
+					getView().setParlamentarianImage("images/parlamentarian/large/" + selectedParlamentarian.getImage());
+				}
 				setBillTable();
 			}
 		});
@@ -467,7 +488,39 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		});
 
 		// Adds title column to table
-		getView().getBillTable().addColumn(titleColumn, applicationMessages.getGeneralTitle());
+		getView().getBillTable().addColumn(titleColumn, "Proyectos de ley en conflicto");
+
+		// Creates isAuthor column
+		Column<Bill, String> isAuthorColumn = new Column<Bill, String>(new ImageCell()){
+			@Override
+			public String getValue(Bill bill) {
+				if (selectedParlamentarian != null) {
+					if (selectedParlamentarian.getAuthoredBills().contains(bill)) {
+						return "images/footprints.png";
+					}
+				}
+				return "images/footprints_hidden.png";
+			}
+		};
+
+		// Adds isAuthor column to table
+		getView().getBillTable().addColumn(isAuthorColumn, "Es Autor");
+
+		// Creates isVoted column
+		Column<Bill, String> isVotedColumn = new Column<Bill, String>(new ImageCell()){
+			@Override
+			public String getValue(Bill bill) {
+				if (selectedParlamentarian != null) {
+					if (selectedParlamentarian.getVotedBills().contains(bill)) {
+						return "images/footprints.png";
+					}
+				}
+				return "images/footprints_hidden.png";
+			}
+		};
+
+		// Adds isVoted column to table
+		getView().getBillTable().addColumn(isVotedColumn, "Vota en Sala");
 
 		// Creates action suscription column
 		Column<Bill, Bill> suscriptionColumn = new Column<Bill, Bill>(new ActionCell<Bill>("", new ActionCell.Delegate<Bill>() {
@@ -497,12 +550,58 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 		// Adds action suscription column to table
 		getView().getBillTable().addColumn(suscriptionColumn, applicationMessages.getGeneralSusbcribe());
+
+		// Creates action profile column
+		Column<Bill, Bill> profileColumn = new Column<Bill, Bill>(new ActionCell<Bill>("", new ActionCell.Delegate<Bill>() {
+
+			@Override
+			public void execute(Bill bill) {
+				// TODO: add Bill go to profile action
+			}
+		}) {
+			@Override
+			public void render(Cell.Context context, Bill value, SafeHtmlBuilder sb) {
+				sb.append(new SafeHtml() {
+
+					@Override
+					public String asString() {
+						return "<img src=\"images/explore.png\"/>";
+					}
+				});
+			}
+		}) {
+
+			@Override
+			public Bill getValue(Bill bill) {
+				return bill;
+			}
+		};
+
+		// Adds action profile column to table
+		getView().getBillTable().addColumn(profileColumn, applicationMessages.getGeneralProfile());
+
+		// Sets selection model for each row
+		final SingleSelectionModel<Bill> selectionModel = new SingleSelectionModel<Bill>(Bill.KEY_PROVIDER);
+		getView().getBillTable().setSelectionModel(selectionModel);
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			public void onSelectionChange(SelectionChangeEvent event) {
+				// Add go to Bill Profile Action on selected row
+			}
+		});
 	}
 
 	@Override
 	public void setBillTable() {
 		if (selectedParlamentarian != null && selectedCategory != null) {
 			searchBill(selectedParlamentarian, selectedCategory);
+		}
+	}
+
+	@Override
+	public void showParlamentarianProfile(){
+		if (selectedParlamentarian != null) {
+			PlaceRequest placeRequest = new PlaceRequest(ParlamentarianPresenter.PLACE);
+			placeManager.revealPlace(placeRequest.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString()));
 		}
 	}
 }

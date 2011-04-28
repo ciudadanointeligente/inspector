@@ -25,4 +25,5 @@ public interface HomePresenterIface {
 	void initCategoryTable();
 	void initBillTable();
 	void setBillTable();
+	void showParlamentarianProfile();
 }
