@@ -1,5 +1,3 @@
-@external .selectionDisplay .searchBox .parlamentarianPanel .categoryPanel .selectionWrapper .selectedParlamentarian .selectedCategory .plus .searchTableScroll;
-/* TODO: remove external */
 .parlamentarianPanel,.categoryPanel {
 	display: block;
 	overflow: hidden;
@@ -56,6 +54,8 @@
 	margin: 15px 0 0;
 	float: left;
 	width: 868px;
+	position: relative;
+	z-index: 2000;
 }
 
 .selectionDisplay {
@@ -113,6 +113,12 @@ td.selectedCategory {
 	letter-spacing: 0.2pt;
 	text-decoration: underline;
 }
-.billPanel{
+
+.billPanel {
 	float: left;
+	left: 12px;
+	margin-top: -3px;
+	position: relative;
+	width: 845px;
 }
+

@@ -1,5 +1,3 @@
-@external .cellTableWidget .cellTableHeader .cellTableCell .cellTableSortableHeader .cellTableEvenRow .cellTableEvenRowCell .cellTableOddRow .cellTableOddRowCell .cellTableSelectedRow .cellTableSelectedRowCell .cellTableKeyboardSelectedCell;
-	/* TODO: remove @external*/
 @def selectionBorderWidth 2px;
 .cellTableWidget {
 	left: 12px;
