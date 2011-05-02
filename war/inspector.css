@@ -183,7 +183,18 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .suscribeButtonCategory:hover {
-	background-position: 0 -50px;	
+	background-position: 0 -50px;
 }
 
+.suscribeButtonBill{
+	background: url(images/suscribe_button_small.png) no-repeat scroll 0 center transparent;
+	height: 18px;
+	display: block;
+	margin: auto;
+	cursor: pointer;
+	width: 27px;
+}
 
+.suscribeButtonBill:hover {
+	background-position: 0 0;
+}

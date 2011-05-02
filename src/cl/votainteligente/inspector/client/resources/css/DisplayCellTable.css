@@ -13,6 +13,12 @@
 }
 
 
+
+.billPanel .cellTableLastColumn {
+	width: 30px;
+	border-left: 1px dotted #BCBCBC;
+}
+
 .cellTableLastColumn {
 
 }
@@ -111,7 +117,6 @@
 }
 
 .cellTableKeyboardSelectedRowCell {
-	border: selectionBorderWidth solid #ffc;
 }
 
 .cellTableSelectedRow {
@@ -122,14 +127,12 @@
 }
 
 .cellTableSelectedRowCell {
-	border: selectionBorderWidth solid #628cd5;
 }
 
 /**
  * The keyboard selected cell is visible over selection.
  */
 .cellTableKeyboardSelectedCell {
-	border: selectionBorderWidth solid #d7dde8;
 }
 
 .cellTableLoading {
