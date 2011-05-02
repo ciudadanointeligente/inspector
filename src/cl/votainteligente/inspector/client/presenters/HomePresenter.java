@@ -488,7 +488,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		});
 
 		// Adds title column to table
-		getView().getBillTable().addColumn(titleColumn, "Proyectos de ley en conflicto");
+		getView().getBillTable().addColumn(titleColumn, applicationMessages.getBillConflictedBill());
 
 		// Creates isAuthor column
 		Column<Bill, String> isAuthorColumn = new Column<Bill, String>(new ImageCell()){
@@ -504,7 +504,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		};
 
 		// Adds isAuthor column to table
-		getView().getBillTable().addColumn(isAuthorColumn, "Es Autor");
+		getView().getBillTable().addColumn(isAuthorColumn, applicationMessages.getBillIsAuthoredBill());
 
 		// Creates isVoted column
 		Column<Bill, String> isVotedColumn = new Column<Bill, String>(new ImageCell()){
@@ -520,7 +520,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		};
 
 		// Adds isVoted column to table
-		getView().getBillTable().addColumn(isVotedColumn, "Vota en Sala");
+		getView().getBillTable().addColumn(isVotedColumn, applicationMessages.getBillVotedInChamber());
 
 		// Creates action suscription column
 		Column<Bill, Bill> suscriptionColumn = new Column<Bill, Bill>(new ActionCell<Bill>("", new ActionCell.Delegate<Bill>() {
