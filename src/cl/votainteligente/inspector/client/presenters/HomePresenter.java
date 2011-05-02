@@ -551,35 +551,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		// Adds action suscription column to table
 		getView().getBillTable().addColumn(suscriptionColumn, applicationMessages.getGeneralSusbcribe());
 
-		// Creates action profile column
-		Column<Bill, Bill> profileColumn = new Column<Bill, Bill>(new ActionCell<Bill>("", new ActionCell.Delegate<Bill>() {
-
-			@Override
-			public void execute(Bill bill) {
-				// TODO: add Bill go to profile action
-			}
-		}) {
-			@Override
-			public void render(Cell.Context context, Bill value, SafeHtmlBuilder sb) {
-				sb.append(new SafeHtml() {
-
-					@Override
-					public String asString() {
-						return "<img src=\"images/explore.png\"/>";
-					}
-				});
-			}
-		}) {
-
-			@Override
-			public Bill getValue(Bill bill) {
-				return bill;
-			}
-		};
-
-		// Adds action profile column to table
-		getView().getBillTable().addColumn(profileColumn, applicationMessages.getGeneralProfile());
-
 		// Sets selection model for each row
 		final SingleSelectionModel<Bill> selectionModel = new SingleSelectionModel<Bill>(Bill.KEY_PROVIDER);
 		getView().getBillTable().setSelectionModel(selectionModel);
