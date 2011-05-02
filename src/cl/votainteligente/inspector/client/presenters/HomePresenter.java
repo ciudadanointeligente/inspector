@@ -556,7 +556,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().getBillTable().setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			public void onSelectionChange(SelectionChangeEvent event) {
-				// Add go to Bill Profile Action on selected row
+				// TODO: Add go to Bill Profile Action on selected row
 			}
 		});
 	}
