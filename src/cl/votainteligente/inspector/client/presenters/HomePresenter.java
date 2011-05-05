@@ -139,22 +139,27 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
-		parlamentarianService.searchParlamentarian(keyWord, new AsyncCallback<List<Parlamentarian>>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorParlamentarianSearch());
-			}
+		if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
+			initDataLoad();
+		} else {
+			parlamentarianService.searchParlamentarian(keyWord, new AsyncCallback<List<Parlamentarian>>() {
 
-			@Override
-			public void onSuccess(List<Parlamentarian> result) {
-				if (result != null) {
-					ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
-					setParlamentarianData(data);
-					searchCategory(result);
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert(applicationMessages.getErrorParlamentarianSearch());
 				}
-			}
-		});
+
+				@Override
+				public void onSuccess(List<Parlamentarian> result) {
+					if (result != null) {
+						ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
+						setParlamentarianData(data);
+						searchCategory(result);
+					}
+				}
+			});
+		}
 	}
 
 	@Override
@@ -181,22 +186,27 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
-		categoryService.searchCategory(keyWord, new AsyncCallback<List<Category>>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorCategorySearch());
-			}
+		if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
+			initDataLoad();
+		} else {
+			categoryService.searchCategory(keyWord, new AsyncCallback<List<Category>>() {
 
-			@Override
-			public void onSuccess(List<Category> result) {
-				if (result != null) {
-					ListDataProvider<Category> data = new ListDataProvider<Category>(result);
-					setCategoryData(data);
-					searchParlamentarian(result);
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert(applicationMessages.getErrorCategorySearch());
 				}
-			}
-		});
+
+				@Override
+				public void onSuccess(List<Category> result) {
+					if (result != null) {
+						ListDataProvider<Category> data = new ListDataProvider<Category>(result);
+						setCategoryData(data);
+						searchParlamentarian(result);
+					}
+				}
+			});
+		}
 	}
 
 	@Override
