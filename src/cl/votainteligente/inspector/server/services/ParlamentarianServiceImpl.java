@@ -150,19 +150,23 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 		try {
 			hibernate.beginTransaction();
-			Criteria billCriteria = hibernate.createCriteria(Bill.class);
-			billCriteria.add(Restrictions.in("categories", categories));
-			List<Bill> bills = billCriteria.list();
-
 			Criteria parlamentarianCriteria = hibernate.createCriteria(Parlamentarian.class);
 			parlamentarianCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			parlamentarianCriteria.setFetchMode("party", FetchMode.JOIN);
 			parlamentarianCriteria.setFetchMode("authoredBills", FetchMode.JOIN);
 			parlamentarianCriteria.setFetchMode("votedBills", FetchMode.JOIN);
-			Conjunction criteriaConjunction = Restrictions.conjunction();
-			criteriaConjunction.add(Restrictions.in("authoredBills", bills));
-			criteriaConjunction.add(Restrictions.in("votedBills", bills));
-			parlamentarianCriteria.add(criteriaConjunction);
+
+			parlamentarianCriteria.createAlias("authoredBills", "ab");
+			parlamentarianCriteria.createAlias("votedBills", "vb");
+
+			Disjunction authoredBillsFilter = Restrictions.disjunction();
+			Disjunction votedBillsFilter = Restrictions.disjunction();
+
+			for (Category category : categories) {
+				authoredBillsFilter.add(Restrictions.eq("ab.id", category.getId()));
+				votedBillsFilter.add(Restrictions.eq("vb.id", category.getId()));
+			}
+			parlamentarianCriteria.add(Restrictions.or(authoredBillsFilter, votedBillsFilter));
 			List<Parlamentarian> parlamentarians = parlamentarianCriteria.list();
 			hibernate.getTransaction().commit();
 			return parlamentarians;
