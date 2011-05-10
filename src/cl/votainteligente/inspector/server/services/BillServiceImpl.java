@@ -42,7 +42,15 @@ public class BillServiceImpl implements BillService {
 
 		try {
 			hibernate.beginTransaction();
-			Bill bill = (Bill) hibernate.get(Bill.class, billId);
+			Criteria criteria = hibernate.createCriteria(Bill.class);
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			criteria.setFetchMode("initiativeType", FetchMode.JOIN);
+			criteria.setFetchMode("billType", FetchMode.JOIN);
+			criteria.setFetchMode("originChamber", FetchMode.JOIN);
+			criteria.setFetchMode("urgency", FetchMode.JOIN);
+			criteria.setFetchMode("stage", FetchMode.JOIN);
+			criteria.add(Restrictions.eq("id", billId));
+			Bill bill = (Bill) criteria.uniqueResult();
 			hibernate.getTransaction().commit();
 			return bill;
 		} catch (Exception ex) {
