@@ -558,7 +558,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			}
 		};
 
-		// Adds action suscription column to table
+		// Adds action subscription column to table
 		getView().getBillTable().addColumn(suscriptionColumn, applicationMessages.getGeneralSusbcribe());
 
 		// Sets selection model for each row
@@ -566,7 +566,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().getBillTable().setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			public void onSelectionChange(SelectionChangeEvent event) {
-				// TODO: Add go to Bill Profile Action on selected row
+				Bill bill = selectionModel.getSelectedObject();
+				PlaceRequest placeRequest = new PlaceRequest(BillPresenter.PLACE);
+				placeRequest = placeRequest.with(BillPresenter.PARAM_BILL_ID, bill.getId().toString());
+				placeRequest = placeRequest.with(BillPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString());
+				placeManager.revealPlace(placeRequest);
 			}
 		});
 	}
