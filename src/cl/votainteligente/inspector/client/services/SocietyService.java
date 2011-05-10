@@ -1,5 +1,6 @@
 package cl.votainteligente.inspector.client.services;
 
+import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Society;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -13,4 +14,5 @@ public interface SocietyService extends RemoteService {
 	Society getSociety(Long societyId) throws Exception;
 	Society saveSociety(Society society) throws Exception;
 	void deleteSociety(Society society) throws Exception;
+	List<Society> getSocietiesByBill(Bill bill) throws Exception;
 }
