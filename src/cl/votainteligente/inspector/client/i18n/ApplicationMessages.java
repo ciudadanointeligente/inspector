@@ -79,6 +79,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.society")
 	public String getErrorSociety();
 
+	@Key("error.society.list")
+	public String getErrorSocietyList();
+
 	@Key("error.bill")
 	public String getErrorBill();
 
