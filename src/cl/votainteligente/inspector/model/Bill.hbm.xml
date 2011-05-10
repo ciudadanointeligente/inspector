@@ -10,6 +10,9 @@
 		<property name="title">
 			<column name="title" sql-type="text" />
 		</property>
+		<property name="description">
+			<column name="description" sql-type="text" />
+		</property>
 		<property name="entryDate" />
 		<many-to-one name="initiativeType" column="initiativeTypeId" />
 		<many-to-one name="billType" column="billTypeId" />

@@ -11,6 +11,7 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 	private Long id;
 	private String bulletinNumber;
 	private String title;
+	private String description;
 	private Date entryDate;
 	private InitiativeType initiativeType;
 	private BillType billType;
@@ -47,6 +48,14 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getEntryDate() {
