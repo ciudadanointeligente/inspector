@@ -7,7 +7,7 @@
 		<g:HTMLPanel ui:field="billPanel">
 			<g:Label addStyleNames="billTitle" ui:field="billTitle"/>
 			<div class="{style.billdescription}">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+				<g:Label ui:field="billDescription"></g:Label>
 			</div>
 			<div class="{style.billData}">
 				N° Boletín: <g:Label ui:field="billBulletinNumber"/>
@@ -20,11 +20,16 @@
 			</div>
 		</g:HTMLPanel>
 		<div class="{style.conflictWrapper}">
-			<g:HTMLPanel addStyleNames="{style.societyPanel}" ui:field="societyPanel">
+			<g:HTMLPanel>
+				<g:Image ui:field="parlamentarianImage"/>
+				<g:Label ui:field="parlamentarianDisplay"></g:Label>
+				<g:Label ui:field="parlamentarianProfileLink">ver su perfil de intereses</g:Label>
+			</g:HTMLPanel>
+			<g:HTMLPanel ui:field="societyPanel">
 				Sociedades en conflicto:
 				<g:HTMLPanel ui:field="societyTableContainer"></g:HTMLPanel>
 			</g:HTMLPanel>
-			<g:HTMLPanel addStyleNames="{style.parlamentarianPanel}" ui:field="parlamentarianPanel">
+			<g:HTMLPanel ui:field="parlamentarianPanel">
 				Parlamentarios en conflicto:
 				<g:HTMLPanel ui:field="parlamentarianTableContainer"></g:HTMLPanel>
 			</g:HTMLPanel>

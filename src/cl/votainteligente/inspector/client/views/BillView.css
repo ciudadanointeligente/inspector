@@ -38,7 +38,32 @@ h2 {
 }
 .billdescription{
 	float: left;
-    padding: 15px 29px 15px 0;
-    width: 630px;
-	
+	padding: 15px 29px 15px 0;
+	width: 630px;
+
+}
+
+.selectionDisplay {
+	border: 10px solid white;
+	-moz-border-radius: 24px; /* FF1+ */
+	-webkit-border-radius: 24x; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 24px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	-moz-box-shadow: 0px 0px 16px #000000 inset; /* FF3.5+ */
+	-webkit-box-shadow: 0px 0px 16px #000000 inset; /* Saf3.0+, Chrome */
+	box-shadow: 0px 0px 16px #000000 inset;
+	/* Opera 10.5, IE9, Chrome 10+ */
+	font-size: 15px;
+	color: white;
+	overflow: hidden;
+}
+
+.selectionDisplay .linkProfile {
+	clear: both;
+	font-size: 84%;
+	letter-spacing: 0.2pt;
+	text-decoration: underline;
 }
