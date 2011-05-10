@@ -185,15 +185,17 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 		try {
 			hibernate.beginTransaction();
+
 			Criteria criteria = hibernate.createCriteria(Parlamentarian.class);
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			criteria.setFetchMode("party", FetchMode.JOIN);
 			criteria.setFetchMode("authoredBills", FetchMode.JOIN);
 			criteria.setFetchMode("votedBills", FetchMode.JOIN);
-			Conjunction criteriaConjunction = Restrictions.conjunction();
-			criteriaConjunction.add(Restrictions.eq("authoredBills", bill));
-			criteriaConjunction.add(Restrictions.eq("votedBills", bill));
-			criteria.add(criteriaConjunction);
+
+			// Adds subcriterias used to search in collections
+			criteria.createCriteria("authoredBills").add(Restrictions.eq("id", bill.getId()));
+			criteria.createCriteria("votedBills").add(Restrictions.eq("id", bill.getId()));
+
 			List<Parlamentarian> parlamentarians = criteria.list();
 			hibernate.getTransaction().commit();
 			return parlamentarians;
