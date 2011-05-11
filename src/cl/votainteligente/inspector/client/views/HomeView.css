@@ -92,6 +92,10 @@
 	padding: 0px 5px 0px 0px;
 }
 
+.selectionTable td.parlamentarianImage img{
+	margin: -1px 0 -3px -1px;
+}
+
 .selectionTable td.selectedParlamentarian {
 	width: 280px;
 	padding-right: 20px;
