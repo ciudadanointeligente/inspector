@@ -2,15 +2,12 @@
 	left: 12px;
 	width: 370px;
 	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
+	color: white;
+	font-weight: normal;
 	-moz-box-shadow: 0px 0px 4px #000000 inset; /* FF3.5+ */
 	-webkit-box-shadow: 0px 0px 4px #000000 inset; /* Saf3.0+, Chrome */
 	box-shadow: 0px 0px 4px #000000 inset;
 	/* Opera 10.5, IE9, Chrome 10+ */
-	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
-	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
-	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
-	color: white;
-	font-weight: normal;
 }
 
 .cellTableFirstColumn {
@@ -38,7 +35,7 @@
 	font-size: 11px;
 	font-weight: normal;
 	text-shadow: none;
-	padding: 7px 10px 2§px;
+	padding: 7px 10px 2px;
 	text-align: left;
 }
 
@@ -105,7 +102,6 @@
 }
 
 .cellTableHoveredRow {
-	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
 	cursor: pointer;
 }
 
@@ -127,7 +123,8 @@
 	overflow: auto;
 }
 
-.cellTableSelectedRowCell {
+
+.cellTableSelectedRowCell, .cellTableWidget tr:last-child .cellTableSelectedRowCell {
 	border-top: 2px solid white;
 	border-bottom: 2px solid white;
 }

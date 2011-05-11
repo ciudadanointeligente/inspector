@@ -1,3 +1,6 @@
+@external .billPanel .selectionDisplay .searchBox .parlamentarianPanel .categoryPanel .selectionWrapper .selectedParlamentarian .selectedCategory .plus .searchTableScroll;
+				/* TODO: remove external */
+
 .parlamentarianPanel,.categoryPanel {
 	display: block;
 	overflow: hidden;
@@ -39,6 +42,19 @@
 	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
 	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
 	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+}
+
+.searchTableBg {
+	background: url("images/bg_darker.jpg") repeat scroll 0 0 transparent;
+	min-height: 281px;
+	width: 370px;
+	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
+	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-box-shadow: 0px 0px 4px #000000 inset; /* FF3.5+ */
+	-webkit-box-shadow: 0px 0px 4px #000000 inset; /* Saf3.0+, Chrome */
+	box-shadow: 0px 0px 4px #000000 inset;
+	/* Opera 10.5, IE9, Chrome 10+ */
 }
 
 .selectionWrapper {
@@ -93,7 +109,8 @@
 }
 
 .selectionTable td.parlamentarianImage img{
-	margin: -1px 0 -3px -1px;
+	margin: 0 0 -4px -1px;
+		width: 95%;
 }
 
 .selectionTable td.selectedParlamentarian {
