@@ -1,6 +1,5 @@
 @external .billPanel .selectionDisplay .searchBox .parlamentarianPanel .categoryPanel .selectionWrapper .selectedParlamentarian .selectedCategory .plus .searchTableScroll;
-				/* TODO: remove external */
-
+	/* TODO: remove external */
 .parlamentarianPanel,.categoryPanel {
 	display: block;
 	overflow: hidden;
@@ -10,14 +9,14 @@
 
 .categoryPanel {
 	position: relative;
-	left: 80px;
+	left: 33px;
 }
 
 .searchBox {
 	border: 5px solid white;
-	-moz-border-radius: 9px; /* FF1+ */
-	-webkit-border-radius: 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
-	border-radius: 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-border-radius: 13px; /* FF1+ */
+	-webkit-border-radius: 13px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 13px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
 	background-color: #D8D8D8;
 	-moz-background-clip: padding;
 	-webkit-background-clip: padding-box;
@@ -108,9 +107,9 @@
 	padding: 0px 5px 0px 0px;
 }
 
-.selectionTable td.parlamentarianImage img{
+.selectionTable td.parlamentarianImage img {
 	margin: 0 0 -4px -1px;
-		width: 95%;
+	width: 95%;
 }
 
 .selectionTable td.selectedParlamentarian {
@@ -144,3 +143,26 @@ td.selectedCategory {
 	margin-bottom: 30px;
 }
 
+.unlocked,.lockedCategory,.lockedParlamentarian {
+	display: block;
+	height: 32px;
+	width: 40px;
+	background-image: url(images/lock_sprite.png);
+	background-repeat: no-repeat;
+	position: relative;
+	top: 13px;
+	float: left;
+	left: 17px;
+}
+
+.lockedCategory {
+	background-position: left top;
+}
+
+.unlocked {
+	background-position: center top;
+}
+
+.lockedParlamentarian {
+	background-position: right top;
+}

@@ -5,11 +5,14 @@
 	<g:HTMLPanel>
 		<g:HTMLPanel ui:field="parlamentarianPanel" addStyleNames="{style.parlamentarianPanel}">
 			<g:Label ui:field="parlamentarianLabel"/>
-			<g:TextBox ui:field="parlamentarianSearch" addStyleNames="{style.searchBox}">title</g:TextBox>
+			<g:TextBox ui:field="parlamentarianSearch" addStyleNames="{style.searchBox}"/>
 			<div class="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="parlamentarianTableContainer" addStyleNames="{style.searchTableBg}"/>
 			</div>
 		</g:HTMLPanel>
+		<g:Label addStyleNames="{style.unlocked}">
+
+		</g:Label>
 		<g:HTMLPanel ui:field="categoryPanel" addStyleNames="{style.categoryPanel}">
 			<g:Label ui:field="categoryLabel"/>
 			<g:TextBox ui:field="categorySearch" addStyleNames="{style.searchBox}"/>
