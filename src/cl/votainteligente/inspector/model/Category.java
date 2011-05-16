@@ -45,4 +45,21 @@ public class Category extends LightEntity implements Comparable<Category> {
 	public int compareTo(Category obj) {
 		return (obj == null || obj.getName() == null) ? -1 : -obj.getName().compareTo(name);
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == null) {
+			return false;
+		}
+
+		if (!(other instanceof Category)) {
+			return false;
+		}
+
+		if (getId() == null) {
+			return false;
+		}
+
+		return getId().equals(((Category) other).getId());
+	}
 }
