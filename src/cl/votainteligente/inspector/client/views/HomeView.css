@@ -1,5 +1,3 @@
-@external .billPanel .selectionDisplay .searchBox .parlamentarianPanel .categoryPanel .selectionWrapper .selectedParlamentarian .selectedCategory .plus .searchTableScroll;
-	/* TODO: remove external */
 .parlamentarianPanel,.categoryPanel {
 	display: block;
 	overflow: hidden;

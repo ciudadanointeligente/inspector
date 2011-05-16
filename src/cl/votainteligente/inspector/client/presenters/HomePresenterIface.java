@@ -1,5 +1,6 @@
 package cl.votainteligente.inspector.client.presenters;
 
+import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
@@ -26,4 +27,7 @@ public interface HomePresenterIface {
 	void initBillTable();
 	void setBillTable();
 	void showParlamentarianProfile();
+	void resetSelection();
+	void resetSelectionType();
+	ApplicationMessages getApplicationMessages();
 }

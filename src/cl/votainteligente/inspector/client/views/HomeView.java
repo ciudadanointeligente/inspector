@@ -1,6 +1,7 @@
 package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.HomePresenter;
+import cl.votainteligente.inspector.client.presenters.HomePresenter.SelectionType;
 import cl.votainteligente.inspector.client.presenters.HomePresenterIface;
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
 import cl.votainteligente.inspector.client.resources.SearchCellTableResource;
@@ -28,6 +29,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	@UiField HTMLPanel parlamentarianPanel;
 	@UiField HTMLPanel parlamentarianTableContainer;
 	@UiField TextBox parlamentarianSearch;
+	@UiField Label selectionType;
 	@UiField HTMLPanel categoryPanel;
 	@UiField HTMLPanel categoryTableContainer;
 	@UiField TextBox categorySearch;
@@ -44,6 +46,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 
 	public HomeView() {
 		widget = uiBinder.createAndBindUi(this);
+		ResourceBundle.INSTANCE.HomeView().ensureInjected();
 		SearchCellTableResource searchResource = GWT.create(SearchCellTableResource.class);
 		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
 		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
@@ -65,13 +68,23 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	}
 
 	@Override
-	public void getParlamentarianSearch() {
-		parlamentarianSearch.getText();
+	public String getParlamentarianSearch() {
+		return parlamentarianSearch.getText();
 	}
 
 	@Override
-	public void getCategorySearch() {
-		categorySearch.getText();
+	public void setParlamentarianSearch(String parlamentarianSearch) {
+		this.parlamentarianSearch.setText(parlamentarianSearch);
+	}
+
+	@Override
+	public String getCategorySearch() {
+		return categorySearch.getText();
+	}
+
+	@Override
+	public void setCategorySearch(String categorySearch) {
+		this.categorySearch.setText(categorySearch);
 	}
 
 	@Override
@@ -104,6 +117,21 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 		categoryDisplay.setText(categoryName);
 	}
 
+	@Override
+	public void setSelectedType(SelectionType selectedType) {
+		switch (selectedType) {
+		case SELECTED_PARLAMENTARIAN:
+			selectionType.setStyleName(ResourceBundle.INSTANCE.HomeView().lockedParlamentarian());
+			break;
+		case SELECTED_CATEGORY:
+			selectionType.setStyleName(ResourceBundle.INSTANCE.HomeView().lockedCategory());
+			break;
+		default:
+			selectionType.setStyleName(ResourceBundle.INSTANCE.HomeView().unlocked());
+			break;
+		}
+	}
+
 	@UiHandler("parlamentarianSearch")
 	public void onParlamentarianSearchKeyUp(KeyUpEvent event) {
 		if (presenter != null) {
@@ -112,7 +140,16 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 				(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
 				event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
 				presenter.searchParlamentarian(parlamentarianSearch.getText());
-				categorySearch.setText("");
+				categorySearch.setText(presenter.getApplicationMessages().getCategorySearchMessage());
+			}
+		}
+	}
+
+	@UiHandler("parlamentarianSearch")
+	public void onParlamentarianSearchClick(ClickEvent event) {
+		if (presenter != null) {
+			if (parlamentarianSearch.getText().equals(presenter.getApplicationMessages().getParlamentarianSearchMessage())) {
+				parlamentarianSearch.setText("");
 			}
 		}
 	}
@@ -125,7 +162,16 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 				(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
 				event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
 				presenter.searchCategory(categorySearch.getText());
-				parlamentarianSearch.setText("");
+				parlamentarianSearch.setText(presenter.getApplicationMessages().getParlamentarianSearchMessage());
+			}
+		}
+	}
+
+	@UiHandler("categorySearch")
+	public void onCategorySearchClick(ClickEvent event) {
+		if (presenter != null) {
+			if (categorySearch.getText().equals(presenter.getApplicationMessages().getCategorySearchMessage())) {
+				categorySearch.setText("");
 			}
 		}
 	}
@@ -134,6 +180,13 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	public void onClickParlamentarianProfileLink(ClickEvent event) {
 		if (presenter != null) {
 			presenter.showParlamentarianProfile();
+		}
+	}
+
+	@UiHandler("selectionType")
+	public void onSelectionTypeClick(ClickEvent event) {
+		if (presenter != null) {
+			presenter.resetSelectionType();
 		}
 	}
 }

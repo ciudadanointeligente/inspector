@@ -10,9 +10,7 @@
 				<g:HTMLPanel ui:field="parlamentarianTableContainer" addStyleNames="{style.searchTableBg}"/>
 			</div>
 		</g:HTMLPanel>
-		<g:Label addStyleNames="{style.unlocked}">
-
-		</g:Label>
+		<g:Label ui:field="selectionType"/>
 		<g:HTMLPanel ui:field="categoryPanel" addStyleNames="{style.categoryPanel}">
 			<g:Label ui:field="categoryLabel"/>
 			<g:TextBox ui:field="categorySearch" addStyleNames="{style.searchBox}"/>
