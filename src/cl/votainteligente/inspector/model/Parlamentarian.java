@@ -125,4 +125,21 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 	public int compareTo(Parlamentarian obj) {
 		return (obj == null || obj.getLastName() == null) ? -1 : -obj.getLastName().compareTo(this.getLastName());
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == null) {
+			return false;
+		}
+
+		if (!(other instanceof Parlamentarian)) {
+			return false;
+		}
+
+		if (getId() == null) {
+			return false;
+		}
+
+		return getId().equals(((Parlamentarian) other).getId());
+	}
 }
