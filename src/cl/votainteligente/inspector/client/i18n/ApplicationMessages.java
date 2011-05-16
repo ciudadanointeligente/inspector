@@ -67,6 +67,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.parlamentarian.categorySearch")
 	public String getErrorParlamentarianCategorySearch();
 
+	@Key("error.category")
+	public String getErrorCategory();
+
 	@Key("error.category.list")
 	public String getErrorCategoryList();
 
@@ -106,6 +109,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("bill.votedInChamber")
 	public String getBillVotedInChamber();
 
+	@Key("category.searchMessage")
+	public String getCategorySearchMessage();
+
 	@Key("parlamentarian.societies")
 	public String getParlamentarianSocieties();
 
@@ -120,6 +126,9 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("parlamentarian.patrimonyDeclarationFile")
 	public String getParlamentarianPatrimonyDeclarationFile();
+
+	@Key("parlamentarian.searchMessage")
+	public String getParlamentarianSearchMessage();
 
 	@Key("person.civilStatusSingle")
 	public String getCivilStatusSingle();
