@@ -109,6 +109,7 @@ public class CategoryServiceImpl implements CategoryService {
 				}
 				criteria.add(keywordConjunction);
 			}
+			criteria.addOrder(Order.asc("name"));
 
 			List<Category> categories = (List<Category>) criteria.list();
 			hibernate.getTransaction().commit();
@@ -166,8 +167,17 @@ public class CategoryServiceImpl implements CategoryService {
 				}
 			}
 
+			List<Category> sortedList = new ArrayList<Category>(categories);
+			Collections.sort(sortedList, new Comparator<Category>() {
+
+				@Override
+				public int compare(Category o1, Category o2) {
+					return o1.compareTo(o2);
+				}
+			});
+
 			hibernate.getTransaction().commit();
-			return new ArrayList<Category>(categories);
+			return sortedList;
 		} catch (Exception ex) {
 			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
 				hibernate.getTransaction().rollback();
