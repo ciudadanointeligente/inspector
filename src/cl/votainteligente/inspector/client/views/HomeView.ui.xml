@@ -6,6 +6,7 @@
 		<g:HTMLPanel ui:field="parlamentarianPanel" addStyleNames="{style.parlamentarianPanel}">
 			<g:Label ui:field="parlamentarianLabel"/>
 			<g:TextBox ui:field="parlamentarianSearch" addStyleNames="{style.searchBox}"/>
+			<g:Label ui:field="parlamentarianSearchClear">X</g:Label>
 			<div class="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="parlamentarianTableContainer" addStyleNames="{style.searchTableBg}"/>
 			</div>
@@ -14,6 +15,7 @@
 		<g:HTMLPanel ui:field="categoryPanel" addStyleNames="{style.categoryPanel}">
 			<g:Label ui:field="categoryLabel"/>
 			<g:TextBox ui:field="categorySearch" addStyleNames="{style.searchBox}"/>
+			<g:Label ui:field="categorySearchClear">X</g:Label>
 			<div class="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="categoryTableContainer" addStyleNames="{style.searchTableBg}">
 				</g:HTMLPanel>
