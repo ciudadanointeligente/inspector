@@ -29,10 +29,12 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	@UiField HTMLPanel parlamentarianPanel;
 	@UiField HTMLPanel parlamentarianTableContainer;
 	@UiField TextBox parlamentarianSearch;
+	@UiField Label parlamentarianSearchClear;
 	@UiField Label selectionType;
 	@UiField HTMLPanel categoryPanel;
 	@UiField HTMLPanel categoryTableContainer;
 	@UiField TextBox categorySearch;
+	@UiField Label categorySearchClear;
 	@UiField Image parlamentarianImage;
 	@UiField Label parlamentarianDisplay;
 	@UiField Label parlamentarianProfileLink;
@@ -154,6 +156,13 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 		}
 	}
 
+	@UiHandler("parlamentarianSearchClear")
+	public void onParlamentarianSearchClearClick(ClickEvent event) {
+		if (presenter != null) {
+				parlamentarianSearch.setText("");
+		}
+	}
+
 	@UiHandler("categorySearch")
 	public void onCategorySearchKeyUp(KeyUpEvent event) {
 		if (presenter != null) {
@@ -173,6 +182,13 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 			if (categorySearch.getText().equals(presenter.getApplicationMessages().getCategorySearchMessage())) {
 				categorySearch.setText("");
 			}
+		}
+	}
+
+	@UiHandler("categorySearchClear")
+	public void onCategorySearchClearClick(ClickEvent event) {
+		if (presenter != null) {
+				categorySearch.setText("");
 		}
 	}
 
