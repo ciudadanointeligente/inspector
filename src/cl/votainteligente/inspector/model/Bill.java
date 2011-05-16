@@ -135,4 +135,9 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 
 		return getId().equals(((Bill) other).getId());
 	}
+
+	@Override
+	public int hashCode() {
+			return this.id.hashCode();
+	}
 }
