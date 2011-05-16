@@ -52,6 +52,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.urgency")
 	public String getGeneralUrgency();
 
+	@Key("general.by")
+	public String getGeneralBy();
+
 	@Key("error.parlamentarian")
 	public String getErrorParlamentarian();
 
@@ -150,4 +153,25 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("society.unreported")
 	public String getSocietyUnreported();
+
+	@Key("society.areaOfInterest")
+	public String getSocietyAreaOfInterest();
+
+	@Key("society.legalName")
+	public String getSocietyLegalName();
+
+	@Key("society.reportedThis")
+	public String getSocietyReportedThis();
+
+	@Key("society.isInConflict")
+	public String getSocietyIsInConflict();
+
+	@Key("society.viewMore")
+	public String getSocietyViewMore();
+
+	@Key("society.consistencyIndex")
+	public String getSocietyConsistencyIndex();
+
+	@Key("society.reportedVsUnreported")
+	public String getSocietyReportedVsUnreported();
 }
