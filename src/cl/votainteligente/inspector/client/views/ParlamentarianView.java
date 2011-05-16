@@ -3,14 +3,13 @@ package cl.votainteligente.inspector.client.views;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenterIface;
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
-import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.Society;
-
-import com.gwtplatform.mvp.client.ViewImpl;
 
 import org.adapters.highcharts.codegen.sections.options.OptionPath;
 import org.adapters.highcharts.codegen.types.SeriesType;
 import org.adapters.highcharts.gwt.widgets.HighChart;
+
+import com.gwtplatform.mvp.client.ViewImpl;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -140,8 +139,8 @@ public class ParlamentarianView extends ViewImpl implements ParlamentarianPresen
 		try {
 			HighChart declarationChart = new HighChart();
 			declarationChart.setAutoResize(true);
-			declarationChart.setOption(new OptionPath("/title/text"), "Indice de consistencia");
-			declarationChart.setOption(new OptionPath("/subtitle/text"), "Soc. Declaradas v/s No declaradas");
+			declarationChart.setOption(new OptionPath("/title/text"), presenter.getApplicationMessages().getSocietyConsistencyIndex());
+			declarationChart.setOption(new OptionPath("/subtitle/text"), presenter.getApplicationMessages().getSocietyReportedVsUnreported());
 			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {25, 100, 30, 85});
 			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			declarationChart.setOption(new OptionPath("/credits/enabled"), false);

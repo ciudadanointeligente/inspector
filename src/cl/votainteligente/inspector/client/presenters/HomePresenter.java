@@ -1,7 +1,6 @@
 package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
-import cl.votainteligente.inspector.client.presenters.HomePresenter.SelectionType;
 import cl.votainteligente.inspector.client.services.BillServiceAsync;
 import cl.votainteligente.inspector.client.services.CategoryServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;

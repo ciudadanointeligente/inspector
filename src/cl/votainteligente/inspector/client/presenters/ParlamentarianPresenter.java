@@ -72,11 +72,11 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	@Override
 	protected void onBind() {
 		getView().setPresenter(this);
-		initSocietyTableColumns();
 	}
 
 	@Override
 	protected void onReset() {
+		initSocietyTableColumns();
 		getView().clearParlamentarianData();
 
 		if (parlamentarianId != null) {
@@ -111,6 +111,11 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	}
 
 	@Override
+	public ApplicationMessages getApplicationMessages() {
+		return applicationMessages;
+	}
+
+	@Override
 	public void getParlamentarian(Long parlamentarianId) {
 		parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 			@Override
@@ -126,7 +131,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 				if (parlamentarian.getParlamentarianType() != null) {
 					if (parlamentarian.getDistrict() != null) {
-						getView().setParlamentarianDescription(parlamentarian.getParlamentarianType().toString() + " por " + parlamentarian.getDistrict().toString());
+						getView().setParlamentarianDescription(parlamentarian.getParlamentarianType().toString() + " " + applicationMessages.getGeneralBy() + " " + parlamentarian.getDistrict().toString());
 					} else {
 						getView().setParlamentarianDescription(parlamentarian.getParlamentarianType().toString());
 					}
@@ -225,20 +230,20 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				ListDataProvider<Society> societyData = new ListDataProvider<Society>(new ArrayList<Society>(result.getSocieties().keySet()));
 				societyData.addDataDisplay(getView().getSocietyTable());
 
-				Double declaredSocieties = 0d;
-				Double undeclaredSocieties = 0d;
+				Double reportedSocieties = 0d;
+				Double unreportedSocieties = 0d;
 
-				for (Boolean declared : parlamentarian.getSocieties().values()) {
-					if (declared) {
-						declaredSocieties++;
+				for (Boolean reported : parlamentarian.getSocieties().values()) {
+					if (reported) {
+						reportedSocieties++;
 					} else {
-						undeclaredSocieties++;
+						unreportedSocieties++;
 					}
 				}
 
 				Map<String, Double> chartData = new HashMap<String, Double>();
-				chartData.put("Declaradas", 100d * declaredSocieties / (declaredSocieties + undeclaredSocieties));
-				chartData.put("No declaradas", 100d * undeclaredSocieties / (declaredSocieties + undeclaredSocieties));
+				chartData.put(applicationMessages.getSocietyReported(), 100d * reportedSocieties / (reportedSocieties + unreportedSocieties));
+				chartData.put(applicationMessages.getSocietyUnreported(), 100d * unreportedSocieties / (reportedSocieties + unreportedSocieties));
 				getView().setChartData(chartData);
 			}
 		});
@@ -246,6 +251,10 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 	private void initSocietyTableColumns() {
 		CellTable<Society> societyTable = getView().getSocietyTable();
+
+		while (societyTable.getColumnCount() > 0) {
+			societyTable.removeColumn(0);
+		}
 
 		societyTable.addColumn(new TextColumn<Society>() {
 			@Override
@@ -265,14 +274,14 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 				return sb.toString();
 			}
-		}, "Area de Interés");
+		}, applicationMessages.getSocietyAreaOfInterest());
 
 		societyTable.addColumn(new TextColumn<Society>() {
 			@Override
 			public String getValue(Society society) {
 				return society.getName();
 			}
-		}, "Razón Social");
+		}, applicationMessages.getSocietyLegalName());
 
 		societyTable.addColumn(new Column<Society, String>(new ImageCell()) {
 			@Override
@@ -285,7 +294,28 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 					return "images/declare_no.png";
 				}
 			}
-		}, "La declara?");
+		}, applicationMessages.getSocietyReportedThis());
+
+		societyTable.addColumn(new TextColumn<Society>() {
+			@Override
+			public String getValue(Society society) {
+				for (Category category : society.getCategories()) {
+					for (Bill bill : parlamentarian.getAuthoredBills()){
+						if (bill.getCategories().contains(category)) {
+							return "Sí";
+						}
+					}
+
+					for (Bill bill : parlamentarian.getVotedBills()){
+						if (bill.getCategories().contains(category)) {
+							return "Sí";
+						}
+					}
+				}
+
+				return "No";
+			}
+		}, applicationMessages.getSocietyIsInConflict());
 
 		societyTable.addColumn(new Column<Society, Society>(new ActionCell<Society>("", new ActionCell.Delegate<Society>() {
 			@Override
@@ -308,6 +338,6 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 			public Society getValue(Society society) {
 				return society;
 			}
-		}, "Ver +");
+		}, applicationMessages.getSocietyViewMore());
 	}
 }
