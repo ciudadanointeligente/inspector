@@ -143,7 +143,6 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Parlamentarian> searchParlamentarian(List<Category> categories) throws Exception {
 		Session hibernate = sessionFactory.getCurrentSession();
@@ -153,8 +152,6 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 			Criteria parlamentarianCriteria = hibernate.createCriteria(Parlamentarian.class);
 			parlamentarianCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			parlamentarianCriteria.setFetchMode("party", FetchMode.JOIN);
-			parlamentarianCriteria.setFetchMode("authoredBills", FetchMode.JOIN);
-			parlamentarianCriteria.setFetchMode("votedBills", FetchMode.JOIN);
 
 			parlamentarianCriteria.createAlias("authoredBills", "ab");
 			parlamentarianCriteria.createAlias("votedBills", "vb");
@@ -167,7 +164,12 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 				votedBillsFilter.add(Restrictions.eq("vb.id", category.getId()));
 			}
 			parlamentarianCriteria.add(Restrictions.or(authoredBillsFilter, votedBillsFilter));
-			List<Parlamentarian> parlamentarians = parlamentarianCriteria.list();
+			List<Parlamentarian> parlamentarians = (List<Parlamentarian>)parlamentarianCriteria.list();
+
+			for (Parlamentarian parlamentarian : parlamentarians) {
+				Hibernate.initialize(parlamentarian.getAuthoredBills());
+				Hibernate.initialize(parlamentarian.getVotedBills());
+			}
 			hibernate.getTransaction().commit();
 			return parlamentarians;
 		} catch (Exception ex) {
