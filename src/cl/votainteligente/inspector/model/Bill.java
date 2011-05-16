@@ -118,4 +118,21 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 	public int compareTo(Bill obj) {
 		return (obj == null || obj.getBulletinNumber() == null) ? -1 : -obj.getBulletinNumber().compareTo(bulletinNumber);
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == null) {
+			return false;
+		}
+
+		if (!(other instanceof Bill)) {
+			return false;
+		}
+
+		if (getId() == null) {
+			return false;
+		}
+
+		return getId().equals(((Bill) other).getId());
+	}
 }
