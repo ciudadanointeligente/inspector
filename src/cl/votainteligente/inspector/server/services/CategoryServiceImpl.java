@@ -143,7 +143,9 @@ public class CategoryServiceImpl implements CategoryService {
 			parlamentarians = criteria.list();
 
 			Set<Bill> bills = new HashSet<Bill>();
-			Set<Category> categories = new HashSet<Category>();
+			Set<Category> societyCategories = new HashSet<Category>();
+			Set<Category> resultSet = new HashSet<Category>();
+			List<Category> resultList = new ArrayList<Category>();
 
 			for (Parlamentarian parlamentarian : parlamentarians) {
 				for (Bill bill : parlamentarian.getAuthoredBills()) {
@@ -156,19 +158,21 @@ public class CategoryServiceImpl implements CategoryService {
 
 				for (Society society : parlamentarian.getSocieties().keySet()) {
 					for (Category category : society.getCategories()) {
-						categories.add(category);
+						societyCategories.add(category);
 					}
 				}
 			}
 
 			for (Bill bill : bills) {
 				for (Category category : bill.getCategories()) {
-					categories.add(category);
+					if (societyCategories.contains(category)) {
+						resultSet.add(category);
+					}
 				}
 			}
 
-			List<Category> sortedList = new ArrayList<Category>(categories);
-			Collections.sort(sortedList, new Comparator<Category>() {
+			resultList = new ArrayList<Category>(resultSet);
+			Collections.sort(resultList, new Comparator<Category>() {
 
 				@Override
 				public int compare(Category o1, Category o2) {
@@ -177,7 +181,7 @@ public class CategoryServiceImpl implements CategoryService {
 			});
 
 			hibernate.getTransaction().commit();
-			return sortedList;
+			return resultList;
 		} catch (Exception ex) {
 			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
 				hibernate.getTransaction().rollback();
