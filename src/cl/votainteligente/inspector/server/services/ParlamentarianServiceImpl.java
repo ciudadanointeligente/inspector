@@ -6,6 +6,7 @@ import cl.votainteligente.inspector.model.*;
 import org.hibernate.*;
 import org.hibernate.criterion.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParlamentarianServiceImpl implements ParlamentarianService {
@@ -157,26 +158,30 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 		try {
 			hibernate.beginTransaction();
-			Criteria parlamentarianCriteria = hibernate.createCriteria(Parlamentarian.class);
-			parlamentarianCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-			parlamentarianCriteria.setFetchMode("party", FetchMode.JOIN);
+			List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
 
-			parlamentarianCriteria.createAlias("authoredBills", "ab");
-			parlamentarianCriteria.createAlias("votedBills", "vb");
+			if (categories.size() > 0) {
+				Criteria parlamentarianCriteria = hibernate.createCriteria(Parlamentarian.class);
+				parlamentarianCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				parlamentarianCriteria.setFetchMode("party", FetchMode.JOIN);
 
-			Disjunction authoredBillsFilter = Restrictions.disjunction();
-			Disjunction votedBillsFilter = Restrictions.disjunction();
+				parlamentarianCriteria.createAlias("authoredBills", "ab");
+				parlamentarianCriteria.createAlias("votedBills", "vb");
 
-			for (Category category : categories) {
-				authoredBillsFilter.add(Restrictions.eq("ab.id", category.getId()));
-				votedBillsFilter.add(Restrictions.eq("vb.id", category.getId()));
-			}
-			parlamentarianCriteria.add(Restrictions.or(authoredBillsFilter, votedBillsFilter));
-			List<Parlamentarian> parlamentarians = (List<Parlamentarian>)parlamentarianCriteria.list();
+				Disjunction authoredBillsFilter = Restrictions.disjunction();
+				Disjunction votedBillsFilter = Restrictions.disjunction();
 
-			for (Parlamentarian parlamentarian : parlamentarians) {
-				Hibernate.initialize(parlamentarian.getAuthoredBills());
-				Hibernate.initialize(parlamentarian.getVotedBills());
+				for (Category category : categories) {
+					authoredBillsFilter.add(Restrictions.eq("ab.id", category.getId()));
+					votedBillsFilter.add(Restrictions.eq("vb.id", category.getId()));
+				}
+				parlamentarianCriteria.add(Restrictions.or(authoredBillsFilter, votedBillsFilter));
+				parlamentarians = (List<Parlamentarian>)parlamentarianCriteria.list();
+
+				for (Parlamentarian parlamentarian : parlamentarians) {
+					Hibernate.initialize(parlamentarian.getAuthoredBills());
+					Hibernate.initialize(parlamentarian.getVotedBills());
+				}
 			}
 			hibernate.getTransaction().commit();
 			return parlamentarians;
