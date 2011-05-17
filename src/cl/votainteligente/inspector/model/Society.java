@@ -5,7 +5,7 @@ import net.sf.gilead.pojo.gwt.LightEntity;
 import java.util.Date;
 import java.util.Set;
 
-public class Society extends LightEntity {
+public class Society extends LightEntity implements Comparable<Society> {
 	private Long id;
 	private SocietyType societyType;
 	private SocietyStatus societyStatus;
@@ -149,5 +149,32 @@ public class Society extends LightEntity {
 
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
+	}
+
+	@Override
+	public int compareTo(Society obj) {
+		return (obj == null || obj.getName() == null) ? -1 : -obj.getName().compareTo(name);
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == null) {
+			return false;
+		}
+
+		if (!(other instanceof Society)) {
+			return false;
+		}
+
+		if (getId() == null) {
+			return false;
+		}
+
+		return getId().equals(((Society) other).getId());
+	}
+
+	@Override
+	public int hashCode() {
+			return this.id.hashCode();
 	}
 }
