@@ -129,59 +129,59 @@ public class CategoryServiceImpl implements CategoryService {
 
 		try {
 			hibernate.beginTransaction();
+
 			Set<Long> parlamentarianIds = new HashSet<Long>();
+			List<Category> sortedList = new ArrayList<Category>();
 
-			for (Parlamentarian parlamentarian : parlamentarians) {
-				parlamentarianIds.add(parlamentarian.getId());
-			}
-
-			Criteria criteria = hibernate.createCriteria(Parlamentarian.class);
-			criteria.add(Restrictions.in("id", parlamentarianIds));
-			criteria.setFetchMode("authoredBills", FetchMode.JOIN);
-			criteria.setFetchMode("votedBills", FetchMode.JOIN);
-			criteria.setFetchMode("societies", FetchMode.JOIN);
-			parlamentarians = criteria.list();
-
-			Set<Bill> bills = new HashSet<Bill>();
-			Set<Category> societyCategories = new HashSet<Category>();
-			Set<Category> resultSet = new HashSet<Category>();
-			List<Category> resultList = new ArrayList<Category>();
-
-			for (Parlamentarian parlamentarian : parlamentarians) {
-				for (Bill bill : parlamentarian.getAuthoredBills()) {
-					bills.add(bill);
+			if (parlamentarians.size() > 0) {
+				for (Parlamentarian parlamentarian : parlamentarians) {
+					parlamentarianIds.add(parlamentarian.getId());
 				}
 
-				for (Bill bill : parlamentarian.getVotedBills()) {
-					bills.add(bill);
-				}
+				Criteria criteria = hibernate.createCriteria(Parlamentarian.class);
+				criteria.add(Restrictions.in("id", parlamentarianIds));
+				criteria.setFetchMode("authoredBills", FetchMode.JOIN);
+				criteria.setFetchMode("votedBills", FetchMode.JOIN);
+				criteria.setFetchMode("societies", FetchMode.JOIN);
+				parlamentarians = criteria.list();
 
-				for (Society society : parlamentarian.getSocieties().keySet()) {
-					for (Category category : society.getCategories()) {
-						societyCategories.add(category);
+				Set<Bill> bills = new HashSet<Bill>();
+				Set<Category> categories = new HashSet<Category>();
+
+				for (Parlamentarian parlamentarian : parlamentarians) {
+					for (Bill bill : parlamentarian.getAuthoredBills()) {
+						bills.add(bill);
+					}
+
+					for (Bill bill : parlamentarian.getVotedBills()) {
+						bills.add(bill);
+					}
+
+					for (Society society : parlamentarian.getSocieties().keySet()) {
+						for (Category category : society.getCategories()) {
+							categories.add(category);
+						}
 					}
 				}
-			}
 
-			for (Bill bill : bills) {
-				for (Category category : bill.getCategories()) {
-					if (societyCategories.contains(category)) {
-						resultSet.add(category);
+				for (Bill bill : bills) {
+					for (Category category : bill.getCategories()) {
+						categories.add(category);
 					}
 				}
+
+				sortedList = new ArrayList<Category>(categories);
+				Collections.sort(sortedList, new Comparator<Category>() {
+
+					@Override
+					public int compare(Category o1, Category o2) {
+						return o1.compareTo(o2);
+					}
+				});
 			}
-
-			resultList = new ArrayList<Category>(resultSet);
-			Collections.sort(resultList, new Comparator<Category>() {
-
-				@Override
-				public int compare(Category o1, Category o2) {
-					return o1.compareTo(o2);
-				}
-			});
 
 			hibernate.getTransaction().commit();
-			return resultList;
+			return sortedList;
 		} catch (Exception ex) {
 			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
 				hibernate.getTransaction().rollback();
