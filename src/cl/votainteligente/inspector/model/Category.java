@@ -62,4 +62,9 @@ public class Category extends LightEntity implements Comparable<Category> {
 
 		return getId().equals(((Category) other).getId());
 	}
+
+	@Override
+	public int hashCode() {
+		return this.id.hashCode();
+	}
 }
