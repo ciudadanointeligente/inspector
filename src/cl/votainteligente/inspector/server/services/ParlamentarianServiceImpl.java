@@ -6,8 +6,7 @@ import cl.votainteligente.inspector.model.*;
 import org.hibernate.*;
 import org.hibernate.criterion.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ParlamentarianServiceImpl implements ParlamentarianService {
 	private SessionFactory sessionFactory;
@@ -161,27 +160,59 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 			List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
 
 			if (categories.size() > 0) {
+
 				Criteria parlamentarianCriteria = hibernate.createCriteria(Parlamentarian.class);
 				parlamentarianCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 				parlamentarianCriteria.setFetchMode("party", FetchMode.JOIN);
-
-				parlamentarianCriteria.createAlias("authoredBills", "ab");
-				parlamentarianCriteria.createAlias("votedBills", "vb");
-
-				Disjunction authoredBillsFilter = Restrictions.disjunction();
-				Disjunction votedBillsFilter = Restrictions.disjunction();
-
-				for (Category category : categories) {
-					authoredBillsFilter.add(Restrictions.eq("ab.id", category.getId()));
-					votedBillsFilter.add(Restrictions.eq("vb.id", category.getId()));
-				}
-				parlamentarianCriteria.add(Restrictions.or(authoredBillsFilter, votedBillsFilter));
 				parlamentarians = (List<Parlamentarian>)parlamentarianCriteria.list();
 
+				Set<Parlamentarian> billRelatedParlamentarians = new HashSet<Parlamentarian>();
+				Set<Parlamentarian> societyRelatedParlamentarians = new HashSet<Parlamentarian>();
+				Set<Parlamentarian> resultSet = new HashSet<Parlamentarian>();
+
+				forParlamentarian:
 				for (Parlamentarian parlamentarian : parlamentarians) {
-					Hibernate.initialize(parlamentarian.getAuthoredBills());
-					Hibernate.initialize(parlamentarian.getVotedBills());
+					for (Category category : categories) {
+						for (Society society : parlamentarian.getSocieties().keySet()) {
+							if (society.getCategories().contains(category)) {
+								societyRelatedParlamentarians.add(parlamentarian);
+							}
+						}
+					}
+
+					for (Category category : categories) {
+						for (Bill bill : parlamentarian.getAuthoredBills()) {
+							if (bill.getCategories().contains(category)) {
+								billRelatedParlamentarians.add(parlamentarian);
+								continue forParlamentarian;
+							}
+						}
+					}
+
+					for (Category category : categories) {
+						for (Bill bill : parlamentarian.getVotedBills()) {
+							if (bill.getCategories().contains(category)) {
+								billRelatedParlamentarians.add(parlamentarian);
+								continue forParlamentarian;
+							}
+						}
+					}
 				}
+
+				for (Parlamentarian parlamentarian : billRelatedParlamentarians) {
+					if (societyRelatedParlamentarians.contains(parlamentarian)) {
+						resultSet.add(parlamentarian);
+					}
+				}
+
+				parlamentarians = new ArrayList<Parlamentarian>(resultSet);
+				Collections.sort(parlamentarians, new Comparator<Parlamentarian>() {
+
+					@Override
+					public int compare(Parlamentarian o1, Parlamentarian o2) {
+						return o1.compareTo(o2);
+					}
+				});
 			}
 			hibernate.getTransaction().commit();
 			return parlamentarians;
