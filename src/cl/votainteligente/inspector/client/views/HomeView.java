@@ -30,11 +30,13 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	@UiField HTMLPanel parlamentarianTableContainer;
 	@UiField TextBox parlamentarianSearch;
 	@UiField Label parlamentarianSearchClear;
+	@UiField Label parliamentarianMessage;
 	@UiField Label selectionType;
 	@UiField HTMLPanel categoryPanel;
 	@UiField HTMLPanel categoryTableContainer;
 	@UiField TextBox categorySearch;
 	@UiField Label categorySearchClear;
+	@UiField Label categoryMessage;
 	@UiField Image parlamentarianImage;
 	@UiField Label parlamentarianDisplay;
 	@UiField Label parlamentarianProfileLink;
@@ -42,6 +44,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	CellTable<Parlamentarian> parlamentarianTable;
 	CellTable<Category> categoryTable;
 	@UiField HTMLPanel billPanel;
+	@UiField Label billMessage;
 	CellTable<Bill> billTable;
 
 	private HomePresenterIface presenter;
@@ -132,6 +135,39 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 			selectionType.setStyleName(ResourceBundle.INSTANCE.HomeView().unlocked());
 			break;
 		}
+	}
+
+	@Override
+	public void setParlamentarianMessage(String message) {
+		parliamentarianMessage.setText(message);
+		parliamentarianMessage.setVisible(true);
+	}
+
+	@Override
+	public void hideParlamentarianMessage() {
+		parliamentarianMessage.setVisible(false);
+	}
+
+	@Override
+	public void setCategoryMessage(String message) {
+		categoryMessage.setText(message);
+		categoryMessage.setVisible(true);
+	}
+
+	@Override
+	public void hideCategoryMessage() {
+		categoryMessage.setVisible(false);
+	}
+
+	@Override
+	public void setBillMessage(String message) {
+		billMessage.setText(message);
+		billMessage.setVisible(true);
+	}
+
+	@Override
+	public void hideBillMessage() {
+		billMessage.setVisible(false);
 	}
 
 	@UiHandler("parlamentarianSearch")

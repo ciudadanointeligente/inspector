@@ -7,6 +7,7 @@
 			<g:Label ui:field="parlamentarianLabel"/>
 			<g:TextBox ui:field="parlamentarianSearch" addStyleNames="{style.searchBox}"/>
 			<g:Label ui:field="parlamentarianSearchClear">X</g:Label>
+			<g:Label ui:field="parliamentarianMessage" visible="false"/>
 			<div class="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="parlamentarianTableContainer" addStyleNames="{style.searchTableBg}"/>
 			</div>
@@ -16,6 +17,7 @@
 			<g:Label ui:field="categoryLabel"/>
 			<g:TextBox ui:field="categorySearch" addStyleNames="{style.searchBox}"/>
 			<g:Label ui:field="categorySearchClear">X</g:Label>
+			<g:Label ui:field="categoryMessage" visible="false"/>
 			<div class="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="categoryTableContainer" addStyleNames="{style.searchTableBg}">
 				</g:HTMLPanel>
@@ -36,6 +38,8 @@
 				</table>
 			</g:HTMLPanel>
 		</div>
-		<g:HTMLPanel ui:field="billPanel" addStyleNames="{style.billPanel}"/>
+		<g:HTMLPanel ui:field="billPanel" addStyleNames="{style.billPanel}">
+			<g:Label ui:field="billMessage" visible="false"/>
+		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>

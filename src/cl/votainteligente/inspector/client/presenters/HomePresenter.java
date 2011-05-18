@@ -47,6 +47,12 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		void setCategoryDisplay(String categoryName);
 		void setParlamentarianImage(String parlamentarianImage);
 		void setSelectedType(SelectionType selectedType);
+		void setParlamentarianMessage(String message);
+		void hideParlamentarianMessage();
+		void setCategoryMessage(String message);
+		void hideCategoryMessage();
+		void setBillMessage(String message);
+		void hideBillMessage();
 	}
 
 	public enum SelectionType {
@@ -140,10 +146,14 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			}
 		});
 		setBillTable();
+		getView().hideParlamentarianMessage();
+		getView().hideCategoryMessage();
+		getView().hideBillMessage();
 	}
 
 	@Override
 	public void searchParlamentarian(String keyWord) {
+		getView().hideParlamentarianMessage();
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 		if (selectedParlamentarian != null) {
@@ -197,6 +207,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						if (!selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
 							searchCategory(result);
 						}
+						if (result.size() == 0) {
+							getView().setParlamentarianMessage(applicationMessages.getGeneralNoMatches());
+						}
 					}
 				}
 			});
@@ -205,6 +218,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	public void searchParlamentarian(List<Category> categories) {
+		getView().hideParlamentarianMessage();
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 		if (selectedParlamentarian != null) {
@@ -231,6 +245,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	public void searchCategory(String keyWord) {
+		getView().hideCategoryMessage();
 		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
 		if (selectedCategory != null) {
 			getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, false);
@@ -256,7 +271,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				@Override
 				public void onSuccess(List<Category> result) {
 					if (result != null) {
-
 						if (selectedType.equals(SelectionType.SELECTED_NONE)) {
 							ListDataProvider<Category> data = new ListDataProvider<Category>(result);
 							setCategoryData(data);
@@ -294,6 +308,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						if (!selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 							searchParlamentarian(result);
 						}
+						if (result.size() == 0) {
+							getView().setCategoryMessage(applicationMessages.getGeneralNoMatches());
+						}
 					}
 				}
 			});
@@ -302,6 +319,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	public void searchCategory(List<Parlamentarian> parlamentarians) {
+		getView().hideCategoryMessage();
 		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
 		if (selectedCategory != null) {
 			getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, false);
@@ -327,6 +345,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	public void searchBill(Parlamentarian parlamentarian, Category category) {
+		getView().hideBillMessage();
 		billService.searchBills(parlamentarian, category, new AsyncCallback<List<Bill>>() {
 
 			@Override
@@ -339,6 +358,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				if (result != null) {
 					ListDataProvider<Bill> data = new ListDataProvider<Bill>(result);
 					setBillData(data);
+					if (result.size() == 0) {
+						getView().setBillMessage(applicationMessages.getGeneralNoMatches());
+					}
 				}
 			}
 		});
@@ -731,6 +753,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
 		selectedType = SelectionType.SELECTED_NONE;
+		getView().hideParlamentarianMessage();
+		getView().hideCategoryMessage();
+		getView().hideBillMessage();
 	}
 
 	@Override
