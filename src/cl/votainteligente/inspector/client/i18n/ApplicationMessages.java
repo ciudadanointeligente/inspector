@@ -55,6 +55,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.by")
 	public String getGeneralBy();
 
+	@Key("general.noMatches")
+	public String getGeneralNoMatches();
+
 	@Key("error.parlamentarian")
 	public String getErrorParlamentarian();
 
