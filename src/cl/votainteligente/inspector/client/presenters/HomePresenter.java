@@ -179,8 +179,10 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 				@Override
 				public void onSuccess(List<Parlamentarian> result) {
+					final List<Parlamentarian> keywordSearchParlamentarianList = result;
+
 					if (result != null) {
-						if (selectedType.equals(SelectionType.SELECTED_NONE)) {
+						if (selectedType.equals(SelectionType.SELECTED_NONE) || selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 							ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
 							setParlamentarianData(data);
 						} else if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
@@ -197,7 +199,15 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 								@Override
 								public void onSuccess(List<Parlamentarian> result) {
 									if (result != null) {
-										ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
+										List<Parlamentarian> resultList = new ArrayList<Parlamentarian>();
+
+										for (Parlamentarian parlamentarian : keywordSearchParlamentarianList) {
+											if (result.contains(parlamentarian)) {
+												resultList.add(parlamentarian);
+											}
+										}
+
+										ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(resultList);
 										setParlamentarianData(data);
 									}
 								}
@@ -271,7 +281,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				@Override
 				public void onSuccess(List<Category> result) {
 					if (result != null) {
-						if (selectedType.equals(SelectionType.SELECTED_NONE)) {
+						if (selectedType.equals(SelectionType.SELECTED_NONE) || selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
 							ListDataProvider<Category> data = new ListDataProvider<Category>(result);
 							setCategoryData(data);
 						} else if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
