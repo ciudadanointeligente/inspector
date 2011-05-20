@@ -344,9 +344,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	}
 
 	@Override
-	public void searchBill(Parlamentarian parlamentarian, Category category) {
+	public void searchBill(Long parlamentarianId, Long categoryId) {
 		getView().hideBillMessage();
-		billService.searchBills(parlamentarian, category, new AsyncCallback<List<Bill>>() {
+		billService.searchBills(parlamentarianId, categoryId, new AsyncCallback<List<Bill>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -729,7 +729,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	@Override
 	public void setBillTable() {
 		if (selectedParlamentarian != null && selectedCategory != null) {
-			searchBill(selectedParlamentarian, selectedCategory);
+			searchBill(selectedParlamentarian.getId(), selectedCategory.getId());
 		} else {
 			setBillData(new ListDataProvider<Bill>());
 		}

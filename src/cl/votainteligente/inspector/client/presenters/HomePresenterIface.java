@@ -15,7 +15,7 @@ public interface HomePresenterIface {
 	void searchParlamentarian(List<Category> categories);
 	void searchCategory(String keyWord);
 	void searchCategory(List<Parlamentarian> parlamentarians);
-	void searchBill(Parlamentarian parlamentarian, Category category);
+	void searchBill(Long parlamentarianId, Long categoryId);
 	AbstractDataProvider<Parlamentarian> getParlamentarianData();
 	void setParlamentarianData(AbstractDataProvider<Parlamentarian> data);
 	AbstractDataProvider<Category> getCategoryData();

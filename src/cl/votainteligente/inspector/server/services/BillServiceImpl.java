@@ -6,7 +6,7 @@ import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
 
 import org.hibernate.*;
-import org.hibernate.criterion.*;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.*;
 
@@ -98,13 +98,14 @@ public class BillServiceImpl implements BillService {
 	}
 
 	@Override
-	public List<Bill> searchBills(Parlamentarian parlamentarian, Category category) throws Exception {
+	public List<Bill> searchBills(Long parlamentarianId, Long categoryId) throws Exception {
 		Session hibernate = sessionFactory.getCurrentSession();
 
 		try {
 			hibernate.beginTransaction();
 			// TODO: optimize method
-			parlamentarian = (Parlamentarian) hibernate.load(Parlamentarian.class, parlamentarian.getId());
+			Parlamentarian parlamentarian = (Parlamentarian) hibernate.get(Parlamentarian.class, parlamentarianId);
+			Category category = (Category) hibernate.get(Category.class, categoryId);
 
 			Set<Long> billIds = new HashSet<Long>();
 			List<Bill> filteredBills = new ArrayList<Bill>();
