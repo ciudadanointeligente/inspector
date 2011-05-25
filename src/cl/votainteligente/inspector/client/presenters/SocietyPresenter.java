@@ -9,7 +9,9 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
-import com.gwtplatform.mvp.client.proxy.*;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
+import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -21,12 +23,11 @@ import com.google.inject.Inject;
 
 import java.util.Iterator;
 
-public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, SocietyPresenter.MyProxy> implements SocietyPresenterIface {
+public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, SocietyPresenter.MyProxy> {
 	public static final String PLACE = "society";
 	public static final String PARAM_SOCIETY_ID = "societyId";
 
 	public interface MyView extends View {
-		void setPresenter(SocietyPresenterIface presenter);
 		void clearSocietyData();
 		void setSocietyName(String societyName);
 		void setSocietyFantasyName(String societyFantasyName);
@@ -62,11 +63,6 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 	}
 
 	@Override
-	protected void onBind() {
-		getView().setPresenter(this);
-	}
-
-	@Override
 	protected void onReset() {
 		getView().clearSocietyData();
 
@@ -91,17 +87,14 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 		}
 	}
 
-	@Override
 	public Long getSocietyId() {
 		return societyId;
 	}
 
-	@Override
 	public void setSocietyId(Long societyId) {
 		this.societyId = societyId;
 	}
 
-	@Override
 	public void getSociety(Long societyId) {
 		societyService.getSociety(societyId, new AsyncCallback<Society>() {
 			@Override

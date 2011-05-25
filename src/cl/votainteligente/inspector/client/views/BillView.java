@@ -1,13 +1,13 @@
 package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.BillPresenter;
-import cl.votainteligente.inspector.client.presenters.BillPresenterIface;
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
 import cl.votainteligente.inspector.client.resources.SearchCellTableResource;
+import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.Society;
 
-import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.*;
 
 import java.util.Date;
 
-public class BillView extends ViewImpl implements BillPresenter.MyView {
+public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements BillPresenter.MyView {
 	private static BillViewUiBinder uiBinder = GWT.create(BillViewUiBinder.class);
 	interface BillViewUiBinder extends UiBinder<Widget, BillView> {}
 	private final Widget widget;
@@ -44,8 +44,6 @@ public class BillView extends ViewImpl implements BillPresenter.MyView {
 	CellTable<Society> societyTable;
 	CellTable<Parlamentarian> parlamentarianTable;
 
-	BillPresenterIface presenter;
-
 	public BillView() {
 		widget = uiBinder.createAndBindUi(this);
 		SearchCellTableResource searchResource = GWT.create(SearchCellTableResource.class);
@@ -59,11 +57,6 @@ public class BillView extends ViewImpl implements BillPresenter.MyView {
 	@Override
 	public Widget asWidget() {
 		return widget;
-	}
-
-	@Override
-	public void setPresenter(BillPresenterIface presenter) {
-		this.presenter = presenter;
 	}
 
 	@Override
@@ -143,8 +136,6 @@ public class BillView extends ViewImpl implements BillPresenter.MyView {
 
 	@UiHandler("parlamentarianProfileLink")
 	public void onClickParlamentarianProfileLink(ClickEvent event) {
-		if (presenter != null) {
-			presenter.showParlamentarianProfile();
-		}
+		getUiHandlers().showParlamentarianProfile();
 	}
 }

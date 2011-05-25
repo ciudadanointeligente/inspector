@@ -4,8 +4,10 @@ import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.BillServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.client.services.SocietyServiceAsync;
+import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
 import cl.votainteligente.inspector.model.*;
 
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -28,13 +30,12 @@ import com.google.inject.Inject;
 
 import java.util.*;
 
-public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter.MyProxy> implements BillPresenterIface {
+public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter.MyProxy> implements BillUiHandlers {
 	public static final String PLACE = "bill";
 	public static final String PARAM_BILL_ID = "billId";
 	public static final String PARAM_PARLAMENTARIAN_ID = "parlamentarianId";
 
-	public interface MyView extends View {
-		void setPresenter(BillPresenterIface presenter);
+	public interface MyView extends View, HasUiHandlers<BillUiHandlers> {
 		void setBillBulletinNumber(String billBulletinNumber);
 		void setBillTitle(String billTitle);
 		void setBillDescription(String billContent);
@@ -77,11 +78,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	@Inject
 	public BillPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
 		super(eventBus, view, proxy);
-	}
-
-	@Override
-	protected void onBind() {
-		getView().setPresenter(this);
+		getView().setUiHandlers(this);
 	}
 
 	@Override
@@ -123,37 +120,30 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		}
 	}
 
-	@Override
 	public Long getBillId() {
 		return billId;
 	}
 
-	@Override
 	public void setBillId(Long billId) {
 		this.billId = billId;
 	}
 
-	@Override
 	public Long getParlamentarianId() {
 		return parlamentarianId;
 	}
 
-	@Override
 	public void setParlamentarianId(Long parlamentarianId) {
 		this.parlamentarianId = parlamentarianId;
 	}
 
-	@Override
 	public void setSelectedParlamentarian(Parlamentarian parlamentarian) {
 		this.selectedParlamentarian = parlamentarian;
 	}
 
-	@Override
 	public Parlamentarian getSelectedParlamentarian() {
 		return selectedParlamentarian;
 	}
 
-	@Override
 	public void showBill() {
 		billService.getBill(billId, new AsyncCallback<Bill>() {
 
@@ -181,7 +171,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		});
 	}
 
-	@Override
 	public void loadSelectedParlamentarian() {
 		parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 			@Override
@@ -197,7 +186,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		});
 	}
 
-	@Override
 	public void showSelectedParlamentarian() {
 		if (selectedParlamentarian != null) {
 			getView().setParlamentarianDisplay(selectedParlamentarian.toString());
@@ -209,7 +197,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		}
 	}
 
-	@Override
 	public void getParlamentarians(Bill bill) {
 		parlamentarianService.getParlamentariansByBill(bill, new AsyncCallback<List<Parlamentarian>>() {
 
@@ -228,18 +215,15 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		});
 	}
 
-	@Override
 	public AbstractDataProvider<Parlamentarian> getParlamentarianData() {
 		return parlamentarianData;
 	}
 
-	@Override
 	public void setParlamentarianData(AbstractDataProvider<Parlamentarian> data) {
 		parlamentarianData = data;
 		parlamentarianData.addDataDisplay(getView().getParlamentarianTable());
 	}
 
-	@Override
 	public void getSocieties(Bill bill) {
 		societyService.getSocietiesByBill(bill, new AsyncCallback<List<Society>>() {
 
@@ -258,18 +242,15 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		});
 	}
 
-	@Override
 	public AbstractDataProvider<Society> getSocietyData() {
 		return societyData;
 	}
 
-	@Override
 	public void setSocietyData(AbstractDataProvider<Society> data) {
 		societyData = data;
 		societyData.addDataDisplay(getView().getSocietyTable());
 	}
 
-	@Override
 	public void initParlamentarianTable() {
 		while (getView().getParlamentarianTable().getColumnCount() > 0) {
 			getView().getParlamentarianTable().removeColumn(0);
@@ -346,7 +327,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		getView().getParlamentarianTable().addColumn(profileColumn, applicationMessages.getGeneralProfile());
 	}
 
-	@Override
 	public void initSocietyTable() {
 		while (getView().getSocietyTable().getColumnCount() > 0) {
 			getView().getSocietyTable().removeColumn(0);

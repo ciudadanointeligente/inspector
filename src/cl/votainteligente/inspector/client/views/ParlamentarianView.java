@@ -1,15 +1,15 @@
 package cl.votainteligente.inspector.client.views;
 
+import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
-import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenterIface;
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
 import cl.votainteligente.inspector.model.Society;
+
+import com.gwtplatform.mvp.client.ViewImpl;
 
 import org.adapters.highcharts.codegen.sections.options.OptionPath;
 import org.adapters.highcharts.codegen.types.SeriesType;
 import org.adapters.highcharts.gwt.widgets.HighChart;
-
-import com.gwtplatform.mvp.client.ViewImpl;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -19,10 +19,15 @@ import com.google.gwt.user.client.ui.*;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 public class ParlamentarianView extends ViewImpl implements ParlamentarianPresenter.MyView {
 	private static ParlamentarianViewUiBinder uiBinder = GWT.create(ParlamentarianViewUiBinder.class);
 	interface ParlamentarianViewUiBinder extends UiBinder<Widget, ParlamentarianView> {}
 	private final Widget widget;
+
+	@Inject
+	private ApplicationMessages applicationMessages;
 
 	@UiField Label parlamentarianName;
 	@UiField Label parlamentarianDescription;
@@ -39,8 +44,6 @@ public class ParlamentarianView extends ViewImpl implements ParlamentarianPresen
 	@UiField HTMLPanel societyPanel;
 	CellTable<Society> societyTable;
 
-	private ParlamentarianPresenterIface presenter;
-
 	public ParlamentarianView() {
 		widget = uiBinder.createAndBindUi(this);
 		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
@@ -51,11 +54,6 @@ public class ParlamentarianView extends ViewImpl implements ParlamentarianPresen
 	@Override
 	public Widget asWidget() {
 		return widget;
-	}
-
-	@Override
-	public void setPresenter(ParlamentarianPresenterIface presenter) {
-		this.presenter = presenter;
 	}
 
 	@Override
@@ -139,8 +137,8 @@ public class ParlamentarianView extends ViewImpl implements ParlamentarianPresen
 		try {
 			HighChart declarationChart = new HighChart();
 			declarationChart.setAutoResize(true);
-			declarationChart.setOption(new OptionPath("/title/text"), presenter.getApplicationMessages().getSocietyConsistencyIndex());
-			declarationChart.setOption(new OptionPath("/subtitle/text"), presenter.getApplicationMessages().getSocietyReportedVsUnreported());
+			declarationChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyConsistencyIndex());
+			declarationChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyReportedVsUnreported());
 			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {25, 100, 30, 85});
 			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			declarationChart.setOption(new OptionPath("/credits/enabled"), false);

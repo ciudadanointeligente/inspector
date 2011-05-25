@@ -28,12 +28,11 @@ import com.google.inject.Inject;
 
 import java.util.*;
 
-public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.MyView, ParlamentarianPresenter.MyProxy> implements ParlamentarianPresenterIface {
+public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.MyView, ParlamentarianPresenter.MyProxy> {
 	public static final String PLACE = "parlamentarian";
 	public static final String PARAM_PARLAMENTARIAN_ID = "parlamentarianId";
 
 	public interface MyView extends View {
-		void setPresenter(ParlamentarianPresenterIface presenter);
 		void clearParlamentarianData();
 		void setParlamentarianName(String parlamentarianName);
 		void setParlamentarianDescription(String parlamentarianDescription);
@@ -70,11 +69,6 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	}
 
 	@Override
-	protected void onBind() {
-		getView().setPresenter(this);
-	}
-
-	@Override
 	protected void onReset() {
 		initSocietyTableColumns();
 		getView().clearParlamentarianData();
@@ -100,22 +94,14 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		}
 	}
 
-	@Override
 	public Long getParlamentarianId() {
 		return parlamentarianId;
 	}
 
-	@Override
 	public void setParlamentarianId(Long parlamentarianId) {
 		this.parlamentarianId = parlamentarianId;
 	}
 
-	@Override
-	public ApplicationMessages getApplicationMessages() {
-		return applicationMessages;
-	}
-
-	@Override
 	public void getParlamentarian(Long parlamentarianId) {
 		parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 			@Override

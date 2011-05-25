@@ -4,10 +4,12 @@ import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.BillServiceAsync;
 import cl.votainteligente.inspector.client.services.CategoryServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
+import cl.votainteligente.inspector.client.uihandlers.HomeUiHandlers;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
 
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -31,11 +33,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter.MyProxy> implements HomePresenterIface {
+public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter.MyProxy> implements HomeUiHandlers {
 	public static final String PLACE = "home";
 
-	public interface MyView extends View {
-		void setPresenter(HomePresenterIface presenter);
+	public interface MyView extends View, HasUiHandlers<HomeUiHandlers> {
 		String getParlamentarianSearch();
 		void setParlamentarianSearch(String parlamentarianSearch);
 		String getCategorySearch();
@@ -87,11 +88,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	@Inject
 	public HomePresenter(EventBus eventBus, MyView view, MyProxy proxy) {
 		super(eventBus, view, proxy);
-	}
-
-	@Override
-	protected void onBind() {
-		getView().setPresenter(this);
+		getView().setUiHandlers(this);
 	}
 
 	@Override
@@ -112,7 +109,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		fireEvent(new RevealContentEvent(MainPresenter.TYPE_MAIN_CONTENT, this));
 	}
 
-	@Override
 	public void initDataLoad() {
 		parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
 
@@ -376,40 +372,33 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		});
 	}
 
-	@Override
 	public AbstractDataProvider<Parlamentarian> getParlamentarianData() {
 		return parlamentarianData;
 	}
 
-	@Override
 	public void setParlamentarianData(AbstractDataProvider<Parlamentarian> data) {
 		parlamentarianData = data;
 		parlamentarianData.addDataDisplay(getView().getParlamentarianTable());
 	}
 
-	@Override
 	public AbstractDataProvider<Category> getCategoryData() {
 		return categoryData;
 	}
 
-	@Override
 	public void setCategoryData(AbstractDataProvider<Category> data) {
 		categoryData = data;
 		categoryData.addDataDisplay(getView().getCategoryTable());
 	}
 
-	@Override
 	public AbstractDataProvider<Bill> getBillData() {
 		return billData;
 	}
 
-	@Override
 	public void setBillData(AbstractDataProvider<Bill> data) {
 		billData = data;
 		billData.addDataDisplay(getView().getBillTable());
 	}
 
-	@Override
 	public void initParlamentarianTable() {
 		while (getView().getParlamentarianTable().getColumnCount() > 0) {
 			getView().getParlamentarianTable().removeColumn(0);
@@ -533,7 +522,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		});
 	}
 
-	@Override
 	public void initCategoryTable() {
 		while (getView().getCategoryTable().getColumnCount() > 0) {
 			getView().getCategoryTable().removeColumn(0);
@@ -615,7 +603,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		});
 	}
 
-	@Override
 	public void initBillTable() {
 		while (getView().getBillTable().getColumnCount() > 0) {
 			getView().getBillTable().removeColumn(0);
@@ -736,7 +723,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		});
 	}
 
-	@Override
 	public void setBillTable() {
 		if (selectedParlamentarian != null && selectedCategory != null) {
 			searchBill(selectedParlamentarian.getId(), selectedCategory.getId());
@@ -775,10 +761,5 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, false);
 		resetSelection();
 		initDataLoad();
-	}
-
-	@Override
-	public ApplicationMessages getApplicationMessages() {
-		return applicationMessages;
 	}
 }

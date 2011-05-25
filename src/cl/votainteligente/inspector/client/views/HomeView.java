@@ -1,15 +1,16 @@
 package cl.votainteligente.inspector.client.views;
 
+import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.presenters.HomePresenter;
 import cl.votainteligente.inspector.client.presenters.HomePresenter.SelectionType;
-import cl.votainteligente.inspector.client.presenters.HomePresenterIface;
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
 import cl.votainteligente.inspector.client.resources.SearchCellTableResource;
+import cl.votainteligente.inspector.client.uihandlers.HomeUiHandlers;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
 
-import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -21,10 +22,15 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.*;
 
-public class HomeView extends ViewImpl implements HomePresenter.MyView {
+import javax.inject.Inject;
+
+public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements HomePresenter.MyView {
 	private static HomeViewUiBinder uiBinder = GWT.create(HomeViewUiBinder.class);
 	interface HomeViewUiBinder extends UiBinder<Widget, HomeView> {}
 	private final Widget widget;
+
+	@Inject
+	private ApplicationMessages applicationMessages;
 
 	@UiField HTMLPanel parlamentarianPanel;
 	@UiField HTMLPanel parlamentarianTableContainer;
@@ -47,8 +53,6 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	@UiField Label billMessage;
 	CellTable<Bill> billTable;
 
-	private HomePresenterIface presenter;
-
 	public HomeView() {
 		widget = uiBinder.createAndBindUi(this);
 		ResourceBundle.INSTANCE.HomeView().ensureInjected();
@@ -65,11 +69,6 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	@Override
 	public Widget asWidget() {
 		return widget;
-	}
-
-	@Override
-	public void setPresenter(HomePresenterIface presenter) {
-		this.presenter = presenter;
 	}
 
 	@Override
@@ -172,73 +171,57 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 
 	@UiHandler("parlamentarianSearch")
 	public void onParlamentarianSearchKeyUp(KeyUpEvent event) {
-		if (presenter != null) {
-			if ((event.getNativeKeyCode() >= 48 && event.getNativeKeyCode() <= 57) ||
-				(event.getNativeKeyCode() >= 65 && event.getNativeKeyCode() <= 90) ||
-				(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
-				event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
-				presenter.searchParlamentarian(parlamentarianSearch.getText());
-				categorySearch.setText(presenter.getApplicationMessages().getCategorySearchMessage());
-			}
+		if ((event.getNativeKeyCode() >= 48 && event.getNativeKeyCode() <= 57) ||
+			(event.getNativeKeyCode() >= 65 && event.getNativeKeyCode() <= 90) ||
+			(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
+			event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
+			getUiHandlers().searchParlamentarian(parlamentarianSearch.getText());
+			categorySearch.setText(applicationMessages.getCategorySearchMessage());
 		}
 	}
 
 	@UiHandler("parlamentarianSearch")
 	public void onParlamentarianSearchClick(ClickEvent event) {
-		if (presenter != null) {
-			if (parlamentarianSearch.getText().equals(presenter.getApplicationMessages().getParlamentarianSearchMessage())) {
-				parlamentarianSearch.setText("");
-			}
+		if (parlamentarianSearch.getText().equals(applicationMessages.getParlamentarianSearchMessage())) {
+			parlamentarianSearch.setText("");
 		}
 	}
 
 	@UiHandler("parlamentarianSearchClear")
 	public void onParlamentarianSearchClearClick(ClickEvent event) {
-		if (presenter != null) {
-				parlamentarianSearch.setText("");
-		}
+		parlamentarianSearch.setText("");
 	}
 
 	@UiHandler("categorySearch")
 	public void onCategorySearchKeyUp(KeyUpEvent event) {
-		if (presenter != null) {
-			if ((event.getNativeKeyCode() >= 48 && event.getNativeKeyCode() <= 57) ||
-				(event.getNativeKeyCode() >= 65 && event.getNativeKeyCode() <= 90) ||
-				(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
-				event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
-				presenter.searchCategory(categorySearch.getText());
-				parlamentarianSearch.setText(presenter.getApplicationMessages().getParlamentarianSearchMessage());
-			}
+		if ((event.getNativeKeyCode() >= 48 && event.getNativeKeyCode() <= 57) ||
+			(event.getNativeKeyCode() >= 65 && event.getNativeKeyCode() <= 90) ||
+			(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
+			event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
+			getUiHandlers().searchCategory(categorySearch.getText());
+			parlamentarianSearch.setText(applicationMessages.getParlamentarianSearchMessage());
 		}
 	}
 
 	@UiHandler("categorySearch")
 	public void onCategorySearchClick(ClickEvent event) {
-		if (presenter != null) {
-			if (categorySearch.getText().equals(presenter.getApplicationMessages().getCategorySearchMessage())) {
-				categorySearch.setText("");
-			}
+		if (categorySearch.getText().equals(applicationMessages.getCategorySearchMessage())) {
+			categorySearch.setText("");
 		}
 	}
 
 	@UiHandler("categorySearchClear")
 	public void onCategorySearchClearClick(ClickEvent event) {
-		if (presenter != null) {
-				categorySearch.setText("");
-		}
+		categorySearch.setText("");
 	}
 
 	@UiHandler("parlamentarianProfileLink")
 	public void onClickParlamentarianProfileLink(ClickEvent event) {
-		if (presenter != null) {
-			presenter.showParlamentarianProfile();
-		}
+		getUiHandlers().showParlamentarianProfile();
 	}
 
 	@UiHandler("selectionType")
 	public void onSelectionTypeClick(ClickEvent event) {
-		if (presenter != null) {
-			presenter.resetSelectionType();
-		}
+		getUiHandlers().resetSelectionType();
 	}
 }

@@ -1,7 +1,6 @@
 package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.SocietyPresenter;
-import cl.votainteligente.inspector.client.presenters.SocietyPresenterIface;
 
 import com.gwtplatform.mvp.client.ViewImpl;
 
@@ -31,8 +30,6 @@ public class SocietyView extends ViewImpl implements SocietyPresenter.MyView {
 	@UiField Label societyPublishDate;
 	@UiField Label notaryName;
 
-	private SocietyPresenterIface presenter;
-
 	public SocietyView() {
 		widget = uiBinder.createAndBindUi(this);
 	}
@@ -40,11 +37,6 @@ public class SocietyView extends ViewImpl implements SocietyPresenter.MyView {
 	@Override
 	public Widget asWidget() {
 		return widget;
-	}
-
-	@Override
-	public void setPresenter(SocietyPresenterIface presenter) {
-		this.presenter = presenter;
 	}
 
 	@Override
