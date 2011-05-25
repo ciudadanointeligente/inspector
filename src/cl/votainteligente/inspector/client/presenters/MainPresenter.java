@@ -14,7 +14,7 @@ import com.google.inject.Inject;
 
 public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter.MyProxy> {
 	@ContentSlot
-	public static final Type<RevealContentHandler<?>> TYPE_MAIN_CONTENT = new Type<RevealContentHandler<?>>();
+	public static final Type<RevealContentHandler<?>> SLOT_MAIN_CONTENT = new Type<RevealContentHandler<?>>();
 
 	public interface MyView extends View {
 	}

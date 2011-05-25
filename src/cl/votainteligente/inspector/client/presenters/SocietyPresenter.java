@@ -73,7 +73,7 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 
 	@Override
 	protected void revealInParent() {
-		fireEvent(new RevealContentEvent(MainPresenter.TYPE_MAIN_CONTENT, this));
+		fireEvent(new RevealContentEvent(MainPresenter.SLOT_MAIN_CONTENT, this));
 	}
 
 	@Override

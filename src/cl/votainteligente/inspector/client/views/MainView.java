@@ -23,7 +23,7 @@ public class MainView extends ViewImpl implements MainPresenter.MyView {
 
 	@Override
 	public void setInSlot(Object slot, Widget content) {
-		if (MainPresenter.TYPE_MAIN_CONTENT.equals(slot)) {
+		if (MainPresenter.SLOT_MAIN_CONTENT.equals(slot)) {
 			mainPanel.clear();
 
 			if (content != null) {
