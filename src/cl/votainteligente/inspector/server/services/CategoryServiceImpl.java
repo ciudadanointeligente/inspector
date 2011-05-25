@@ -22,6 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 		try {
 			hibernate.beginTransaction();
 			Criteria criteria = hibernate.createCriteria(Category.class);
+			criteria.addOrder(Order.asc("name"));
 			List<Category> categories = criteria.list();
 			hibernate.getTransaction().commit();
 			return categories;

@@ -22,6 +22,7 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 		try {
 			hibernate.beginTransaction();
 			Criteria criteria = hibernate.createCriteria(Parlamentarian.class);
+			criteria.addOrder(Order.asc("lastName"));
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			criteria.setFetchMode("party", FetchMode.JOIN);
 			criteria.setFetchMode("authoredBills", FetchMode.JOIN);
@@ -119,6 +120,7 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 		try {
 			hibernate.beginTransaction();
 			Criteria criteria = hibernate.createCriteria(Parlamentarian.class);
+			criteria.addOrder(Order.asc("lastName"));
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			criteria.setFetchMode("party", FetchMode.JOIN);
 			criteria.setFetchMode("authoredBills", FetchMode.JOIN);
