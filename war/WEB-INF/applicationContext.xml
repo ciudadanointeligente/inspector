@@ -11,9 +11,12 @@
 		p:location="/WEB-INF/jdbc.properties" />
 
 	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
-		p:username="${jdbc.username}" p:password="${jdbc.password}" />
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" p:driverClass="${jdbc.driverClassName}" p:jdbcUrl="${jdbc.url}"
+		p:user="${jdbc.username}" p:password="${jdbc.password}"
+		p:initialPoolSize="3" p:minPoolSize="50" p:idleConnectionTestPeriod="200"
+		p:acquireIncrement="1" p:maxStatements="0" p:numHelperThreads="3">
+	</bean>
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
