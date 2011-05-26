@@ -4,7 +4,8 @@ import cl.votainteligente.inspector.client.services.CategoryService;
 import cl.votainteligente.inspector.model.*;
 
 import org.hibernate.*;
-import org.hibernate.criterion.*;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.*;
 
@@ -94,25 +95,30 @@ public class CategoryServiceImpl implements CategoryService {
 
 		try {
 			hibernate.beginTransaction();
-			Criteria criteria = hibernate.createCriteria(Category.class);
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			String query = " from Category c where ";
+			Query hQuery;
+			String filters = "";
 
 			if (keyWord != null && !keyWord.equals("")) {
-				Conjunction keywordConjunction = Restrictions.conjunction();
-				Disjunction keyWordDisjunction;
+				filters += "(";
 				String[] keyWords = keyWord.split("[ ]");
 
 				for (int i = 0; i < keyWords.length; i++) {
+					keyWords[i]  = keyWords[i].replaceAll("[ÁÀáà]","a");
+					keyWords[i]  = keyWords[i].replaceAll("[ÉÈéè]","e");
+					keyWords[i]  = keyWords[i].replaceAll("[ÍÌíì]","i");
+					keyWords[i]  = keyWords[i].replaceAll("[ÓÒóò]","o");
+					keyWords[i]  = keyWords[i].replaceAll("[ÚÙúù]","u");
+					keyWords[i]  = keyWords[i].replaceAll("[Ññ]", "n");
 					keyWords[i]  = keyWords[i].replaceAll("\\W", "");
-					keyWordDisjunction = Restrictions.disjunction();
-					keyWordDisjunction.add(Restrictions.ilike("name", keyWords[i], MatchMode.ANYWHERE));
-					keywordConjunction.add(keyWordDisjunction);
+					filters += " lower(TRANSLATE(c.name,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%') ";
 				}
-				criteria.add(keywordConjunction);
+				filters += ")";
 			}
-			criteria.addOrder(Order.asc("name"));
+			query += filters;
 
-			List<Category> categories = (List<Category>) criteria.list();
+			hQuery = hibernate.createQuery(query);
+			List<Category> categories = hQuery.list();
 			hibernate.getTransaction().commit();
 			return categories;
 		} catch (Exception ex) {

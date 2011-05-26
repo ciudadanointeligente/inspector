@@ -119,29 +119,31 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 		try {
 			hibernate.beginTransaction();
-			Criteria criteria = hibernate.createCriteria(Parlamentarian.class);
-			criteria.addOrder(Order.asc("lastName"));
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-			criteria.setFetchMode("party", FetchMode.JOIN);
-			criteria.setFetchMode("authoredBills", FetchMode.JOIN);
-			criteria.setFetchMode("votedBills", FetchMode.JOIN);
+			String query = " from Parlamentarian p left join fetch p.authoredBills left join fetch p.votedBills left join fetch p.party where ";
+			Query hQuery;
+			String filters = "";
 
 			if (keyWord != null && !keyWord.equals("")) {
-				Conjunction keywordConjunction = Restrictions.conjunction();
-				Disjunction keyWordDisjunction;
+				filters += "(";
 				String[] keyWords = keyWord.split("[ ]");
 
 				for (int i = 0; i < keyWords.length; i++) {
+					keyWords[i]  = keyWords[i].replaceAll("[ÁÀáà]","a");
+					keyWords[i]  = keyWords[i].replaceAll("[ÉÈéè]","e");
+					keyWords[i]  = keyWords[i].replaceAll("[ÍÌíì]","i");
+					keyWords[i]  = keyWords[i].replaceAll("[ÓÒóò]","o");
+					keyWords[i]  = keyWords[i].replaceAll("[ÚÙúù]","u");
+					keyWords[i]  = keyWords[i].replaceAll("[Ññ]", "n");
 					keyWords[i]  = keyWords[i].replaceAll("\\W", "");
-					keyWordDisjunction = Restrictions.disjunction();
-					keyWordDisjunction.add(Restrictions.ilike("firstName", keyWords[i], MatchMode.ANYWHERE));
-					keyWordDisjunction.add(Restrictions.ilike("lastName", keyWords[i], MatchMode.ANYWHERE));
-					keywordConjunction.add(keyWordDisjunction);
+					filters += " lower(TRANSLATE(p.firstName,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%') OR ";
+					filters += " lower(TRANSLATE(p.lastName,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%') ";
 				}
-				criteria.add(keywordConjunction);
+				filters += ")";
 			}
+			query += filters;
 
-			List<Parlamentarian> parlamentarians = criteria.list();
+			hQuery = hibernate.createQuery(query);
+			List<Parlamentarian> parlamentarians = hQuery.list();
 			hibernate.getTransaction().commit();
 			return parlamentarians;
 		} catch (Exception ex) {
