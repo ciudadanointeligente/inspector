@@ -33,9 +33,11 @@ h2 {
 }
 
 .conflictWrapper {
+	background: url("../images/arrow_right_hor.png") no-repeat scroll 600px -18px transparent;
 	clear: both;
 	margin-top: 30px;
 	overflow: hidden;
+	padding-top: 9px;
 }
 
 .parlamentarianPanel {
@@ -107,26 +109,42 @@ h2 {
 		float: none;
 }
 
-.selectionWrapper {
+.selectionWrapper, .parlamentarianWrapperBorder{
 	border-bottom: 1px solid lightgrey;
 	border-left: 1px solid lightgrey;
 	border-right: 1px solid lightgrey;
-	-moz-border-radius: 15px; /* FF1+ */
-	-webkit-border-radius: 15px; /* Saf3-4, iOS 1+, Android 1.5+ */
-	border-radius: 15px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-border-radius: 13px; /* FF1+ */
+	-webkit-border-radius: 13px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 13px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
 	-moz-background-clip: padding;
 	-webkit-background-clip: padding-box;
 	background-clip: padding-box;
-	width: 640px;
 	position: relative;
 	z-index: 2000;
 }
 
-.selectionDisplay {
-	border: 7px solid white;
-	-moz-border-radius: 16px; /* FF1+ */
-	-webkit-border-radius: 16px; /* Saf3-4, iOS 1+, Android 1.5+ */
-	border-radius: 16px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+.selectionWrapper {
+	width: 640px;
+}
+
+.wrapperHeadNote{
+	border-bottom: 4px solid white;
+		color: #D2D2D2;
+		font-family: arial;
+		font-size: 0.97em;
+		letter-spacing: 0.1pt;
+		line-height: 15px;
+		padding: 10px;
+		text-align: center;
+		width: 260px;
+}
+
+
+.parlamentarianTableWrapper, .selectionDisplay {
+	border: 6px solid white;
+	-moz-border-radius: 12px; /* FF1+ */
+	-webkit-border-radius: 12px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
 	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
 	-moz-background-clip: padding;
 	-webkit-background-clip: padding-box;
@@ -138,9 +156,13 @@ h2 {
 	font-size: 12px;
 	color: white;
 	overflow: hidden;
-	height: 42px;
 	position: relative;
 	z-index: 2000;
+}
+
+.selectionDisplay {
+	height: 46px;
+
 }
 
 .selectionDisplay div{
@@ -167,7 +189,7 @@ h2 {
 }
 
 .parlamentarianImage{
-	width: 42px;
+	width: 46px;
 	float: left;
 }
 
@@ -181,7 +203,7 @@ h2 {
 .parliamentarianSelection{
 	display: block;
 	float: left;
-	margin-right: 20px;
+	margin-right: 15px;
 	width: 640px;
 }
 .parlamentarianDisplay{
@@ -194,7 +216,10 @@ h2 {
 	display: block;
 	overflow: hidden;
 	float: left;
-	margin-top: 10px;
+}
+
+.parlamentarianPanel h2{
+	text-align: center;
 }
 
 .searchTableScroll {
@@ -202,7 +227,7 @@ h2 {
 	overflow-x: hidden;
 	overflow-y: auto;
 	position: relative;
-	width: 290px;
+	width: 280px;
 	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
 	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
 	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */

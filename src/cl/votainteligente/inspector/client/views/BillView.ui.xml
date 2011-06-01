@@ -42,8 +42,15 @@
 			</div>
 			<g:HTMLPanel ui:field="parlamentarianPanel" addStyleNames="{style.parlamentarianPanel}">
 				<h2>Parlamentarios en conflicto:</h2>
-				<div class="{style.searchTableScroll}">
-					<g:HTMLPanel ui:field="parlamentarianTableContainer" addStyleNames="{style.searchTableBg}"></g:HTMLPanel>
+				<div class="{style.parlamentarianWrapperBorder}">
+					<div class="{style.parlamentarianTableWrapper}">
+						<div class="{style.wrapperHeadNote}">
+							Selecciona un parlamentario para ver sus relaciones con este proyecto
+						</div>
+						<div class="{style.searchTableScroll}">
+							<g:HTMLPanel ui:field="parlamentarianTableContainer"></g:HTMLPanel>
+						</div>
+					</div>
 				</div>
 			</g:HTMLPanel>
 		</div>
