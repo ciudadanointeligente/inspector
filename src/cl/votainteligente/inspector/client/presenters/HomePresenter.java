@@ -563,6 +563,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void execute(Category category) {
 				// TODO: add category suscription servlet
+				PlaceRequest placeRequest = new PlaceRequest(SubscriptionPresenter.PLACE);
+				placeManager.revealPlace(placeRequest.with(SubscriptionPresenter.PARAM_CATEGORY_ID, category.getId().toString()));
 			}
 		}) {
 			@Override
@@ -613,6 +615,38 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		while (getView().getBillTable().getColumnCount() > 0) {
 			getView().getBillTable().removeColumn(0);
 		}
+
+		// Creates action view bill column
+		Column<Bill, Bill> viewBillColumn = new Column<Bill, Bill>(new ActionCell<Bill>("", new ActionCell.Delegate<Bill>() {
+
+			@Override
+			public void execute(Bill bill) {
+				PlaceRequest placeRequest = new PlaceRequest(BillPresenter.PLACE);
+				placeRequest = placeRequest.with(BillPresenter.PARAM_BILL_ID, bill.getId().toString());
+				placeRequest = placeRequest.with(BillPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString());
+				placeManager.revealPlace(placeRequest);
+			}
+		}) {
+			@Override
+			public void render(Cell.Context context, Bill value, SafeHtmlBuilder sb) {
+				sb.append(new SafeHtml() {
+
+					@Override
+					public String asString() {
+						return "<div class=\"glassButton\"></div>";
+					}
+				});
+			}
+		}) {
+
+			@Override
+			public Bill getValue(Bill bill) {
+				return bill;
+			}
+		};
+
+		// Adds action view bill column to table
+		getView().getBillTable().addColumn(viewBillColumn, applicationMessages.getGeneralViewMore());
 
 		// Creates bulletin column
 		TextColumn<Bill> bulletinColumn = new TextColumn<Bill>() {
@@ -692,6 +726,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void execute(Bill bill) {
 				// TODO: add bill suscription servlet
+				PlaceRequest placeRequest = new PlaceRequest(SubscriptionPresenter.PLACE);
+				placeManager.revealPlace(placeRequest.with(SubscriptionPresenter.PARAM_BILL_ID, bill.getId().toString()));
 			}
 		}) {
 			@Override
@@ -714,19 +750,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 		// Adds action subscription column to table
 		getView().getBillTable().addColumn(suscriptionColumn, applicationMessages.getGeneralSusbcribe());
-
-		// Sets selection model for each row
-		final SingleSelectionModel<Bill> selectionModel = new SingleSelectionModel<Bill>(Bill.KEY_PROVIDER);
-		getView().getBillTable().setSelectionModel(selectionModel);
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			public void onSelectionChange(SelectionChangeEvent event) {
-				Bill bill = selectionModel.getSelectedObject();
-				PlaceRequest placeRequest = new PlaceRequest(BillPresenter.PLACE);
-				placeRequest = placeRequest.with(BillPresenter.PARAM_BILL_ID, bill.getId().toString());
-				placeRequest = placeRequest.with(BillPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString());
-				placeManager.revealPlace(placeRequest);
-			}
-		});
 	}
 
 	public void setBillTable() {
