@@ -2,7 +2,7 @@
 h2 {
 	padding: 5px 20px;
 	font-family: DeliciousHeavyRegular;
-	font-size: 16px;
+	font-size: 17px;
 	color: black;
 	font-weight: normal;
 }
@@ -35,9 +35,10 @@ h2 {
 .conflictWrapper {
 	background: url("../images/arrow_right_hor.png") no-repeat scroll 600px -18px transparent;
 	clear: both;
-	margin-top: 30px;
+	margin-top: 11px;
 	overflow: hidden;
 	padding-top: 9px;
+	margin-bottom: 60px;
 }
 
 .parlamentarianPanel {
