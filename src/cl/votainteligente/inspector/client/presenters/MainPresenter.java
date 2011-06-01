@@ -1,5 +1,8 @@
 package cl.votainteligente.inspector.client.presenters;
 
+import cl.votainteligente.inspector.client.uihandlers.MainUiHandlers;
+
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
@@ -12,11 +15,14 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;
 
-public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter.MyProxy> {
+public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter.MyProxy> implements MainUiHandlers {
 	@ContentSlot
 	public static final Type<RevealContentHandler<?>> SLOT_MAIN_CONTENT = new Type<RevealContentHandler<?>>();
 
-	public interface MyView extends View {
+	@ContentSlot
+	public static final Type<RevealContentHandler<?>> SLOT_POPUP_CONTENT = new Type<RevealContentHandler<?>>();
+
+	public interface MyView extends View, HasUiHandlers<MainUiHandlers> {
 	}
 
 	@ProxyStandard
@@ -26,10 +32,16 @@ public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter
 	@Inject
 	public MainPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
 		super(eventBus, view, proxy);
+		getView().setUiHandlers(this);
 	}
 
 	@Override
 	protected void revealInParent() {
 		fireEvent(new RevealRootContentEvent(this));
+	}
+
+	@Override
+	public void clearPopupSlot() {
+		clearSlot(SLOT_POPUP_CONTENT);
 	}
 }
