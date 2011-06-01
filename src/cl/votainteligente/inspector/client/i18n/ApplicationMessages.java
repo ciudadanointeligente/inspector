@@ -61,6 +61,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.noMatches")
 	public String getGeneralNoMatches();
 
+	@Key("error.invalidEmail")
+	public String getErrorInvalidEmail();
+
 	@Key("error.parlamentarian")
 	public String getErrorParlamentarian();
 
@@ -99,6 +102,9 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("error.bill.list")
 	public String getErrorBillList();
+
+	@Key("error.subscriber")
+	public String getErrorSubscriber();
 
 	@Key("bill.bulletin")
 	public String getBillBulletin();
@@ -186,4 +192,10 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("society.reportedVsUnreported")
 	public String getSocietyReportedVsUnreported();
+
+	@Key("subscriber.subscribe")
+	public String getSubscriberSuscribe();
+
+	@Key("subscriber.subscriptionSuccessful")
+	public String getSubscriberSuscriptionSuccessful();
 }
