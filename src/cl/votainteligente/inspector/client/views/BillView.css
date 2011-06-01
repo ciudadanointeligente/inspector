@@ -1,4 +1,4 @@
-@external .billTitle ;
+@external .billTitle, .selectionDisplay, .linkProfile, .conflictWrapper, .billPanel, .billData, .parlamentarianPanel, .societyPanel, .billdescription, .parliamentarianSelection, .parlamentarianDisplay, .selectionWrapper, .parlamentarianPanel, .searchTableBg, .searchTableScroll, .parlamentarianPanel;
 h2 {
 	padding: 5px 20px;
 	font-family: DeliciousHeavyRegular;
@@ -6,27 +6,36 @@ h2 {
 	color: black;
 	font-weight: normal;
 }
+.billPanel{
+	display: block;
+	overflow: hidden;
 
+}
 .billTitle {
 	background: url("images/bg_grad.jpg") repeat-x scroll 0 bottom white;
-	color: black;
-	font-family: DeliciousBold;
-	font-size: 17px;
-	height: 27px;
-	padding: 10px 20px;
-	border-top: 1px solid white;
+		border-top: 1px solid white;
+		color: black;
+		font-family: DeliciousBold;
+		font-size: 17px;
+		overflow: hidden;
+		padding: 10px 20px;
 }
+
 
 .billData {
 	background-color: white;
-	padding: 15px;
-	display: block;
-	float: left;
-	min-width: 260px;
+		clear: both;
+		display: block;
+		float: left;
+		padding: 15px;
+		width: 100%;
+}
 }
 
 .conflictWrapper {
 	clear: both;
+	margin-top: 30px;
+	overflow: hidden;
 }
 
 .parlamentarianPanel {
@@ -36,18 +45,88 @@ h2 {
 .societyPanel {
 	float: left;
 }
+
 .billdescription{
+	border-right: 1px dotted #D2D2D2;
 	float: left;
-	padding: 15px 29px 15px 0;
-	width: 630px;
+	padding: 10px 29px 15px 0;
+	max-width: 630px;
+}
+
+.billAuthors{
+	float: left;
+	padding: 10px 29px 15px 15px;
+}
+
+.billData{
+	background-color: white;
+	display: block;
+	float: left;
+	min-width: 260px;
+	padding: 15px;
 
 }
 
+.billData ul{
+	border-bottom: 1px dotted #D2D2D2;
+	display: block;
+	margin: -3px -15px 10px;
+	overflow: hidden;
+	padding: 0 0 9px;
+	width: 100%;
+}
+
+.billData li{
+	border-right: 1px dotted #d2d2d2;
+	display: block;
+	float: left;
+	overflow: hidden;
+	padding: 2px 11px;
+}
+
+.billData li:last-child{
+	border-right: none;
+	padding-right: 0;
+}
+
+.billData li div{
+	color: grey;
+	float: left;
+	font-family: DeliciousItalic;
+	font-size: 1.09em;
+}
+
+.billData li span, .billAuthors span{
+	float: left;
+	font-family: DeliciousBold;
+	font-size: 1.09em;
+	margin-right: 3px;
+}
+.billAuthors span{
+		clear: both;
+		float: none;
+}
+
+.selectionWrapper {
+	border-bottom: 1px solid lightgrey;
+	border-left: 1px solid lightgrey;
+	border-right: 1px solid lightgrey;
+	-moz-border-radius: 15px; /* FF1+ */
+	-webkit-border-radius: 15px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 15px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	width: 640px;
+	position: relative;
+	z-index: 2000;
+}
+
 .selectionDisplay {
-	border: 10px solid white;
-	-moz-border-radius: 24px; /* FF1+ */
-	-webkit-border-radius: 24x; /* Saf3-4, iOS 1+, Android 1.5+ */
-	border-radius: 24px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	border: 7px solid white;
+	-moz-border-radius: 16px; /* FF1+ */
+	-webkit-border-radius: 16px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 16px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
 	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
 	-moz-background-clip: padding;
 	-webkit-background-clip: padding-box;
@@ -56,10 +135,42 @@ h2 {
 	-webkit-box-shadow: 0px 0px 16px #000000 inset; /* Saf3.0+, Chrome */
 	box-shadow: 0px 0px 16px #000000 inset;
 	/* Opera 10.5, IE9, Chrome 10+ */
-	font-size: 15px;
+	font-size: 12px;
 	color: white;
 	overflow: hidden;
+	height: 42px;
+	position: relative;
+	z-index: 2000;
 }
+
+.selectionDisplay div{
+	float: left;
+}
+
+.profileButton {
+	background: url("images/profile_button.png") no-repeat scroll -6px top transparent;
+	cursor: pointer;
+	display: block;
+	font-size: 0.87em;
+	height: 27px;
+	line-height: 100%;
+	margin-left: 30px;
+	padding-left: 36px;
+	padding-top: 4px;
+	position: relative;
+	top: 6px;
+	width: 76px;
+}
+
+.profileButton:hover {
+	background-position: -6px -54px;
+}
+
+.parlamentarianImage{
+	width: 42px;
+	float: left;
+}
+
 
 .selectionDisplay .linkProfile {
 	clear: both;
@@ -67,3 +178,46 @@ h2 {
 	letter-spacing: 0.2pt;
 	text-decoration: underline;
 }
+.parliamentarianSelection{
+	display: block;
+	float: left;
+	margin-right: 20px;
+	width: 640px;
+}
+.parlamentarianDisplay{
+	font-size: 120%;
+	padding: 13px;
+	width: 391px;
+}
+
+.parlamentarianPanel {
+	display: block;
+	overflow: hidden;
+	float: left;
+	margin-top: 10px;
+}
+
+.searchTableScroll {
+	max-height: 270px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: relative;
+	width: 290px;
+	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
+	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+}
+
+.searchTableBg {
+	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
+	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-box-shadow: 0px 0px 4px #000000 inset; /* FF3.5+ */
+	-webkit-box-shadow: 0px 0px 4px #000000 inset; /* Saf3.0+, Chrome */
+	box-shadow: 0px 0px 4px #000000 inset;
+	/* Opera 10.5, IE9, Chrome 10+ */
+	background: url("images/bg_darker.jpg") repeat scroll 0 0 transparent;
+	width: 280px;
+}
+
+

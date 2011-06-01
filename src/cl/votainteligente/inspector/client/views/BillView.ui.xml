@@ -4,34 +4,47 @@
 	<ui:style src="BillView.css" />
 	<g:HTMLPanel>
 		<h2>Proyecto de Ley:</h2>
-		<g:HTMLPanel ui:field="billPanel">
+		<g:HTMLPanel ui:field="billPanel" addStyleNames="{style.billPanel}">
 			<g:Label addStyleNames="billTitle" ui:field="billTitle"/>
-			<div class="{style.billdescription}">
-				<g:Label ui:field="billDescription"></g:Label>
-			</div>
 			<div class="{style.billData}">
-				N° Boletín: <g:Label ui:field="billBulletinNumber"/>
-				Fecha de ingreso: <g:Label ui:field="billEntryDate"/>
-				Iniciativa: <g:Label ui:field="billInitiativeType"/>
-				Tipo: <g:Label ui:field="billType"/>
-				Cámara de origen: <g:Label ui:field="billOriginChamber"/>
-				Urgencia: <g:Label ui:field="billUrgency"/>
-				Estado: <g:Label ui:field="billStage"/>
+				<ul>
+					<li><span>N° Boletín: </span><g:Label ui:field="billBulletinNumber"/></li>
+					<li><span>Fecha de ingreso: </span><g:Label ui:field="billEntryDate"/></li>
+					<li><span>Iniciativa:</span> <g:Label ui:field="billInitiativeType"/></li>
+					<li><span>Tipo:</span> <g:Label ui:field="billType"/></li>
+					<li><span>Cámara de origen:</span> <g:Label ui:field="billOriginChamber"/></li>
+					<li><span>Urgencia:</span> <g:Label ui:field="billUrgency"/></li>
+					<li><span>Estado:</span> <g:Label ui:field="billStage"/></li>
+				</ul>
+				<div class="{style.billdescription}">
+					<g:Label ui:field="billDescription"></g:Label>
+				</div>
+				<div class="{style.billAuthors}">
+					<span>Autores</span>
+					<g:Label>asdfgh asd sadf </g:Label>
+				</div>
+
 			</div>
 		</g:HTMLPanel>
 		<div class="{style.conflictWrapper}">
-			<g:HTMLPanel>
-				<g:Image ui:field="parlamentarianImage"/>
-				<g:Label ui:field="parlamentarianDisplay"></g:Label>
-				<g:Label ui:field="parlamentarianProfileLink">ver su perfil de intereses</g:Label>
-			</g:HTMLPanel>
-			<g:HTMLPanel ui:field="societyPanel">
-				Sociedades en conflicto:
-				<g:HTMLPanel ui:field="societyTableContainer"></g:HTMLPanel>
-			</g:HTMLPanel>
-			<g:HTMLPanel ui:field="parlamentarianPanel">
-				Parlamentarios en conflicto:
-				<g:HTMLPanel ui:field="parlamentarianTableContainer"></g:HTMLPanel>
+			<div class="{style.parliamentarianSelection}">
+				<h2>Sociedades en conflicto:</h2>
+				<div class="selectionWrapper">
+					<g:HTMLPanel addStyleNames="{style.selectionDisplay}">
+						<g:Image ui:field="parlamentarianImage" addStyleNames="{style.parlamentarianImage}" />
+						<g:Label ui:field="parlamentarianDisplay" addStyleNames="{style.parlamentarianDisplay}"></g:Label>
+						<g:Label ui:field="parlamentarianProfileLink" title="ver su perfil de intereses" addStyleNames="{style.profileButton}" > ver su perfil de intereses</g:Label>
+					</g:HTMLPanel>
+				</div>
+				<g:HTMLPanel ui:field="societyPanel">
+					<g:HTMLPanel ui:field="societyTableContainer"></g:HTMLPanel>
+				</g:HTMLPanel>
+			</div>
+			<g:HTMLPanel ui:field="parlamentarianPanel" addStyleNames="{style.parlamentarianPanel}">
+				<h2>Parlamentarios en conflicto:</h2>
+				<div class="{style.searchTableScroll}">
+					<g:HTMLPanel ui:field="parlamentarianTableContainer" addStyleNames="{style.searchTableBg}"></g:HTMLPanel>
+				</div>
 			</g:HTMLPanel>
 		</div>
 	</g:HTMLPanel>

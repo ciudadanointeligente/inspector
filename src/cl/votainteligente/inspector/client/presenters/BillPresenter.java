@@ -415,7 +415,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 					@Override
 					public String asString() {
-						return "<div class=\"profileButton\"></div>";
+						return "<div class=\"glassButton\"></div>";
 					}
 				});
 			}
@@ -428,7 +428,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		};
 
 		// Adds action profile column to table
-		getView().getSocietyTable().addColumn(profileColumn, applicationMessages.getGeneralProfile());
+		getView().getSocietyTable().addColumn(profileColumn, applicationMessages.getGeneralViewMore());
 	}
 
 	@Override

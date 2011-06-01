@@ -1,6 +1,8 @@
 .cellTableWidget {
 	margin-bottom: 20px;
-	width: 100%;
+		position: relative;
+		top: -11px;
+		width: 100%;
 }
 
 .cellTableFirstColumn {
@@ -22,12 +24,12 @@
 
 .cellTableHeader {
 	background-color: white;
-	border-bottom: 1px dotted #A7A7A7;
-	font-family: DeliciousBold;
+	border-bottom: 2px solid #DFDFDF;
+	font-family: DeliciousHeavyRegular;
 	font-size: 14px;
 	font-weight: normal;
 	overflow: hidden;
-	padding: 10px 15px 5px;
+	padding: 18px 15px 5px;
 	text-align: left;
 }
 
@@ -44,6 +46,7 @@
 }
 
 .cellTableFirstColumnHeader {
+	width: 165px;
 
 }
 

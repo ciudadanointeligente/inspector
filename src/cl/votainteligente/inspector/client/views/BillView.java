@@ -1,8 +1,8 @@
 package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.BillPresenter;
-import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
-import cl.votainteligente.inspector.client.resources.SearchCellTableResource;
+import cl.votainteligente.inspector.client.resources.BillDisplayCellTableResource;
+import cl.votainteligente.inspector.client.resources.BillSearchCellTableResource;
 import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.Society;
@@ -46,8 +46,8 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 
 	public BillView() {
 		widget = uiBinder.createAndBindUi(this);
-		SearchCellTableResource searchResource = GWT.create(SearchCellTableResource.class);
-		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
+		BillSearchCellTableResource searchResource = GWT.create(BillSearchCellTableResource.class);
+		BillDisplayCellTableResource displayResource = GWT.create(BillDisplayCellTableResource.class);
 		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
 		parlamentarianTableContainer.add(parlamentarianTable);
 		societyTable = new CellTable<Society>(15, displayResource);
