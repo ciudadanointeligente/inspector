@@ -43,6 +43,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.profile")
 	public String getGeneralProfile();
 
+	@Key("general.viewMore")
+	public String getGeneralViewMore();
+
 	@Key("general.title")
 	public String getGeneralTitle();
 
