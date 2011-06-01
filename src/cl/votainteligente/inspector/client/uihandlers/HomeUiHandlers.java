@@ -1,5 +1,6 @@
 package cl.votainteligente.inspector.client.uihandlers;
 
+import cl.votainteligente.inspector.client.presenters.HomePresenter.SelectionType;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
 
@@ -15,5 +16,7 @@ public interface HomeUiHandlers extends UiHandlers {
 	void searchBill(Long parlamentarianId, Long categoryId);
 	void showParlamentarianProfile();
 	void resetSelection();
-	void resetSelectionType();
+	void switchSelectionType();
+	void setupSelection(SelectionType changeType);
+	void searchCleaner();
 }

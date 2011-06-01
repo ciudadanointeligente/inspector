@@ -164,3 +164,7 @@ td.selectedCategory {
 .lockedParlamentarian {
 	background-position: right top;
 }
+
+.lightOn { }
+.lightOff { }
+.selectionDisplayNone { }

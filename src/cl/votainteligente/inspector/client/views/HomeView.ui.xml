@@ -5,6 +5,7 @@
 	<g:HTMLPanel>
 		<g:HTMLPanel ui:field="parlamentarianPanel" addStyleNames="{style.parlamentarianPanel}">
 			<g:Label ui:field="parlamentarianLabel"/>
+			<g:Label ui:field="parliamentarianStatusLight"/>
 			<g:TextBox ui:field="parlamentarianSearch" addStyleNames="{style.searchBox}"/>
 			<g:Label ui:field="parlamentarianSearchClear">X</g:Label>
 			<g:Label ui:field="parliamentarianMessage" visible="false"/>
@@ -13,8 +14,10 @@
 			</div>
 		</g:HTMLPanel>
 		<g:Label ui:field="selectionType"/>
+		<g:Label ui:field="notificationSelectedType"/>
 		<g:HTMLPanel ui:field="categoryPanel" addStyleNames="{style.categoryPanel}">
 			<g:Label ui:field="categoryLabel"/>
+			<g:Label ui:field="categoryStatusLight"/>
 			<g:TextBox ui:field="categorySearch" addStyleNames="{style.searchBox}"/>
 			<g:Label ui:field="categorySearchClear">X</g:Label>
 			<g:Label ui:field="categoryMessage" visible="false"/>
@@ -28,17 +31,17 @@
 				<table class="{style.selectionTable}">
 					<tr>
 						<td class="{style.parlamentarianImage}"><g:Image ui:field="parlamentarianImage"/></td>
-						<td class="{style.selectedParlamentarian}">
+						<td>
 							<g:Label ui:field="parlamentarianDisplay"></g:Label>
-							<div class="{style.linkProfile}"><g:Label ui:field="parlamentarianProfileLink">ver su perfil de intereses</g:Label></div>
+							<div class="{style.linkProfile}"><g:Label ui:field="parlamentarianProfileLink" visible="false">ver su perfil de intereses</g:Label></div>
 						</td>
 						<td class="{style.plus}"></td>
-						<td class="{style.selectedCategory}"><g:Label ui:field="categoryDisplay"></g:Label></td>
+						<td><g:Label ui:field="categoryDisplay"></g:Label></td>
 					</tr>
 				</table>
 			</g:HTMLPanel>
 		</div>
-		<g:HTMLPanel ui:field="billPanel" addStyleNames="{style.billPanel}">
+		<g:HTMLPanel ui:field="billPanel" addStyleNames="{style.billPanel}" visible="false">
 			<g:Label ui:field="billMessage" visible="false"/>
 		</g:HTMLPanel>
 	</g:HTMLPanel>

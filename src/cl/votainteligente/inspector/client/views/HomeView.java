@@ -34,12 +34,15 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 
 	@UiField HTMLPanel parlamentarianPanel;
 	@UiField HTMLPanel parlamentarianTableContainer;
+	@UiField Label parliamentarianStatusLight;
 	@UiField TextBox parlamentarianSearch;
 	@UiField Label parlamentarianSearchClear;
 	@UiField Label parliamentarianMessage;
 	@UiField Label selectionType;
+	@UiField Label notificationSelectedType;
 	@UiField HTMLPanel categoryPanel;
 	@UiField HTMLPanel categoryTableContainer;
+	@UiField Label categoryStatusLight;
 	@UiField TextBox categorySearch;
 	@UiField Label categorySearchClear;
 	@UiField Label categoryMessage;
@@ -126,12 +129,13 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 		switch (selectedType) {
 		case SELECTED_PARLAMENTARIAN:
 			selectionType.setStyleName(ResourceBundle.INSTANCE.HomeView().lockedParlamentarian());
+			parliamentarianStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().lightOn());
+			categoryStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().lightOff());
 			break;
 		case SELECTED_CATEGORY:
 			selectionType.setStyleName(ResourceBundle.INSTANCE.HomeView().lockedCategory());
-			break;
-		default:
-			selectionType.setStyleName(ResourceBundle.INSTANCE.HomeView().unlocked());
+			parliamentarianStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().lightOff());
+			categoryStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().lightOn());
 			break;
 		}
 	}
@@ -169,6 +173,51 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 		billMessage.setVisible(false);
 	}
 
+	@Override
+	public void showBillTable() {
+		parlamentarianProfileLink.setVisible(true);
+		billPanel.setVisible(true);
+	}
+
+	@Override
+	public void hideBillTable() {
+		parlamentarianProfileLink.setVisible(false);
+		billPanel.setVisible(false);
+	}
+
+	@Override
+	public void notificationSelectCategory() {
+		notificationSelectedType.setVisible(true);
+		notificationSelectedType.setText(applicationMessages.getCategoryNotificationSelectParliamentarian());
+	}
+
+	@Override
+	public void notificationSelectParliamentarian() {
+		notificationSelectedType.setVisible(true);
+		notificationSelectedType.setText(applicationMessages.getParliamentarianNotificationSelectCategory());
+	}
+
+	@Override
+	public void notificationSelectHidden() {
+		notificationSelectedType.setVisible(false);
+	}
+
+	@Override
+	public void displaySelectionNone() {
+		parlamentarianDisplay.setStyleName(ResourceBundle.INSTANCE.HomeView().selectionDisplayNone());
+		categoryDisplay.setStyleName(ResourceBundle.INSTANCE.HomeView().selectionDisplayNone());
+	}
+
+	@Override
+	public void displaySelectionParliamentarian() {
+		parlamentarianDisplay.setStyleName(ResourceBundle.INSTANCE.HomeView().selectedParlamentarian());
+	}
+
+	@Override
+	public void displaySelectionCategory() {
+		categoryDisplay.setStyleName(ResourceBundle.INSTANCE.HomeView().selectedCategory());
+	}
+
 	@UiHandler("parlamentarianSearch")
 	public void onParlamentarianSearchKeyUp(KeyUpEvent event) {
 		if ((event.getNativeKeyCode() >= 48 && event.getNativeKeyCode() <= 57) ||
@@ -190,6 +239,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiHandler("parlamentarianSearchClear")
 	public void onParlamentarianSearchClearClick(ClickEvent event) {
 		parlamentarianSearch.setText("");
+		getUiHandlers().searchCleaner();
 	}
 
 	@UiHandler("categorySearch")
@@ -213,6 +263,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiHandler("categorySearchClear")
 	public void onCategorySearchClearClick(ClickEvent event) {
 		categorySearch.setText("");
+		getUiHandlers().searchCleaner();
 	}
 
 	@UiHandler("parlamentarianProfileLink")
@@ -222,6 +273,6 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 
 	@UiHandler("selectionType")
 	public void onSelectionTypeClick(ClickEvent event) {
-		getUiHandlers().resetSelectionType();
+		getUiHandlers().switchSelectionType();
 	}
 }

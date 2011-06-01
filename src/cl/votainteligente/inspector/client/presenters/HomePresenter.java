@@ -54,10 +54,17 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		void hideCategoryMessage();
 		void setBillMessage(String message);
 		void hideBillMessage();
+		void showBillTable();
+		void hideBillTable();
+		void notificationSelectCategory();
+		void notificationSelectParliamentarian();
+		void notificationSelectHidden();
+		void displaySelectionNone();
+		void displaySelectionParliamentarian();
+		void displaySelectionCategory();
 	}
 
 	public enum SelectionType {
-		SELECTED_NONE,
 		SELECTED_PARLAMENTARIAN,
 		SELECTED_CATEGORY
 	}
@@ -97,11 +104,13 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		categoryData = new ListDataProvider<Category>();
 		billData = new ListDataProvider<Bill>();
 		resetSelection();
-		getView().setSelectedType(SelectionType.SELECTED_NONE);
+		setupSelection(SelectionType.SELECTED_PARLAMENTARIAN);
 		initParlamentarianTable();
 		initCategoryTable();
 		initBillTable();
 		initDataLoad();
+		getView().hideBillTable();
+		getView().displaySelectionNone();
 	}
 
 	@Override
@@ -145,6 +154,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().hideParlamentarianMessage();
 		getView().hideCategoryMessage();
 		getView().hideBillMessage();
+		getView().hideBillTable();
+		getView().notificationSelectHidden();
+		getView().displaySelectionNone();
 	}
 
 	@Override
@@ -158,7 +170,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		}
 
 		if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
-			if (selectedType.equals(SelectionType.SELECTED_NONE)) {
+			if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 				initDataLoad();
 			} else if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
 				List<Category> categories = new ArrayList<Category>();
@@ -178,7 +190,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 					final List<Parlamentarian> keywordSearchParlamentarianList = result;
 
 					if (result != null) {
-						if (selectedType.equals(SelectionType.SELECTED_NONE) || selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
+						if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 							ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
 							setParlamentarianData(data);
 						} else if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
@@ -259,7 +271,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		}
 
 		if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
-			if (selectedType.equals(SelectionType.SELECTED_NONE)) {
+			if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
 				initDataLoad();
 			} else if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 				List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
@@ -277,7 +289,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				@Override
 				public void onSuccess(List<Category> result) {
 					if (result != null) {
-						if (selectedType.equals(SelectionType.SELECTED_NONE) || selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
+						if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
 							ListDataProvider<Category> data = new ListDataProvider<Category>(result);
 							setCategoryData(data);
 						} else if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
@@ -498,15 +510,12 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			public void onSelectionChange(SelectionChangeEvent event) {
 
 				if (selectionModel.getSelectedObject() != null) {
-					if (selectedType.equals(SelectionType.SELECTED_NONE)) {
-						selectedType = SelectionType.SELECTED_PARLAMENTARIAN;
-						getView().setSelectedType(SelectionType.SELECTED_PARLAMENTARIAN);
-					}
-
 					if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 						List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
 						parlamentarians.add(selectionModel.getSelectedObject());
 						searchCategory(parlamentarians);
+						getView().notificationSelectParliamentarian();
+						getView().displaySelectionParliamentarian();
 					}
 
 					selectedParlamentarian = selectionModel.getSelectedObject();
@@ -584,15 +593,12 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			public void onSelectionChange(SelectionChangeEvent event) {
 
 				if (selectionModel.getSelectedObject() != null){
-					if (selectedType.equals(SelectionType.SELECTED_NONE)) {
-						selectedType = SelectionType.SELECTED_CATEGORY;
-						getView().setSelectedType(SelectionType.SELECTED_CATEGORY);
-					}
-
 					if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
 						List<Category> categories = new ArrayList<Category>();
 						categories.add(selectionModel.getSelectedObject());
 						searchParlamentarian(categories);
+						getView().notificationSelectCategory();
+						getView().displaySelectionCategory();
 					}
 
 					selectedCategory = selectionModel.getSelectedObject();
@@ -725,7 +731,14 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	public void setBillTable() {
 		if (selectedParlamentarian != null && selectedCategory != null) {
+			if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
+				getView().displaySelectionCategory();
+			}
+			else if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
+				getView().displaySelectionParliamentarian();
+			}
 			searchBill(selectedParlamentarian.getId(), selectedCategory.getId());
+			getView().showBillTable();
 		} else {
 			setBillData(new ListDataProvider<Bill>());
 		}
@@ -748,18 +761,34 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
-		selectedType = SelectionType.SELECTED_NONE;
 		getView().hideParlamentarianMessage();
 		getView().hideCategoryMessage();
 		getView().hideBillMessage();
 	}
 
 	@Override
-	public void resetSelectionType() {
-		getView().setSelectedType(SelectionType.SELECTED_NONE);
+	public void switchSelectionType() {
+		if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
+			setupSelection(SelectionType.SELECTED_CATEGORY);
+		}
+		else if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
+			setupSelection(SelectionType.SELECTED_PARLAMENTARIAN);
+		}
+		searchCleaner();
+	}
+
+	@Override
+	public void searchCleaner() {
 		getView().getParlamentarianTable().getSelectionModel().setSelected(selectedParlamentarian, false);
 		getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, false);
 		resetSelection();
 		initDataLoad();
 	}
+
+	@Override
+	public void setupSelection(SelectionType changeType) {
+		selectedType = changeType;
+		getView().setSelectedType(selectedType);
+	}
+
 }
