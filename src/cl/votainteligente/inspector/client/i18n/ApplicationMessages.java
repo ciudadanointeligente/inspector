@@ -121,6 +121,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("category.searchMessage")
 	public String getCategorySearchMessage();
 
+	@Key("category.notificationSelectParliamentarian")
+	public String getCategoryNotificationSelectParliamentarian();
+
 	@Key("parlamentarian.societies")
 	public String getParlamentarianSocieties();
 
@@ -138,6 +141,9 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("parlamentarian.searchMessage")
 	public String getParlamentarianSearchMessage();
+
+	@Key("parliamentarian.notificationSelectCategory")
+	public String getParliamentarianNotificationSelectCategory();
 
 	@Key("person.civilStatusSingle")
 	public String getCivilStatusSingle();
