@@ -1,0 +1,13 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style src="SubscriptionView.css" />
+	<g:FocusPanel ui:field="subscriptionPanel">
+		<g:HTMLPanel>
+			<g:Label ui:field="close">X</g:Label>
+			<g:Label ui:field="notification"></g:Label>
+			<g:TextBox ui:field="email"/>
+			<g:Button ui:field="subscribe">Suscribir</g:Button>
+		</g:HTMLPanel>
+	</g:FocusPanel>
+</ui:UiBinder>
