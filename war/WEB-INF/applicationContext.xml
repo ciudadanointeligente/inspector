@@ -42,6 +42,7 @@
 				<value>cl/votainteligente/inspector/model/SocietyStatus.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/SocietyType.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/Stage.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/Subscriber.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/Urgency.hbm.xml</value>
 			</list>
 		</property>

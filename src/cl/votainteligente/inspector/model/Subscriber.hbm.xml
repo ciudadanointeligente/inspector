@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cl.votainteligente.inspector.model">
+	<class name="Subscriber">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="email" />
+		<property name="suscriberKey" />
+		<map name="subscriptions" table="SubscribedBills">
+			<key column="subscriberId" />
+			<map-key-many-to-many column="billId" class="Bill" />
+			<element column="subscription" type="integer" />
+		</map>
+	</class>
+</hibernate-mapping>
