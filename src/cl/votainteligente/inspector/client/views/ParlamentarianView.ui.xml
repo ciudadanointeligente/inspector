@@ -4,37 +4,44 @@
 	xmlns:hc="urn:import:org.adapters.highcharts.gwt.widgets">
 	<ui:style src="ParlamentarianView.css" />
 	<g:HTMLPanel>
-		<g:HTMLPanel>
-			<g:Label ui:field="parlamentarianName" />
-			<g:Label ui:field="parlamentarianDescription" />
-			<div>Fecha nacimiento:</div>
-			<g:Label ui:field="parlamentarianBirthDate" />
+		<h2>Perfil de interés </h2>
+		<g:HTMLPanel addStyleNames="{style.blockParlamentarian}">
+			<div class="{style.parlamentarianInfo}">
+				<g:Image ui:field="parlamentarianImage" addStyleNames="{style.parlamentarianImage}" />
+				<g:Label ui:field="parlamentarianName" addStyleNames="{style.parlamentarianName}" />
+				<g:Label ui:field="parlamentarianDescription" />
+				<div class="{style.fecha}" ><span>Fecha nacimiento:</span><g:Label ui:field="parlamentarianBirthDate" /></div>
+			</div>
+			<g:HTMLPanel addStyleNames="{style.declarationsWrapper}">
+				<g:Anchor ui:field="interestDeclarationLink" addStyleNames="{style.declarationButton}">Ver declaración de Intereses</g:Anchor>
+				<g:Anchor ui:field="patrimonyDeclarationLink"  addStyleNames="{style.declarationButton}">Ver declaración de Patrimonio</g:Anchor>
+			</g:HTMLPanel>
 		</g:HTMLPanel>
-		<g:HTMLPanel>
-			<div>Relaciones Familiares</div>
-			<div>Estado Civil:</div>
-			<g:Label ui:field="parlamentarianCivilStatus" />
-			<div>Cónyuge:</div>
-			<g:Label ui:field="parlamentarianSpouse" />
-			<div>Hijos:</div>
-			<g:Label ui:field="parlamentarianChildren" />
+		<g:HTMLPanel addStyleNames="{style.content}">
+			<g:FlowPanel ui:field="declarationChartPanel" width="500px" height="400px" />
+			<g:HTMLPanel ui:field="societyPanel"/>
 		</g:HTMLPanel>
-		<g:HTMLPanel>
-			<div>Comisiones en que participa</div>
-			<div>Permanentes</div>
-			<g:Label ui:field="parlamentarianPermanentCommissions" />
-			<div>Especiales</div>
-			<g:Label ui:field="parlamentarianSpecialCommissions" />
+		<g:HTMLPanel addStyleNames="{style.aside}">
+			<g:HTMLPanel>
+				<div>Relaciones Familiares</div>
+				<div>Estado Civil:</div>
+				<g:Label ui:field="parlamentarianCivilStatus" />
+				<div>Cónyuge:</div>
+				<g:Label ui:field="parlamentarianSpouse" />
+				<div>Hijos:</div>
+				<g:Label ui:field="parlamentarianChildren" />
+			</g:HTMLPanel>
+			<g:HTMLPanel>
+				<div>Comisiones en que participa</div>
+				<div>Permanentes</div>
+				<g:Label ui:field="parlamentarianPermanentCommissions" />
+				<div>Especiales</div>
+				<g:Label ui:field="parlamentarianSpecialCommissions" />
+			</g:HTMLPanel>
+			<g:HTMLPanel>
+				<div>Partido</div>
+				<g:Label ui:field="parlamentarianParty" />
+			</g:HTMLPanel>
 		</g:HTMLPanel>
-		<g:HTMLPanel>
-			<div>Partido</div>
-			<g:Label ui:field="parlamentarianParty" />
-		</g:HTMLPanel>
-		<g:HTMLPanel>
-			<g:Anchor ui:field="interestDeclarationLink">Ver declaración de Intereses</g:Anchor>
-			<g:Anchor ui:field="patrimonyDeclarationLink">Ver declaración de Patrimonio</g:Anchor>
-		</g:HTMLPanel>
-		<g:FlowPanel ui:field="declarationChartPanel" width="500px" height="400px" />
-		<g:HTMLPanel ui:field="societyPanel"/>
 	</g:HTMLPanel>
 </ui:UiBinder>

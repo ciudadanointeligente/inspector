@@ -1,0 +1,75 @@
+h2 {
+	padding: 5px 20px;
+	font-family: DeliciousHeavyRegular;
+	font-size: 17px;
+	color: black;
+	font-weight: normal;
+}
+
+.blockParlamentarian{
+	background: url("images/bg_grad.jpg") repeat-x scroll 0 bottom white;
+	border-top: 1px solid white;
+	color: black;
+	overflow: hidden;
+	padding: 8px 20px;
+	font-size: 11px;
+	clear: both;
+}
+
+.parlamentarianInfo{
+	float: left;
+	width: 500px;
+}
+
+.parlamentarianImage{
+	background-color: grey;
+	display: block;
+	float: left;
+	height: 105px;
+	margin: -9px 15px -9px -20px;
+	width: 80px;
+
+}
+.parlamentarianName{
+	font-family: DeliciousBold;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.fecha div, .fecha span{
+	float: left;
+	margin-right: 10px;
+}
+.content{
+	float: left;
+	margin-right: 10px;
+	width: 645px;
+}
+
+.aside{
+	float: left;
+	width: 290px;
+}
+
+.declarationButton{
+	background: url("images/buttonSheet.png") no-repeat scroll center -157px transparent;
+	cursor: pointer;
+	display: block;
+	float: left;
+	font-family: DeliciousBold;
+	margin: 0 10px;
+	padding: 56px 10px 5px;
+	text-align: center;
+	text-decoration: none;
+	width: 87px;
+}
+
+.declarationButton:hover{
+	background: url("images/buttonSheet.png") no-repeat scroll center 3px transparent;
+}
+
+.declarationsWrapper{
+	float: right;
+}
+
