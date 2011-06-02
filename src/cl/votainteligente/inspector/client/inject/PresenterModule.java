@@ -30,5 +30,6 @@ public class PresenterModule extends AbstractPresenterModule {
 		bindPresenter(ParlamentarianPresenter.class, ParlamentarianPresenter.MyView.class, ParlamentarianView.class, ParlamentarianPresenter.MyProxy.class);
 		bindPresenter(SocietyPresenter.class, SocietyPresenter.MyView.class, SocietyView.class, SocietyPresenter.MyProxy.class);
 		bindPresenter(SubscriptionPresenter.class, SubscriptionPresenter.MyView.class, SubscriptionView.class, SubscriptionPresenter.MyProxy.class);
+		bindPresenter(UnsubscribePresenter.class, UnsubscribePresenter.MyView.class, UnsubscribeView.class, UnsubscribePresenter.MyProxy.class);
 	}
 }
