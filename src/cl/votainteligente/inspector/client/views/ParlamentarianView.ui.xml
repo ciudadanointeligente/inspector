@@ -19,29 +19,35 @@
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.content}">
 			<g:FlowPanel ui:field="declarationChartPanel" width="280px" height="280px" />
-			<g:HTMLPanel ui:field="societyPanel"/>
+			<div class="{style.titleWrapper}">
+					<g:HTMLPanel addStyleNames="{style.titleDisplay}">
+						<h2>Participación en sociedades</h2>
+					</g:HTMLPanel>
+				</div>
+			<g:HTMLPanel ui:field="societyPanel" addStyleNames="{style.societyPanel}"/>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.aside}">
-			<g:HTMLPanel>
-				<div>Relaciones Familiares</div>
-				<div>Estado Civil:</div>
-				<g:Label ui:field="parlamentarianCivilStatus" />
-				<div>Cónyuge:</div>
-				<g:Label ui:field="parlamentarianSpouse" />
-				<div>Hijos:</div>
-				<g:Label ui:field="parlamentarianChildren" />
-			</g:HTMLPanel>
-			<g:HTMLPanel>
-				<div>Comisiones en que participa</div>
-				<div>Permanentes</div>
-				<g:Label ui:field="parlamentarianPermanentCommissions" />
-				<div>Especiales</div>
-				<g:Label ui:field="parlamentarianSpecialCommissions" />
-			</g:HTMLPanel>
-			<g:HTMLPanel>
-				<div>Partido</div>
+			<h3>Partido</h3>
+			<div class="{style.whiteBlock}">
 				<g:Label ui:field="parlamentarianParty" />
-			</g:HTMLPanel>
+			</div>
+			<h3>Comisiones en que participa</h3>
+			<ul class="{style.whiteBlock}">
+				<li>
+					<span>Permanentes:</span>
+					<g:Label ui:field="parlamentarianPermanentCommissions" />
+				</li>
+				<li>
+					<span>Especiales:</span>
+					<g:Label ui:field="parlamentarianSpecialCommissions" />
+				</li>
+			</ul>
+			<h3>Relaciones Familiares</h3>
+			<ul class="{style.whiteBlock}">
+				<li><span>Estado Civil:</span><g:Label ui:field="parlamentarianCivilStatus" /></li>
+				<li><span>Cónyuge:</span><g:Label ui:field="parlamentarianSpouse" /></li>
+				<li><span>Hijos:</span><g:Label ui:field="parlamentarianChildren" /></li>
+			</ul>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>
