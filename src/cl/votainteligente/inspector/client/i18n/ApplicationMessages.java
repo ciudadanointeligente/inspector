@@ -216,4 +216,7 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("subscriber.unsubscribe.all")
 	public String getSubscriberUnsubscribeAll();
+
+	@Key("subscriber.unsubscribeSuccessful")
+	public String getSubscriberUnsubscribeSuccesful();
 }
