@@ -139,8 +139,9 @@ public class ParlamentarianView extends ViewImpl implements ParlamentarianPresen
 			declarationChart.setAutoResize(true);
 			declarationChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyConsistencyIndex());
 			declarationChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyReportedVsUnreported());
-			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {25, 100, 30, 85});
+			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 60, 0, 30});
 			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
+			declarationChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
 			declarationChart.setOption(new OptionPath("/credits/enabled"), false);
 			declarationChart.setOption(new OptionPath("/tooltip/enabled"), false);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/animation"), false);
@@ -157,6 +158,7 @@ public class ParlamentarianView extends ViewImpl implements ParlamentarianPresen
 			}
 
 			declarationChart.addSeries(series);
+			declarationChart.setSize(280, 280);
 			declarationChartPanel.add(declarationChart);
 		} catch (Exception e) {
 			e.printStackTrace();

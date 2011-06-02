@@ -18,7 +18,7 @@
 			</g:HTMLPanel>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.content}">
-			<g:FlowPanel ui:field="declarationChartPanel" width="500px" height="400px" />
+			<g:FlowPanel ui:field="declarationChartPanel" width="280px" height="280px" />
 			<g:HTMLPanel ui:field="societyPanel"/>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.aside}">
