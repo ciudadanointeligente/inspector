@@ -586,7 +586,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		};
 
 		// Adds action suscription column to table
-		getView().getCategoryTable().addColumn(suscriptionColumn, applicationMessages.getGeneralSusbcribe());
+		getView().getCategoryTable().addColumn(suscriptionColumn, applicationMessages.getGeneralSubscribe());
 
 		// Sets selection model for each row
 		final SingleSelectionModel<Category> selectionModel = new SingleSelectionModel<Category>(Category.KEY_PROVIDER);
@@ -749,7 +749,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		};
 
 		// Adds action subscription column to table
-		getView().getBillTable().addColumn(suscriptionColumn, applicationMessages.getGeneralSusbcribe());
+		getView().getBillTable().addColumn(suscriptionColumn, applicationMessages.getGeneralSubscribe());
 	}
 
 	public void setBillTable() {

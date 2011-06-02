@@ -37,8 +37,8 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.stage")
 	public String getGeneralStage();
 
-	@Key("general.suscribe")
-	public String getGeneralSusbcribe();
+	@Key("general.subscribe")
+	public String getGeneralSubscribe();
 
 	@Key("general.profile")
 	public String getGeneralProfile();
@@ -60,6 +60,9 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("general.noMatches")
 	public String getGeneralNoMatches();
+
+	@Key("error.incorrectParameters")
+	public String getErrorIncorrectParameters();
 
 	@Key("error.invalidEmail")
 	public String getErrorInvalidEmail();
@@ -105,6 +108,15 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("error.subscriber")
 	public String getErrorSubscriber();
+
+	@Key("error.subsriber.load")
+	public String getErrorSubscriberLoad();
+
+	@Key("error.subscriber.key")
+	public String getErrorSubscriberKey();
+
+	@Key("error.subscriber.unsubscribe")
+	public String getErrorSubscriberUnsubscribe();
 
 	@Key("bill.bulletin")
 	public String getBillBulletin();
@@ -198,4 +210,10 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("subscriber.subscriptionSuccessful")
 	public String getSubscriberSuscriptionSuccessful();
+
+	@Key("subscriber.unsubscribe.message")
+	public String getSubscriberUnsubscribeMessage(String type, String content);
+
+	@Key("subscriber.unsubscribe.all")
+	public String getSubscriberUnsubscribeAll();
 }
