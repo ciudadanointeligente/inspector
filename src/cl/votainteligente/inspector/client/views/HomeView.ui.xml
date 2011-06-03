@@ -4,22 +4,28 @@
 	<ui:style src="HomeView.css" />
 	<g:HTMLPanel>
 		<g:HTMLPanel ui:field="parlamentarianPanel" addStyleNames="{style.parlamentarianPanel}">
-			<g:Label ui:field="parlamentarianLabel"/>
-			<g:Label ui:field="parliamentarianStatusLight"/>
+			<div class="{style.searchTitle}">
+				<g:Label ui:field="parliamentarianStatusLight"/>
+				<h2>Elige un parlamentario</h2>
+			</div>
+			<g:Label ui:field="parlamentarianSearchClear" addStyleNames="{style.searchClear}" />
 			<g:TextBox ui:field="parlamentarianSearch" addStyleNames="{style.searchBox}"/>
-			<g:Label ui:field="parlamentarianSearchClear">X</g:Label>
 			<g:Label ui:field="parliamentarianMessage" visible="false"/>
 			<div class="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="parlamentarianTableContainer" addStyleNames="{style.searchTableBg}"/>
 			</div>
 		</g:HTMLPanel>
-		<g:Label ui:field="selectionType"/>
-		<g:Label ui:field="notificationSelectedType"/>
+		<g:HTMLPanel addStyleNames="{style.center}">
+			<g:Label ui:field="selectionType"/>
+			<g:Label ui:field="notificationSelectedType" addStyleNames="{style.notificationSelectedParliamentarian}"/>
+		</g:HTMLPanel>
 		<g:HTMLPanel ui:field="categoryPanel" addStyleNames="{style.categoryPanel}">
-			<g:Label ui:field="categoryLabel"/>
-			<g:Label ui:field="categoryStatusLight"/>
+			<div class="{style.searchTitle}">
+				<g:Label ui:field="categoryStatusLight"/>
+				<h2>Elige un área de interés</h2>
+			</div>
+			<g:Label ui:field="categorySearchClear" addStyleNames="{style.searchClear}"/>
 			<g:TextBox ui:field="categorySearch" addStyleNames="{style.searchBox}"/>
-			<g:Label ui:field="categorySearchClear">X</g:Label>
 			<g:Label ui:field="categoryMessage" visible="false"/>
 			<div class="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="categoryTableContainer" addStyleNames="{style.searchTableBg}">
@@ -31,12 +37,12 @@
 				<table class="{style.selectionTable}">
 					<tr>
 						<td class="{style.parlamentarianImage}"><g:Image ui:field="parlamentarianImage"/></td>
-						<td>
+						<td class="{style.selectedParlamentarian}" >
 							<g:Label ui:field="parlamentarianDisplay"></g:Label>
 							<div class="{style.linkProfile}"><g:Label ui:field="parlamentarianProfileLink" visible="false">ver su perfil de intereses</g:Label></div>
 						</td>
 						<td class="{style.plus}"></td>
-						<td><g:Label ui:field="categoryDisplay"></g:Label></td>
+						<td class="{style.selectedCategory"><g:Label ui:field="categoryDisplay"></g:Label></td>
 					</tr>
 				</table>
 			</g:HTMLPanel>

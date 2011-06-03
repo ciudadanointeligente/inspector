@@ -1,6 +1,6 @@
 .cellTableWidget {
 	left: 12px;
-	width: 370px;
+	width: 100%;
 	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
 	color: white;
 	font-weight: normal;

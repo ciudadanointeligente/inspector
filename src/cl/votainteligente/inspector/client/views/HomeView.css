@@ -1,4 +1,4 @@
-.parlamentarianPanel,.categoryPanel {
+.parlamentarianPanel, .categoryPanel {
 	display: block;
 	overflow: hidden;
 	float: left;
@@ -7,7 +7,7 @@
 
 .categoryPanel {
 	position: relative;
-	left: 33px;
+	left: 0px;
 }
 
 .searchBox {
@@ -30,12 +30,15 @@
 }
 
 .searchTableScroll {
+	border-bottom: 5px solid white;
+	border-left: 5px solid white;
+	border-right: 5px solid white;
 	height: 281px;
-	left: 14px;
+	left: 10px;
 	overflow-x: hidden;
 	overflow-y: auto;
 	position: relative;
-	width: 385px;
+	width: 371px;
 	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
 	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
 	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
@@ -44,7 +47,6 @@
 .searchTableBg {
 	background: url("images/bg_darker.jpg") repeat scroll 0 0 transparent;
 	min-height: 281px;
-	width: 370px;
 	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
 	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
 	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
@@ -66,10 +68,50 @@
 	background-clip: padding-box;
 	margin: 15px 0 0;
 	float: left;
-	width: 868px;
+	width: 897px;
 	position: relative;
 	z-index: 2000;
 }
+.searchTitle{
+	-moz-border-radius: 16px 16px 0 0; /* FF1+ */
+	-webkit-border-radius:16px 16px 0 0; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius:16px 16px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	-moz-box-shadow: 0px 0px 16px #000000 inset; /* FF3.5+ */
+	-webkit-box-shadow: 0px 0px 16px #000000 inset; /* Saf3.0+, Chrome */
+	box-shadow: 0px 0px 16px #000000 inset;
+	background: url("images/bg_dark.jpg") repeat scroll 0 0 padding-box transparent;
+	border-left: 5px solid white;
+	border-right: 5px solid white;
+	border-top: 5px solid white;
+	color: white;
+	font-size: 15px;
+	left: 12px;
+	overflow: hidden;
+	padding: 4px 10px 2px;
+	position: relative;
+	width: 350px;
+}
+
+.searchTitle h2{
+	font-family: TrashHandRegular;
+	font-size: 21px;
+	font-weight: normal;
+	letter-spacing: 0.5pt;
+	margin: 12px 26px;
+	word-spacing: 2pt;
+}
+
+.categoryPanel .searchTitle h2{
+	float: right;
+}
+
+
+.parlamentarianPanel .searchTitle h2{
+	float: left;
+}
+
 
 .selectionDisplay {
 	border: 10px solid white;
@@ -110,8 +152,8 @@
 	width: 95%;
 }
 
-.selectionTable td.selectedParlamentarian {
-	width: 280px;
+td.selectedParlamentarian {
+	width: 284px;
 	padding-right: 20px;
 }
 
@@ -121,7 +163,7 @@ td.plus {
 	width: 80px;
 }
 
-td.selectedCategory {
+td.selectedCategory div {
 	text-align: center;
 }
 
@@ -137,34 +179,124 @@ td.selectedCategory {
 	left: 12px;
 	margin-top: -3px;
 	position: relative;
-	width: 845px;
+	width: 865px;
 	margin-bottom: 30px;
 }
 
-.unlocked,.lockedCategory,.lockedParlamentarian {
-	display: block;
-	height: 32px;
-	width: 40px;
-	background-image: url(images/lock_sprite.png);
+.lockedCategory, .lockedParlamentarian {
+	background-image: url("images/switch.png");
 	background-repeat: no-repeat;
-	position: relative;
-	top: 13px;
+	display: block;
 	float: left;
-	left: 17px;
+	height: 44px;
+	left: 2px;
+	margin-top: 7px;
+	position: relative;
+	top: 0;
+	width: 90px;
+	cursor: pointer;
+	clear: both;
+
 }
 
 .lockedCategory {
-	background-position: left top;
-}
-
-.unlocked {
-	background-position: center top;
+	background-position: 0 -69px;
 }
 
 .lockedParlamentarian {
-	background-position: right top;
+
 }
 
-.lightOn { }
-.lightOff { }
-.selectionDisplayNone { }
+/* estas son las que est‡n funcionando */
+.lightOn {
+	background: url("images/glow_arrows.png") no-repeat scroll -110px -9px transparent;
+	display: block;
+	height: 49px;
+	width: 43px;
+	float: right;
+}
+
+.lightOff {
+	background: url("images/glow_arrows.png") no-repeat scroll -110px -63px transparent;
+	display: block;
+	height: 49px;
+	width: 43px;
+	float: right;
+}
+/*--*/
+/* estas son las que NO funcionan: cambiar la herencia por nueva clase. */
+
+.parlamentarianPanel .lightOn {
+	background: url("images/glow_arrows.png") no-repeat scroll -9px -9px transparent;
+	display: block;
+	height: 49px;
+	width: 43px;
+	float: left;
+}
+
+.parlamentarianPanel .lightOff {
+	background: url("images/glow_arrows.png") no-repeat scroll -9px -63px transparent;
+	display: block;
+	height: 49px;
+	width: 43px;
+	float: left;
+}
+/*--*/
+
+.selectionDisplayNone {
+	font-family: TrashHandRegular;
+	font-size: 21px;
+	font-weight: normal;
+	letter-spacing: 0.5pt;
+	word-spacing: 2pt;
+}
+
+.searchClear{
+	background: url("images/close.png") no-repeat scroll 0 0 transparent;
+	display: block;
+	float: right;
+	height: 19px;
+	margin: -20px;
+	position: relative;
+	right: 32px;
+	top: 28px;
+	width: 20px;
+	z-index: 20000;
+	cursor: pointer;
+}
+
+.notificationSelectedParliamentarian{
+	background: url("images/arrow_notification.png") no-repeat scroll -25px 52px  transparent;
+	color: grey;
+	display: block;
+	float: left;
+	font-family: TrashHand;
+	font-size: 17px;
+	margin-top: 109px;
+	padding: 0 9px 51px;
+	position: relative;
+	text-align: center;
+}
+
+.notificationSelectedCategory{
+	background: url("images/arrow_notification.png") no-repeat scroll -25px 50px transparent;
+	color: grey;
+	display: block;
+	float: left;
+	font-family: TrashHand;
+	font-size: 17px;
+	margin-top: 109px;
+	padding: 0 9px 51px;
+	position: relative;
+	text-align: center;
+}
+.center{
+	display: block;
+	float: left;
+	margin-top: 7px;
+	position: relative;
+	top: 0;
+	width: 90px;
+
+}
+
