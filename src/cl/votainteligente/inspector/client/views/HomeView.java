@@ -129,13 +129,13 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 		switch (selectedType) {
 		case SELECTED_PARLAMENTARIAN:
 			selectionType.setStyleName(ResourceBundle.INSTANCE.HomeView().lockedParlamentarian());
-			parliamentarianStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().lightOn());
-			categoryStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().lightOff());
+			parliamentarianStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().parliamentarianLightOn());
+			categoryStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().categoryLightOff());
 			break;
 		case SELECTED_CATEGORY:
 			selectionType.setStyleName(ResourceBundle.INSTANCE.HomeView().lockedCategory());
-			parliamentarianStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().lightOff());
-			categoryStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().lightOn());
+			parliamentarianStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().parliamentarianLightOff());
+			categoryStatusLight.setStyleName(ResourceBundle.INSTANCE.HomeView().categoryLightOn());
 			break;
 		}
 	}
@@ -175,25 +175,20 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 
 	@Override
 	public void showBillTable() {
-		parlamentarianProfileLink.setVisible(true);
 		billPanel.setVisible(true);
-	}
-
-	@Override
-	public void hideBillTable() {
-		parlamentarianProfileLink.setVisible(false);
-		billPanel.setVisible(false);
 	}
 
 	@Override
 	public void notificationSelectCategory() {
 		notificationSelectedType.setVisible(true);
+		notificationSelectedType.setStyleName(ResourceBundle.INSTANCE.HomeView().selectionDisplayCategory());
 		notificationSelectedType.setText(applicationMessages.getCategoryNotificationSelectParliamentarian());
 	}
 
 	@Override
 	public void notificationSelectParliamentarian() {
 		notificationSelectedType.setVisible(true);
+		notificationSelectedType.setStyleName(ResourceBundle.INSTANCE.HomeView().selectionDisplayParliamentary());
 		notificationSelectedType.setText(applicationMessages.getParliamentarianNotificationSelectCategory());
 	}
 
@@ -204,12 +199,15 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 
 	@Override
 	public void displaySelectionNone() {
+		billPanel.setVisible(false);
+		parlamentarianProfileLink.setVisible(false);
 		parlamentarianDisplay.setStyleName(ResourceBundle.INSTANCE.HomeView().selectionDisplayNone());
 		categoryDisplay.setStyleName(ResourceBundle.INSTANCE.HomeView().selectionDisplayNone());
 	}
 
 	@Override
 	public void displaySelectionParliamentarian() {
+		parlamentarianProfileLink.setVisible(true);
 		parlamentarianDisplay.setStyleName(ResourceBundle.INSTANCE.HomeView().selectedParlamentarian());
 	}
 

@@ -72,7 +72,7 @@
 	position: relative;
 	z-index: 2000;
 }
-.searchTitle{
+.searchTitle {
 	-moz-border-radius: 16px 16px 0 0; /* FF1+ */
 	-webkit-border-radius:16px 16px 0 0; /* Saf3-4, iOS 1+, Android 1.5+ */
 	border-radius:16px 16px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
@@ -94,7 +94,8 @@
 	width: 350px;
 }
 
-.searchTitle h2{
+.searchTitle h2 {
+	color: white;
 	font-family: TrashHandRegular;
 	font-size: 21px;
 	font-weight: normal;
@@ -103,15 +104,14 @@
 	word-spacing: 2pt;
 }
 
-.categoryPanel .searchTitle h2{
+.categoryPanel .searchTitle h2 {
 	float: right;
 }
 
 
-.parlamentarianPanel .searchTitle h2{
+.parlamentarianPanel .searchTitle h2 {
 	float: left;
 }
-
 
 .selectionDisplay {
 	border: 10px solid white;
@@ -172,6 +172,7 @@ td.selectedCategory div {
 	font-size: 84%;
 	letter-spacing: 0.2pt;
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 .billPanel {
@@ -196,7 +197,6 @@ td.selectedCategory div {
 	width: 90px;
 	cursor: pointer;
 	clear: both;
-
 }
 
 .lockedCategory {
@@ -204,29 +204,9 @@ td.selectedCategory div {
 }
 
 .lockedParlamentarian {
-
 }
 
-/* estas son las que est‡n funcionando */
-.lightOn {
-	background: url("images/glow_arrows.png") no-repeat scroll -110px -9px transparent;
-	display: block;
-	height: 49px;
-	width: 43px;
-	float: right;
-}
-
-.lightOff {
-	background: url("images/glow_arrows.png") no-repeat scroll -110px -63px transparent;
-	display: block;
-	height: 49px;
-	width: 43px;
-	float: right;
-}
-/*--*/
-/* estas son las que NO funcionan: cambiar la herencia por nueva clase. */
-
-.parlamentarianPanel .lightOn {
+.parliamentarianLightOn {
 	background: url("images/glow_arrows.png") no-repeat scroll -9px -9px transparent;
 	display: block;
 	height: 49px;
@@ -234,24 +214,31 @@ td.selectedCategory div {
 	float: left;
 }
 
-.parlamentarianPanel .lightOff {
+.parliamentarianLightOff {
 	background: url("images/glow_arrows.png") no-repeat scroll -9px -63px transparent;
 	display: block;
 	height: 49px;
 	width: 43px;
 	float: left;
 }
-/*--*/
 
-.selectionDisplayNone {
-	font-family: TrashHandRegular;
-	font-size: 21px;
-	font-weight: normal;
-	letter-spacing: 0.5pt;
-	word-spacing: 2pt;
+.categoryLightOn {
+	background: url("images/glow_arrows.png") no-repeat scroll -110px -9px transparent;
+	display: block;
+	height: 49px;
+	width: 43px;
+	float: right;
 }
 
-.searchClear{
+.categoryLightOff {
+	background: url("images/glow_arrows.png") no-repeat scroll -110px -63px transparent;
+	display: block;
+	height: 49px;
+	width: 43px;
+	float: right;
+}
+
+.searchClear {
 	background: url("images/close.png") no-repeat scroll 0 0 transparent;
 	display: block;
 	float: right;
@@ -265,7 +252,15 @@ td.selectedCategory div {
 	cursor: pointer;
 }
 
-.notificationSelectedParliamentarian{
+.selectionDisplayNone {
+	font-family: TrashHandRegular;
+	font-size: 21px;
+	font-weight: normal;
+	letter-spacing: 0.5pt;
+	word-spacing: 2pt;
+}
+
+.selectionDisplayParliamentary {
 	background: url("images/arrow_notification.png") no-repeat scroll -25px 52px  transparent;
 	color: grey;
 	display: block;
@@ -278,25 +273,24 @@ td.selectedCategory div {
 	text-align: center;
 }
 
-.notificationSelectedCategory{
-	background: url("images/arrow_notification.png") no-repeat scroll -25px 50px transparent;
+.selectionDisplayCategory {
+	background: url("images/arrow_notification.png") no-repeat scroll 10px -51px transparent;
 	color: grey;
 	display: block;
 	float: left;
 	font-family: TrashHand;
 	font-size: 17px;
 	margin-top: 109px;
-	padding: 0 9px 51px;
+	padding: 0 0px 51px;
 	position: relative;
 	text-align: center;
 }
-.center{
+
+.center {
 	display: block;
 	float: left;
 	margin-top: 7px;
 	position: relative;
 	top: 0;
 	width: 90px;
-
 }
-

@@ -17,7 +17,7 @@
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.center}">
 			<g:Label ui:field="selectionType"/>
-			<g:Label ui:field="notificationSelectedType" addStyleNames="{style.notificationSelectedParliamentarian}"/>
+			<g:Label ui:field="notificationSelectedType"/>
 		</g:HTMLPanel>
 		<g:HTMLPanel ui:field="categoryPanel" addStyleNames="{style.categoryPanel}">
 			<div class="{style.searchTitle}">

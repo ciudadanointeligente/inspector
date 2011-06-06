@@ -55,7 +55,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		void setBillMessage(String message);
 		void hideBillMessage();
 		void showBillTable();
-		void hideBillTable();
 		void notificationSelectCategory();
 		void notificationSelectParliamentarian();
 		void notificationSelectHidden();
@@ -109,7 +108,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		initCategoryTable();
 		initBillTable();
 		initDataLoad();
-		getView().hideBillTable();
 		getView().displaySelectionNone();
 	}
 
@@ -154,9 +152,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().hideParlamentarianMessage();
 		getView().hideCategoryMessage();
 		getView().hideBillMessage();
-		getView().hideBillTable();
-		getView().notificationSelectHidden();
 		getView().displaySelectionNone();
+		getView().notificationSelectHidden();
 	}
 
 	@Override
@@ -515,17 +512,22 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						parlamentarians.add(selectionModel.getSelectedObject());
 						searchCategory(parlamentarians);
 						getView().notificationSelectParliamentarian();
+						getView().displaySelectionNone();
 						getView().displaySelectionParliamentarian();
 					}
-
-					selectedParlamentarian = selectionModel.getSelectedObject();
-					getView().setParlamentarianDisplay(selectedParlamentarian.toString());
-					if (selectedParlamentarian.getImage() == null) {
+					if (selectedType.equals(SelectionType.SELECTED_CATEGORY) && selectedCategory == null) {
+						getView().getParlamentarianTable().getSelectionModel().setSelected(selectionModel.getSelectedObject(), false);
+						selectedCategory = null;
+					} else {
+						selectedParlamentarian = selectionModel.getSelectedObject();
+						getView().setParlamentarianDisplay(selectedParlamentarian.toString());
+						setBillTable();
+					}
+					if (selectedParlamentarian == null || selectedParlamentarian.getImage() == null) {
 						getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 					} else {
 						getView().setParlamentarianImage("images/parlamentarian/large/" + selectedParlamentarian.getImage());
 					}
-					setBillTable();
 				}
 			}
 		});
@@ -600,12 +602,17 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						categories.add(selectionModel.getSelectedObject());
 						searchParlamentarian(categories);
 						getView().notificationSelectCategory();
+						getView().displaySelectionNone();
 						getView().displaySelectionCategory();
 					}
-
-					selectedCategory = selectionModel.getSelectedObject();
-					getView().setCategoryDisplay(selectedCategory.getName());
-					setBillTable();
+					if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN) && selectedParlamentarian == null) {
+						getView().getCategoryTable().getSelectionModel().setSelected(selectionModel.getSelectedObject(), false);
+						selectedCategory = null;
+					} else {
+						selectedCategory = selectionModel.getSelectedObject();
+						getView().setCategoryDisplay(selectedCategory.getName());
+						setBillTable();
+					}
 				}
 			}
 		});
@@ -813,5 +820,4 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		selectedType = changeType;
 		getView().setSelectedType(selectedType);
 	}
-
 }
