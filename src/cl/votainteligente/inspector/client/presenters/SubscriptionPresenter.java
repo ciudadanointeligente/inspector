@@ -28,6 +28,7 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 
 	public interface MyView extends View, HasUiHandlers<SubscriptionUiHandlers> {
 		String getEmail();
+		void setEmail(String email);
 		void setNotification(String message);
 	}
 
@@ -52,6 +53,7 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 
 	@Override
 	protected void onReset() {
+		getView().setEmail("");
 	}
 
 	@Override
@@ -142,6 +144,7 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 			@Override
 			public void onSuccess(Subscriber result) {
 				getView().setNotification(applicationMessages.getSubscriberSuscriptionSuccessful());
+				close();
 			}
 		});
 	}
@@ -157,6 +160,7 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 			@Override
 			public void onSuccess(Subscriber result) {
 				getView().setNotification(applicationMessages.getSubscriberSuscriptionSuccessful());
+				close();
 			}
 		});
 	}

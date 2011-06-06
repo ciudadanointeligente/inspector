@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
 public class SubscriptionView extends ViewWithUiHandlers<SubscriptionUiHandlers> implements SubscriptionPresenter.MyView {
@@ -34,15 +35,19 @@ public class SubscriptionView extends ViewWithUiHandlers<SubscriptionUiHandlers>
 		return widget;
 	}
 
-
 	@Override
 	public String getEmail() {
 		return email.getText();
 	}
 
 	@Override
+	public void setEmail(String email) {
+		this.email.setText(email);
+	}
+
+	@Override
 	public void setNotification(String message) {
-		notification.setText(message);
+		Window.alert(message);
 	}
 
 	@UiHandler("subscriptionPanel")
