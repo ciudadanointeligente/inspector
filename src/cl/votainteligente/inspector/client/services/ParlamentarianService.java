@@ -18,4 +18,5 @@ public interface ParlamentarianService extends RemoteService {
 	List<Parlamentarian> searchParlamentarian(String keyWord) throws Exception;
 	List<Parlamentarian> searchParlamentarian(List<Category> categories) throws Exception;
 	List<Parlamentarian> getParlamentariansByBill(Bill bill) throws Exception;
+	List<Parlamentarian> getBillAuthors(Bill bill) throws Exception;
 }
