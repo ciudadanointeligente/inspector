@@ -106,6 +106,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.bill.list")
 	public String getErrorBillList();
 
+	@Key("error.bill.authors")
+	public String getErrorBillAuthors();
+
 	@Key("error.subscriber")
 	public String getErrorSubscriber();
 
