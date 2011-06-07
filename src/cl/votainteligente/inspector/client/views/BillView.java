@@ -28,6 +28,7 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@UiField Label billBulletinNumber;
 	@UiField Label billTitle;
 	@UiField Label billDescription;
+	@UiField Label billAuthors;
 	@UiField Label billEntryDate;
 	@UiField Label billInitiativeType;
 	@UiField Label billType;
@@ -72,6 +73,11 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@Override
 	public void setBillDescription(String billDescription) {
 		this.billDescription.setText(billDescription);
+	}
+
+	@Override
+	public void setBillAuthors(String billAuthors) {
+		this.billAuthors.setText(billAuthors);
 	}
 
 	@Override

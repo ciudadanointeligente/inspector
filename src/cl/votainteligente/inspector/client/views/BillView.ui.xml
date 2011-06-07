@@ -21,7 +21,7 @@
 				</div>
 				<div class="{style.billAuthors}">
 					<span>Autores</span>
-					<g:Label>asdfgh asd sadf </g:Label>
+					<g:Label ui:field="billAuthors"></g:Label>
 				</div>
 
 			</div>

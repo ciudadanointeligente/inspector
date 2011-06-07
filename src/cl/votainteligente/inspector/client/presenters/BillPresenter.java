@@ -24,8 +24,7 @@ import com.google.gwt.user.cellview.client.*;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.view.client.AbstractDataProvider;
-import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.*;
 import com.google.inject.Inject;
 
 import java.util.*;
@@ -39,6 +38,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		void setBillBulletinNumber(String billBulletinNumber);
 		void setBillTitle(String billTitle);
 		void setBillDescription(String billContent);
+		void setBillAuthors(String billAuthors);
 		void setBillEntryDate(Date billEntryDate);
 		void setBillInitiativeType(String billInitiativeType);
 		void setBillType(String billType);
@@ -164,8 +164,8 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 					getView().setBillOriginChamber(result.getOriginChamber().getName());
 					getView().setBillUrgency(result.getUrgency().getName());
 					getView().setBillStage(result.getStage().getName());
+					getBillAuthors(result);
 					getParlamentarians(result);
-					getSocieties(result);
 				}
 			}
 		});
@@ -194,6 +194,9 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			} else {
 				getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 			}
+			List<Society> societies = new ArrayList<Society>(selectedParlamentarian.getSocieties().keySet());
+			AbstractDataProvider<Society> data = new ListDataProvider<Society>(societies);
+			setSocietyData(data);
 		}
 	}
 
@@ -215,6 +218,35 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		});
 	}
 
+	public void getBillAuthors(Bill bill) {
+		parlamentarianService.getBillAuthors(bill, new AsyncCallback<List<Parlamentarian>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(applicationMessages.getErrorBillAuthors());
+			}
+
+			@Override
+			public void onSuccess(List<Parlamentarian> result) {
+				if (result != null) {
+					StringBuilder billAuthors = new StringBuilder();
+					Iterator<Parlamentarian> iterator = result.iterator();
+
+					while (iterator.hasNext()) {
+						billAuthors.append(iterator.next().toString());
+
+						if (iterator.hasNext()) {
+							billAuthors.append(", ");
+						} else {
+							billAuthors.append('.');
+						}
+					}
+					getView().setBillAuthors(billAuthors.toString());
+				}
+			}
+		});
+	}
+
 	public AbstractDataProvider<Parlamentarian> getParlamentarianData() {
 		return parlamentarianData;
 	}
@@ -222,24 +254,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	public void setParlamentarianData(AbstractDataProvider<Parlamentarian> data) {
 		parlamentarianData = data;
 		parlamentarianData.addDataDisplay(getView().getParlamentarianTable());
-	}
-
-	public void getSocieties(Bill bill) {
-		societyService.getSocietiesByBill(bill, new AsyncCallback<List<Society>>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorSocietyList());
-			}
-
-			@Override
-			public void onSuccess(List<Society> result) {
-				if (result != null) {
-					ListDataProvider<Society> data = new ListDataProvider<Society>(result);
-					setSocietyData(data);
-				}
-			}
-		});
 	}
 
 	public AbstractDataProvider<Society> getSocietyData() {
@@ -325,6 +339,18 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 		// Adds action profile column to table
 		getView().getParlamentarianTable().addColumn(profileColumn, applicationMessages.getGeneralProfile());
+
+		// Sets selection model for each row
+		final SingleSelectionModel<Parlamentarian> selectionModel = new SingleSelectionModel<Parlamentarian>(Parlamentarian.KEY_PROVIDER);
+		getView().getParlamentarianTable().setSelectionModel(selectionModel);
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			public void onSelectionChange(SelectionChangeEvent event) {
+				if (selectionModel.getSelectedObject() != null) {
+					parlamentarianId = selectionModel.getSelectedObject().getId();
+					loadSelectedParlamentarian();
+				}
+			}
+		});
 	}
 
 	public void initSocietyTable() {
