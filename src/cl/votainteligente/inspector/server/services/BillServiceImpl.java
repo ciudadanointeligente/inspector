@@ -49,6 +49,7 @@ public class BillServiceImpl implements BillService {
 			criteria.setFetchMode("originChamber", FetchMode.JOIN);
 			criteria.setFetchMode("urgency", FetchMode.JOIN);
 			criteria.setFetchMode("stage", FetchMode.JOIN);
+			criteria.setFetchMode("categories", FetchMode.JOIN);
 			criteria.add(Restrictions.eq("id", billId));
 			Bill bill = (Bill) criteria.uniqueResult();
 			hibernate.getTransaction().commit();
