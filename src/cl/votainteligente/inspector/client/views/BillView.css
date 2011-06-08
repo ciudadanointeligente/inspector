@@ -60,6 +60,17 @@ h2 {
 	padding: 10px 29px 15px 15px;
 }
 
+.billCategories {
+	display: block;
+	width: 100%;
+	border-top: 1px dotted #D2D2D2;
+	background-color: white;
+	display: block;
+	float: left;
+	min-width: 260px;
+	padding: 15px;
+}
+
 .billData {
 	background-color: white;
 	display: block;
@@ -97,14 +108,14 @@ h2 {
 	font-size: 1.09em;
 }
 
-.billData li span,.billAuthors span {
+.billData li span,.billAuthors span, .billCategories span {
 	float: left;
 	font-family: DeliciousBold;
 	font-size: 1.09em;
 	margin-right: 3px;
 }
 
-.billAuthors span {
+.billAuthors span, .billCategories span {
 	clear: both;
 	float: none;
 }
@@ -223,7 +234,7 @@ h2 {
 }
 
 .searchTableScroll {
-	max-height: 280px;
+	max-height: 285px;
 	overflow-x: hidden;
 	overflow-y: auto;
 	position: relative;

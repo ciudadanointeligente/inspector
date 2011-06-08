@@ -45,6 +45,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		void setBillOriginChamber(String billOriginChamber);
 		void setBillUrgency(String billUrgency);
 		void setBillStage(String billStage);
+		void setBillCategories(String billCategories);
 		void setParlamentarianImage(String parlamentarianImageUrl);
 		void setParlamentarianDisplay(String parlamentarianName);
 		CellTable<Parlamentarian> getParlamentarianTable();
@@ -71,6 +72,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 	private Long billId;
 	private Long parlamentarianId;
+	private Bill selectedBill;
 	private Parlamentarian selectedParlamentarian;
 	private AbstractDataProvider<Parlamentarian> parlamentarianData;
 	private AbstractDataProvider<Society> societyData;
@@ -83,6 +85,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 	@Override
 	protected void onReset() {
+		selectedBill = null;
 		parlamentarianData = new ListDataProvider<Parlamentarian>();
 		societyData = new ListDataProvider<Society>();
 		initParlamentarianTable();
@@ -94,12 +97,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
-
-		if (parlamentarianId != null) {
-			loadSelectedParlamentarian();
-		} else {
-			setSelectedParlamentarian(new Parlamentarian());
-		}
 	}
 
 	@Override
@@ -155,15 +152,37 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			@Override
 			public void onSuccess(Bill result) {
 				if (result != null) {
-					getView().setBillBulletinNumber(result.getBulletinNumber());
-					getView().setBillTitle(result.getTitle());
-					getView().setBillDescription(result.getDescription());
-					getView().setBillEntryDate(result.getEntryDate());
-					getView().setBillInitiativeType(result.getInitiativeType().getName());
-					getView().setBillType(result.getBillType().getName());
-					getView().setBillOriginChamber(result.getOriginChamber().getName());
-					getView().setBillUrgency(result.getUrgency().getName());
-					getView().setBillStage(result.getStage().getName());
+					selectedBill = result;
+					getView().setBillBulletinNumber(selectedBill.getBulletinNumber());
+					getView().setBillTitle(selectedBill.getTitle());
+					getView().setBillDescription(selectedBill.getDescription());
+					getView().setBillEntryDate(selectedBill.getEntryDate());
+					getView().setBillInitiativeType(selectedBill.getInitiativeType().getName());
+					getView().setBillType(selectedBill.getBillType().getName());
+					getView().setBillOriginChamber(selectedBill.getOriginChamber().getName());
+					getView().setBillUrgency(selectedBill.getUrgency().getName());
+					getView().setBillStage(selectedBill.getStage().getName());
+
+					StringBuilder categoriesStringBuilder = new StringBuilder();
+					Iterator<Category> iterator = selectedBill.getCategories().iterator();
+
+					while (iterator.hasNext()) {
+						categoriesStringBuilder.append(iterator.next().getName());
+
+						if (iterator.hasNext()) {
+							categoriesStringBuilder.append(", ");
+						} else {
+							categoriesStringBuilder.append('.');
+						}
+					}
+
+					getView().setBillCategories(categoriesStringBuilder.toString());
+
+					if (parlamentarianId != null) {
+						loadSelectedParlamentarian();
+					} else {
+						setSelectedParlamentarian(new Parlamentarian());
+					}
 					getBillAuthors(result);
 					getParlamentarians(result);
 				}
@@ -195,6 +214,19 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 				getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 			}
 			List<Society> societies = new ArrayList<Society>(selectedParlamentarian.getSocieties().keySet());
+			Set<Society> resultSet = new TreeSet<Society>();
+			Set<Category> intersection = new HashSet<Category>();
+
+			for (Society society : societies) {
+				intersection = new HashSet<Category>(society.getCategories());
+				intersection.retainAll(selectedBill.getCategories());
+				if (intersection.size() > 0) {
+					resultSet.add(society);
+				}
+			}
+
+			societies = new ArrayList<Society>(resultSet);
+
 			AbstractDataProvider<Society> data = new ListDataProvider<Society>(societies);
 			setSocietyData(data);
 		}

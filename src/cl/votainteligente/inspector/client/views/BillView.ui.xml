@@ -23,7 +23,10 @@
 					<span>Autores</span>
 					<g:Label ui:field="billAuthors"></g:Label>
 				</div>
-
+			</div>
+			<div class="{style.billCategories}">
+				<span>Áreas</span>
+				<g:Label ui:field="billCategories"></g:Label>
 			</div>
 		</g:HTMLPanel>
 		<div class="{style.conflictWrapper}">

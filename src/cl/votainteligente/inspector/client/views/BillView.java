@@ -35,6 +35,7 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@UiField Label billOriginChamber;
 	@UiField Label billUrgency;
 	@UiField Label billStage;
+	@UiField Label billCategories;
 	@UiField Image parlamentarianImage;
 	@UiField Label parlamentarianDisplay;
 	@UiField Label parlamentarianProfileLink;
@@ -108,6 +109,11 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@Override
 	public void setBillStage(String billStage) {
 		this.billStage.setText(billStage);
+	}
+
+	@Override
+	public void setBillCategories(String billCategories) {
+		this.billCategories.setText(billCategories);
 	}
 
 	@Override
