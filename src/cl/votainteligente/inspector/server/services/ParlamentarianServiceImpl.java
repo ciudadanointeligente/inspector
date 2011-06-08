@@ -127,7 +127,7 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 		try {
 			hibernate.beginTransaction();
-			String query = " from Parlamentarian p left join fetch p.authoredBills left join fetch p.votedBills left join fetch p.party where ";
+			String query = "select distinct p from Parlamentarian p left join fetch p.authoredBills left join fetch p.votedBills left join fetch p.party where ";
 			Query hQuery;
 			String filters = "";
 
