@@ -1,4 +1,3 @@
-@external .billTitle, .selectionDisplay, .linkProfile, .conflictWrapper, .billPanel, .billData, .parlamentarianPanel, .societyPanel, .billdescription, .parliamentarianSelection, .parlamentarianDisplay, .selectionWrapper, .parlamentarianPanel, .searchTableBg, .searchTableScroll, .parlamentarianPanel;
 h2 {
 	padding: 5px 20px;
 	font-family: DeliciousHeavyRegular;
@@ -6,32 +5,32 @@ h2 {
 	color: black;
 	font-weight: normal;
 }
-.billPanel{
+
+.billPanel {
 	display: block;
 	overflow: hidden;
-
 }
+
 .billTitle {
 	background: url("images/bg_grad.jpg") repeat-x scroll 0 bottom white;
-		border-top: 1px solid white;
-		color: black;
-		font-family: DeliciousBold;
-		font-size: 17px;
-		overflow: hidden;
-		padding: 10px 20px;
+	border-top: 1px solid white;
+	color: black;
+	font-family: DeliciousBold;
+	font-size: 17px;
+	overflow: hidden;
+	padding: 10px 20px;
 }
-
 
 .billData {
 	background-color: white;
-		clear: both;
-		display: block;
-		float: left;
-		padding: 15px;
-		width: 100%;
-}
+	clear: both;
+	display: block;
+	float: left;
+	padding: 15px;
+	width: 100%;
 }
 
+}
 .conflictWrapper {
 	background: url("../images/arrow_right_hor.png") no-repeat scroll 600px -18px transparent;
 	clear: both;
@@ -49,28 +48,27 @@ h2 {
 	float: left;
 }
 
-.billdescription{
+.billdescription {
 	border-right: 1px dotted #D2D2D2;
 	float: left;
 	padding: 10px 29px 15px 0;
 	max-width: 630px;
 }
 
-.billAuthors{
+.billAuthors {
 	float: left;
 	padding: 10px 29px 15px 15px;
 }
 
-.billData{
+.billData {
 	background-color: white;
 	display: block;
 	float: left;
 	min-width: 260px;
 	padding: 15px;
-
 }
 
-.billData ul{
+.billData ul {
 	border-bottom: 1px dotted #D2D2D2;
 	display: block;
 	margin: -3px -15px 10px;
@@ -79,7 +77,7 @@ h2 {
 	width: 100%;
 }
 
-.billData li{
+.billData li {
 	border-right: 1px dotted #d2d2d2;
 	display: block;
 	float: left;
@@ -87,30 +85,31 @@ h2 {
 	padding: 2px 11px;
 }
 
-.billData li:last-child{
+.billData li:last-child {
 	border-right: none;
 	padding-right: 0;
 }
 
-.billData li div{
+.billData li div {
 	color: grey;
 	float: left;
 	font-family: DeliciousItalic;
 	font-size: 1.09em;
 }
 
-.billData li span, .billAuthors span{
+.billData li span,.billAuthors span {
 	float: left;
 	font-family: DeliciousBold;
 	font-size: 1.09em;
 	margin-right: 3px;
 }
-.billAuthors span{
-		clear: both;
-		float: none;
+
+.billAuthors span {
+	clear: both;
+	float: none;
 }
 
-.selectionWrapper, .parlamentarianWrapperBorder{
+.selectionWrapper,.parlamentarianWrapperBorder {
 	border-bottom: 1px solid lightgrey;
 	border-left: 1px solid lightgrey;
 	border-right: 1px solid lightgrey;
@@ -128,20 +127,19 @@ h2 {
 	width: 640px;
 }
 
-.wrapperHeadNote{
+.wrapperHeadNote {
 	border-bottom: 4px solid white;
-		color: #D2D2D2;
-		font-family: arial;
-		font-size: 0.97em;
-		letter-spacing: 0.1pt;
-		line-height: 15px;
-		padding: 10px;
-		text-align: center;
-		width: 260px;
+	color: #D2D2D2;
+	font-family: arial;
+	font-size: 0.97em;
+	letter-spacing: 0.1pt;
+	line-height: 15px;
+	padding: 10px;
+	text-align: center;
+	width: 260px;
 }
 
-
-.parlamentarianTableWrapper, .selectionDisplay {
+.parlamentarianTableWrapper,.selectionDisplay {
 	border: 6px solid white;
 	-moz-border-radius: 12px; /* FF1+ */
 	-webkit-border-radius: 12px; /* Saf3-4, iOS 1+, Android 1.5+ */
@@ -163,15 +161,15 @@ h2 {
 
 .selectionDisplay {
 	height: 46px;
-
 }
 
-.selectionDisplay div{
+.selectionDisplay div {
 	float: left;
 }
 
 .profileButton {
-	background: url("images/profile_button.png") no-repeat scroll -6px top transparent;
+	background: url("images/profile_button.png") no-repeat scroll -6px top
+		transparent;
 	cursor: pointer;
 	display: block;
 	font-size: 0.87em;
@@ -189,11 +187,10 @@ h2 {
 	background-position: -6px -54px;
 }
 
-.parlamentarianImage{
+.parlamentarianImage {
 	width: 46px;
 	float: left;
 }
-
 
 .selectionDisplay .linkProfile {
 	clear: both;
@@ -201,13 +198,15 @@ h2 {
 	letter-spacing: 0.2pt;
 	text-decoration: underline;
 }
-.parliamentarianSelection{
+
+.parliamentarianSelection {
 	display: block;
 	float: left;
 	margin-right: 15px;
 	width: 640px;
 }
-.parlamentarianDisplay{
+
+.parlamentarianDisplay {
 	font-size: 120%;
 	padding: 13px;
 	width: 391px;
@@ -219,7 +218,7 @@ h2 {
 	float: left;
 }
 
-.parlamentarianPanel h2{
+.parlamentarianPanel h2 {
 	text-align: center;
 }
 
@@ -245,5 +244,3 @@ h2 {
 	background: url("images/bg_darker.jpg") repeat scroll 0 0 transparent;
 	width: 280px;
 }
-
-
