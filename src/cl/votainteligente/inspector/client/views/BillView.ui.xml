@@ -5,7 +5,7 @@
 	<g:HTMLPanel>
 		<h2>Proyecto de Ley:</h2>
 		<g:HTMLPanel ui:field="billPanel" addStyleNames="{style.billPanel}">
-			<g:Label addStyleNames="billTitle" ui:field="billTitle"/>
+			<g:Label addStyleNames="{style.billTitle}" ui:field="billTitle"/>
 			<div class="{style.billData}">
 				<ul>
 					<li><span>N° Boletín: </span><g:Label ui:field="billBulletinNumber"/></li>
