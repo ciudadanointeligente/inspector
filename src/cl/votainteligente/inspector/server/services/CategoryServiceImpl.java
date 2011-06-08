@@ -95,7 +95,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 		try {
 			hibernate.beginTransaction();
-			String query = " from Category c where ";
+			String query = "select distinct c from Category c where ";
 			Query hQuery;
 			String filters = "";
 
