@@ -22,4 +22,14 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	<!-- Filter used to prevent caching of *.nocache.* files -->
+	<filter>
+		<filter-name>gwtCacheControlFilter</filter-name>
+		<filter-class>cl.votainteligente.inspector.server.GWTCacheControlFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>gwtCacheControlFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>
