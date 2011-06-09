@@ -35,6 +35,8 @@ import java.util.List;
 
 public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter.MyProxy> implements HomeUiHandlers {
 	public static final String PLACE = "home";
+	public static final String PARAM_PARLAMENTARIAN_ID = "parlamentarianId";
+	public static final String PARAM_CATEGORY_ID = "categoryId";
 
 	public interface MyView extends View, HasUiHandlers<HomeUiHandlers> {
 		String getParlamentarianSearch();
@@ -90,6 +92,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	private Parlamentarian selectedParlamentarian;
 	private Category selectedCategory;
 	private SelectionType selectedType;
+	private Long parlamentarianId;
+	private Long categoryId;
 
 	@Inject
 	public HomePresenter(EventBus eventBus, MyView view, MyProxy proxy) {
@@ -116,6 +120,23 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		fireEvent(new RevealContentEvent(MainPresenter.SLOT_MAIN_CONTENT, this));
 	}
 
+	@Override
+	public void prepareFromRequest(PlaceRequest placeRequest) {
+		super.prepareFromRequest(placeRequest);
+
+		try {
+			parlamentarianId = Long.parseLong(placeRequest.getParameter(PARAM_PARLAMENTARIAN_ID, null));
+		} catch (NumberFormatException nfe) {
+			parlamentarianId = null;
+		}
+
+		try {
+			categoryId = Long.parseLong(placeRequest.getParameter(PARAM_CATEGORY_ID, null));
+		} catch (NumberFormatException nfe) {
+			categoryId = null;
+		}
+	}
+
 	public void initDataLoad() {
 		parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
 
@@ -129,6 +150,23 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				if (result != null) {
 					ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
 					setParlamentarianData(data);
+					if (parlamentarianId != null) {
+						for (Parlamentarian parlamentarian : result) {
+							if (parlamentarian.getId().equals(parlamentarianId)) {
+								selectedParlamentarian = parlamentarian;
+								getView().getParlamentarianTable().getSelectionModel().setSelected(selectedParlamentarian, true);
+								break;
+							}
+						}
+						setupSelection(SelectionType.SELECTED_PARLAMENTARIAN);
+						if (selectedParlamentarian != null) {
+							List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
+							parlamentarians.add(selectedParlamentarian);
+							data.setList(parlamentarians);
+							getView().getParlamentarianTable().getSelectionModel().setSelected(selectedParlamentarian, true);
+						}
+						// TODO: add else and send invalid parlamentarian notice
+					}
 				}
 			}
 		});
@@ -145,6 +183,22 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				if (result != null) {
 					ListDataProvider<Category> data = new ListDataProvider<Category>(result);
 					setCategoryData(data);
+					if (categoryId != null && parlamentarianId == null) {
+						for (Category category : result) {
+							if (category.getId().equals(categoryId)) {
+								selectedCategory = category;
+								break;
+							}
+						}
+						setupSelection(SelectionType.SELECTED_CATEGORY);
+						if (selectedCategory != null) {
+							List<Category> categories = new ArrayList<Category>();
+							categories.add(selectedCategory);
+							data.setList(categories);
+							getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, true);
+						}
+						// TODO: add else and send invalid category notice
+					}
 				}
 			}
 		});
@@ -353,6 +407,21 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				if (result != null) {
 					ListDataProvider<Category> data = new ListDataProvider<Category>(result);
 					setCategoryData(data);
+					if (categoryId != null && parlamentarianId != null) {
+						for (Category category : result) {
+							if (category.getId().equals(categoryId)) {
+								selectedCategory = category;
+								break;
+							}
+						}
+						if (selectedCategory != null) {
+							List<Category> categories = new ArrayList<Category>();
+							categories.add(selectedCategory);
+							data.setList(categories);
+							getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, true);
+						}
+						// TODO: add else and send invalid category notice
+					}
 				}
 			}
 		});
