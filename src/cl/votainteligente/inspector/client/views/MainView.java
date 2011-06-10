@@ -10,7 +10,6 @@ import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -36,7 +35,6 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 				getUiHandlers().clearPopupSlot();
 			}
 		});
-		DOM.setIntStyleAttribute(popup.getElement(), "zIndex", 10000);
 	}
 
 	@Override
