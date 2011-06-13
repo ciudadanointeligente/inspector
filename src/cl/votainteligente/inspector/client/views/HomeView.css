@@ -294,3 +294,38 @@ td.selectedCategory div {
 	top: 0;
 	width: 90px;
 }
+
+.permalinkPanel {
+	position: relative;
+	float: left;
+	left: 12px;
+	height: 25px;
+	width: 872px;
+	padding: 0px;
+	font-family: DeliciousRegular;
+	font-size: 15px;
+}
+
+.permalinkPanel div {
+	margin-left: 490px;
+	height: 25px;
+	padding: 0px;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.permalinkLabelOff {
+	visibility: hidden;
+}
+
+.permalinkLabelOn {
+	color: #9D9D9C;
+	background: url("images/share_discovery.png") no-repeat scroll 215px -63px  transparent;
+	cursor: pointer;
+}
+
+.permalinkLabelOn:hover {
+	color: #000;
+	background: url("images/share_discovery.png") no-repeat scroll 215px 0px transparent;
+	cursor: pointer;
+}

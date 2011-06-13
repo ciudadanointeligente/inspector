@@ -63,6 +63,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		void displaySelectionNone();
 		void displaySelectionParliamentarian();
 		void displaySelectionCategory();
+		void showPermalink();
+		void hidePermalink();
 	}
 
 	public enum SelectionType {
@@ -597,6 +599,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 					} else {
 						getView().setParlamentarianImage("images/parlamentarian/large/" + selectedParlamentarian.getImage());
 					}
+					showPermalink();
 				}
 			}
 		});
@@ -682,6 +685,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						getView().setCategoryDisplay(selectedCategory.getName());
 						setBillTable();
 					}
+					showPermalink();
 				}
 			}
 		});
@@ -863,6 +867,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().hideParlamentarianMessage();
 		getView().hideCategoryMessage();
 		getView().hideBillMessage();
+		getView().hidePermalink();
 	}
 
 	@Override
@@ -888,5 +893,22 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	public void setupSelection(SelectionType changeType) {
 		selectedType = changeType;
 		getView().setSelectedType(selectedType);
+	}
+
+	public void showPermalink() {
+		if (selectedParlamentarian != null && selectedCategory != null) {
+			getView().showPermalink();
+		} else {
+			getView().hidePermalink();
+		}
+	}
+
+	@Override
+	public void getPermalink() {
+		PlaceRequest placeRequest = new PlaceRequest(PermalinkPresenter.PLACE)
+			.with(PermalinkPresenter.PARAM_PLACE_TOKEN, PLACE)
+			.with(PermalinkPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString())
+			.with(PermalinkPresenter.PARAM_CATEGORY_ID, selectedCategory.getId().toString());
+		placeManager.revealPlace(placeRequest);
 	}
 }

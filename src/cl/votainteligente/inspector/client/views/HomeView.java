@@ -40,6 +40,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiField Label parliamentarianMessage;
 	@UiField Label selectionType;
 	@UiField Label notificationSelectedType;
+	@UiField Label permalink;
 	@UiField HTMLPanel categoryPanel;
 	@UiField HTMLPanel categoryTableContainer;
 	@UiField Label categoryStatusLight;
@@ -216,6 +217,16 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 		categoryDisplay.setStyleName(ResourceBundle.INSTANCE.HomeView().selectedCategory());
 	}
 
+	@Override
+	public void showPermalink() {
+		permalink.setStyleName(ResourceBundle.INSTANCE.HomeView().permalinkLabelOn());
+	}
+
+	@Override
+	public void hidePermalink() {
+		permalink.setStyleName(ResourceBundle.INSTANCE.HomeView().permalinkLabelOff());
+	}
+
 	@UiHandler("parlamentarianSearch")
 	public void onParlamentarianSearchKeyUp(KeyUpEvent event) {
 		if ((event.getNativeKeyCode() >= 48 && event.getNativeKeyCode() <= 57) ||
@@ -272,5 +283,10 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiHandler("selectionType")
 	public void onSelectionTypeClick(ClickEvent event) {
 		getUiHandlers().switchSelectionType();
+	}
+
+	@UiHandler("permalink")
+	public void onPermalinkClick(ClickEvent event) {
+		getUiHandlers().getPermalink();
 	}
 }

@@ -19,4 +19,5 @@ public interface HomeUiHandlers extends UiHandlers {
 	void switchSelectionType();
 	void setupSelection(SelectionType changeType);
 	void searchCleaner();
+	void getPermalink();
 }
