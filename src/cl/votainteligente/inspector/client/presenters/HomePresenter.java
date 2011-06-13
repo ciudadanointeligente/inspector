@@ -309,6 +309,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				if (result != null) {
 					ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
 					setParlamentarianData(data);
+					if (result.size() == 0) {
+						getView().setParlamentarianMessage(applicationMessages.getGeneralNoMatches());
+					}
 				}
 			}
 		});
@@ -423,6 +426,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 							getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, true);
 						}
 						// TODO: add else and send invalid category notice
+					}
+					if (result.size() == 0) {
+						getView().setCategoryMessage(applicationMessages.getGeneralNoMatches());
 					}
 				}
 			}
