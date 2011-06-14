@@ -166,6 +166,12 @@ public interface ApplicationMessages extends Messages {
 	@Key("parliamentarian.notificationSelectCategory")
 	public String getParliamentarianNotificationSelectCategory();
 
+	@Key("parlamentarian.noInterestDeclarationFile")
+	public String getParlamentarianNoInterestDeclarationFile();
+
+	@Key("parlamentarian.noPatrimonyDeclarationFile")
+	public String getParlamentarianNoPatrimonyDeclarationFile();
+
 	@Key("person.civilStatusSingle")
 	public String getCivilStatusSingle();
 
@@ -223,3 +229,4 @@ public interface ApplicationMessages extends Messages {
 	@Key("subscriber.unsubscribeSuccessful")
 	public String getSubscriberUnsubscribeSuccesful();
 }
+
