@@ -1,6 +1,9 @@
 package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.uihandlers.MainUiHandlers;
+import cl.votainteligente.inspector.shared.NotificationEvent;
+import cl.votainteligente.inspector.shared.NotificationEventHandler;
+import cl.votainteligente.inspector.shared.NotificationEventParams;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -15,7 +18,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;
 
-public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter.MyProxy> implements MainUiHandlers {
+public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter.MyProxy> implements MainUiHandlers, NotificationEventHandler {
 	@ContentSlot
 	public static final Type<RevealContentHandler<?>> SLOT_MAIN_CONTENT = new Type<RevealContentHandler<?>>();
 
@@ -23,6 +26,8 @@ public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter
 	public static final Type<RevealContentHandler<?>> SLOT_POPUP_CONTENT = new Type<RevealContentHandler<?>>();
 
 	public interface MyView extends View, HasUiHandlers<MainUiHandlers> {
+		void setNotificationMessage(NotificationEventParams params);
+		void clearNotifications();
 	}
 
 	@ProxyStandard
@@ -36,6 +41,11 @@ public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter
 	}
 
 	@Override
+	protected void onBind() {
+		addHandler(NotificationEvent.TYPE, this);
+	}
+
+	@Override
 	protected void revealInParent() {
 		fireEvent(new RevealRootContentEvent(this));
 	}
@@ -43,5 +53,16 @@ public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter
 	@Override
 	public void clearPopupSlot() {
 		clearSlot(SLOT_POPUP_CONTENT);
+	}
+
+	@Override
+	public void onNotification(NotificationEvent notificationEvent) {
+		if (notificationEvent.getParams() != null) {
+			getView().setNotificationMessage(notificationEvent.getParams());
+		}
+	}
+
+	public void clearNotifications() {
+		getView().clearNotifications();
 	}
 }

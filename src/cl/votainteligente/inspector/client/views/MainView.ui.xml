@@ -4,5 +4,6 @@
 	<ui:style src="MainView.css" />
 	<g:HTMLPanel>
 		<g:FlowPanel ui:field="mainPanel"/>
+		<g:FlowPanel ui:field="notificationPanel"/>
 	</g:HTMLPanel>
 </ui:UiBinder>

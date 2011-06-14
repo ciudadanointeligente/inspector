@@ -2,17 +2,20 @@ package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.MainPresenter;
 import cl.votainteligente.inspector.client.uihandlers.MainUiHandlers;
+import cl.votainteligente.inspector.shared.NotificationEventParams;
+import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.*;
 
 public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements MainPresenter.MyView {
 	private static MainViewUiBinder uiBinder = GWT.create(MainViewUiBinder.class);
@@ -20,6 +23,7 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 	private final Widget widget;
 
 	@UiField FlowPanel mainPanel;
+	@UiField FlowPanel notificationPanel;
 	private PopupPanel popup;
 
 	public MainView() {
@@ -61,5 +65,54 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 		} else {
 			super.setInSlot(slot, content);
 		}
+	}
+
+	@Override
+	public void setNotificationMessage(final NotificationEventParams params) {
+		final FlowPanel notification = new FlowPanel();
+		Label notificationClose = new Label("X");
+		Label notificationLabel = new Label(params.getMessage());
+		notification.setStyleName(params.getType().getType());
+		notificationClose.addStyleName("closeNotification");
+		notificationLabel.addStyleName("notification");
+		notification.setVisible(true);
+
+		Timer notificationTimer = new Timer() {
+			@Override
+			public void run() {
+				notification.setVisible(false);
+			}
+		};
+
+		if (params.getDuration() > 0) {
+			notificationTimer.schedule(params.getDuration());
+		}
+
+		notificationClose.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				notificationPanel.remove(notification);
+			}
+		});
+
+		notification.add(notificationClose);
+		notification.add(notificationLabel);
+
+		if (params.getType().equals(NotificationEventType.SUCCESS)) {
+			clearNotifications();
+		}
+
+		notificationPanel.insert(notification, 0);
+
+		if (notificationPanel.getWidgetCount() > 3) {
+			for (Integer index = 3; index < notificationPanel.getWidgetCount(); index++) {
+				notificationPanel.remove(index);
+			}
+		}
+	}
+
+	@Override
+	public void clearNotifications() {
+		notificationPanel.clear();
 	}
 }
