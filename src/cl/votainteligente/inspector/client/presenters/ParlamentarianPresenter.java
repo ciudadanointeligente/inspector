@@ -3,6 +3,9 @@ package cl.votainteligente.inspector.client.presenters;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.model.*;
+import cl.votainteligente.inspector.shared.NotificationEvent;
+import cl.votainteligente.inspector.shared.NotificationEventParams;
+import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -207,10 +210,14 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 				if (parlamentarian.getInterestDeclarationFile() != null) {
 					getView().setInterestDeclarationLink(parlamentarian.getInterestDeclarationFile());
+				} else {
+					showNotification(applicationMessages.getParlamentarianNoInterestDeclarationFile(), NotificationEventType.NOTICE);
 				}
 
 				if (parlamentarian.getPatrimonyDeclarationFile() != null) {
 					getView().setPatrimonyDeclarationLink(parlamentarian.getPatrimonyDeclarationFile());
+				} else {
+					showNotification(applicationMessages.getParlamentarianNoPatrimonyDeclarationFile(), NotificationEventType.NOTICE);
 				}
 
 				ListDataProvider<Society> societyData = new ListDataProvider<Society>(new ArrayList<Society>(result.getSocieties().keySet()));
@@ -325,5 +332,13 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				return society;
 			}
 		}, applicationMessages.getSocietyViewMore());
+	}
+
+	public void showNotification(String message, NotificationEventType type) {
+		NotificationEventParams params = new NotificationEventParams();
+		params.setMessage(message);
+		params.setType(type);
+		params.setDuration(NotificationEventParams.DURATION_NORMAL);
+		fireEvent(new NotificationEvent(params));
 	}
 }
