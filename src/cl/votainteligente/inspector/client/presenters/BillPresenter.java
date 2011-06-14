@@ -38,14 +38,16 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		void setBillBulletinNumber(String billBulletinNumber);
 		void setBillTitle(String billTitle);
 		void setBillDescription(String billContent);
-		void setBillAuthors(String billAuthors);
+		void addBillAuthors(Parlamentarian parlamentarian, String href, Boolean hasNext);
+		void clearBillAuthors();
 		void setBillEntryDate(Date billEntryDate);
 		void setBillInitiativeType(String billInitiativeType);
 		void setBillType(String billType);
 		void setBillOriginChamber(String billOriginChamber);
 		void setBillUrgency(String billUrgency);
 		void setBillStage(String billStage);
-		void setBillCategories(String billCategories);
+		void addBillCategories(Category category, String href, Boolean hasNext);
+		void clearBillCategories();
 		void setParlamentarianImage(String parlamentarianImageUrl);
 		void setParlamentarianDisplay(String parlamentarianName);
 		CellTable<Parlamentarian> getParlamentarianTable();
@@ -163,20 +165,17 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 					getView().setBillUrgency(selectedBill.getUrgency().getName());
 					getView().setBillStage(selectedBill.getStage().getName());
 
-					StringBuilder categoriesStringBuilder = new StringBuilder();
 					Iterator<Category> iterator = selectedBill.getCategories().iterator();
+					getView().clearBillCategories();
+					Category category = null;
+					String href = null;
 
 					while (iterator.hasNext()) {
-						categoriesStringBuilder.append(iterator.next().getName());
-
-						if (iterator.hasNext()) {
-							categoriesStringBuilder.append(", ");
-						} else {
-							categoriesStringBuilder.append('.');
-						}
+						category = iterator.next();
+						PlaceRequest placeRequest = new PlaceRequest(HomePresenter.PLACE).with(HomePresenter.PARAM_CATEGORY_ID, category.getId().toString());
+						href = placeManager.buildHistoryToken(placeRequest);
+						getView().addBillCategories(category, href, iterator.hasNext());
 					}
-
-					getView().setBillCategories(categoriesStringBuilder.toString());
 
 					if (parlamentarianId != null) {
 						loadSelectedParlamentarian();
@@ -261,19 +260,17 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			@Override
 			public void onSuccess(List<Parlamentarian> result) {
 				if (result != null) {
-					StringBuilder billAuthors = new StringBuilder();
 					Iterator<Parlamentarian> iterator = result.iterator();
+					getView().clearBillAuthors();
+					Parlamentarian parlamentarian = null;
+					String href = null;
 
 					while (iterator.hasNext()) {
-						billAuthors.append(iterator.next().toString());
-
-						if (iterator.hasNext()) {
-							billAuthors.append(", ");
-						} else {
-							billAuthors.append('.');
-						}
+						parlamentarian = iterator.next();
+						PlaceRequest placeRequest = new PlaceRequest(ParlamentarianPresenter.PLACE).with(HomePresenter.PARAM_PARLAMENTARIAN_ID, parlamentarian.getId().toString());
+						href = placeManager.buildHistoryToken(placeRequest);
+						getView().addBillAuthors(parlamentarian, href, iterator.hasNext());
 					}
-					getView().setBillAuthors(billAuthors.toString());
 				}
 			}
 		});

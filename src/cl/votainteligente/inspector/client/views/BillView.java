@@ -4,6 +4,7 @@ import cl.votainteligente.inspector.client.presenters.BillPresenter;
 import cl.votainteligente.inspector.client.resources.BillDisplayCellTableResource;
 import cl.votainteligente.inspector.client.resources.BillSearchCellTableResource;
 import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
+import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.Society;
 
@@ -28,14 +29,14 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@UiField Label billBulletinNumber;
 	@UiField Label billTitle;
 	@UiField Label billDescription;
-	@UiField Label billAuthors;
+	@UiField FlowPanel billAuthors;
 	@UiField Label billEntryDate;
 	@UiField Label billInitiativeType;
 	@UiField Label billType;
 	@UiField Label billOriginChamber;
 	@UiField Label billUrgency;
 	@UiField Label billStage;
-	@UiField Label billCategories;
+	@UiField FlowPanel billCategories;
 	@UiField Image parlamentarianImage;
 	@UiField Label parlamentarianDisplay;
 	@UiField Label parlamentarianProfileLink;
@@ -77,8 +78,22 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	}
 
 	@Override
-	public void setBillAuthors(String billAuthors) {
-		this.billAuthors.setText(billAuthors);
+	public void addBillAuthors(Parlamentarian parlamentarian, String href, Boolean hasNext) {
+		InlineHyperlink link = new InlineHyperlink(parlamentarian.toString(), href);
+
+		InlineLabel punctuation = new InlineLabel();
+		if (hasNext) {
+			punctuation.setText(", ");
+		} else {
+			punctuation.setText(".");
+		}
+		billAuthors.add(link);
+		billAuthors.add(punctuation);
+	}
+
+	@Override
+	public void clearBillAuthors() {
+		billAuthors.clear();
 	}
 
 	@Override
@@ -112,8 +127,23 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	}
 
 	@Override
-	public void setBillCategories(String billCategories) {
-		this.billCategories.setText(billCategories);
+	public void addBillCategories(Category category, String href, Boolean hasNext) {
+		InlineHyperlink link = new InlineHyperlink(category.getName(), href);
+
+		InlineLabel punctuation = new InlineLabel();
+		if (hasNext) {
+			punctuation.setText(", ");
+		} else {
+			punctuation.setText(".");
+		}
+		billCategories.add(link);
+		billCategories.add(punctuation);
+	}
+
+
+	@Override
+	public void clearBillCategories() {
+		billCategories.clear();
 	}
 
 	@Override
