@@ -3,6 +3,7 @@ package cl.votainteligente.inspector.client.uihandlers;
 import cl.votainteligente.inspector.client.presenters.HomePresenter.SelectionType;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
+import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 
@@ -20,4 +21,5 @@ public interface HomeUiHandlers extends UiHandlers {
 	void setupSelection(SelectionType changeType);
 	void searchCleaner();
 	void getPermalink();
+	void showNotification(String message, NotificationEventType type);
 }

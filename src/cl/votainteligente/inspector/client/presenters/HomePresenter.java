@@ -8,6 +8,9 @@ import cl.votainteligente.inspector.client.uihandlers.HomeUiHandlers;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
+import cl.votainteligente.inspector.shared.NotificationEvent;
+import cl.votainteligente.inspector.shared.NotificationEventParams;
+import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -916,5 +919,14 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			.with(PermalinkPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString())
 			.with(PermalinkPresenter.PARAM_CATEGORY_ID, selectedCategory.getId().toString());
 		placeManager.revealPlace(placeRequest);
+	}
+
+	@Override
+	public void showNotification(String message, NotificationEventType type) {
+		NotificationEventParams params = new NotificationEventParams();
+		params.setMessage(message);
+		params.setType(type);
+		params.setDuration(NotificationEventParams.DURATION_NORMAL);
+		fireEvent(new NotificationEvent(params));
 	}
 }
