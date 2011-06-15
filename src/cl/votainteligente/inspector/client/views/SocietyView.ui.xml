@@ -3,37 +3,74 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style src="SocietyView.css" />
 	<g:HTMLPanel>
-		<g:HTMLPanel>
-			<g:Label ui:field="societyName" />
-			<div>Nombre de fantasía:</div>
-			<g:Label ui:field="societyFantasyName" />
-			<div>RUT Sociedad:</div>
-			<g:Label ui:field="societyUid" />
-			<div>Fecha de constitución:</div>
-			<g:Label ui:field="societyCreationDate" />
-			<div>Último capital declarado:</div>
-			<g:Label ui:field="societyCurrentStock" />
-			<div>Situación tributaria:</div>
-			<g:Label ui:field="societyStatus" />
-			<div>Objeto de la sociedad:</div>
-			<g:Label ui:field="societySubject" />
-			<div>Tipo de sociedad:</div>
-			<g:Label ui:field="societyType" />
-			<div>Socios actuales:</div>
-			<g:Label ui:field="societyMembers" />
-		</g:HTMLPanel>
-		<g:HTMLPanel>
-			<div>Otros datos de la sociedad:</div>
-			<div>Capital inicial:</div>
-			<g:Label ui:field="societyInitialStock" />
-			<div>Capital aportado por el parlamentario:</div>
-			<g:Label ui:field="parlamentarianStock" />
-			<div>Domicilio:</div>
-			<g:Label ui:field="societyAddress" />
-			<div>Fecha de publicación:</div>
-			<g:Label ui:field="societyPublishDate" />
-			<div>Notaría:</div>
-			<g:Label ui:field="notaryName" />
-		</g:HTMLPanel>
+		<div>
+			<g:Label ui:field="close" addStyleNames="{style.popupCloseButton}" />
+			<div class="{style.societyTitleWrapper}">
+				<div class="{style.selectionDisplay}">
+					<g:HTMLPanel addStyleNames="{style.societyHeader}">
+						<h1><g:Label ui:field="societyName" /></h1>
+						<h3>Nombre de fantasía: </h3>
+						<div class="{style.societySubTitle}"><h3><strong><g:Label ui:field="societyFantasyName" /></strong></h3></div>
+					</g:HTMLPanel>
+				</div>
+			</div>
+			<table class="{style.societyTable}">
+				<tr>
+					<th scope="row"><div>RUT Sociedad:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="societyUid" /></td>
+				</tr>
+				<tr>
+					<th scope="row"><div>Fecha de constitución:</div></th>
+					<td class="{style.altTd}"><g:Label ui:field="societyCreationDate" /></td>
+				</tr>
+				<tr>
+					<th scope="row"><div>Último capital declarado:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="societyCurrentStock" /></td>
+				</tr>
+				<tr>
+					<th scope="row"><div>Situación tributaria:</div></th>
+					<td class="{style.altTd}"><g:Label ui:field="societyStatus" /></td>
+				</tr>
+				<tr>
+					<th scope="row"><div>Objeto de la sociedad:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="societySubject" /></td>
+				</tr>
+				<tr>
+					<th scope="row"><div>Tipo de sociedad:</div></th>
+					<td class="{style.altTd}"><g:Label ui:field="societyType" /></td>
+				</tr>
+				<tr>
+					<th scope="row"><div>Socios actuales:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="societyMembers" /></td>
+				</tr>
+			</table>
+			<div class="{style.societyTitleWrapper}">
+				<div class="{style.selectionDisplay}">
+					<h1>Otros datos de la sociedad</h1>
+				</div>
+			</div>
+			<table class="{style.societyTable}">
+				<tr>
+					<th><div>Capital inicial:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="societyInitialStock" /></td>
+				</tr>
+				<tr>
+					<th><div>Capital aportado por el parlamentario:</div></th>
+					<td class="{style.altTd}"><g:Label ui:field="parlamentarianStock" /></td>
+				</tr>
+				<tr>
+					<th><div>Domicilio:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="societyAddress" /></td>
+				</tr>
+				<tr>
+					<th><div>Fecha de publicación:</div></th>
+					<td class="{style.altTd}"><g:Label ui:field="societyPublishDate" /></td>
+				</tr>
+				<tr>
+					<th><div>Notaría:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="notaryName" /></td>
+				</tr>
+			</table>
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

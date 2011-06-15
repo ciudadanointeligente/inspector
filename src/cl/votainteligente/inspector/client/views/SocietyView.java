@@ -1,16 +1,19 @@
 package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.SocietyPresenter;
+import cl.votainteligente.inspector.client.presenters.SocietyUiHandlers;
 
-import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class SocietyView extends ViewImpl implements SocietyPresenter.MyView {
+public class SocietyView extends ViewWithUiHandlers<SocietyUiHandlers> implements SocietyPresenter.MyView {
 	private static SocietyViewUiBinder uiBinder = GWT.create(SocietyViewUiBinder.class);
 	interface SocietyViewUiBinder extends UiBinder<Widget, SocietyView> {}
 	private final Widget widget;
@@ -29,6 +32,7 @@ public class SocietyView extends ViewImpl implements SocietyPresenter.MyView {
 	@UiField Label societyAddress;
 	@UiField Label societyPublishDate;
 	@UiField Label notaryName;
+	@UiField Label close;
 
 	public SocietyView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -125,5 +129,10 @@ public class SocietyView extends ViewImpl implements SocietyPresenter.MyView {
 	@Override
 	public void setNotaryName(String notaryName) {
 		this.notaryName.setText(notaryName);
+	}
+
+	@UiHandler("close")
+	void onCloseClick(ClickEvent event) {
+		getUiHandlers().close();
 	}
 }

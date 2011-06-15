@@ -2,9 +2,11 @@ package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.SocietyServiceAsync;
+import cl.votainteligente.inspector.client.uihandlers.SubscriptionUiHandlers;
 import cl.votainteligente.inspector.model.Person;
 import cl.votainteligente.inspector.model.Society;
 
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -17,17 +19,18 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
 import java.util.Iterator;
 
-public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, SocietyPresenter.MyProxy> {
+public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, SocietyPresenter.MyProxy> implements SocietyUiHandlers {
 	public static final String PLACE = "society";
 	public static final String PARAM_SOCIETY_ID = "societyId";
 
-	public interface MyView extends View {
+	public interface MyView extends View, HasUiHandlers<SocietyUiHandlers> {
 		void clearSocietyData();
 		void setSocietyName(String societyName);
 		void setSocietyFantasyName(String societyFantasyName);
@@ -60,6 +63,7 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 	@Inject
 	public SocietyPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
 		super(eventBus, view, proxy);
+		getView().setUiHandlers(this);
 	}
 
 	@Override
@@ -73,7 +77,7 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 
 	@Override
 	protected void revealInParent() {
-		fireEvent(new RevealContentEvent(MainPresenter.SLOT_MAIN_CONTENT, this));
+		fireEvent(new RevealContentEvent(MainPresenter.SLOT_POPUP_CONTENT, this));
 	}
 
 	@Override
@@ -172,4 +176,8 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 		});
 	}
 
+	@Override
+	public void close() {
+		History.back();
+	}
 }
