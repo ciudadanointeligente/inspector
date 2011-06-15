@@ -19,6 +19,8 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 	private Urgency urgency;
 	private Stage stage;
 	private Set<Category> categories;
+	private Date lastUpdate;
+	private Date lastNotification;
 
 	public static final ProvidesKey<Bill> KEY_PROVIDER = new ProvidesKey<Bill>() {
 		public Object getKey(Bill bill) {
@@ -139,5 +141,21 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 	@Override
 	public int hashCode() {
 			return this.id.hashCode();
+	}
+
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public Date getLastNotification() {
+		return lastNotification;
+	}
+
+	public void setLastNotification(Date lastNotification) {
+		this.lastNotification = lastNotification;
 	}
 }

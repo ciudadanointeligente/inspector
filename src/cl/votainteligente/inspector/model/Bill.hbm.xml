@@ -23,5 +23,7 @@
 			<key column="billId" />
 			<many-to-many column="categoryId" class="Category" />
 		</set>
+		<property name="lastUpdate"/>
+		<property name="lastNotification"/>
 	</class>
 </hibernate-mapping>
