@@ -4,7 +4,7 @@
 	<ui:style src="SubscriptionView.css" />
 	<g:FocusPanel ui:field="subscriptionPanel">
 		<g:HTMLPanel>
-			<g:Label ui:field="close">X</g:Label>
+			<g:Label ui:field="close" addStyleNames="{style.popupCloseButton}" />
 			<g:Label ui:field="notification"></g:Label>
 			<g:TextBox ui:field="email"/>
 			<g:Button ui:field="subscribe">Suscribir</g:Button>
