@@ -295,18 +295,18 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				for (Category category : society.getCategories()) {
 					for (Bill bill : parlamentarian.getAuthoredBills()){
 						if (bill.getCategories().contains(category)) {
-							return "Sí";
+							return applicationMessages.getGeneralYes();
 						}
 					}
 
 					for (Bill bill : parlamentarian.getVotedBills()){
 						if (bill.getCategories().contains(category)) {
-							return "Sí";
+							return applicationMessages.getGeneralYes();
 						}
 					}
 				}
 
-				return "No";
+				return applicationMessages.getGeneralNo();
 			}
 		}, applicationMessages.getSocietyIsInConflict());
 
