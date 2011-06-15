@@ -33,6 +33,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	private ApplicationMessages applicationMessages;
 
 	@UiField HTMLPanel parlamentarianPanel;
+	@UiField HTMLPanel parlamentarianContent;
 	@UiField HTMLPanel parlamentarianTableContainer;
 	@UiField Label parliamentarianStatusLight;
 	@UiField TextBox parlamentarianSearch;
@@ -42,6 +43,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiField Label notificationSelectedType;
 	@UiField Label permalink;
 	@UiField HTMLPanel categoryPanel;
+	@UiField HTMLPanel categoryContent;
 	@UiField HTMLPanel categoryTableContainer;
 	@UiField Label categoryStatusLight;
 	@UiField TextBox categorySearch;
@@ -145,22 +147,26 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	public void setParlamentarianMessage(String message) {
 		parliamentarianMessage.setText(message);
 		parliamentarianMessage.setVisible(true);
+		parlamentarianContent.setVisible(false);
 	}
 
 	@Override
 	public void hideParlamentarianMessage() {
 		parliamentarianMessage.setVisible(false);
+		parlamentarianContent.setVisible(true);
 	}
 
 	@Override
 	public void setCategoryMessage(String message) {
 		categoryMessage.setText(message);
 		categoryMessage.setVisible(true);
+		categoryContent.setVisible(false);
 	}
 
 	@Override
 	public void hideCategoryMessage() {
 		categoryMessage.setVisible(false);
+		categoryContent.setVisible(true);
 	}
 
 	@Override

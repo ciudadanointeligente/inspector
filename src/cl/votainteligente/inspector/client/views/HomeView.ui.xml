@@ -13,10 +13,10 @@
 			</div>
 			<g:Label ui:field="parlamentarianSearchClear" addStyleNames="{style.searchClear}" />
 			<g:TextBox ui:field="parlamentarianSearch" addStyleNames="{style.searchBox}"/>
-			<g:Label ui:field="parliamentarianMessage" visible="false"/>
-			<div class="{style.searchTableScroll}">
+			<g:Label ui:field="parliamentarianMessage" visible="false" addStyleNames="{style.searchTableScroll}"/>
+			<g:HTMLPanel ui:field="parlamentarianContent" addStyleNames="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="parlamentarianTableContainer" addStyleNames="{style.searchTableBg}"/>
-			</div>
+			</g:HTMLPanel>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.center}">
 			<g:Label ui:field="selectionType"/>
@@ -29,11 +29,10 @@
 			</div>
 			<g:Label ui:field="categorySearchClear" addStyleNames="{style.searchClear}"/>
 			<g:TextBox ui:field="categorySearch" addStyleNames="{style.searchBox}"/>
-			<g:Label ui:field="categoryMessage" visible="false"/>
-			<div class="{style.searchTableScroll}">
-				<g:HTMLPanel ui:field="categoryTableContainer" addStyleNames="{style.searchTableBg}">
-				</g:HTMLPanel>
-			</div>
+			<g:Label ui:field="categoryMessage" visible="false" addStyleNames="{style.searchTableScroll}"/>
+			<g:HTMLPanel ui:field="categoryContent" addStyleNames="{style.searchTableScroll}">
+				<g:HTMLPanel ui:field="categoryTableContainer" addStyleNames="{style.searchTableBg}"/>
+			</g:HTMLPanel>
 		</g:HTMLPanel>
 		<div class="{style.selectionWrapper}">
 			<g:HTMLPanel addStyleNames="{style.selectionDisplay}">

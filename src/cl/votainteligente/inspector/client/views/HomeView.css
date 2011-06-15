@@ -295,6 +295,21 @@ td.selectedCategory div {
 	width: 90px;
 }
 
+.searchTableMessage {
+	border-bottom: 5px solid white;
+	border-left: 5px solid white;
+	border-right: 5px solid white;
+	height: 281px;
+	left: 10px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: relative;
+	width: 371px;
+	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
+	-webkit-border-radius: 0 0 9px 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+}
+
 .permalinkPanel {
 	position: relative;
 	float: left;
