@@ -3,17 +3,21 @@ package cl.votainteligente.inspector.client.views;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
+import cl.votainteligente.inspector.client.uihandlers.ParlamentarianUiHandlers;
 import cl.votainteligente.inspector.model.Society;
-
-import com.gwtplatform.mvp.client.ViewImpl;
+import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import org.adapters.highcharts.codegen.sections.options.OptionPath;
 import org.adapters.highcharts.codegen.types.SeriesType;
 import org.adapters.highcharts.gwt.widgets.HighChart;
 
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.*;
 
@@ -21,7 +25,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-public class ParlamentarianView extends ViewImpl implements ParlamentarianPresenter.MyView {
+public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandlers> implements ParlamentarianPresenter.MyView {
 	private static ParlamentarianViewUiBinder uiBinder = GWT.create(ParlamentarianViewUiBinder.class);
 	interface ParlamentarianViewUiBinder extends UiBinder<Widget, ParlamentarianView> {}
 	private final Widget widget;
@@ -162,6 +166,22 @@ public class ParlamentarianView extends ViewImpl implements ParlamentarianPresen
 			declarationChartPanel.add(declarationChart);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	@UiHandler("interestDeclarationLink")
+	public void onInterestDeclarationLinkClick(ClickEvent event) {
+		if (getUiHandlers().getInterestDeclaration() == false) {
+			event.preventDefault();
+			getUiHandlers().showNotification(applicationMessages.getParlamentarianNoInterestDeclarationFile(), NotificationEventType.NOTICE);
+		}
+	}
+
+	@UiHandler("patrimonyDeclarationLink")
+	public void onPatrimonyDeclarationLinkClick(ClickEvent event) {
+		if (getUiHandlers().getPatrimonyDeclaration() == false) {
+			event.preventDefault();
+			getUiHandlers().showNotification(applicationMessages.getParlamentarianNoPatrimonyDeclarationFile(), NotificationEventType.NOTICE);
 		}
 	}
 }

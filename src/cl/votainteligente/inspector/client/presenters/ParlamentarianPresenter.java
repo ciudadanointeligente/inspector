@@ -2,11 +2,13 @@ package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
+import cl.votainteligente.inspector.client.uihandlers.ParlamentarianUiHandlers;
 import cl.votainteligente.inspector.model.*;
 import cl.votainteligente.inspector.shared.NotificationEvent;
 import cl.votainteligente.inspector.shared.NotificationEventParams;
 import cl.votainteligente.inspector.shared.NotificationEventType;
 
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -31,11 +33,11 @@ import com.google.inject.Inject;
 
 import java.util.*;
 
-public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.MyView, ParlamentarianPresenter.MyProxy> {
+public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.MyView, ParlamentarianPresenter.MyProxy> implements ParlamentarianUiHandlers {
 	public static final String PLACE = "parlamentarian";
 	public static final String PARAM_PARLAMENTARIAN_ID = "parlamentarianId";
 
-	public interface MyView extends View {
+	public interface MyView extends View, HasUiHandlers<ParlamentarianUiHandlers> {
 		void clearParlamentarianData();
 		void setParlamentarianName(String parlamentarianName);
 		void setParlamentarianDescription(String parlamentarianDescription);
@@ -65,10 +67,13 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	private ParlamentarianServiceAsync parlamentarianService;
 	private Long parlamentarianId;
 	private Parlamentarian parlamentarian;
+	private Boolean interestDeclaration;
+	private Boolean patrimonyDeclaration;
 
 	@Inject
 	public ParlamentarianPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
 		super(eventBus, view, proxy);
+		getView().setUiHandlers(this);
 	}
 
 	@Override
@@ -209,15 +214,17 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				}
 
 				if (parlamentarian.getInterestDeclarationFile() != null) {
+					interestDeclaration = true;
 					getView().setInterestDeclarationLink(parlamentarian.getInterestDeclarationFile());
 				} else {
-					showNotification(applicationMessages.getParlamentarianNoInterestDeclarationFile(), NotificationEventType.NOTICE);
+					interestDeclaration = false;
 				}
 
 				if (parlamentarian.getPatrimonyDeclarationFile() != null) {
+					patrimonyDeclaration = true;
 					getView().setPatrimonyDeclarationLink(parlamentarian.getPatrimonyDeclarationFile());
 				} else {
-					showNotification(applicationMessages.getParlamentarianNoPatrimonyDeclarationFile(), NotificationEventType.NOTICE);
+					patrimonyDeclaration = false;
 				}
 
 				ListDataProvider<Society> societyData = new ListDataProvider<Society>(new ArrayList<Society>(result.getSocieties().keySet()));
@@ -334,11 +341,22 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		}, applicationMessages.getSocietyViewMore());
 	}
 
+	@Override
 	public void showNotification(String message, NotificationEventType type) {
 		NotificationEventParams params = new NotificationEventParams();
 		params.setMessage(message);
 		params.setType(type);
 		params.setDuration(NotificationEventParams.DURATION_NORMAL);
 		fireEvent(new NotificationEvent(params));
+	}
+
+	@Override
+	public Boolean getInterestDeclaration() {
+		return interestDeclaration;
+	}
+
+	@Override
+	public Boolean getPatrimonyDeclaration() {
+		return patrimonyDeclaration;
 	}
 }
