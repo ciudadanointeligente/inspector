@@ -4,8 +4,8 @@
 	<ui:style src="PermalinkView.css" />
 	<g:FocusPanel ui:field="permalinkPanel">
 		<g:HTMLPanel>
-			<g:Label ui:field="close">X</g:Label>
-			<g:TextBox ui:field="permalink"/>
+			<g:Label ui:field="close" addStyleNames="{style.popupCloseButton}" />
+			<g:TextBox ui:field="permalink" addStyleNames="{style.popupWidthBox}"/>
 		</g:HTMLPanel>
 	</g:FocusPanel>
 </ui:UiBinder>

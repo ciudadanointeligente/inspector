@@ -1,0 +1,17 @@
+.popupCloseButton {
+	background: url("images/close.png") no-repeat scroll 0 0 transparent;
+	display: block;
+	float: right;
+	height: 19px;
+	margin: -25px;
+	position: relative;
+	right: 579px;
+	top: 9px;
+	width: 20px;
+	z-index: 2000;
+	cursor: pointer;
+}
+
+.popupWidthBox {
+	width: 550px;
+}
