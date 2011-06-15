@@ -21,12 +21,12 @@
 				</div>
 				<div class="{style.billAuthors}">
 					<span>Autores</span>
-					<g:Label ui:field="billAuthors"></g:Label>
+					<g:FlowPanel ui:field="billAuthors"/>
 				</div>
 			</div>
 			<div class="{style.billCategories}">
 				<span>Áreas</span>
-				<g:Label ui:field="billCategories"></g:Label>
+				<g:FlowPanel ui:field="billCategories"/>
 			</div>
 		</g:HTMLPanel>
 		<div class="{style.conflictWrapper}">
