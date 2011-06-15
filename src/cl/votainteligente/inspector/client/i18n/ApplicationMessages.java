@@ -61,6 +61,12 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.noMatches")
 	public String getGeneralNoMatches();
 
+	@Key("general.yes")
+	public String getGeneralYes();
+
+	@Key("general.no")
+	public String getGeneralNo();
+
 	@Key("error.incorrectParameters")
 	public String getErrorIncorrectParameters();
 
