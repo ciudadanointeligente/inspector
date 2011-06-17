@@ -143,8 +143,11 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 					keyWords[i]  = keyWords[i].replaceAll("[ÚÙúù]","u");
 					keyWords[i]  = keyWords[i].replaceAll("[Ññ]", "n");
 					keyWords[i]  = keyWords[i].replaceAll("\\W", "");
-					filters += " lower(TRANSLATE(p.firstName,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%') OR ";
-					filters += " lower(TRANSLATE(p.lastName,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%') ";
+					filters += " lower(TRANSLATE(p.firstName,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%') OR";
+					filters += " lower(TRANSLATE(p.lastName,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%')";
+					if (i + 1 < keyWords.length) {
+						filters += " OR";
+					}
 				}
 				filters += ")";
 			}

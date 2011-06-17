@@ -111,7 +111,10 @@ public class CategoryServiceImpl implements CategoryService {
 					keyWords[i]  = keyWords[i].replaceAll("[ÚÙúù]","u");
 					keyWords[i]  = keyWords[i].replaceAll("[Ññ]", "n");
 					keyWords[i]  = keyWords[i].replaceAll("\\W", "");
-					filters += " lower(TRANSLATE(c.name,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%') ";
+					filters += " lower(TRANSLATE(c.name,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%')";
+					if (i + 1 < keyWords.length) {
+						filters += " OR";
+					}
 				}
 				filters += ")";
 			}
