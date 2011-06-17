@@ -29,7 +29,7 @@
 	font-size: 15px;
 }
 
-.searchTableScroll {
+.searchTableScroll, .emptyTableScroll {
 	border-bottom: 5px solid white;
 	border-left: 5px solid white;
 	border-right: 5px solid white;
@@ -44,7 +44,7 @@
 	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
 }
 
-.searchTableBg {
+.searchTableBg, .emptyTableScroll {
 	background: url("images/bg_darker.jpg") repeat scroll 0 0 transparent;
 	min-height: 281px;
 	-moz-border-radius: 0 0 9px 9px; /* FF1+ */
@@ -54,6 +54,16 @@
 	-webkit-box-shadow: 0px 0px 4px #000000 inset; /* Saf3.0+, Chrome */
 	box-shadow: 0px 0px 4px #000000 inset;
 	/* Opera 10.5, IE9, Chrome 10+ */
+}
+
+.emptyTableMessage {
+	color: white;
+	font-family: Arial, Lucida Grande, Calibri, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	letter-spacing: 0.5pt;
+	text-align: center;
+	margin-top: 6px;
 }
 
 .selectionWrapper {
@@ -72,6 +82,7 @@
 	position: relative;
 	z-index: 2000;
 }
+
 .searchTitle {
 	-moz-border-radius: 16px 16px 0 0; /* FF1+ */
 	-webkit-border-radius:16px 16px 0 0; /* Saf3-4, iOS 1+, Android 1.5+ */
@@ -107,7 +118,6 @@
 .categoryPanel .searchTitle h2 {
 	float: right;
 }
-
 
 .parlamentarianPanel .searchTitle h2 {
 	float: left;
@@ -260,30 +270,25 @@ td.selectedCategory div {
 	word-spacing: 2pt;
 }
 
-.selectionDisplayParliamentary {
-	background: url("images/arrow_notification.png") no-repeat scroll -25px 52px  transparent;
+.selectionDisplayParliamentary, .selectionDisplayCategory {
 	color: grey;
 	display: block;
 	float: left;
-	font-family: TrashHand;
+	font-family: TrashHandRegular;
 	font-size: 17px;
 	margin-top: 109px;
-	padding: 0 9px 51px;
 	position: relative;
 	text-align: center;
 }
 
+.selectionDisplayParliamentary {
+	background: url("images/arrow_notification.png") no-repeat scroll -25px 52px  transparent;
+	padding: 0 9px 51px;
+}
+
 .selectionDisplayCategory {
 	background: url("images/arrow_notification.png") no-repeat scroll 10px -51px transparent;
-	color: grey;
-	display: block;
-	float: left;
-	font-family: TrashHand;
-	font-size: 17px;
-	margin-top: 109px;
 	padding: 0 0px 51px;
-	position: relative;
-	text-align: center;
 }
 
 .center {
@@ -343,4 +348,9 @@ td.selectedCategory div {
 	color: #000;
 	background: url("images/share_discovery.png") no-repeat scroll 215px 0px transparent;
 	cursor: pointer;
+}
+
+.conflictStatusImage {
+	margin: 14px 0px 0px 70px;
+	border: 0px none;
 }

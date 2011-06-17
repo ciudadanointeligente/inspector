@@ -11,9 +11,12 @@
 				<g:Label ui:field="parliamentarianStatusLight"/>
 				<h2>Elige un parlamentario</h2>
 			</div>
-			<g:Label ui:field="parlamentarianSearchClear" addStyleNames="{style.searchClear}" />
+			<g:Label ui:field="parlamentarianSearchClear" addStyleNames="{style.searchClear}"/>
 			<g:TextBox ui:field="parlamentarianSearch" addStyleNames="{style.searchBox}"/>
-			<g:Label ui:field="parliamentarianMessage" visible="false" addStyleNames="{style.searchTableScroll}"/>
+			<g:HTMLPanel ui:field="parliamentarianMessageContent" visible="false" addStyleNames="{style.emptyTableScroll}">
+				<g:Label ui:field="parliamentarianMessage" addStyleNames="{style.emptyTableMessage}"/>
+				<g:Image ui:field="parliamentarianConflict" addStyleNames="{style.conflictStatusImage}" />
+			</g:HTMLPanel>
 			<g:HTMLPanel ui:field="parlamentarianContent" addStyleNames="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="parlamentarianTableContainer" addStyleNames="{style.searchTableBg}"/>
 			</g:HTMLPanel>
@@ -29,7 +32,10 @@
 			</div>
 			<g:Label ui:field="categorySearchClear" addStyleNames="{style.searchClear}"/>
 			<g:TextBox ui:field="categorySearch" addStyleNames="{style.searchBox}"/>
-			<g:Label ui:field="categoryMessage" visible="false" addStyleNames="{style.searchTableScroll}"/>
+			<g:HTMLPanel ui:field="categoryMessageContent" visible="false" addStyleNames="{style.emptyTableScroll}">
+				<g:Label ui:field="categoryMessage" addStyleNames="{style.emptyTableMessage}"/>
+				<g:Image ui:field="categoryConflict" addStyleNames="{style.conflictStatusImage}" />
+			</g:HTMLPanel>
 			<g:HTMLPanel ui:field="categoryContent" addStyleNames="{style.searchTableScroll}">
 				<g:HTMLPanel ui:field="categoryTableContainer" addStyleNames="{style.searchTableBg}"/>
 			</g:HTMLPanel>

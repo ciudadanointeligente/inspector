@@ -39,6 +39,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiField TextBox parlamentarianSearch;
 	@UiField Label parlamentarianSearchClear;
 	@UiField Label parliamentarianMessage;
+	@UiField HTMLPanel parliamentarianMessageContent;
 	@UiField Label selectionType;
 	@UiField Label notificationSelectedType;
 	@UiField Label permalink;
@@ -49,6 +50,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiField TextBox categorySearch;
 	@UiField Label categorySearchClear;
 	@UiField Label categoryMessage;
+	@UiField HTMLPanel categoryMessageContent;
 	@UiField Image parlamentarianImage;
 	@UiField Label parlamentarianDisplay;
 	@UiField Label parlamentarianProfileLink;
@@ -58,6 +60,8 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiField HTMLPanel billPanel;
 	@UiField Label billMessage;
 	CellTable<Bill> billTable;
+	@UiField Image parliamentarianConflict;
+	@UiField Image categoryConflict;
 
 	public HomeView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -146,26 +150,26 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@Override
 	public void setParlamentarianMessage(String message) {
 		parliamentarianMessage.setText(message);
-		parliamentarianMessage.setVisible(true);
+		parliamentarianMessageContent.setVisible(true);
 		parlamentarianContent.setVisible(false);
 	}
 
 	@Override
 	public void hideParlamentarianMessage() {
-		parliamentarianMessage.setVisible(false);
+		parliamentarianMessageContent.setVisible(false);
 		parlamentarianContent.setVisible(true);
 	}
 
 	@Override
 	public void setCategoryMessage(String message) {
 		categoryMessage.setText(message);
-		categoryMessage.setVisible(true);
+		categoryMessageContent.setVisible(true);
 		categoryContent.setVisible(false);
 	}
 
 	@Override
 	public void hideCategoryMessage() {
-		categoryMessage.setVisible(false);
+		categoryMessageContent.setVisible(false);
 		categoryContent.setVisible(true);
 	}
 
@@ -231,6 +235,24 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@Override
 	public void hidePermalink() {
 		permalink.setStyleName(ResourceBundle.INSTANCE.HomeView().permalinkLabelOff());
+	}
+
+	@Override
+	public void showParliamentarianConflictImage() {
+		parliamentarianConflict.setVisible(true);
+		parliamentarianConflict.setUrl("images/without_conflict.png");
+	}
+
+	@Override
+	public void showCategoryConflictImage() {
+		categoryConflict.setVisible(true);
+		categoryConflict.setUrl("images/without_conflict.png");
+	}
+
+	@Override
+	public void hideConflictImage() {
+		parliamentarianConflict.setVisible(false);
+		categoryConflict.setVisible(false);
 	}
 
 	@UiHandler("parlamentarianSearch")

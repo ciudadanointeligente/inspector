@@ -68,6 +68,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		void displaySelectionCategory();
 		void showPermalink();
 		void hidePermalink();
+		void showParliamentarianConflictImage();
+		void showCategoryConflictImage();
+		void hideConflictImage();
 	}
 
 	public enum SelectionType {
@@ -111,6 +114,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		parlamentarianData = new ListDataProvider<Parlamentarian>();
 		categoryData = new ListDataProvider<Category>();
 		billData = new ListDataProvider<Bill>();
+		cleanerSelection();
 		resetSelection();
 		setupSelection(SelectionType.SELECTED_PARLAMENTARIAN);
 		initParlamentarianTable();
@@ -277,11 +281,12 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 								}
 							});
 						}
-
-						if (!selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
+						if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN) && result.size() > 0) {
 							searchCategory(result);
 						}
 						if (result.size() == 0) {
+							resetSelection();
+							resetNoConflicts();
 							getView().setParlamentarianMessage(applicationMessages.getGeneralNoMatches());
 						}
 					}
@@ -310,10 +315,13 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onSuccess(List<Parlamentarian> result) {
 				if (result != null) {
-					ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
-					setParlamentarianData(data);
-					if (result.size() == 0) {
-						getView().setParlamentarianMessage(applicationMessages.getGeneralNoMatches());
+					if (result.size() > 0) {
+						ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
+						setParlamentarianData(data);
+					}
+					if (selectedCategory != null && result.size() == 0) {
+						getView().showParliamentarianConflictImage();
+						getView().setParlamentarianMessage(applicationMessages.getGeneralNoConflictCategory());
 					}
 				}
 			}
@@ -386,6 +394,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 							searchParlamentarian(result);
 						}
 						if (result.size() == 0) {
+							resetSelection();
+							resetNoConflicts();
 							getView().setCategoryMessage(applicationMessages.getGeneralNoMatches());
 						}
 					}
@@ -422,7 +432,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 								break;
 							}
 						}
-						if (selectedCategory != null) {
+						if (selectedCategory != null && result.size() > 0) {
 							List<Category> categories = new ArrayList<Category>();
 							categories.add(selectedCategory);
 							data.setList(categories);
@@ -431,7 +441,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						// TODO: add else and send invalid category notice
 					}
 					if (result.size() == 0) {
-						getView().setCategoryMessage(applicationMessages.getGeneralNoMatches());
+						getView().showCategoryConflictImage();
+						getView().setCategoryMessage(applicationMessages.getGeneralNoConflictParliamentarian());
 					}
 				}
 			}
@@ -865,21 +876,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	}
 
 	@Override
-	public void resetSelection() {
-		selectedParlamentarian = null;
-		selectedCategory = null;
-		getView().setCategorySearch(applicationMessages.getCategorySearchMessage());
-		getView().setParlamentarianSearch(applicationMessages.getParlamentarianSearchMessage());
-		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
-		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
-		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
-		getView().hideParlamentarianMessage();
-		getView().hideCategoryMessage();
-		getView().hideBillMessage();
-		getView().hidePermalink();
-	}
-
-	@Override
 	public void switchSelectionType() {
 		if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 			setupSelection(SelectionType.SELECTED_CATEGORY);
@@ -894,6 +890,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	public void searchCleaner() {
 		getView().getParlamentarianTable().getSelectionModel().setSelected(selectedParlamentarian, false);
 		getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, false);
+		getView().notificationSelectHidden();
+		cleanerSelection();
 		resetSelection();
 		initDataLoad();
 	}
@@ -928,5 +926,30 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		params.setType(type);
 		params.setDuration(NotificationEventParams.DURATION_NORMAL);
 		fireEvent(new NotificationEvent(params));
+	}
+
+	public void cleanerSelection() {
+		getView().setCategorySearch(applicationMessages.getCategorySearchMessage());
+		getView().setParlamentarianSearch(applicationMessages.getParlamentarianSearchMessage());
+	}
+
+	public void resetSelection() {
+		selectedParlamentarian = null;
+		selectedCategory = null;
+		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
+		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
+		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
+		getView().hideParlamentarianMessage();
+		getView().hideCategoryMessage();
+		getView().hideBillMessage();
+		getView().hidePermalink();
+	}
+
+	public void resetNoConflicts() {
+		getView().getParlamentarianTable().getSelectionModel().setSelected(selectedParlamentarian, false);
+		getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, false);
+		getView().notificationSelectHidden();
+		getView().hideConflictImage();
+		initDataLoad();
 	}
 }

@@ -16,7 +16,6 @@ public interface HomeUiHandlers extends UiHandlers {
 	void searchCategory(List<Parlamentarian> parlamentarians);
 	void searchBill(Long parlamentarianId, Long categoryId);
 	void showParlamentarianProfile();
-	void resetSelection();
 	void switchSelectionType();
 	void setupSelection(SelectionType changeType);
 	void searchCleaner();
