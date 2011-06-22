@@ -226,6 +226,12 @@ public interface ApplicationMessages extends Messages {
 	@Key("society.reportedVsUnreported")
 	public String getSocietyReportedVsUnreported();
 
+	@Key("society.perArea")
+	public String getSocietyPerArea();
+
+	@Key("society.shareInSocietiesByArea")
+	public String getSocietyShareInSocietiesByArea();
+
 	@Key("subscriber.subscribe")
 	public String getSubscriberSuscribe();
 
@@ -241,4 +247,3 @@ public interface ApplicationMessages extends Messages {
 	@Key("subscriber.unsubscribeSuccessful")
 	public String getSubscriberUnsubscribeSuccesful();
 }
-
