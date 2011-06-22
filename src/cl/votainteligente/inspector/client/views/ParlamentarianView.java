@@ -44,7 +44,8 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@UiField Label parlamentarianParty;
 	@UiField Anchor interestDeclarationLink;
 	@UiField Anchor patrimonyDeclarationLink;
-	@UiField FlowPanel declarationChartPanel;
+	@UiField FlowPanel consistencyIndexChartPanel;
+	@UiField FlowPanel perAreaChartPanel;
 	@UiField HTMLPanel societyPanel;
 	CellTable<Society> societyTable;
 
@@ -73,7 +74,8 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 		parlamentarianParty.setText("");
 		interestDeclarationLink.setHref("");
 		patrimonyDeclarationLink.setHref("");
-		declarationChartPanel.clear();
+		consistencyIndexChartPanel.clear();
+		perAreaChartPanel.clear();
 	}
 
 	@Override
@@ -137,24 +139,25 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	}
 
 	@Override
-	public void setChartData(Map<String, Double> chartData) {
+	public void setConsistencyChartData(Map<String, Double> chartData) {
 		try {
 			HighChart declarationChart = new HighChart();
 			declarationChart.setAutoResize(true);
 			declarationChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyConsistencyIndex());
 			declarationChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyReportedVsUnreported());
-			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 60, 0, 30});
+			declarationChart.setOption(new OptionPath("/chart/animation"), false);
+			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 80, 0, 50});
 			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			declarationChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
 			declarationChart.setOption(new OptionPath("/credits/enabled"), false);
 			declarationChart.setOption(new OptionPath("/tooltip/enabled"), false);
-			declarationChart.setOption(new OptionPath("/plotOptions/pie/animation"), false);
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/animation"), true);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/allowPointSelect"), false);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/enabled"), true);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/color"), "black");
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/style/font"), "10px Trebuchet MS, Verdana, sans-serif");
 
-			SeriesType series = new SeriesType("Sociedades");
+			SeriesType series = new SeriesType("Consistencia");
 			series.setType("pie");
 
 			for (String key : chartData.keySet()) {
@@ -162,8 +165,42 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			}
 
 			declarationChart.addSeries(series);
-			declarationChart.setSize(280, 280);
-			declarationChartPanel.add(declarationChart);
+			declarationChart.setSize(320, 280);
+			consistencyIndexChartPanel.add(declarationChart);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void setPerAreaChartData(Map<String, Double> categoryChartData) {
+		try {
+			HighChart perAreaChart = new HighChart();
+			perAreaChart.setAutoResize(true);
+			perAreaChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyPerArea());
+			perAreaChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyShareInSocietiesByArea());
+			perAreaChart.setOption(new OptionPath("/chart/animation"), false);
+			perAreaChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 90, 0, 100});
+			perAreaChart.setOption(new OptionPath("/chart/plotShadow"), false);
+			perAreaChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
+			perAreaChart.setOption(new OptionPath("/credits/enabled"), false);
+			perAreaChart.setOption(new OptionPath("/tooltip/enabled"), false);
+			perAreaChart.setOption(new OptionPath("/plotOptions/pie/animation"), true);
+			perAreaChart.setOption(new OptionPath("/plotOptions/pie/allowPointSelect"), false);
+			perAreaChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/enabled"), true);
+			perAreaChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/color"), "black");
+			perAreaChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/style/font"), "10px Trebuchet MS, Verdana, sans-serif");
+
+			SeriesType series = new SeriesType("Por area");
+			series.setType("pie");
+
+			for (String key : categoryChartData.keySet()) {
+				series.addEntry(new SeriesType.SeriesDataEntry(key, categoryChartData.get(key)));
+			}
+
+			perAreaChart.addSeries(series);
+			perAreaChart.setSize(380, 280);
+			perAreaChartPanel.add(perAreaChart);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

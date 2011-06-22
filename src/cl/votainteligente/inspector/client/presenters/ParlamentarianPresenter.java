@@ -51,7 +51,8 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		void setInterestDeclarationLink(String interestDeclarationLink);
 		void setPatrimonyDeclarationLink(String patrimonyDeclarationLink);
 		CellTable<Society> getSocietyTable();
-		void setChartData(Map<String, Double> chartData);
+		void setConsistencyChartData(Map<String, Double> chartData);
+		void setPerAreaChartData(Map<String, Double> categoryChartData);
 	}
 
 	@ProxyStandard
@@ -244,7 +245,28 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				Map<String, Double> chartData = new HashMap<String, Double>();
 				chartData.put(applicationMessages.getSocietyReported(), 100d * reportedSocieties / (reportedSocieties + unreportedSocieties));
 				chartData.put(applicationMessages.getSocietyUnreported(), 100d * unreportedSocieties / (reportedSocieties + unreportedSocieties));
-				getView().setChartData(chartData);
+				getView().setConsistencyChartData(chartData);
+
+				Map<String, Double> categoryChartData = new HashMap<String, Double>();
+				Double numCategories = 0d;
+
+				for (Society parliamentarianSociety : parlamentarian.getSocieties().keySet()) {
+					for (Category category : parliamentarianSociety.getCategories()) {
+						Double currentCount = categoryChartData.get(category.getName());
+
+						if (currentCount == null) {
+							currentCount = 0d;
+						}
+
+						categoryChartData.put(category.getName(), ++currentCount);
+						numCategories++;
+					}
+				}
+
+				for (String categoryName : categoryChartData.keySet()) {
+					categoryChartData.put(categoryName, 100d * categoryChartData.get(categoryName) / numCategories);
+				}
+				getView().setPerAreaChartData(categoryChartData);
 			}
 		});
 	}

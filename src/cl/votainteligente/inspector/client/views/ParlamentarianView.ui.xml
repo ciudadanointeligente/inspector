@@ -18,12 +18,12 @@
 			</g:HTMLPanel>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.content}">
-			<g:FlowPanel ui:field="declarationChartPanel" width="280px" height="280px" />
+			<g:FlowPanel ui:field="consistencyIndexChartPanel" width="320px" height="280px" />
 			<div class="{style.titleWrapper}">
-					<g:HTMLPanel addStyleNames="{style.titleDisplay}">
-						<h2>Participación en sociedades</h2>
-					</g:HTMLPanel>
-				</div>
+				<g:HTMLPanel addStyleNames="{style.titleDisplay}">
+					<h2>Participación en sociedades</h2>
+				</g:HTMLPanel>
+			</div>
 			<g:HTMLPanel ui:field="societyPanel" addStyleNames="{style.societyPanel}"/>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.aside}">
@@ -49,5 +49,8 @@
 				<li><span>Hijos:</span><g:Label ui:field="parlamentarianChildren" /></li>
 			</ul>
 		</g:HTMLPanel>
+		<div class="{style.chartContent}">
+			<g:FlowPanel ui:field="perAreaChartPanel" width="380px" height="280px" />
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

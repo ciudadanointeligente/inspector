@@ -48,6 +48,12 @@ h2 {
 	width: 645px;
 }
 
+.chartContent {
+	float: right;
+	margin-right: 290px;
+	margin-top: -466px;
+}
+
 .aside{
 	float: left;
 	width: 270px;
