@@ -146,7 +146,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			declarationChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyConsistencyIndex());
 			declarationChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyReportedVsUnreported());
 			declarationChart.setOption(new OptionPath("/chart/animation"), false);
-			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 80, 0, 50});
+			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 65, 0, 35});
 			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			declarationChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
 			declarationChart.setOption(new OptionPath("/credits/enabled"), false);
@@ -165,7 +165,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			}
 
 			declarationChart.addSeries(series);
-			declarationChart.setSize(320, 280);
+			declarationChart.setSize(290, 280);
 			consistencyIndexChartPanel.add(declarationChart);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,7 +180,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			perAreaChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyPerArea());
 			perAreaChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyShareInSocietiesByArea());
 			perAreaChart.setOption(new OptionPath("/chart/animation"), false);
-			perAreaChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 90, 0, 100});
+			perAreaChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 80, 0, 85});
 			perAreaChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			perAreaChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
 			perAreaChart.setOption(new OptionPath("/credits/enabled"), false);
@@ -199,7 +199,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			}
 
 			perAreaChart.addSeries(series);
-			perAreaChart.setSize(380, 280);
+			perAreaChart.setSize(355, 280);
 			perAreaChartPanel.add(perAreaChart);
 		} catch (Exception e) {
 			e.printStackTrace();

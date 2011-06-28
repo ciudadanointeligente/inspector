@@ -29,8 +29,8 @@ h2 {
 	height: 105px;
 	margin: -9px 15px -9px -20px;
 	width: 80px;
-
 }
+
 .parlamentarianName{
 	font-family: DeliciousBold;
 	font-size: 18px;
@@ -42,6 +42,7 @@ h2 {
 	float: left;
 	margin-right: 10px;
 }
+
 .content{
 	float: left;
 	margin-right: 34px;
@@ -50,8 +51,9 @@ h2 {
 
 .chartContent {
 	float: right;
-	margin-right: 290px;
-	margin-top: -466px;
+	position: relative;
+	width: 355px;
+	height: 280px;
 }
 
 .aside{
@@ -75,7 +77,6 @@ h2 {
 	font-weight: bold;
 	margin-right:10px;
 	float: left;
-
 }
 
 .aside h3{
