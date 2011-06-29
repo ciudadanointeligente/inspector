@@ -79,6 +79,10 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 	@Override
 	protected void onReset() {
+	}
+
+	@Override
+	protected void onReveal() {
 		initSocietyTableColumns();
 		getView().clearParlamentarianData();
 
@@ -351,7 +355,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				sb.append(new SafeHtml() {
 					@Override
 					public String asString() {
-						return "<img src=\"images/more.png\"/>";
+						return "<img style=\"cursor: pointer;\" src=\"images/more.png\"/>";
 					}
 				});
 			}

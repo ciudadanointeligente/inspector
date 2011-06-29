@@ -87,6 +87,10 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 	@Override
 	protected void onReset() {
+	}
+
+	@Override
+	protected void onReveal() {
 		selectedBill = null;
 		parlamentarianData = new ListDataProvider<Parlamentarian>();
 		societyData = new ListDataProvider<Society>();
