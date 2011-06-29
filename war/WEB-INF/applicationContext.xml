@@ -72,4 +72,10 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
+
+	<bean id="emailNotifier" class="cl.votainteligente.inspector.server.EmailNotifier">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
 </beans>

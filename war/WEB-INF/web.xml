@@ -19,6 +19,16 @@
 		<servlet-name>gwtrpc</servlet-name>
 		<url-pattern>/inspector/gwtrpc/*</url-pattern>
 	</servlet-mapping>
+
+	<listener>
+		<listener-class>cl.votainteligente.inspector.server.ApplicationProperties</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>cl.votainteligente.inspector.server.BackgroundServiceManager</listener-class>
+	</listener>
+
+	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
@@ -27,7 +37,6 @@
 		<filter-name>gwtCacheControlFilter</filter-name>
 		<filter-class>cl.votainteligente.inspector.server.GWTCacheControlFilter</filter-class>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>gwtCacheControlFilter</filter-name>
 		<url-pattern>/*</url-pattern>
