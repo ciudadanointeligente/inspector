@@ -7,6 +7,8 @@ import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -33,6 +35,13 @@ public class PermalinkView extends ViewWithUiHandlers<PermalinkUiHandlers> imple
 	@Override
 	public void setPermalink(String permalink) {
 		this.permalink.setText(permalink);
+		this.permalink.addFocusHandler(new FocusHandler() {
+
+			@Override
+			public void onFocus(FocusEvent event) {
+				PermalinkView.this.permalink.selectAll();
+			}
+		});
 	}
 
 	@UiHandler("close")
