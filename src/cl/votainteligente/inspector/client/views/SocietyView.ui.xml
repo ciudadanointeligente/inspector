@@ -10,7 +10,7 @@
 					<g:HTMLPanel addStyleNames="{style.societyHeader}">
 						<h1><g:Label ui:field="societyName" /></h1>
 						<h3>Nombre de fantasía: </h3>
-						<div class="{style.societySubTitle}"><h3><strong><g:Label ui:field="societyFantasyName" /></strong></h3></div>
+						<h3><strong><g:Label styleName="{style.societySubTitle}" ui:field="societyFantasyName" /></strong></h3>
 					</g:HTMLPanel>
 				</div>
 			</div>
