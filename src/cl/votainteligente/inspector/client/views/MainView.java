@@ -70,11 +70,11 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 	@Override
 	public void setNotificationMessage(final NotificationEventParams params) {
 		final FlowPanel notification = new FlowPanel();
-		Label notificationClose = new Label("X");
+		Label notificationClose = new Label();
 		Label notificationLabel = new Label(params.getMessage());
 		notification.setStyleName(params.getType().getType());
-		notificationClose.addStyleName("closeNotification");
-		notificationLabel.addStyleName("notification");
+		notificationClose.addStyleName("closeNotice");
+		notificationLabel.addStyleName("fRightNotice");
 		notification.setVisible(true);
 
 		Timer notificationTimer = new Timer() {

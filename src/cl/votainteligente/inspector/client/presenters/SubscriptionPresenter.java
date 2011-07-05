@@ -4,7 +4,7 @@ import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.SubscriberServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.SubscriptionUiHandlers;
 import cl.votainteligente.inspector.model.Subscriber;
-import cl.votainteligente.inspector.shared.Validator;
+import cl.votainteligente.inspector.shared.*;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -88,7 +88,11 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 		email = getView().getEmail();
 
 		if (!Validator.validateEmail(email)) {
-			getView().setNotification(applicationMessages.getErrorInvalidEmail());
+			NotificationEventParams params = new NotificationEventParams();
+			params.setMessage(applicationMessages.getErrorInvalidEmail());
+			params.setType(NotificationEventType.ERROR);
+			params.setDuration(NotificationEventParams.DURATION_SHORT);
+			fireEvent(new NotificationEvent(params));
 			return;
 		}
 
@@ -96,7 +100,11 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 
 			@Override
 			public void onFailure(Throwable caught) {
-				getView().setNotification(applicationMessages.getErrorSubscriber());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorSubscriber());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -108,7 +116,11 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 
 						@Override
 						public void onFailure(Throwable caught) {
-							getView().setNotification(applicationMessages.getErrorSubscriber());
+							NotificationEventParams params = new NotificationEventParams();
+							params.setMessage(applicationMessages.getErrorSubscriber());
+							params.setType(NotificationEventType.ERROR);
+							params.setDuration(NotificationEventParams.DURATION_SHORT);
+							fireEvent(new NotificationEvent(params));
 						}
 
 						@Override
@@ -138,12 +150,20 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 
 			@Override
 			public void onFailure(Throwable caught) {
-				getView().setNotification(applicationMessages.getErrorSubscriber());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorSubscriber());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
 			public void onSuccess(Subscriber result) {
-				getView().setNotification(applicationMessages.getSubscriberSuscriptionSuccessful());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getSubscriberSuscriptionSuccessful());
+				params.setType(NotificationEventType.SUCCESS);
+				params.setDuration(NotificationEventParams.DURATION_NORMAL);
+				fireEvent(new NotificationEvent(params));
 				close();
 			}
 		});
@@ -154,12 +174,20 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 
 			@Override
 			public void onFailure(Throwable caught) {
-				getView().setNotification(applicationMessages.getErrorSubscriber());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorSubscriber());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
 			public void onSuccess(Subscriber result) {
-				getView().setNotification(applicationMessages.getSubscriberSuscriptionSuccessful());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getSubscriberSuscriptionSuccessful());
+				params.setType(NotificationEventType.SUCCESS);
+				params.setDuration(NotificationEventParams.DURATION_NORMAL);
+				fireEvent(new NotificationEvent(params));
 				close();
 			}
 		});
