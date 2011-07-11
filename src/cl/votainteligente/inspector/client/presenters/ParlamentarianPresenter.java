@@ -48,6 +48,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		void setParlamentarianPermanentCommissions(String parlamentarianPermanentCommissions);
 		void setParlamentarianSpecialCommissions(String parlamentarianSpecialCommissions);
 		void setParlamentarianParty(String parlamentarianParty);
+		void setParlamentarianImage(String url);
 		void setInterestDeclarationLink(String interestDeclarationLink);
 		void setPatrimonyDeclarationLink(String patrimonyDeclarationLink);
 		CellTable<Society> getSocietyTable();
@@ -127,6 +128,12 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				parlamentarian = result;
 
 				getView().setParlamentarianName(parlamentarian.toString());
+
+				if (parlamentarian.getImage() != null) {
+					getView().setParlamentarianImage("images/parlamentarian/large/" + parlamentarian.getImage());
+				} else {
+					getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
+				}
 
 				if (parlamentarian.getParlamentarianType() != null) {
 					if (parlamentarian.getDistrict() != null) {

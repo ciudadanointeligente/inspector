@@ -42,6 +42,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@UiField Label parlamentarianPermanentCommissions;
 	@UiField Label parlamentarianSpecialCommissions;
 	@UiField Label parlamentarianParty;
+	@UiField Image parlamentarianImage;
 	@UiField Anchor interestDeclarationLink;
 	@UiField Anchor patrimonyDeclarationLink;
 	@UiField FlowPanel consistencyIndexChartPanel;
@@ -63,6 +64,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 
 	@Override
 	public void clearParlamentarianData() {
+		parlamentarianImage.setUrl("images/parlamentarian/large/avatar.png");
 		parlamentarianName.setText("");
 		parlamentarianDescription.setText("");
 		parlamentarianBirthDate.setText("");
@@ -121,6 +123,11 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@Override
 	public void setParlamentarianParty(String parlamentarianParty) {
 		this.parlamentarianParty.setText(parlamentarianParty);
+	}
+
+	@Override
+	public void setParlamentarianImage(String url) {
+		parlamentarianImage.setUrl(url);
 	}
 
 	@Override
