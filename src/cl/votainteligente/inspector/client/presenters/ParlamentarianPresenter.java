@@ -276,13 +276,12 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	}
 
 	private void initSocietyTableColumns() {
-		CellTable<Society> societyTable = getView().getSocietyTable();
 
-		while (societyTable.getColumnCount() > 0) {
-			societyTable.removeColumn(0);
+		while (getView().getSocietyTable().getColumnCount() > 0) {
+			getView().getSocietyTable().removeColumn(0);
 		}
 
-		societyTable.addColumn(new TextColumn<Society>() {
+		TextColumn<Society> areaOfInterestColumn = new TextColumn<Society>() {
 			@Override
 			public String getValue(Society society) {
 				StringBuilder sb = new StringBuilder();
@@ -300,16 +299,20 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 				return sb.toString();
 			}
-		}, applicationMessages.getSocietyAreaOfInterest());
+		};
 
-		societyTable.addColumn(new TextColumn<Society>() {
+		getView().getSocietyTable().addColumn(areaOfInterestColumn, applicationMessages.getSocietyAreaOfInterest());
+
+		TextColumn<Society> societyLegalNameColumn = new TextColumn<Society>() {
 			@Override
 			public String getValue(Society society) {
 				return society.getName();
 			}
-		}, applicationMessages.getSocietyLegalName());
+		};
 
-		societyTable.addColumn(new Column<Society, String>(new ImageCell()) {
+		getView().getSocietyTable().addColumn(societyLegalNameColumn, applicationMessages.getSocietyLegalName());
+
+		Column<Society, String> societyReportedThisColumn = new Column<Society, String>(new ImageCell()){
 			@Override
 			public String getValue(Society society) {
 				Boolean declared = parlamentarian.getSocieties().get(society);
@@ -320,19 +323,21 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 					return "images/declare_no.png";
 				}
 			}
-		}, applicationMessages.getSocietyReportedThis());
+		};
 
-		societyTable.addColumn(new TextColumn<Society>() {
+		getView().getSocietyTable().addColumn(societyReportedThisColumn, applicationMessages.getSocietyReportedThis());
+
+		TextColumn<Society> societyIsInConflictColumn = new TextColumn<Society>() {
 			@Override
 			public String getValue(Society society) {
 				for (Category category : society.getCategories()) {
-					for (Bill bill : parlamentarian.getAuthoredBills()){
+					for (Bill bill : parlamentarian.getAuthoredBills()) {
 						if (bill.getCategories().contains(category)) {
 							return applicationMessages.getGeneralYes();
 						}
 					}
 
-					for (Bill bill : parlamentarian.getVotedBills()){
+					for (Bill bill : parlamentarian.getVotedBills()) {
 						if (bill.getCategories().contains(category)) {
 							return applicationMessages.getGeneralYes();
 						}
@@ -341,9 +346,12 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 				return applicationMessages.getGeneralNo();
 			}
-		}, applicationMessages.getSocietyIsInConflict());
+		};
 
-		societyTable.addColumn(new Column<Society, Society>(new ActionCell<Society>("", new ActionCell.Delegate<Society>() {
+		getView().getSocietyTable().addColumn(societyIsInConflictColumn, applicationMessages.getSocietyIsInConflict());
+
+		Column<Society, Society> viewSocietyColumn = new Column<Society, Society>(new ActionCell<Society>("", new ActionCell.Delegate<Society>() {
+
 			@Override
 			public void execute(Society society) {
 				PlaceRequest placeRequest = new PlaceRequest(SocietyPresenter.PLACE);
@@ -353,6 +361,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 			@Override
 			public void render(Cell.Context context, Society value, SafeHtmlBuilder sb) {
 				sb.append(new SafeHtml() {
+
 					@Override
 					public String asString() {
 						return "<img style=\"cursor: pointer;\" src=\"images/more.png\"/>";
@@ -360,11 +369,14 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				});
 			}
 		}) {
+
 			@Override
 			public Society getValue(Society society) {
 				return society;
 			}
-		}, applicationMessages.getSocietyViewMore());
+		};
+
+		getView().getSocietyTable().addColumn(viewSocietyColumn, applicationMessages.getSocietyViewMore());
 	}
 
 	@Override
