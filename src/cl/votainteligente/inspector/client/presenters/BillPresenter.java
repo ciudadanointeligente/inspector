@@ -308,8 +308,8 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			@Override
 			public String getValue(Parlamentarian parlamentarian) {
 
-				if (selectedParlamentarian.getImage() != null) {
-					return "images/parlamentarian/small/" + selectedParlamentarian.getImage();
+				if (parlamentarian.getImage() != null) {
+					return "images/parlamentarian/small/" + parlamentarian.getImage();
 				} else {
 					return "images/parlamentarian/small/avatar.png";
 				}
