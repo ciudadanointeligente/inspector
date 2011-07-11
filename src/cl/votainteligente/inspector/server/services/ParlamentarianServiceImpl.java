@@ -28,8 +28,6 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 			criteria.addOrder(Order.asc("lastName"));
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			criteria.setFetchMode("party", FetchMode.JOIN);
-			criteria.setFetchMode("authoredBills", FetchMode.JOIN);
-			criteria.setFetchMode("votedBills", FetchMode.JOIN);
 			List<Parlamentarian> parlamentarians = criteria.list();
 			hibernate.getTransaction().commit();
 			return parlamentarians;
