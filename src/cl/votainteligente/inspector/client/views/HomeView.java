@@ -68,9 +68,9 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 		ResourceBundle.INSTANCE.HomeView().ensureInjected();
 		SearchCellTableResource searchResource = GWT.create(SearchCellTableResource.class);
 		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
-		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
-		categoryTable = new CellTable<Category>(15, searchResource);
-		billTable = new CellTable<Bill>(15, displayResource);
+		parlamentarianTable = new CellTable<Parlamentarian>(1000, searchResource);
+		categoryTable = new CellTable<Category>(1000, searchResource);
+		billTable = new CellTable<Bill>(1000, displayResource);
 		parlamentarianTableContainer.add(parlamentarianTable);
 		categoryTableContainer.add(categoryTable);
 		billPanel.add(billTable);
