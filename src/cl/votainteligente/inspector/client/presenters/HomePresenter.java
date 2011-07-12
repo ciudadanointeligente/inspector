@@ -480,6 +480,25 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		});
 	}
 
+	public void getParlamentarian(Parlamentarian parlamentarian) {
+		parlamentarianService.getParlamentarian(selectedParlamentarian.getId(), new AsyncCallback<Parlamentarian>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(applicationMessages.getGeneralParlamentarian());
+			}
+
+			@Override
+			public void onSuccess(Parlamentarian result) {
+				if (result != null) {
+					selectedParlamentarian = result;
+					setBillTable();
+				}
+			}
+
+		});
+	}
+
 	public AbstractDataProvider<Parlamentarian> getParlamentarianData() {
 		return parlamentarianData;
 	}
@@ -620,7 +639,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 					} else {
 						selectedParlamentarian = selectionModel.getSelectedObject();
 						getView().setParlamentarianDisplay(selectedParlamentarian.toString());
-						setBillTable();
+						getParlamentarian(selectedParlamentarian);
 					}
 					if (selectedParlamentarian == null || selectedParlamentarian.getImage() == null) {
 						getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
