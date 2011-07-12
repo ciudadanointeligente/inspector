@@ -241,6 +241,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				categories.add(selectedCategory);
 				searchParlamentarian(categories);
 			}
+		} else if (keyWord.length() < 2) {
+			return;
 		} else {
 			parlamentarianService.searchParlamentarian(keyWord, new AsyncCallback<List<Parlamentarian>>() {
 
@@ -349,6 +351,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				parlamentarians.add(selectedParlamentarian);
 				searchCategory(parlamentarians);
 			}
+		} else if (keyWord.length() < 2) {
+			return;
 		} else {
 			categoryService.searchCategory(keyWord, new AsyncCallback<List<Category>>() {
 
