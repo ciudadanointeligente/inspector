@@ -10,7 +10,8 @@
 				<g:Image ui:field="parlamentarianImage" addStyleNames="{style.parlamentarianImage}" />
 				<g:Label ui:field="parlamentarianName" addStyleNames="{style.parlamentarianName}" />
 				<g:Label ui:field="parlamentarianDescription" />
-				<div class="{style.fecha}" ><span>Fecha nacimiento:</span><g:Label ui:field="parlamentarianBirthDate" /></div>
+				<div class="{style.fecha}" ><span>Fecha nacimiento:</span><g:Label ui:field="parlamentarianBirthDate" /></div><br/>
+				<g:Anchor ui:field="parliamentarianUrlToVotainteligente" />
 			</div>
 			<g:HTMLPanel addStyleNames="{style.declarationsWrapper}">
 				<g:Anchor ui:field="interestDeclarationLink" addStyleNames="{style.declarationButton}">Ver declaración de Intereses</g:Anchor>
@@ -18,8 +19,8 @@
 			</g:HTMLPanel>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.content}">
-			<g:FlowPanel ui:field="perAreaChartPanel" styleName="{style.chartContent}" />
-			<g:FlowPanel ui:field="consistencyIndexChartPanel" width="290px" height="280px" />
+			<g:FlowPanel ui:field="perAreaChartPanel" styleName="{style.chartPerAreaContent}" />
+			<g:FlowPanel ui:field="consistencyIndexChartPanel" styleName="{style.chartConsistencyContent}" />
 			<div class="{style.titleWrapper}">
 				<g:HTMLPanel addStyleNames="{style.titleDisplay}">
 					<h2>Participación en sociedades</h2>

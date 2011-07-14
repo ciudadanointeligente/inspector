@@ -36,6 +36,7 @@ import java.util.*;
 public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.MyView, ParlamentarianPresenter.MyProxy> implements ParlamentarianUiHandlers {
 	public static final String PLACE = "parlamentarian";
 	public static final String PARAM_PARLAMENTARIAN_ID = "parlamentarianId";
+	public static final String VOTAINTELIGENTE_PARLIAMENTARIAN_URL = "http://legislativo.votainteligente.cl/Parlamentario/show/id_parlamentario/";
 
 	public interface MyView extends View, HasUiHandlers<ParlamentarianUiHandlers> {
 		void clearParlamentarianData();
@@ -54,6 +55,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		CellTable<Society> getSocietyTable();
 		void setConsistencyChartData(Map<String, Double> chartData);
 		void setPerAreaChartData(Map<String, Double> categoryChartData);
+		void setparliamentarianUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente);
 	}
 
 	@ProxyStandard
@@ -90,6 +92,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		if (parlamentarianId != null) {
 			getParlamentarian(parlamentarianId);
 		}
+		getView().setparliamentarianUrlToVotainteligente(VOTAINTELIGENTE_PARLIAMENTARIAN_URL+parlamentarianId, applicationMessages.getGeneralViewParliamentarianOnVotainteligente());
 	}
 
 	@Override
