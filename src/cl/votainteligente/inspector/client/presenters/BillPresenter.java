@@ -33,6 +33,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	public static final String PLACE = "bill";
 	public static final String PARAM_BILL_ID = "billId";
 	public static final String PARAM_PARLAMENTARIAN_ID = "parlamentarianId";
+	public static final String VOTAINTELIGENTE_BILL_URL = "http://legislativo.votainteligente.cl/ProyectoLey/show/id_proyecto_ley/";
 
 	public interface MyView extends View, HasUiHandlers<BillUiHandlers> {
 		void setBillBulletinNumber(String billBulletinNumber);
@@ -54,6 +55,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		void setParlamentarianTable(CellTable<Parlamentarian> parlamentarianTable);
 		CellTable<Society> getSocietyTable();
 		void setSocietyTable(CellTable<Society> societyTable);
+		void setbillUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente);
 	}
 
 	@ProxyStandard
@@ -103,6 +105,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
+		getView().setbillUrlToVotainteligente(VOTAINTELIGENTE_BILL_URL+billId, applicationMessages.getGeneralViewProjectOnVotainteligente());
 	}
 
 	@Override

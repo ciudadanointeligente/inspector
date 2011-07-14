@@ -44,6 +44,7 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@UiField HTMLPanel societyTableContainer;
 	@UiField HTMLPanel parlamentarianPanel;
 	@UiField HTMLPanel parlamentarianTableContainer;
+	@UiField Anchor billUrlToVotainteligente;
 	CellTable<Society> societyTable;
 	CellTable<Parlamentarian> parlamentarianTable;
 
@@ -174,6 +175,12 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@Override
 	public void setSocietyTable(CellTable<Society> societyTable) {
 		this.societyTable = societyTable;
+	}
+
+	@Override
+	public void setbillUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente) {
+		billUrlToVotainteligente.setText(messageToVotainteligente);
+		billUrlToVotainteligente.setHref(hrefToVotainteligente);
 	}
 
 	@UiHandler("parlamentarianProfileLink")

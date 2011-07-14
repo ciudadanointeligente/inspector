@@ -15,6 +15,7 @@
 					<li><span>Cámara de origen:</span> <g:Label ui:field="billOriginChamber"/></li>
 					<li><span>Urgencia:</span> <g:Label ui:field="billUrgency"/></li>
 					<li><span>Estado:</span> <g:Label ui:field="billStage"/></li>
+					<li><span>Mas información:</span> <g:Anchor ui:field="billUrlToVotainteligente"/></li>
 				</ul>
 				<div class="{style.billdescription}">
 					<g:Label ui:field="billDescription"></g:Label>
