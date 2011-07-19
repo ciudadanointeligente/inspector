@@ -147,7 +147,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				}
 
 				if (parlamentarian.getBirthDate() != null) {
-					getView().setParlamentarianBirthDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(parlamentarian.getBirthDate()));
+					getView().setParlamentarianBirthDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(parlamentarian.getBirthDate()));
 				}
 
 				if (parlamentarian.getCivilStatus() != null) {

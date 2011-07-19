@@ -125,7 +125,7 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 				}
 
 				if (society.getCreationDate() != null) {
-					getView().setSocietyCreationDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(society.getCreationDate()));
+					getView().setSocietyCreationDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(society.getCreationDate()));
 				}
 
 				if (society.getCurrentStock() != null) {
@@ -166,7 +166,7 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 				}
 
 				if (society.getPublishDate() != null) {
-					getView().setSocietyPublishDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT).format(society.getPublishDate()));
+					getView().setSocietyPublishDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(society.getPublishDate()));
 				}
 
 				if (society.getNotary() != null) {
