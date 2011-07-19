@@ -796,12 +796,34 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().getBillTable().addColumn(bulletinColumn, applicationMessages.getBillBulletin());
 
 		// Creates title column
-		TextColumn<Bill> titleColumn = new TextColumn<Bill>() {
+		Column<Bill, Bill> titleColumn = new Column<Bill, Bill>(new ActionCell<Bill>("", new ActionCell.Delegate<Bill>() {
+
 			@Override
-			public String getValue(Bill bill) {
-				return bill.getTitle();
+			public void execute(Bill bill) {
+				PlaceRequest placeRequest = new PlaceRequest(BillPresenter.PLACE);
+				placeRequest = placeRequest.with(BillPresenter.PARAM_BILL_ID, bill.getId().toString());
+				placeRequest = placeRequest.with(BillPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString());
+				placeManager.revealPlace(placeRequest);
+			}
+		}) {
+			@Override
+			public void render(Cell.Context context, final Bill value, SafeHtmlBuilder sb) {
+				sb.append(new SafeHtml() {
+
+					@Override
+					public String asString() {
+						return "<div class=\"clickableCell\">" + value.getTitle() + "</div>";
+					}
+				});
+			}
+		}) {
+
+			@Override
+			public Bill getValue(Bill bill) {
+				return bill;
 			}
 		};
+
 		// Sets sortable title column
 		titleColumn.setSortable(true);
 		ListHandler<Bill> titleSortHandler = new ListHandler<Bill>(((ListDataProvider<Bill>) billData).getList());

@@ -326,3 +326,11 @@ h1,h2,h3,h4,h5,h6 {
 .success .closeNotice {
 	background-image: url(images/layout/c_success.png);
 }
+
+.clickableCell {
+	cursor: pointer;
+}
+
+.clickableCell:hover {
+	text-decoration: underline;
+}
