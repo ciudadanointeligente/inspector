@@ -331,18 +331,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			}
 		};
 
-		// Sets sortable name column
-		nameColumn.setSortable(true);
-		ListHandler<Parlamentarian> nameSortHandler = new ListHandler<Parlamentarian>(((ListDataProvider<Parlamentarian>) parlamentarianData).getList());
-		getView().getParlamentarianTable().addColumnSortHandler(nameSortHandler);
-		nameSortHandler.setComparator(nameColumn, new Comparator<Parlamentarian>() {
-
-			@Override
-			public int compare(Parlamentarian o1, Parlamentarian o2) {
-				return o1.getLastName().compareTo(o2.getLastName());
-			}
-		});
-
 		// Adds name column to table
 		getView().getParlamentarianTable().addColumn(nameColumn, applicationMessages.getGeneralParlamentarian());
 
@@ -427,18 +415,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 				return society.getName();
 			}
 		};
-
-		// Sets sortable name column
-		nameColumn.setSortable(true);
-		ListHandler<Society> nameSortHandler = new ListHandler<Society>(((ListDataProvider<Society>) societyData).getList());
-		getView().getParlamentarianTable().addColumnSortHandler(nameSortHandler);
-		nameSortHandler.setComparator(nameColumn, new Comparator<Society>() {
-
-			@Override
-			public int compare(Society o1, Society o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
-		});
 
 		// Adds name column to table
 		getView().getSocietyTable().addColumn(nameColumn, applicationMessages.getGeneralSocietiesInConflict());
