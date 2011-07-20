@@ -13,6 +13,7 @@ import cl.votainteligente.inspector.model.Parlamentarian;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
@@ -273,6 +274,13 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 		}
 	}
 
+	@UiHandler("parlamentarianSearch")
+	public void onParlamentarianSearchBlur(BlurEvent event) {
+		if (parlamentarianSearch.getText().equals("")) {
+			parlamentarianSearch.setText(applicationMessages.getParlamentarianSearchMessage());
+		}
+	}
+
 	@UiHandler("parlamentarianSearchClear")
 	public void onParlamentarianSearchClearClick(ClickEvent event) {
 		parlamentarianSearch.setText("");
@@ -294,6 +302,13 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	public void onCategorySearchClick(ClickEvent event) {
 		if (categorySearch.getText().equals(applicationMessages.getCategorySearchMessage())) {
 			categorySearch.setText("");
+		}
+	}
+
+	@UiHandler("categorySearch")
+	public void onCategorySearchBlur(BlurEvent event) {
+		if (categorySearch.getText().equals("")) {
+			categorySearch.setText(applicationMessages.getCategorySearchMessage());
 		}
 	}
 
