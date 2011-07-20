@@ -554,16 +554,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			}
 		};
 
-		// Sets sortable name column
-		nameColumn.setSortable(true);
-		ListHandler<Parlamentarian> nameSortHandler = new ListHandler<Parlamentarian>(((ListDataProvider<Parlamentarian>) parlamentarianData).getList());
-		getView().getParlamentarianTable().addColumnSortHandler(nameSortHandler);
-		nameSortHandler.setComparator(nameColumn, new Comparator<Parlamentarian>() {
-			public int compare(Parlamentarian o1, Parlamentarian o2) {
-				return o1.getLastName().compareTo(o2.getLastName());
-			}
-		});
-
 		// Adds name column to table
 		getView().getParlamentarianTable().addColumn(nameColumn, applicationMessages.getGeneralParlamentarian());
 
@@ -574,16 +564,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				return parlamentarian.getParty().getName();
 			}
 		};
-
-		// Sets sortable party column
-		partyColumn.setSortable(true);
-		ListHandler<Parlamentarian> partySortHandler = new ListHandler<Parlamentarian>(((ListDataProvider<Parlamentarian>) parlamentarianData).getList());
-		getView().getParlamentarianTable().addColumnSortHandler(partySortHandler);
-		partySortHandler.setComparator(nameColumn, new Comparator<Parlamentarian>() {
-			public int compare(Parlamentarian o1, Parlamentarian o2) {
-				return o1.getParty().getName().compareTo(o2.getParty().getName());
-			}
-		});
 
 		// Adds party column to table
 		getView().getParlamentarianTable().addColumn(partyColumn, applicationMessages.getGeneralParty());
@@ -664,16 +644,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				return category.getName();
 			}
 		};
-
-		// Sets sortable name column
-		nameColumn.setSortable(true);
-		ListHandler<Category> sortHandler = new ListHandler<Category>(((ListDataProvider<Category>) categoryData).getList());
-		getView().getCategoryTable().addColumnSortHandler(sortHandler);
-		sortHandler.setComparator(nameColumn, new Comparator<Category>() {
-			public int compare(Category o1, Category o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
-		});
 
 		// Adds name column to table
 		getView().getCategoryTable().addColumn(nameColumn, applicationMessages.getGeneralCategory());
@@ -782,15 +752,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				return bill.getBulletinNumber();
 			}
 		};
-		// Sets sortable bulletin column
-		bulletinColumn.setSortable(true);
-		ListHandler<Bill> bulletinSortHandler = new ListHandler<Bill>(((ListDataProvider<Bill>) billData).getList());
-		getView().getBillTable().addColumnSortHandler(bulletinSortHandler);
-		bulletinSortHandler.setComparator(bulletinColumn, new Comparator<Bill>() {
-			public int compare(Bill o1, Bill o2) {
-				return o1.getBulletinNumber().compareTo(o2.getBulletinNumber());
-			}
-		});
 
 		// Adds bulletin column to table
 		getView().getBillTable().addColumn(bulletinColumn, applicationMessages.getBillBulletin());
@@ -823,16 +784,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 				return bill;
 			}
 		};
-
-		// Sets sortable title column
-		titleColumn.setSortable(true);
-		ListHandler<Bill> titleSortHandler = new ListHandler<Bill>(((ListDataProvider<Bill>) billData).getList());
-		getView().getBillTable().addColumnSortHandler(titleSortHandler);
-		titleSortHandler.setComparator(titleColumn, new Comparator<Bill>() {
-			public int compare(Bill o1, Bill o2) {
-				return o1.getTitle().compareTo(o2.getTitle());
-			}
-		});
 
 		// Adds title column to table
 		getView().getBillTable().addColumn(titleColumn, applicationMessages.getBillConflictedBill());
