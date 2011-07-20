@@ -40,7 +40,7 @@
 					<td class="{style.altTd}"><g:Label ui:field="societyType" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><div>Socios actuales:</div></th>
+					<th scope="row"><div>Últimos socios registrados:</div></th>
 					<td class="{style.normalTd}"><g:Label ui:field="societyMembers" /></td>
 				</tr>
 			</table>
