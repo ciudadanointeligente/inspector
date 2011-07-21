@@ -14,7 +14,7 @@ public interface ParlamentarianServiceAsync {
 	void saveParlamentarian(Parlamentarian parlamentarian, AsyncCallback<Parlamentarian> callback);
 	void deleteParlamentarian(Parlamentarian parlamentarian, AsyncCallback<Void> callback);
 	void searchParlamentarian(String keyWord, AsyncCallback<List<Parlamentarian>> callback);
-	void searchParlamentarian(List<Category> categories, AsyncCallback<List<Parlamentarian>> callback);
+	void searchParlamentarian(Category category, AsyncCallback<List<Parlamentarian>> callback);
 	void getParlamentariansByBill(Bill bill, AsyncCallback<List<Parlamentarian>> callback);
 	void getBillAuthors(Bill bill, AsyncCallback<List<Parlamentarian>> callback);
 }

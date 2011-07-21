@@ -15,5 +15,5 @@ public interface CategoryService extends RemoteService {
 	Category saveCategory(Category category) throws Exception;
 	void deleteCategory(Category category) throws Exception;
 	List<Category> searchCategory(String keyWord) throws Exception;
-	List<Category> searchCategory(List<Parlamentarian> parlamentarians) throws Exception;
+	List<Category> searchCategory(Parlamentarian parlamentarian) throws Exception;
 }

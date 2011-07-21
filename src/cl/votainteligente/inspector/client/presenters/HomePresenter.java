@@ -237,9 +237,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 				initDataLoad();
 			} else if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
-				List<Category> categories = new ArrayList<Category>();
-				categories.add(selectedCategory);
-				searchParlamentarian(categories);
+				searchParlamentarian(selectedCategory);
 			}
 		} else if (keyWord.length() < 2) {
 			return;
@@ -260,10 +258,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 							ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
 							setParlamentarianData(data);
 						} else if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
-							List<Category> categories = new ArrayList<Category>();
-							categories.add(selectedCategory);
-
-							parlamentarianService.searchParlamentarian(categories, new AsyncCallback<List<Parlamentarian>>() {
+							parlamentarianService.searchParlamentarian(selectedCategory, new AsyncCallback<List<Parlamentarian>>() {
 
 								@Override
 								public void onFailure(Throwable caught) {
@@ -287,9 +282,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 								}
 							});
 						}
-						if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN) && result.size() > 0) {
-							searchCategory(result);
-						}
 						if (result.size() == 0) {
 							resetSelection();
 							resetNoConflicts();
@@ -302,7 +294,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	}
 
 	@Override
-	public void searchParlamentarian(List<Category> categories) {
+	public void searchParlamentarian(Category category) {
 		getView().hideParlamentarianMessage();
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
@@ -311,7 +303,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			selectedParlamentarian = null;
 		}
 
-		parlamentarianService.searchParlamentarian(categories, new AsyncCallback<List<Parlamentarian>>() {
+		parlamentarianService.searchParlamentarian(category, new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -347,9 +339,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
 				initDataLoad();
 			} else if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
-				List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
-				parlamentarians.add(selectedParlamentarian);
-				searchCategory(parlamentarians);
+				searchCategory(selectedParlamentarian);
 			}
 		} else if (keyWord.length() < 2) {
 			return;
@@ -370,10 +360,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						} else if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 							final List<Category> keywordSearchCategoryList = result;
 
-							List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
-							parlamentarians.add(selectedParlamentarian);
-
-							categoryService.searchCategory(parlamentarians, new AsyncCallback<List<Category>>() {
+							categoryService.searchCategory(selectedParlamentarian, new AsyncCallback<List<Category>>() {
 
 								@Override
 								public void onFailure(Throwable caught) {
@@ -398,9 +385,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 							});
 						}
 
-						if (!selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
-							searchParlamentarian(result);
-						}
 						if (result.size() == 0) {
 							resetSelection();
 							resetNoConflicts();
@@ -413,7 +397,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	}
 
 	@Override
-	public void searchCategory(List<Parlamentarian> parlamentarians) {
+	public void searchCategory(Parlamentarian parlamentarian) {
 		getView().hideCategoryMessage();
 		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
 		if (selectedCategory != null) {
@@ -421,7 +405,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			selectedCategory = null;
 		}
 
-		categoryService.searchCategory(parlamentarians, new AsyncCallback<List<Category>>() {
+		categoryService.searchCategory(parlamentarian, new AsyncCallback<List<Category>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -606,9 +590,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 				if (selectionModel.getSelectedObject() != null) {
 					if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
-						List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
-						parlamentarians.add(selectionModel.getSelectedObject());
-						searchCategory(parlamentarians);
+						selectedParlamentarian = selectionModel.getSelectedObject();
+						searchCategory(selectedParlamentarian);
 						getView().notificationSelectParliamentarian();
 						getView().displaySelectionNone();
 						getView().displaySelectionParliamentarian();
@@ -687,9 +670,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 				if (selectionModel.getSelectedObject() != null){
 					if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
-						List<Category> categories = new ArrayList<Category>();
-						categories.add(selectionModel.getSelectedObject());
-						searchParlamentarian(categories);
+						selectedCategory = selectionModel.getSelectedObject();
+						searchParlamentarian(selectedCategory);
 						getView().notificationSelectCategory();
 						getView().displaySelectionNone();
 						getView().displaySelectionCategory();

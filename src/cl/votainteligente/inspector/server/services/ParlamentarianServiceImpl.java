@@ -165,68 +165,59 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 	}
 
 	@Override
-	public List<Parlamentarian> searchParlamentarian(List<Category> categories) throws Exception {
+	public List<Parlamentarian> searchParlamentarian(Category category) throws Exception {
 		Session hibernate = sessionFactory.getCurrentSession();
 
 		try {
 			hibernate.beginTransaction();
 			List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
 
-			if (categories.size() > 0) {
+			Criteria parlamentarianCriteria = hibernate.createCriteria(Parlamentarian.class);
+			parlamentarianCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			parlamentarianCriteria.setFetchMode("party", FetchMode.JOIN);
+			parlamentarians = (List<Parlamentarian>)parlamentarianCriteria.list();
 
-				Criteria parlamentarianCriteria = hibernate.createCriteria(Parlamentarian.class);
-				parlamentarianCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-				parlamentarianCriteria.setFetchMode("party", FetchMode.JOIN);
-				parlamentarians = (List<Parlamentarian>)parlamentarianCriteria.list();
+			Set<Parlamentarian> billRelatedParlamentarians = new HashSet<Parlamentarian>();
+			Set<Parlamentarian> societyRelatedParlamentarians = new HashSet<Parlamentarian>();
+			Set<Parlamentarian> resultSet = new HashSet<Parlamentarian>();
 
-				Set<Parlamentarian> billRelatedParlamentarians = new HashSet<Parlamentarian>();
-				Set<Parlamentarian> societyRelatedParlamentarians = new HashSet<Parlamentarian>();
-				Set<Parlamentarian> resultSet = new HashSet<Parlamentarian>();
-
-				forParlamentarian:
-				for (Parlamentarian parlamentarian : parlamentarians) {
-					for (Category category : categories) {
-						for (Society society : parlamentarian.getSocieties().keySet()) {
-							if (society.getCategories().contains(category)) {
-								societyRelatedParlamentarians.add(parlamentarian);
-							}
-						}
-					}
-
-					for (Category category : categories) {
-						for (Bill bill : parlamentarian.getAuthoredBills()) {
-							if (bill.getCategories().contains(category)) {
-								billRelatedParlamentarians.add(parlamentarian);
-								continue forParlamentarian;
-							}
-						}
-					}
-
-					for (Category category : categories) {
-						for (Bill bill : parlamentarian.getVotedBills()) {
-							if (bill.getCategories().contains(category)) {
-								billRelatedParlamentarians.add(parlamentarian);
-								continue forParlamentarian;
-							}
-						}
+			forParlamentarian:
+			for (Parlamentarian parlamentarian : parlamentarians) {
+				for (Society society : parlamentarian.getSocieties().keySet()) {
+					if (society.getCategories().contains(category)) {
+						societyRelatedParlamentarians.add(parlamentarian);
 					}
 				}
 
-				for (Parlamentarian parlamentarian : billRelatedParlamentarians) {
-					if (societyRelatedParlamentarians.contains(parlamentarian)) {
-						resultSet.add(parlamentarian);
+				for (Bill bill : parlamentarian.getAuthoredBills()) {
+					if (bill.getCategories().contains(category)) {
+						billRelatedParlamentarians.add(parlamentarian);
+						continue forParlamentarian;
 					}
 				}
 
-				parlamentarians = new ArrayList<Parlamentarian>(resultSet);
-				Collections.sort(parlamentarians, new Comparator<Parlamentarian>() {
-
-					@Override
-					public int compare(Parlamentarian o1, Parlamentarian o2) {
-						return o1.compareTo(o2);
+				for (Bill bill : parlamentarian.getVotedBills()) {
+					if (bill.getCategories().contains(category)) {
+						billRelatedParlamentarians.add(parlamentarian);
+						continue forParlamentarian;
 					}
-				});
+				}
 			}
+
+			for (Parlamentarian parlamentarian : billRelatedParlamentarians) {
+				if (societyRelatedParlamentarians.contains(parlamentarian)) {
+					resultSet.add(parlamentarian);
+				}
+			}
+
+			parlamentarians = new ArrayList<Parlamentarian>(resultSet);
+			Collections.sort(parlamentarians, new Comparator<Parlamentarian>() {
+
+				@Override
+				public int compare(Parlamentarian o1, Parlamentarian o2) {
+					return o1.compareTo(o2);
+				}
+			});
 			hibernate.getTransaction().commit();
 			return parlamentarians;
 		} catch (Exception ex) {

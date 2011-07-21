@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface HomeUiHandlers extends UiHandlers {
 	void searchParlamentarian(String keyWord);
-	void searchParlamentarian(List<Category> categories);
+	void searchParlamentarian(Category category);
 	void searchCategory(String keyWord);
-	void searchCategory(List<Parlamentarian> parlamentarians);
+	void searchCategory(Parlamentarian parlamentarian);
 	void searchBill(Long parlamentarianId, Long categoryId);
 	void showParlamentarianProfile();
 	void switchSelectionType();
