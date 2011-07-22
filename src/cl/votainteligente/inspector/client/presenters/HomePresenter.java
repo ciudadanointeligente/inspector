@@ -875,6 +875,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().notificationSelectHidden();
 		cleanerSelection();
 		resetSelection();
+		parlamentarianId = null;
+		categoryId = null;
 		initDataLoad();
 	}
 
