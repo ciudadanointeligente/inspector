@@ -249,7 +249,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			String[] keyWordArray = keyWord.split("[ ]");
 
 			for (int i = 0; i < keyWordArray.length; i++) {
-				keyWordArray[i] = keyWordArray[i].replaceAll("[^\\p{L}\\p{N}]", "");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[^A-Za-zÄÁÀAäáàaËÉÈEëéèeÏÍÌIïíìiÖÓÒOöóòoÜÚÙUüúùuÑNñn]", "");
 				keyWordArray[i] = keyWordArray[i].replaceAll("[ÄÁÀAäáàa]","[äáàa]");
 				keyWordArray[i] = keyWordArray[i].replaceAll("[ËÉÈEëéèe]","[ëéèe]");
 				keyWordArray[i] = keyWordArray[i].replaceAll("[ÏÍÌIïíìi]","[ïíìi]");
@@ -358,7 +358,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			String[] keyWordArray = keyWord.split("[ ]");
 
 			for (int i = 0; i < keyWordArray.length; i++) {
-				keyWordArray[i] = keyWordArray[i].replaceAll("[^\\p{L}\\p{N}]", "");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[^A-Za-zÄÁÀAäáàaËÉÈEëéèeÏÍÌIïíìiÖÓÒOöóòoÜÚÙUüúùuÑNñn]", "");
 				keyWordArray[i] = keyWordArray[i].replaceAll("[ÄÁÀAäáàa]","[äáàa]");
 				keyWordArray[i] = keyWordArray[i].replaceAll("[ËÉÈEëéèe]","[ëéèe]");
 				keyWordArray[i] = keyWordArray[i].replaceAll("[ÏÍÌIïíìi]","[ïíìi]");
