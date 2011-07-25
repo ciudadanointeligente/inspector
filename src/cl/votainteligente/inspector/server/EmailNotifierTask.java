@@ -15,12 +15,12 @@ public class EmailNotifierTask extends TimerTask {
 			public void run() {
 				logger.info("Begin");
 
-				try {
-					EmailNotifier emailNotifier = ContextLoaderListener.getCurrentWebApplicationContext().getBean(EmailNotifier.class);
-					emailNotifier.sendNotifications();
-				} catch (Throwable t) {
-					logger.error("EmailNotifier failed", t);
-				}
+//				try {
+//					EmailNotifier emailNotifier = ContextLoaderListener.getCurrentWebApplicationContext().getBean(EmailNotifier.class);
+//					emailNotifier.sendNotifications();
+//				} catch (Throwable t) {
+//					logger.error("EmailNotifier failed", t);
+//				}
 
 				logger.info("Finish");
 			}
