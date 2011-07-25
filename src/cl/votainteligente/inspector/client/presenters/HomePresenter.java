@@ -25,16 +25,15 @@ import com.google.gwt.cell.client.ImageCell;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.user.cellview.client.*;
-import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.*;
 import com.google.inject.Inject;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter.MyProxy> implements HomeUiHandlers {
 	public static final String PLACE = "home";
@@ -95,7 +94,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	private BillServiceAsync billService;
 
 	private AbstractDataProvider<Parlamentarian> parlamentarianData;
+	private List<Parlamentarian> parlamentarianFetchedData;
 	private AbstractDataProvider<Category> categoryData;
+	private List<Category> categoryFetchedData;
 	private AbstractDataProvider<Bill> billData;
 	private Parlamentarian selectedParlamentarian;
 	private Category selectedCategory;
@@ -161,7 +162,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onSuccess(List<Parlamentarian> result) {
 				if (result != null) {
-					ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
+					parlamentarianFetchedData = result;
+					ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(parlamentarianFetchedData);
 					setParlamentarianData(data);
 					if (parlamentarianId != null) {
 						for (Parlamentarian parlamentarian : result) {
@@ -194,7 +196,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onSuccess(List<Category> result) {
 				if (result != null) {
-					ListDataProvider<Category> data = new ListDataProvider<Category>(result);
+					categoryFetchedData = result;
+					ListDataProvider<Category> data = new ListDataProvider<Category>(categoryFetchedData);
 					setCategoryData(data);
 					if (categoryId != null && parlamentarianId == null) {
 						for (Category category : result) {
@@ -235,61 +238,67 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 		if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
 			if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
-				initDataLoad();
+				ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(parlamentarianFetchedData);
+				setParlamentarianData(data);
 			} else if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
 				searchParlamentarian(selectedCategory);
 			}
 		} else if (keyWord.length() < 2) {
 			return;
 		} else {
-			parlamentarianService.searchParlamentarian(keyWord, new AsyncCallback<List<Parlamentarian>>() {
+			String[] keyWordArray = keyWord.split("[ ]");
 
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert(applicationMessages.getErrorParlamentarianSearch());
+			for (int i = 0; i < keyWordArray.length; i++) {
+				keyWordArray[i] = keyWordArray[i].replaceAll("[^\\p{L}\\p{N}]", "");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÄÁÀAäáàa]","[äáàa]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ËÉÈEëéèe]","[ëéèe]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÏÍÌIïíìi]","[ïíìi]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÖÓÒOöóòo]","[öóòo]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÜÚÙUüúùu]","[üúùu]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÑNñn]", "[ñn]");
+				keyWordArray[i] = keyWordArray[i].toLowerCase();
+			}
+
+			List<String> keyWordList = new ArrayList<String>(Arrays.asList(keyWordArray));
+			String keyWordPattern = "(";
+			Iterator<String> keyWordIterator = keyWordList.iterator();
+
+			while (keyWordIterator.hasNext()) {
+				keyWordPattern += keyWordIterator.next();
+				if (keyWordIterator.hasNext()) {
+					keyWordPattern += "|";
 				}
+			}
+			keyWordPattern += ")";
 
-				@Override
-				public void onSuccess(List<Parlamentarian> result) {
-					final List<Parlamentarian> keywordSearchParlamentarianList = result;
+			List<Parlamentarian> result = new ArrayList<Parlamentarian>();
 
-					if (result != null) {
-						if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
-							ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
-							setParlamentarianData(data);
-						} else if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
-							parlamentarianService.searchParlamentarian(selectedCategory, new AsyncCallback<List<Parlamentarian>>() {
-
-								@Override
-								public void onFailure(Throwable caught) {
-									Window.alert(applicationMessages.getErrorParlamentarianList());
-								}
-
-								@Override
-								public void onSuccess(List<Parlamentarian> result) {
-									if (result != null) {
-										List<Parlamentarian> resultList = new ArrayList<Parlamentarian>();
-
-										for (Parlamentarian parlamentarian : keywordSearchParlamentarianList) {
-											if (result.contains(parlamentarian)) {
-												resultList.add(parlamentarian);
-											}
-										}
-
-										ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(resultList);
-										setParlamentarianData(data);
-									}
-								}
-							});
-						}
-						if (result.size() == 0) {
-							resetSelection();
-							resetNoConflicts();
-							getView().setParlamentarianMessage(applicationMessages.getGeneralNoMatches());
-						}
+			for (Parlamentarian parlamentarian : parlamentarianFetchedData) {
+				if (parlamentarian.getFirstName().toLowerCase().matches(".*"+ keyWordPattern + ".*")) {
+					result.add(parlamentarian);
+				} else {
+					if (parlamentarian.getLastName().toLowerCase().matches(".*"+ keyWordPattern + ".*")) {
+						result.add(parlamentarian);
 					}
 				}
+			}
+
+			Collections.sort(result, new Comparator<Parlamentarian>() {
+
+				@Override
+				public int compare(Parlamentarian o1, Parlamentarian o2) {
+					return o1.compareTo(o2);
+				}
 			});
+
+			ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
+			setParlamentarianData(data);
+
+			if (result.size() == 0) {
+				resetSelection();
+				resetNoConflicts();
+				getView().setParlamentarianMessage(applicationMessages.getGeneralNoMatches());
+			}
 		}
 	}
 
@@ -314,7 +323,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			public void onSuccess(List<Parlamentarian> result) {
 				if (result != null) {
 					if (result.size() > 0) {
-						ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
+						parlamentarianFetchedData = result;
+						ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(parlamentarianFetchedData);
 						setParlamentarianData(data);
 					}
 					if (selectedCategory != null && result.size() == 0) {
@@ -337,62 +347,63 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 		if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
 			if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
-				initDataLoad();
+				ListDataProvider<Category> data = new ListDataProvider<Category>(categoryFetchedData);
+				setCategoryData(data);
 			} else if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 				searchCategory(selectedParlamentarian);
 			}
 		} else if (keyWord.length() < 2) {
 			return;
 		} else {
-			categoryService.searchCategory(keyWord, new AsyncCallback<List<Category>>() {
+			String[] keyWordArray = keyWord.split("[ ]");
 
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert(applicationMessages.getErrorCategoryList());
+			for (int i = 0; i < keyWordArray.length; i++) {
+				keyWordArray[i] = keyWordArray[i].replaceAll("[^\\p{L}\\p{N}]", "");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÄÁÀAäáàa]","[äáàa]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ËÉÈEëéèe]","[ëéèe]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÏÍÌIïíìi]","[ïíìi]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÖÓÒOöóòo]","[öóòo]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÜÚÙUüúùu]","[üúùu]");
+				keyWordArray[i] = keyWordArray[i].replaceAll("[ÑNñn]", "[ñn]");
+				keyWordArray[i] = keyWordArray[i].toLowerCase();
+			}
+
+			List<String> keyWordList = new ArrayList<String>(Arrays.asList(keyWordArray));
+			String keyWordPattern = "(";
+			Iterator<String> keyWordIterator = keyWordList.iterator();
+
+			while (keyWordIterator.hasNext()) {
+				keyWordPattern += keyWordIterator.next();
+				if (keyWordIterator.hasNext()) {
+					keyWordPattern += "|";
 				}
+			}
+			keyWordPattern += ")";
+
+			List<Category> result = new ArrayList<Category>();
+
+			for (Category category : categoryFetchedData) {
+				if (category.getName().toLowerCase().matches(".*"+ keyWordPattern + ".*")) {
+					result.add(category);
+				}
+			}
+
+			Collections.sort(result, new Comparator<Category>() {
 
 				@Override
-				public void onSuccess(List<Category> result) {
-					if (result != null) {
-						if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
-							ListDataProvider<Category> data = new ListDataProvider<Category>(result);
-							setCategoryData(data);
-						} else if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
-							final List<Category> keywordSearchCategoryList = result;
-
-							categoryService.searchCategory(selectedParlamentarian, new AsyncCallback<List<Category>>() {
-
-								@Override
-								public void onFailure(Throwable caught) {
-									Window.alert(applicationMessages.getErrorCategoryParlamentarianSearch());
-								}
-
-								@Override
-								public void onSuccess(List<Category> result) {
-									if (result != null) {
-										List<Category> resultList = new ArrayList<Category>();
-
-										for (Category category : keywordSearchCategoryList) {
-											if (result.contains(category)) {
-												resultList.add(category);
-											}
-										}
-
-										ListDataProvider<Category> data = new ListDataProvider<Category>(resultList);
-										setCategoryData(data);
-									}
-								}
-							});
-						}
-
-						if (result.size() == 0) {
-							resetSelection();
-							resetNoConflicts();
-							getView().setCategoryMessage(applicationMessages.getGeneralNoMatches());
-						}
-					}
+				public int compare(Category o1, Category o2) {
+					return o1.compareTo(o2);
 				}
 			});
+
+			ListDataProvider<Category> data = new ListDataProvider<Category>(result);
+			setCategoryData(data);
+
+			if (result.size() == 0) {
+				resetSelection();
+				resetNoConflicts();
+				getView().setCategoryMessage(applicationMessages.getGeneralNoMatches());
+			}
 		}
 	}
 
@@ -415,7 +426,8 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onSuccess(List<Category> result) {
 				if (result != null) {
-					ListDataProvider<Category> data = new ListDataProvider<Category>(result);
+					categoryFetchedData = result;
+					ListDataProvider<Category> data = new ListDataProvider<Category>(categoryFetchedData);
 					setCategoryData(data);
 					if (categoryId != null && parlamentarianId != null) {
 						for (Category category : result) {

@@ -90,50 +90,6 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<Category> searchCategory(String keyWord) throws Exception {
-		Session hibernate = sessionFactory.getCurrentSession();
-
-		try {
-			hibernate.beginTransaction();
-			String query = "select distinct c from Category c where ";
-			Query hQuery;
-			String filters = "";
-
-			if (keyWord != null && !keyWord.equals("")) {
-				filters += "(";
-				String[] keyWords = keyWord.split("[ ]");
-
-				for (int i = 0; i < keyWords.length; i++) {
-					keyWords[i]  = keyWords[i].replaceAll("[ÁÀáà]","a");
-					keyWords[i]  = keyWords[i].replaceAll("[ÉÈéè]","e");
-					keyWords[i]  = keyWords[i].replaceAll("[ÍÌíì]","i");
-					keyWords[i]  = keyWords[i].replaceAll("[ÓÒóò]","o");
-					keyWords[i]  = keyWords[i].replaceAll("[ÚÙúù]","u");
-					keyWords[i]  = keyWords[i].replaceAll("[Ññ]", "n");
-					keyWords[i]  = keyWords[i].replaceAll("\\W", "");
-					filters += " lower(TRANSLATE(c.name,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%')";
-					if (i + 1 < keyWords.length) {
-						filters += " OR";
-					}
-				}
-				filters += ")";
-			}
-			query += filters;
-
-			hQuery = hibernate.createQuery(query);
-			List<Category> categories = hQuery.list();
-			hibernate.getTransaction().commit();
-			return categories;
-		} catch (Exception ex) {
-			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
-				hibernate.getTransaction().rollback();
-			}
-
-			throw ex;
-		}
-	}
-
-	@Override
 	public List<Category> searchCategory(Parlamentarian parlamentarian) throws Exception {
 		Session hibernate = sessionFactory.getCurrentSession();
 

@@ -12,6 +12,5 @@ public interface CategoryServiceAsync {
 	void getCategory(Long categoryId, AsyncCallback<Category> callback);
 	void saveCategory(Category category, AsyncCallback<Category> callback);
 	void deleteCategory(Category category, AsyncCallback<Void> callback);
-	void searchCategory(String keyWord, AsyncCallback<List<Category>> callback);
 	void searchCategory(Parlamentarian parlamentarian, AsyncCallback<List<Category>> callback);
 }

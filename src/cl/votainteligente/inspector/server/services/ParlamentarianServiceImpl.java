@@ -120,51 +120,6 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 	}
 
 	@Override
-	public List<Parlamentarian> searchParlamentarian(String keyWord) throws Exception {
-		Session hibernate = sessionFactory.getCurrentSession();
-
-		try {
-			hibernate.beginTransaction();
-			String query = "select distinct p from Parlamentarian p left join fetch p.party where ";
-			Query hQuery;
-			String filters = "";
-
-			if (keyWord != null && !keyWord.equals("")) {
-				filters += "(";
-				String[] keyWords = keyWord.split("[ ]");
-
-				for (int i = 0; i < keyWords.length; i++) {
-					keyWords[i]  = keyWords[i].replaceAll("[ÁÀáà]","a");
-					keyWords[i]  = keyWords[i].replaceAll("[ÉÈéè]","e");
-					keyWords[i]  = keyWords[i].replaceAll("[ÍÌíì]","i");
-					keyWords[i]  = keyWords[i].replaceAll("[ÓÒóò]","o");
-					keyWords[i]  = keyWords[i].replaceAll("[ÚÙúù]","u");
-					keyWords[i]  = keyWords[i].replaceAll("[Ññ]", "n");
-					keyWords[i]  = keyWords[i].replaceAll("\\W", "");
-					filters += " lower(TRANSLATE(p.firstName,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%') OR";
-					filters += " lower(TRANSLATE(p.lastName,'ÁáÉéÍíÓóÚúÑñ','AaEeIiOoUuNn')) like lower('%" + keyWords[i] + "%')";
-					if (i + 1 < keyWords.length) {
-						filters += " OR";
-					}
-				}
-				filters += ")";
-			}
-			query += filters;
-
-			hQuery = hibernate.createQuery(query);
-			List<Parlamentarian> parlamentarians = hQuery.list();
-			hibernate.getTransaction().commit();
-			return parlamentarians;
-		} catch (Exception ex) {
-			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
-				hibernate.getTransaction().rollback();
-			}
-
-			throw ex;
-		}
-	}
-
-	@Override
 	public List<Parlamentarian> searchParlamentarian(Category category) throws Exception {
 		Session hibernate = sessionFactory.getCurrentSession();
 
