@@ -119,9 +119,13 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 		try {
 			billId = Long.parseLong(placeRequest.getParameter(PARAM_BILL_ID, null));
-			parlamentarianId = Long.parseLong(placeRequest.getParameter(PARAM_PARLAMENTARIAN_ID, null));
 		} catch (NumberFormatException nfe) {
 			billId = null;
+		}
+
+		try {
+			parlamentarianId = Long.parseLong(placeRequest.getParameter(PARAM_PARLAMENTARIAN_ID, null));
+		} catch (NumberFormatException nfe) {
 			parlamentarianId = null;
 		}
 	}
