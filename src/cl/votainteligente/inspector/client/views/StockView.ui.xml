@@ -1,0 +1,41 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style src="StockView.css" />
+	<g:HTMLPanel>
+		<div>
+			<g:Label ui:field="close" addStyleNames="{style.popupCloseButton}" />
+			<div class="{style.stockTitleWrapper}">
+				<div class="{style.selectionDisplay}">
+					<g:HTMLPanel addStyleNames="{style.stockHeader}">
+						<h1><g:Label ui:field="stockName" /></h1>
+						<h3>Nombre de fantasía: </h3>
+						<h3><strong><g:Label styleName="{style.stockSubTitle}" ui:field="stockFantasyName" /></strong></h3>
+					</g:HTMLPanel>
+				</div>
+			</div>
+			<table class="{style.stockTable}">
+				<tr>
+					<th><div>Cantidad de la unidad:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="stockInitialQuantity" /></td>
+				</tr>
+				<tr>
+					<th><div>Valor en pesos:</div></th>
+					<td class="{style.altTd}"><g:Label ui:field="parlamentarianStock" /></td>
+				</tr>
+				<tr>
+					<th><div>Unidad:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="stockUnit" /></td>
+				</tr>
+				<tr>
+					<th><div>Fecha de emisión:</div></th>
+					<td class="{style.altTd}"><g:Label ui:field="stockEmissionDate" /></td>
+				</tr>
+				<tr>
+					<th><div>Observaciones:</div></th>
+					<td class="{style.normalTd}"><g:Label ui:field="stockRemark" /></td>
+				</tr>
+			</table>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>
