@@ -4,10 +4,7 @@ import cl.votainteligente.inspector.client.presenters.BillPresenter;
 import cl.votainteligente.inspector.client.resources.BillDisplayCellTableResource;
 import cl.votainteligente.inspector.client.resources.BillSearchCellTableResource;
 import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
-import cl.votainteligente.inspector.model.Category;
-import cl.votainteligente.inspector.model.Parlamentarian;
-import cl.votainteligente.inspector.model.Society;
-import cl.votainteligente.inspector.model.Stock;
+import cl.votainteligente.inspector.model.*;
 
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
@@ -43,6 +40,8 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@UiField Label parlamentarianProfileLink;
 	@UiField HTMLPanel societyPanel;
 	@UiField HTMLPanel societyTableContainer;
+	@UiField HTMLPanel stockPanel;
+	@UiField HTMLPanel stockTableContainer;
 	@UiField HTMLPanel parlamentarianPanel;
 	@UiField HTMLPanel parlamentarianTableContainer;
 	@UiField Anchor billUrlToVotainteligente;
@@ -57,8 +56,9 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
 		parlamentarianTableContainer.add(parlamentarianTable);
 		societyTable = new CellTable<Society>(15, displayResource);
-		stockTable = new CellTable<Stock>(15, displayResource);
 		societyTableContainer.add(societyTable);
+		stockTable = new CellTable<Stock>(15, displayResource);
+		stockTableContainer.add(stockTable);
 	}
 
 	@Override

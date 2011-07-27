@@ -43,6 +43,10 @@
 				<g:HTMLPanel ui:field="societyPanel">
 					<g:HTMLPanel ui:field="societyTableContainer"></g:HTMLPanel>
 				</g:HTMLPanel>
+				<h2>Acciones en conflicto:</h2><br />
+				<g:HTMLPanel ui:field="stockPanel">
+					<g:HTMLPanel ui:field="stockTableContainer"></g:HTMLPanel>
+				</g:HTMLPanel>
 			</div>
 			<g:HTMLPanel ui:field="parlamentarianPanel" addStyleNames="{style.parlamentarianPanel}">
 				<h2>Parlamentarios en conflicto:</h2>
