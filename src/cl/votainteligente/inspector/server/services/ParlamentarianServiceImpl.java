@@ -60,6 +60,7 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 			Hibernate.initialize(parlamentarian.getPermanentCommissions());
 			Hibernate.initialize(parlamentarian.getSpecialCommissions());
 			Hibernate.initialize(parlamentarian.getSocieties());
+			Hibernate.initialize(parlamentarian.getStocks());
 
 			for (Bill bill : parlamentarian.getAuthoredBills()) {
 				Hibernate.initialize(bill.getCategories());
@@ -71,6 +72,10 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 			for (Society society : parlamentarian.getSocieties().keySet()) {
 				Hibernate.initialize(society.getCategories());
+			}
+
+			for (Stock stock : parlamentarian.getStocks().keySet()) {
+				Hibernate.initialize(stock.getCategories());
 			}
 
 			hibernate.getTransaction().commit();
