@@ -39,6 +39,7 @@
 				<entry key="/person" value-ref="gileadPersonService" />
 				<entry key="/society" value-ref="gileadSocietyService" />
 				<entry key="/societyType" value-ref="gileadSocietyTypeService" />
+				<entry key="/stock" value-ref="gileadStockService" />
 				<entry key="/stage" value-ref="gileadStageService" />
 				<entry key="/subscriber" value-ref="gileadSubscriberService" />
 				<entry key="/urgency" value-ref="gileadUrgencyService" />
@@ -211,6 +212,17 @@
 
 	<bean id="societyTypeService"
 		class="cl.votainteligente.inspector.server.services.SocietyTypeServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadStockService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="stockService" />
+	</bean>
+
+	<bean id="stockService"
+		class="cl.votainteligente.inspector.server.services.StockServiceImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
