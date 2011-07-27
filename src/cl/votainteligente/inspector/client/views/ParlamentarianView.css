@@ -155,5 +155,10 @@ h2 {
 
 .societyPanel{
 	margin-top: -7px;
+	margin-bottom: 20px;
+}
+
+.stockPanel{
+	margin-top: -7px;
 	margin-bottom: 60px;
 }

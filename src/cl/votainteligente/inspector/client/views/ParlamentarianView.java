@@ -5,6 +5,7 @@ import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianUiHandlers;
 import cl.votainteligente.inspector.model.Society;
+import cl.votainteligente.inspector.model.Stock;
 import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import org.adapters.highcharts.codegen.sections.options.OptionPath;
@@ -48,14 +49,18 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@UiField FlowPanel consistencyIndexChartPanel;
 	@UiField FlowPanel perAreaChartPanel;
 	@UiField HTMLPanel societyPanel;
+	@UiField HTMLPanel stockPanel;
 	@UiField Anchor parliamentarianUrlToVotainteligente;
 	CellTable<Society> societyTable;
+	CellTable<Stock> stockTable;
 
 	public ParlamentarianView() {
 		widget = uiBinder.createAndBindUi(this);
 		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
 		societyTable = new CellTable<Society>(15, displayResource);
 		societyPanel.add(societyTable);
+		stockTable = new CellTable<Stock>(15, displayResource);
+		stockPanel.add(stockTable);
 	}
 
 	@Override
@@ -144,6 +149,11 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@Override
 	public CellTable<Society> getSocietyTable() {
 		return societyTable;
+	}
+
+	@Override
+	public CellTable<Stock> getStockTable() {
+		return stockTable;
 	}
 
 	@Override

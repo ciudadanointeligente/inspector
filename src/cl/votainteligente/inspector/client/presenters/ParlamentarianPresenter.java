@@ -53,6 +53,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		void setInterestDeclarationLink(String interestDeclarationLink);
 		void setPatrimonyDeclarationLink(String patrimonyDeclarationLink);
 		CellTable<Society> getSocietyTable();
+		CellTable<Stock> getStockTable();
 		void setConsistencyChartData(Map<String, Double> chartData);
 		void setPerAreaChartData(Map<String, Double> categoryChartData);
 		void setparliamentarianUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente);
@@ -87,12 +88,13 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	@Override
 	protected void onReveal() {
 		initSocietyTableColumns();
+		initStockTableColumns();
 		getView().clearParlamentarianData();
 
 		if (parlamentarianId != null) {
 			getParlamentarian(parlamentarianId);
 		}
-		getView().setparliamentarianUrlToVotainteligente(VOTAINTELIGENTE_PARLIAMENTARIAN_URL+parlamentarianId, applicationMessages.getGeneralViewParliamentarianOnVotainteligente());
+		getView().setparliamentarianUrlToVotainteligente(VOTAINTELIGENTE_PARLIAMENTARIAN_URL + parlamentarianId, applicationMessages.getGeneralViewParliamentarianOnVotainteligente());
 	}
 
 	@Override
@@ -245,6 +247,9 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				ListDataProvider<Society> societyData = new ListDataProvider<Society>(new ArrayList<Society>(result.getSocieties().keySet()));
 				societyData.addDataDisplay(getView().getSocietyTable());
 
+				ListDataProvider<Stock> stockData = new ListDataProvider<Stock>(new ArrayList<Stock>(result.getStocks().keySet()));
+				stockData.addDataDisplay(getView().getStockTable());
+
 				Double reportedSocieties = 0d;
 				Double unreportedSocieties = 0d;
 
@@ -387,6 +392,110 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		};
 
 		getView().getSocietyTable().addColumn(viewSocietyColumn, applicationMessages.getSocietyViewMore());
+	}
+
+	private void initStockTableColumns() {
+
+		while (getView().getStockTable().getColumnCount() > 0) {
+			getView().getStockTable().removeColumn(0);
+		}
+
+		TextColumn<Stock> areaOfInterestColumn = new TextColumn<Stock>() {
+			@Override
+			public String getValue(Stock stock) {
+				StringBuilder sb = new StringBuilder();
+				Iterator<Category> iterator = stock.getCategories().iterator();
+
+				while (iterator.hasNext()) {
+					sb.append(iterator.next().getName());
+
+					if (iterator.hasNext()) {
+						sb.append(", ");
+					} else {
+						sb.append('.');
+					}
+				}
+
+				return sb.toString();
+			}
+		};
+
+		getView().getStockTable().addColumn(areaOfInterestColumn, applicationMessages.getStockAreaOfInterest());
+
+		TextColumn<Stock> stockLegalNameColumn = new TextColumn<Stock>() {
+			@Override
+			public String getValue(Stock stock) {
+				return stock.getName();
+			}
+		};
+
+		getView().getStockTable().addColumn(stockLegalNameColumn, applicationMessages.getStockLegalName());
+
+		Column<Stock, String> stockReportedThisColumn = new Column<Stock, String>(new ImageCell()){
+			@Override
+			public String getValue(Stock stock) {
+				Boolean declared = parlamentarian.getStocks().get(stock);
+
+				if (declared != null && declared) {
+					return "images/declare_yes.png";
+				} else {
+					return "images/declare_no.png";
+				}
+			}
+		};
+
+		getView().getStockTable().addColumn(stockReportedThisColumn, applicationMessages.getStockReportedThis());
+
+		TextColumn<Stock> stockIsInConflictColumn = new TextColumn<Stock>() {
+			@Override
+			public String getValue(Stock stock) {
+				for (Category category : stock.getCategories()) {
+					for (Bill bill : parlamentarian.getAuthoredBills()) {
+						if (bill.getCategories().contains(category)) {
+							return applicationMessages.getGeneralYes();
+						}
+					}
+
+					for (Bill bill : parlamentarian.getVotedBills()) {
+						if (bill.getCategories().contains(category)) {
+							return applicationMessages.getGeneralYes();
+						}
+					}
+				}
+
+				return applicationMessages.getGeneralNo();
+			}
+		};
+
+		getView().getStockTable().addColumn(stockIsInConflictColumn, applicationMessages.getStockIsInConflict());
+
+		Column<Stock, Stock> viewStockColumn = new Column<Stock, Stock>(new ActionCell<Stock>("", new ActionCell.Delegate<Stock>() {
+
+			@Override
+			public void execute(Stock stock) {
+				PlaceRequest placeRequest = new PlaceRequest(StockPresenter.PLACE);
+				placeManager.revealPlace(placeRequest.with(StockPresenter.PARAM_STOCK_ID, stock.getId().toString()));
+			}
+		}) {
+			@Override
+			public void render(Cell.Context context, Stock value, SafeHtmlBuilder sb) {
+				sb.append(new SafeHtml() {
+
+					@Override
+					public String asString() {
+						return "<img style=\"cursor: pointer;\" src=\"images/more.png\"/>";
+					}
+				});
+			}
+		}) {
+
+			@Override
+			public Stock getValue(Stock stock) {
+				return stock;
+			}
+		};
+
+		getView().getStockTable().addColumn(viewStockColumn, applicationMessages.getStockViewMore());
 	}
 
 	@Override

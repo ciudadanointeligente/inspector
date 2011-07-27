@@ -7,6 +7,7 @@ import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.Society;
+import cl.votainteligente.inspector.model.Stock;
 
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
@@ -46,6 +47,7 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@UiField HTMLPanel parlamentarianTableContainer;
 	@UiField Anchor billUrlToVotainteligente;
 	CellTable<Society> societyTable;
+	CellTable<Stock> stockTable;
 	CellTable<Parlamentarian> parlamentarianTable;
 
 	public BillView() {
@@ -55,6 +57,7 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
 		parlamentarianTableContainer.add(parlamentarianTable);
 		societyTable = new CellTable<Society>(15, displayResource);
+		stockTable = new CellTable<Stock>(15, displayResource);
 		societyTableContainer.add(societyTable);
 	}
 
@@ -175,6 +178,16 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@Override
 	public void setSocietyTable(CellTable<Society> societyTable) {
 		this.societyTable = societyTable;
+	}
+
+	@Override
+	public CellTable<Stock> getStockTable() {
+		return stockTable;
+	}
+
+	@Override
+	public void setStockTable(CellTable<Stock> stockTable) {
+		this.stockTable = stockTable;
 	}
 
 	@Override

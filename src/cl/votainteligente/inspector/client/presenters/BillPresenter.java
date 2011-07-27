@@ -54,7 +54,9 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		CellTable<Parlamentarian> getParlamentarianTable();
 		void setParlamentarianTable(CellTable<Parlamentarian> parlamentarianTable);
 		CellTable<Society> getSocietyTable();
+		CellTable<Stock> getStockTable();
 		void setSocietyTable(CellTable<Society> societyTable);
+		void setStockTable(CellTable<Stock> stockTable);
 		void setbillUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente);
 	}
 
@@ -80,6 +82,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	private Parlamentarian selectedParlamentarian;
 	private AbstractDataProvider<Parlamentarian> parlamentarianData;
 	private AbstractDataProvider<Society> societyData;
+	private AbstractDataProvider<Stock> stockData;
 
 	@Inject
 	public BillPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
@@ -96,8 +99,10 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		selectedBill = null;
 		parlamentarianData = new ListDataProvider<Parlamentarian>();
 		societyData = new ListDataProvider<Society>();
+		stockData = new ListDataProvider<Stock>();
 		initParlamentarianTable();
 		initSocietyTable();
+		initStockTable();
 
 		if (billId != null) {
 			showBill();
@@ -239,6 +244,23 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 			AbstractDataProvider<Society> data = new ListDataProvider<Society>(societies);
 			setSocietyData(data);
+
+			List<Stock> stocks = new ArrayList<Stock>(selectedParlamentarian.getStocks().keySet());
+			Set<Stock> stockResultSet = new TreeSet<Stock>();
+			Set<Category> stockIntersection = new HashSet<Category>();
+
+			for (Stock stock : stocks) {
+				stockIntersection = new HashSet<Category>(stock.getCategories());
+				stockIntersection.retainAll(selectedBill.getCategories());
+				if (stockIntersection.size() > 0) {
+					stockResultSet.add(stock);
+				}
+			}
+
+			stocks = new ArrayList<Stock>(stockResultSet);
+
+			AbstractDataProvider<Stock> stockData = new ListDataProvider<Stock>(stocks);
+			setStockData(stockData);
 		}
 	}
 
@@ -303,6 +325,15 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	public void setSocietyData(AbstractDataProvider<Society> data) {
 		societyData = data;
 		societyData.addDataDisplay(getView().getSocietyTable());
+	}
+
+	public AbstractDataProvider<Stock> getStockData() {
+		return stockData;
+	}
+
+	public void setStockData(AbstractDataProvider<Stock> data) {
+		stockData = data;
+		stockData.addDataDisplay(getView().getStockTable());
 	}
 
 	public void initParlamentarianTable() {
@@ -471,6 +502,98 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 		// Adds action profile column to table
 		getView().getSocietyTable().addColumn(profileColumn, applicationMessages.getGeneralViewMore());
+	}
+
+	public void initStockTable() {
+		while (getView().getStockTable().getColumnCount() > 0) {
+			getView().getStockTable().removeColumn(0);
+		}
+
+		// Creates stock column
+		TextColumn<Stock> categoriesColumn = new TextColumn<Stock>() {
+
+			@Override
+			public String getValue(Stock stock) {
+				StringBuilder sb = new StringBuilder();
+				Iterator<Category> iterator = stock.getCategories().iterator();
+
+				while (iterator.hasNext()) {
+					sb.append(iterator.next().getName());
+
+					if (iterator.hasNext()) {
+						sb.append(", ");
+					} else {
+						sb.append('.');
+					}
+				}
+
+				return sb.toString();
+			}
+		};
+
+		// Adds name column to table
+		getView().getStockTable().addColumn(categoriesColumn, applicationMessages.getGeneralCategory());
+
+		// Creates name column
+		TextColumn<Stock> nameColumn = new TextColumn<Stock>() {
+
+			@Override
+			public String getValue(Stock stock) {
+				return stock.getName();
+			}
+		};
+
+		// Adds name column to table
+		getView().getStockTable().addColumn(nameColumn, applicationMessages.getGeneralStocksInConflict());
+
+		// Creates reported column
+		Column<Stock, String> reportedColumn = new Column<Stock, String>(new ImageCell()) {
+
+			@Override
+			public String getValue(Stock stock) {
+				String reported = "images/declare_no.png";
+
+				if (selectedParlamentarian != null && selectedParlamentarian.getStocks().containsKey(stock)) {
+					if (selectedParlamentarian.getStocks().get(stock) == true) {
+						reported = "images/declare_yes.png";
+					}
+				}
+				return reported;
+			}
+		};
+
+		// Adds name reported to table
+		getView().getStockTable().addColumn(reportedColumn, applicationMessages.getStockReported());
+
+		// Creates action profile column
+		Column<Stock, Stock> profileColumn = new Column<Stock, Stock>(new ActionCell<Stock>("", new ActionCell.Delegate<Stock>() {
+
+			@Override
+			public void execute(Stock stock) {
+				PlaceRequest placeRequest = new PlaceRequest(StockPresenter.PLACE);
+				placeManager.revealPlace(placeRequest.with(StockPresenter.PARAM_STOCK_ID, stock.getId().toString()));
+			}
+		}) {
+			@Override
+			public void render(Cell.Context context, Stock value, SafeHtmlBuilder sb) {
+				sb.append(new SafeHtml() {
+
+					@Override
+					public String asString() {
+						return "<div class=\"glassButton\"></div>";
+					}
+				});
+			}
+		}) {
+
+			@Override
+			public Stock getValue(Stock stock) {
+				return stock;
+			}
+		};
+
+		// Adds action profile column to table
+		getView().getStockTable().addColumn(profileColumn, applicationMessages.getGeneralViewMore());
 	}
 
 	@Override

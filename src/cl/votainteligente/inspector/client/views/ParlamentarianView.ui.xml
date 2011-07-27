@@ -27,6 +27,12 @@
 				</g:HTMLPanel>
 			</div>
 			<g:HTMLPanel ui:field="societyPanel" addStyleNames="{style.societyPanel}"/>
+			<div class="{style.titleWrapper}">
+				<g:HTMLPanel addStyleNames="{style.titleDisplay}">
+					<h2>Participación con acciones</h2>
+				</g:HTMLPanel>
+			</div>
+			<g:HTMLPanel ui:field="stockPanel" addStyleNames="{style.stockPanel}"/>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.aside}">
 			<h3>Partido</h3>
