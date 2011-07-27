@@ -1,5 +1,7 @@
 package cl.votainteligente.inspector.client.presenters;
 
+import cl.votainteligente.inspector.client.InlineHyperLinkCell;
+import cl.votainteligente.inspector.client.InlineHyperLinkCellData;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.BillServiceAsync;
 import cl.votainteligente.inspector.client.services.CategoryServiceAsync;
@@ -565,29 +567,18 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().getParlamentarianTable().addColumn(partyColumn, applicationMessages.getGeneralParty());
 
 		// Creates action profile column
-		Column<Parlamentarian, Parlamentarian> profileColumn = new Column<Parlamentarian, Parlamentarian>(new ActionCell<Parlamentarian>("", new ActionCell.Delegate<Parlamentarian>() {
+		Column<Parlamentarian, InlineHyperLinkCellData> profileColumn = new Column<Parlamentarian, InlineHyperLinkCellData>(new InlineHyperLinkCell()) {
 
 			@Override
-			public void execute(Parlamentarian parlamentarian) {
+			public InlineHyperLinkCellData getValue(Parlamentarian parlamentian) {
 				PlaceRequest placeRequest = new PlaceRequest(ParlamentarianPresenter.PLACE);
-				placeManager.revealPlace(placeRequest.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarian.getId().toString()));
-			}
-		}) {
-			@Override
-			public void render(Cell.Context context, Parlamentarian value, SafeHtmlBuilder sb) {
-				sb.append(new SafeHtml() {
+				placeRequest = placeRequest.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentian.getId().toString());
+				String href = placeManager.buildHistoryToken(placeRequest);
 
-					@Override
-					public String asString() {
-						return "<div class=\"profileButton\"></div>";
-					}
-				});
-			}
-		}) {
-
-			@Override
-			public Parlamentarian getValue(Parlamentarian parlamentarian) {
-				return parlamentarian;
+				InlineHyperLinkCellData params = new InlineHyperLinkCellData();
+				params.setHref(href);
+				params.setStyleNames("profileButton");
+				return params;
 			}
 		};
 
@@ -708,31 +699,19 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		}
 
 		// Creates action view bill column
-		Column<Bill, Bill> viewBillColumn = new Column<Bill, Bill>(new ActionCell<Bill>("", new ActionCell.Delegate<Bill>() {
+		Column<Bill, InlineHyperLinkCellData> viewBillColumn = new Column<Bill, InlineHyperLinkCellData>(new InlineHyperLinkCell()) {
 
 			@Override
-			public void execute(Bill bill) {
+			public InlineHyperLinkCellData getValue(Bill bill) {
 				PlaceRequest placeRequest = new PlaceRequest(BillPresenter.PLACE);
 				placeRequest = placeRequest.with(BillPresenter.PARAM_BILL_ID, bill.getId().toString());
 				placeRequest = placeRequest.with(BillPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString());
-				placeManager.revealPlace(placeRequest);
-			}
-		}) {
-			@Override
-			public void render(Cell.Context context, Bill value, SafeHtmlBuilder sb) {
-				sb.append(new SafeHtml() {
+				String href = placeManager.buildHistoryToken(placeRequest);
 
-					@Override
-					public String asString() {
-						return "<div class=\"glassButton\"></div>";
-					}
-				});
-			}
-		}) {
-
-			@Override
-			public Bill getValue(Bill bill) {
-				return bill;
+				InlineHyperLinkCellData params = new InlineHyperLinkCellData();
+				params.setHref(href);
+				params.setStyleNames("glassButton");
+				return params;
 			}
 		};
 
@@ -751,31 +730,20 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().getBillTable().addColumn(bulletinColumn, applicationMessages.getBillBulletin());
 
 		// Creates title column
-		Column<Bill, Bill> titleColumn = new Column<Bill, Bill>(new ActionCell<Bill>("", new ActionCell.Delegate<Bill>() {
+		Column<Bill, InlineHyperLinkCellData> titleColumn = new Column<Bill, InlineHyperLinkCellData>(new InlineHyperLinkCell()) {
 
 			@Override
-			public void execute(Bill bill) {
+			public InlineHyperLinkCellData getValue(Bill bill) {
 				PlaceRequest placeRequest = new PlaceRequest(BillPresenter.PLACE);
 				placeRequest = placeRequest.with(BillPresenter.PARAM_BILL_ID, bill.getId().toString());
 				placeRequest = placeRequest.with(BillPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString());
-				placeManager.revealPlace(placeRequest);
-			}
-		}) {
-			@Override
-			public void render(Cell.Context context, final Bill value, SafeHtmlBuilder sb) {
-				sb.append(new SafeHtml() {
+				String href = placeManager.buildHistoryToken(placeRequest);
 
-					@Override
-					public String asString() {
-						return "<div class=\"clickableCell\">" + value.getTitle() + "</div>";
-					}
-				});
-			}
-		}) {
-
-			@Override
-			public Bill getValue(Bill bill) {
-				return bill;
+				InlineHyperLinkCellData params = new InlineHyperLinkCellData();
+				params.setValue(bill.getTitle());
+				params.setHref(href);
+				params.setStyleNames("");
+				return params;
 			}
 		};
 
