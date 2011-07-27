@@ -13,6 +13,7 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 	private District district;
 	private Boolean active;
 	private Map<Society, Boolean> societies;
+	private Map<Stock, Boolean> stocks;
 	private Set<Bill> authoredBills;
 	private Set<Bill> votedBills;
 	private String interestDeclarationFile;
@@ -79,6 +80,14 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 
 	public void setSocieties(Map<Society, Boolean> societies) {
 		this.societies = societies;
+	}
+
+	public Map<Stock, Boolean> getStocks() {
+		return stocks;
+	}
+
+	public void setStocks(Map<Stock, Boolean> stocks) {
+		this.stocks = stocks;
 	}
 
 	public Set<Bill> getAuthoredBills() {
