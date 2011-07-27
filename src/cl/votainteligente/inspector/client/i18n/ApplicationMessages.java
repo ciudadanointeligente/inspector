@@ -34,6 +34,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.societiesInConflict")
 	public String getGeneralSocietiesInConflict();
 
+	@Key("general.stocksInConflict")
+	public String getGeneralStocksInConflict();
+
 	@Key("general.stage")
 	public String getGeneralStage();
 
@@ -117,6 +120,12 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("error.society.list")
 	public String getErrorSocietyList();
+
+	@Key("error.stock")
+	public String getErrorStock();
+
+	@Key("error.stock.list")
+	public String getErrorStockList();
 
 	@Key("error.bill")
 	public String getErrorBill();
@@ -237,6 +246,27 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("society.shareInSocietiesByArea")
 	public String getSocietyShareInSocietiesByArea();
+
+	@Key("stock.reported")
+	public String getStockReported();
+
+	@Key("stock.unreported")
+	public String getStockUnreported();
+
+	@Key("stock.areaOfInterest")
+	public String getStockAreaOfInterest();
+
+	@Key("stock.legalName")
+	public String getStockLegalName();
+
+	@Key("stock.reportedThis")
+	public String getStockReportedThis();
+
+	@Key("stock.isInConflict")
+	public String getStockIsInConflict();
+
+	@Key("stock.viewMore")
+	public String getStockViewMore();
 
 	@Key("subscriber.subscribe")
 	public String getSubscriberSuscribe();
