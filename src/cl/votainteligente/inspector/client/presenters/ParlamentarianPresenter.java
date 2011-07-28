@@ -1,5 +1,8 @@
 package cl.votainteligente.inspector.client.presenters;
 
+import cl.votainteligente.inspector.client.InlineHyperLinkCellData;
+import cl.votainteligente.inspector.client.MultipleInlineHyperLinkCell;
+import cl.votainteligente.inspector.client.MultipleInlineHyperLinkCellData;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianUiHandlers;
@@ -296,27 +299,42 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 			getView().getSocietyTable().removeColumn(0);
 		}
 
-		TextColumn<Society> areaOfInterestColumn = new TextColumn<Society>() {
+		// Creates categories column
+		Column<Society, MultipleInlineHyperLinkCellData> categoriesColumn = new Column<Society, MultipleInlineHyperLinkCellData>(new MultipleInlineHyperLinkCell()) {
+
 			@Override
-			public String getValue(Society society) {
-				StringBuilder sb = new StringBuilder();
+			public MultipleInlineHyperLinkCellData getValue(Society society) {
 				Iterator<Category> iterator = society.getCategories().iterator();
+				List<InlineHyperLinkCellData> params = new ArrayList<InlineHyperLinkCellData>();
+				PlaceRequest placeRequest = null;
+				String href = null;
+				Category category = null;
 
 				while (iterator.hasNext()) {
-					sb.append(iterator.next().getName());
+					category = iterator.next();
+					placeRequest = new PlaceRequest(HomePresenter.PLACE);
+					placeRequest = placeRequest.with(HomePresenter.PARAM_CATEGORY_ID, category.getId().toString());
+					href = placeManager.buildHistoryToken(placeRequest);
 
+					InlineHyperLinkCellData param = new InlineHyperLinkCellData();
 					if (iterator.hasNext()) {
-						sb.append(", ");
+						param.setValue(category.getName() + ", ");
 					} else {
-						sb.append('.');
+						param.setValue(category.getName() + ".");
 					}
-				}
 
-				return sb.toString();
+					param.setHref(href);
+					param.setStyleNames("");
+					params.add(param);
+				}
+				MultipleInlineHyperLinkCellData cellData = new MultipleInlineHyperLinkCellData();
+				cellData.setCellData(params);
+				return cellData;
 			}
 		};
 
-		getView().getSocietyTable().addColumn(areaOfInterestColumn, applicationMessages.getSocietyAreaOfInterest());
+		// Adds categories column to table
+		getView().getSocietyTable().addColumn(categoriesColumn, applicationMessages.getGeneralCategory());
 
 		TextColumn<Society> societyLegalNameColumn = new TextColumn<Society>() {
 			@Override
@@ -400,27 +418,42 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 			getView().getStockTable().removeColumn(0);
 		}
 
-		TextColumn<Stock> areaOfInterestColumn = new TextColumn<Stock>() {
+		// Creates categories column
+		Column<Stock, MultipleInlineHyperLinkCellData> categoriesColumn = new Column<Stock, MultipleInlineHyperLinkCellData>(new MultipleInlineHyperLinkCell()) {
+
 			@Override
-			public String getValue(Stock stock) {
-				StringBuilder sb = new StringBuilder();
+			public MultipleInlineHyperLinkCellData getValue(Stock stock) {
 				Iterator<Category> iterator = stock.getCategories().iterator();
+				List<InlineHyperLinkCellData> params = new ArrayList<InlineHyperLinkCellData>();
+				PlaceRequest placeRequest = null;
+				String href = null;
+				Category category = null;
 
 				while (iterator.hasNext()) {
-					sb.append(iterator.next().getName());
+					category = iterator.next();
+					placeRequest = new PlaceRequest(HomePresenter.PLACE);
+					placeRequest = placeRequest.with(HomePresenter.PARAM_CATEGORY_ID, category.getId().toString());
+					href = placeManager.buildHistoryToken(placeRequest);
 
+					InlineHyperLinkCellData param = new InlineHyperLinkCellData();
 					if (iterator.hasNext()) {
-						sb.append(", ");
+						param.setValue(category.getName() + ", ");
 					} else {
-						sb.append('.');
+						param.setValue(category.getName() + ".");
 					}
-				}
 
-				return sb.toString();
+					param.setHref(href);
+					param.setStyleNames("");
+					params.add(param);
+				}
+				MultipleInlineHyperLinkCellData cellData = new MultipleInlineHyperLinkCellData();
+				cellData.setCellData(params);
+				return cellData;
 			}
 		};
 
-		getView().getStockTable().addColumn(areaOfInterestColumn, applicationMessages.getStockAreaOfInterest());
+		// Adds name column to table
+		getView().getStockTable().addColumn(categoriesColumn, applicationMessages.getGeneralCategory());
 
 		TextColumn<Stock> stockLegalNameColumn = new TextColumn<Stock>() {
 			@Override
