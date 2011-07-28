@@ -19,6 +19,7 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 	private String interestDeclarationFile;
 	private String patrimonyDeclarationFile;
 	private String image;
+	private String email;
 
 	public static final ProvidesKey<Parlamentarian> KEY_PROVIDER = new ProvidesKey<Parlamentarian>() {
 		public Object getKey(Parlamentarian parlamentarian) {
@@ -128,6 +129,14 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override

@@ -37,5 +37,6 @@
 		<property name="interestDeclarationFile" />
 		<property name="patrimonyDeclarationFile" />
 		<property name="image" />
+		<property name="email" />
 	</joined-subclass>
 </hibernate-mapping>
