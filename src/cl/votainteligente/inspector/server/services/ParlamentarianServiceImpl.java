@@ -139,6 +139,7 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 			Set<Parlamentarian> billRelatedParlamentarians = new HashSet<Parlamentarian>();
 			Set<Parlamentarian> societyRelatedParlamentarians = new HashSet<Parlamentarian>();
+			Set<Parlamentarian> stockRelatedParlamentarians = new HashSet<Parlamentarian>();
 			Set<Parlamentarian> resultSet = new HashSet<Parlamentarian>();
 
 			forParlamentarian:
@@ -146,6 +147,12 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 				for (Society society : parlamentarian.getSocieties().keySet()) {
 					if (society.getCategories().contains(category)) {
 						societyRelatedParlamentarians.add(parlamentarian);
+					}
+				}
+
+				for (Stock stock : parlamentarian.getStocks().keySet()) {
+					if (stock.getCategories().contains(category)) {
+						stockRelatedParlamentarians.add(parlamentarian);
 					}
 				}
 
@@ -165,7 +172,7 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 			}
 
 			for (Parlamentarian parlamentarian : billRelatedParlamentarians) {
-				if (societyRelatedParlamentarians.contains(parlamentarian)) {
+				if (societyRelatedParlamentarians.contains(parlamentarian) || stockRelatedParlamentarians.contains(parlamentarian)) {
 					resultSet.add(parlamentarian);
 				}
 			}
@@ -218,6 +225,14 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 			for (Parlamentarian parlamentarian : parlamentarians) {
 				for (Society society : parlamentarian.getSocieties().keySet()) {
 					intersection = new HashSet<Category>(society.getCategories());
+					intersection.retainAll(bill.getCategories());
+					if (intersection.size() > 0) {
+						resultSet.add(parlamentarian);
+					}
+				}
+
+				for (Stock stock : parlamentarian.getStocks().keySet()) {
+					intersection = new HashSet<Category>(stock.getCategories());
 					intersection.retainAll(bill.getCategories());
 					if (intersection.size() > 0) {
 						resultSet.add(parlamentarian);
