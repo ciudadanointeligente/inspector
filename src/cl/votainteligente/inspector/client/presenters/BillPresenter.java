@@ -1,5 +1,6 @@
 package cl.votainteligente.inspector.client.presenters;
 
+import cl.votainteligente.inspector.client.*;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.BillServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
@@ -20,8 +21,9 @@ import com.google.gwt.cell.client.ImageCell;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.user.cellview.client.*;
-import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.*;
@@ -370,29 +372,18 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		getView().getParlamentarianTable().addColumn(nameColumn, applicationMessages.getGeneralParlamentarian());
 
 		// Creates action profile column
-		Column<Parlamentarian, Parlamentarian> profileColumn = new Column<Parlamentarian, Parlamentarian>(new ActionCell<Parlamentarian>("", new ActionCell.Delegate<Parlamentarian>() {
+		Column<Parlamentarian, InlineHyperLinkCellData> profileColumn = new Column<Parlamentarian, InlineHyperLinkCellData>(new InlineHyperLinkCell()) {
 
 			@Override
-			public void execute(Parlamentarian parlamentarian) {
+			public InlineHyperLinkCellData getValue(Parlamentarian parlamentian) {
 				PlaceRequest placeRequest = new PlaceRequest(ParlamentarianPresenter.PLACE);
-				placeManager.revealPlace(placeRequest.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarian.getId().toString()));
-			}
-		}) {
-			@Override
-			public void render(Cell.Context context, Parlamentarian value, SafeHtmlBuilder sb) {
-				sb.append(new SafeHtml() {
+				placeRequest = placeRequest.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentian.getId().toString());
+				String href = placeManager.buildHistoryToken(placeRequest);
 
-					@Override
-					public String asString() {
-						return "<div class=\"profileButton\"></div>";
-					}
-				});
-			}
-		}) {
-
-			@Override
-			public Parlamentarian getValue(Parlamentarian parlamentarian) {
-				return parlamentarian;
+				InlineHyperLinkCellData params = new InlineHyperLinkCellData();
+				params.setHref(href);
+				params.setStyleNames("profileButton");
+				return params;
 			}
 		};
 
@@ -418,24 +409,36 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		}
 
 		// Creates categories column
-		TextColumn<Society> categoriesColumn = new TextColumn<Society>() {
+		Column<Society, MultipleInlineHyperLinkCellData> categoriesColumn = new Column<Society, MultipleInlineHyperLinkCellData>(new MultipleInlineHyperLinkCell()) {
 
 			@Override
-			public String getValue(Society society) {
-				StringBuilder sb = new StringBuilder();
+			public MultipleInlineHyperLinkCellData getValue(Society society) {
 				Iterator<Category> iterator = society.getCategories().iterator();
+				List<InlineHyperLinkCellData> params = new ArrayList<InlineHyperLinkCellData>();
+				PlaceRequest placeRequest = null;
+				String href = null;
+				Category category = null;
 
 				while (iterator.hasNext()) {
-					sb.append(iterator.next().getName());
+					category = iterator.next();
+					placeRequest = new PlaceRequest(HomePresenter.PLACE);
+					placeRequest = placeRequest.with(HomePresenter.PARAM_CATEGORY_ID, category.getId().toString());
+					href = placeManager.buildHistoryToken(placeRequest);
 
+					InlineHyperLinkCellData param = new InlineHyperLinkCellData();
 					if (iterator.hasNext()) {
-						sb.append(", ");
+						param.setValue(category.getName() + ", ");
 					} else {
-						sb.append('.');
+						param.setValue(category.getName() + ".");
 					}
-				}
 
-				return sb.toString();
+					param.setHref(href);
+					param.setStyleNames("");
+					params.add(param);
+				}
+				MultipleInlineHyperLinkCellData cellData = new MultipleInlineHyperLinkCellData();
+				cellData.setCellData(params);
+				return cellData;
 			}
 		};
 
@@ -509,25 +512,37 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			getView().getStockTable().removeColumn(0);
 		}
 
-		// Creates stock column
-		TextColumn<Stock> categoriesColumn = new TextColumn<Stock>() {
+		// Creates categories column
+		Column<Stock, MultipleInlineHyperLinkCellData> categoriesColumn = new Column<Stock, MultipleInlineHyperLinkCellData>(new MultipleInlineHyperLinkCell()) {
 
 			@Override
-			public String getValue(Stock stock) {
-				StringBuilder sb = new StringBuilder();
+			public MultipleInlineHyperLinkCellData getValue(Stock stock) {
 				Iterator<Category> iterator = stock.getCategories().iterator();
+				List<InlineHyperLinkCellData> params = new ArrayList<InlineHyperLinkCellData>();
+				PlaceRequest placeRequest = null;
+				String href = null;
+				Category category = null;
 
 				while (iterator.hasNext()) {
-					sb.append(iterator.next().getName());
+					category = iterator.next();
+					placeRequest = new PlaceRequest(HomePresenter.PLACE);
+					placeRequest = placeRequest.with(HomePresenter.PARAM_CATEGORY_ID, category.getId().toString());
+					href = placeManager.buildHistoryToken(placeRequest);
 
+					InlineHyperLinkCellData param = new InlineHyperLinkCellData();
 					if (iterator.hasNext()) {
-						sb.append(", ");
+						param.setValue(category.getName() + ", ");
 					} else {
-						sb.append('.');
+						param.setValue(category.getName() + ".");
 					}
-				}
 
-				return sb.toString();
+					param.setHref(href);
+					param.setStyleNames("");
+					params.add(param);
+				}
+				MultipleInlineHyperLinkCellData cellData = new MultipleInlineHyperLinkCellData();
+				cellData.setCellData(params);
+				return cellData;
 			}
 		};
 
