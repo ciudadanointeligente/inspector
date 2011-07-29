@@ -35,6 +35,7 @@
 				<entry key="/initiativeType" value-ref="gileadInitiativeTypeService" />
 				<entry key="/notary" value-ref="gileadNotaryService" />
 				<entry key="/parlamentarian" value-ref="gileadParlamentarianService" />
+				<entry key="/parlamentarianComment" value-ref="gileadParlamentarianServiceComment" />
 				<entry key="/party" value-ref="gileadPartyService" />
 				<entry key="/person" value-ref="gileadPersonService" />
 				<entry key="/society" value-ref="gileadSocietyService" />
@@ -168,6 +169,17 @@
 
 	<bean id="parlamentarianService"
 		class="cl.votainteligente.inspector.server.services.ParlamentarianServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadParlamentarianCommentService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="parlamentarianCommentService" />
+	</bean>
+
+	<bean id="parlamentarianCommentService"
+		class="cl.votainteligente.inspector.server.services.ParlamentarianCommentServiceImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
