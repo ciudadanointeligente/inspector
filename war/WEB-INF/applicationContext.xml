@@ -35,6 +35,7 @@
 				<value>cl/votainteligente/inspector/model/InitiativeType.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/Notary.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/Parlamentarian.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/ParlamentarianComment.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/ParlamentarianType.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/Party.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/Person.hbm.xml</value>

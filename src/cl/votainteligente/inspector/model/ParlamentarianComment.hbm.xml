@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cl.votainteligente.inspector.model">
+	<class name="ParlamentarianComment">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="parlamentarian" column="parlamentarianId" />
+		<property name="key" />
+		<property name="subject" />
+		<property name="body">
+			<column name="body" sql-type="text"/>
+		</property>
+		<property name="creationDate" />
+		<property name="aproved" />
+	</class>
+</hibernate-mapping>
