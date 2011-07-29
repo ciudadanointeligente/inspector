@@ -116,6 +116,22 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 		this.categories = categories;
 	}
 
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public Date getLastNotification() {
+		return lastNotification;
+	}
+
+	public void setLastNotification(Date lastNotification) {
+		this.lastNotification = lastNotification;
+	}
+
 	@Override
 	public int compareTo(Bill obj) {
 		return (obj == null || obj.getBulletinNumber() == null) ? -1 : -obj.getBulletinNumber().compareTo(bulletinNumber);
@@ -141,21 +157,5 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 	@Override
 	public int hashCode() {
 			return this.id.hashCode();
-	}
-
-	public Date getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
-
-	public Date getLastNotification() {
-		return lastNotification;
-	}
-
-	public void setLastNotification(Date lastNotification) {
-		this.lastNotification = lastNotification;
 	}
 }
