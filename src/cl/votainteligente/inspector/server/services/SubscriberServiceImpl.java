@@ -88,7 +88,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 		try {
 			hibernate.beginTransaction();
 			if (subscriber.getId() == null) {
-				subscriber.setSuscriberKey(RandomPassword.getRandomString(200));
+				subscriber.setSuscriberKey(RandomPassword.getRandomString(100));
 			}
 			hibernate.saveOrUpdate(subscriber);
 			hibernate.getTransaction().commit();
