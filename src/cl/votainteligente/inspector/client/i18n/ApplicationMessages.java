@@ -199,6 +199,12 @@ public interface ApplicationMessages extends Messages {
 	@Key("parlamentarian.noPatrimonyDeclarationFile")
 	public String getParlamentarianNoPatrimonyDeclarationFile();
 
+	@Key("parlamentarian.distributionPerArea")
+	public String getParlamentarianDistributionPerArea();
+
+	@Key("parlamentarian.accordingToAreasOfSocietiesOrStocks")
+	public String getParlamentarianAccordingToAreasOfSocietiesOrStocks();
+
 	@Key("person.civilStatusSingle")
 	public String getCivilStatusSingle();
 
@@ -240,12 +246,6 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("society.reportedVsUnreported")
 	public String getSocietyReportedVsUnreported();
-
-	@Key("society.perArea")
-	public String getSocietyPerArea();
-
-	@Key("society.shareInSocietiesByArea")
-	public String getSocietyShareInSocietiesByArea();
 
 	@Key("stock.reported")
 	public String getStockReported();

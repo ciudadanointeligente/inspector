@@ -9,6 +9,7 @@ import cl.votainteligente.inspector.model.Stock;
 import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import org.adapters.highcharts.codegen.sections.options.OptionPath;
+import org.adapters.highcharts.codegen.sections.options.types.RawStringType;
 import org.adapters.highcharts.codegen.types.SeriesType;
 import org.adapters.highcharts.gwt.widgets.HighChart;
 
@@ -164,16 +165,32 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			declarationChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyConsistencyIndex());
 			declarationChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyReportedVsUnreported());
 			declarationChart.setOption(new OptionPath("/chart/animation"), false);
-			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 90, 0, 90});
+			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 40, 0, 40});
 			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			declarationChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
 			declarationChart.setOption(new OptionPath("/credits/enabled"), false);
-			declarationChart.setOption(new OptionPath("/tooltip/enabled"), false);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/animation"), true);
-			declarationChart.setOption(new OptionPath("/plotOptions/pie/allowPointSelect"), false);
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/allowPointSelect"), true);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/enabled"), true);
-			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/color"), "black");
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/distance"), -35);
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/color"), "white");
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/style/font"), "10px Trebuchet MS, Verdana, sans-serif");
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/formatter"),
+					new RawStringType(
+						"function(e) {" +
+								"	return this.percentage.toFixed(1)+'%'" +
+								"	}"
+							)
+
+			);
+			declarationChart.setOption(new OptionPath("/tooltip/enabled"), true);
+			declarationChart.setOption(new OptionPath("/tooltip/formatter"),
+					new RawStringType(
+						"function(e) {" +
+						"	return '<b>'+this.point.name+':</b> '+this.percentage.toFixed(1)+'%'" +
+						"	}"
+					)
+			);
 
 			SeriesType series = new SeriesType("Consistencia");
 			series.setType("pie");
@@ -195,19 +212,24 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 		try {
 			HighChart perAreaChart = new HighChart();
 			perAreaChart.setAutoResize(true);
-			perAreaChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyPerArea());
-			perAreaChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyShareInSocietiesByArea());
+			perAreaChart.setOption(new OptionPath("/title/text"), applicationMessages.getParlamentarianDistributionPerArea());
+			perAreaChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getParlamentarianAccordingToAreasOfSocietiesOrStocks());
 			perAreaChart.setOption(new OptionPath("/chart/animation"), false);
-			perAreaChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 130, 0, 130});
+			perAreaChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 40, 0, 40});
 			perAreaChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			perAreaChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
 			perAreaChart.setOption(new OptionPath("/credits/enabled"), false);
-			perAreaChart.setOption(new OptionPath("/tooltip/enabled"), false);
 			perAreaChart.setOption(new OptionPath("/plotOptions/pie/animation"), true);
-			perAreaChart.setOption(new OptionPath("/plotOptions/pie/allowPointSelect"), false);
-			perAreaChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/enabled"), true);
-			perAreaChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/color"), "black");
-			perAreaChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/style/font"), "10px Trebuchet MS, Verdana, sans-serif");
+			perAreaChart.setOption(new OptionPath("/plotOptions/pie/allowPointSelect"), true);
+			perAreaChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/enabled"), false);
+			perAreaChart.setOption(new OptionPath("/tooltip/enabled"), true);
+			perAreaChart.setOption(new OptionPath("/tooltip/formatter"),
+					new RawStringType(
+						"function(e) {" +
+						"	return '<b>'+this.point.name+':</b> '+this.percentage.toFixed(1)+'%'" +
+						"	}"
+					)
+			);
 
 			SeriesType series = new SeriesType("Por area");
 			series.setType("pie");
@@ -217,7 +239,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			}
 
 			perAreaChart.addSeries(series);
-			perAreaChart.setSize(360, 280);
+			perAreaChart.setSize(280, 280);
 			perAreaChartPanel.add(perAreaChart);
 		} catch (Exception e) {
 			e.printStackTrace();

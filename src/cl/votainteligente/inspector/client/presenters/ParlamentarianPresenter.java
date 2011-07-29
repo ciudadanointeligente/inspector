@@ -285,6 +285,19 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 					}
 				}
 
+				for (Stock parliamentarianStock : parlamentarian.getStocks().keySet()) {
+					for (Category category : parliamentarianStock.getCategories()) {
+						Double currentCount = categoryChartData.get(category.getName());
+
+						if (currentCount == null) {
+							currentCount = 0d;
+						}
+
+						categoryChartData.put(category.getName(), ++currentCount);
+						numCategories++;
+					}
+				}
+
 				for (String categoryName : categoryChartData.keySet()) {
 					categoryChartData.put(categoryName, 100d * categoryChartData.get(categoryName) / numCategories);
 				}
