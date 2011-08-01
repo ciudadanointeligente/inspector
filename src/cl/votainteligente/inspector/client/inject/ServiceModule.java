@@ -17,6 +17,7 @@ public class ServiceModule extends AbstractGinModule {
 		bind(InitiativeTypeServiceAsync.class).asEagerSingleton();
 		bind(NotaryServiceAsync.class).asEagerSingleton();
 		bind(ParlamentarianServiceAsync.class).asEagerSingleton();
+		bind(ParlamentarianCommentServiceAsync.class).asEagerSingleton();
 		bind(PartyServiceAsync.class).asEagerSingleton();
 		bind(PersonServiceAsync.class).asEagerSingleton();
 		bind(SocietyServiceAsync.class).asEagerSingleton();
