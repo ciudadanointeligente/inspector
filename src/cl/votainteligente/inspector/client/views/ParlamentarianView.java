@@ -165,32 +165,24 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			declarationChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyConsistencyIndex());
 			declarationChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyReportedVsUnreported());
 			declarationChart.setOption(new OptionPath("/chart/animation"), false);
-			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 40, 0, 40});
+			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 25, 0, 25});
 			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			declarationChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
 			declarationChart.setOption(new OptionPath("/credits/enabled"), false);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/animation"), true);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/allowPointSelect"), true);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/enabled"), true);
-			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/distance"), -35);
+			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/distance"), -40);
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/color"), "white");
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/style/font"), "10px Trebuchet MS, Verdana, sans-serif");
 			declarationChart.setOption(new OptionPath("/plotOptions/pie/dataLabels/formatter"),
 					new RawStringType(
 						"function(e) {" +
-								"	return this.percentage.toFixed(1)+'%'" +
-								"	}"
-							)
-
-			);
-			declarationChart.setOption(new OptionPath("/tooltip/enabled"), true);
-			declarationChart.setOption(new OptionPath("/tooltip/formatter"),
-					new RawStringType(
-						"function(e) {" +
-						"	return '<b>'+this.point.name+':</b> '+this.percentage.toFixed(1)+'%'" +
+						"	return '<b>'+this.point.name+'</b><br/>'+this.percentage.toFixed(1)+'%'" +
 						"	}"
 					)
 			);
+			declarationChart.setOption(new OptionPath("/tooltip/enabled"), false);
 
 			SeriesType series = new SeriesType("Consistencia");
 			series.setType("pie");
@@ -200,7 +192,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			}
 
 			declarationChart.addSeries(series);
-			declarationChart.setSize(280, 280);
+			declarationChart.setSize(270, 280);
 			consistencyIndexChartPanel.add(declarationChart);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -215,7 +207,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			perAreaChart.setOption(new OptionPath("/title/text"), applicationMessages.getParlamentarianDistributionPerArea());
 			perAreaChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getParlamentarianAccordingToAreasOfSocietiesOrStocks());
 			perAreaChart.setOption(new OptionPath("/chart/animation"), false);
-			perAreaChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 40, 0, 40});
+			perAreaChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 55, 0, 55});
 			perAreaChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			perAreaChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
 			perAreaChart.setOption(new OptionPath("/credits/enabled"), false);
@@ -226,7 +218,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			perAreaChart.setOption(new OptionPath("/tooltip/formatter"),
 					new RawStringType(
 						"function(e) {" +
-						"	return '<b>'+this.point.name+':</b> '+this.percentage.toFixed(1)+'%'" +
+						"	return '<b>'+this.point.name+':</b><br/>'+this.percentage.toFixed(1)+'%'" +
 						"	}"
 					)
 			);
@@ -239,7 +231,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			}
 
 			perAreaChart.addSeries(series);
-			perAreaChart.setSize(280, 280);
+			perAreaChart.setSize(330, 280);
 			perAreaChartPanel.add(perAreaChart);
 		} catch (Exception e) {
 			e.printStackTrace();
