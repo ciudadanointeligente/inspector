@@ -23,6 +23,7 @@ public interface MyInjector extends Ginjector {
 	Provider<HomePresenter> getHomePresenter();
 	Provider<BillPresenter> getBillPresenter();
 	Provider<ParlamentarianPresenter> getParlamentarianPresenter();
+	Provider<ParlamentarianCommentPresenter> getParlamentarianCommentPresenter();
 	Provider<PermalinkPresenter> getPermalinkPresenter();
 	Provider<SocietyPresenter> getSocietyPresenter();
 	Provider<StockPresenter> getStockPresenter();
