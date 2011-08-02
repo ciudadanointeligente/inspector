@@ -90,9 +90,4 @@ public class ParlamentarianComment extends LightEntity implements Comparable<Par
 
 		return getId().equals(((Society) other).getId());
 	}
-
-	@Override
-	public int hashCode() {
-			return this.id.hashCode();
-	}
 }
