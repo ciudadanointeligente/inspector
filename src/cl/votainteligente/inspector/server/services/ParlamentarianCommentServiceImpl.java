@@ -1,6 +1,7 @@
 package cl.votainteligente.inspector.server.services;
 
 import cl.votainteligente.inspector.client.services.ParlamentarianCommentService;
+import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.ParlamentarianComment;
 import cl.votainteligente.inspector.server.RandomPassword;
 
@@ -10,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.Date;
 import java.util.List;
 
 public class ParlamentarianCommentServiceImpl implements ParlamentarianCommentService {
@@ -58,13 +60,16 @@ public class ParlamentarianCommentServiceImpl implements ParlamentarianCommentSe
 	}
 
 	@Override
-	public ParlamentarianComment saveParlamentarianComment(ParlamentarianComment parlamentarianComment) throws Exception {
+	public ParlamentarianComment saveParlamentarianComment(ParlamentarianComment parlamentarianComment, Long parlamentarianId) throws Exception {
 		Session hibernate = sessionFactory.getCurrentSession();
 
 		try {
 			hibernate.beginTransaction();
 			parlamentarianComment.setAproved(false);
 			parlamentarianComment.setKey(RandomPassword.getRandomString(100));
+			Parlamentarian parlamentarian = (Parlamentarian) hibernate.load(Parlamentarian.class, parlamentarianId);
+			parlamentarianComment.setParlamentarian(parlamentarian);
+			parlamentarianComment.setCreationDate(new Date());
 			hibernate.saveOrUpdate(parlamentarianComment);
 			hibernate.getTransaction().commit();
 			return parlamentarianComment;

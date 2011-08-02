@@ -11,7 +11,7 @@ import java.util.List;
 public interface ParlamentarianCommentService extends RemoteService {
 	List<ParlamentarianComment> getAllParlamentarianComments() throws Exception;
 	ParlamentarianComment getParlamentarianComment(Long parlamentarianCommentId) throws Exception;
-	ParlamentarianComment saveParlamentarianComment(ParlamentarianComment parlamentarianComment) throws Exception;
+	ParlamentarianComment saveParlamentarianComment(ParlamentarianComment parlamentarianComment, Long parlamentarianId) throws Exception;
 	ParlamentarianComment aproveParlamentarianComment(String key) throws Exception;
 	void deleteParlamentarianComment(ParlamentarianComment parlamentarianComment) throws Exception;
 }
