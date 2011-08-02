@@ -103,6 +103,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.parlamentarian.categorySearch")
 	public String getErrorParlamentarianCategorySearch();
 
+	@Key("error.parlamentarianComment.save")
+	public String getErrorParlamentarianCommentSave();
+
 	@Key("error.category")
 	public String getErrorCategory();
 
