@@ -1,0 +1,11 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<g:HTMLPanel>
+		Seleccione un parlamentario: <g:ListBox ui:field="parlamentarianList"></g:ListBox>
+		Titulo: <g:TextBox ui:field="commentSubject"></g:TextBox>
+		Comentario: <g:TextArea ui:field="commentBody"></g:TextArea>
+		<g:Button ui:field="commentSubmit">Enviar</g:Button>
+		<g:Button ui:field="commentClear">Limpiar</g:Button>
+	</g:HTMLPanel>
+</ui:UiBinder>
