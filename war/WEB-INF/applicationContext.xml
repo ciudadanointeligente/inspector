@@ -39,6 +39,7 @@
 				<value>cl/votainteligente/inspector/model/ParlamentarianType.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/Party.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/Person.hbm.xml</value>
+				<value>cl/votainteligente/inspector/model/ReportConflict.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/Society.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/SocietyStatus.hbm.xml</value>
 				<value>cl/votainteligente/inspector/model/SocietyType.hbm.xml</value>

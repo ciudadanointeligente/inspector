@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cl.votainteligente.inspector.model">
+	<class name="ReportConflict">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="parlamentarian" column="parlamentarianId" />
+		<property name="submitDate" />
+		<property name="report">
+			<column name="report" sql-type="text"/>
+		</property>
+	</class>
+</hibernate-mapping>
