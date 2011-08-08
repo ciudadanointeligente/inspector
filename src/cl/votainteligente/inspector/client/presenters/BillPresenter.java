@@ -105,6 +105,9 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		initParlamentarianTable();
 		initSocietyTable();
 		initStockTable();
+		setParlamentarianData(parlamentarianData);
+		setSocietyData(societyData);
+		setStockData(stockData);
 
 		if (billId != null) {
 			showBill();
