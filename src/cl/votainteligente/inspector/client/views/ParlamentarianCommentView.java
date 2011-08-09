@@ -39,10 +39,8 @@ public class ParlamentarianCommentView extends ViewWithUiHandlers<Parlamentarian
 	}
 
 	@Override
-	public void setSelectedParlamentarian(Long parlamentarianId) {
-		if (parlamentarianId < Integer.MAX_VALUE) {
-			parlamentarianList.setSelectedIndex(parlamentarianId.intValue());
-		}
+	public void setSelectedParlamentarian(Integer selectedParlamentarianIndex) {
+		parlamentarianList.setSelectedIndex(selectedParlamentarianIndex);
 	}
 
 	@Override
