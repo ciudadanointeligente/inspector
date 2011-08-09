@@ -63,9 +63,6 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 	@Override
 	protected void onReveal() {
 		getView().clearForm();
-		if (parlamentarianId != null) {
-			getView().setSelectedParlamentarian(parlamentarianId);
-		}
 		getParlamentarianList();
 	}
 
@@ -99,6 +96,9 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 					getView().setupParlamentarianList();
 					for (Parlamentarian parlamentarian : result) {
 						getView().addParlamentarian(parlamentarian);
+					}
+					if (parlamentarianId != null) {
+						getView().setSelectedParlamentarian(parlamentarianId);
 					}
 				}
 			}
