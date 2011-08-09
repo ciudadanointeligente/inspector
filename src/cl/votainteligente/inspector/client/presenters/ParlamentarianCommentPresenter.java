@@ -29,7 +29,7 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 
 	public interface MyView extends View, HasUiHandlers<ParlamentarianCommentUiHandlers> {
 		Long getSelectedParlamentarianId();
-		void setSelectedParlamentarian(Long parlamentarianId);
+		void setSelectedParlamentarian(Integer selectedParlamentarianIndex);
 		void setupParlamentarianList();
 		void addParlamentarian(Parlamentarian parlamentarian);
 		String getCommentSubject();
@@ -94,11 +94,17 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 			public void onSuccess(List<Parlamentarian> result) {
 				if (result != null) {
 					getView().setupParlamentarianList();
+					Integer selectedParlamentarianIndex = 0;
+					Integer i = 1;
 					for (Parlamentarian parlamentarian : result) {
 						getView().addParlamentarian(parlamentarian);
+						if (parlamentarianId != null && parlamentarian.getId().equals(parlamentarianId)) {
+							selectedParlamentarianIndex = i;
+						}
+						i++;
 					}
 					if (parlamentarianId != null) {
-						getView().setSelectedParlamentarian(parlamentarianId);
+						getView().setSelectedParlamentarian(selectedParlamentarianIndex);
 					}
 				}
 			}
