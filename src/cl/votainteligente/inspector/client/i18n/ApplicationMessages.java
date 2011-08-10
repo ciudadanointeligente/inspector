@@ -106,6 +106,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.parlamentarianComment.save")
 	public String getErrorParlamentarianCommentSave();
 
+	@Key("error.reportConflict.save")
+	public String getErrorReportConflictSave();
+
 	@Key("error.category")
 	public String getErrorCategory();
 
@@ -222,6 +225,9 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("person.civilStatusWidowed")
 	public String getCivilStatusWidowed();
+
+	@Key("reportConflict.success")
+	public String getReportConflictSuccess();
 
 	@Key("society.reported")
 	public String getSocietyReported();
