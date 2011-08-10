@@ -47,6 +47,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@UiField Image parlamentarianImage;
 	@UiField Anchor interestDeclarationLink;
 	@UiField Anchor patrimonyDeclarationLink;
+	@UiField Anchor reportConflictLink;
 	@UiField FlowPanel consistencyIndexChartPanel;
 	@UiField FlowPanel perAreaChartPanel;
 	@UiField HTMLPanel societyPanel;
@@ -83,6 +84,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 		parlamentarianParty.setText("");
 		interestDeclarationLink.setHref("");
 		patrimonyDeclarationLink.setHref("");
+		reportConflictLink.setHref("");
 		consistencyIndexChartPanel.clear();
 		perAreaChartPanel.clear();
 	}
@@ -148,6 +150,11 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	}
 
 	@Override
+	public void setReportConflictLink(String href) {
+		reportConflictLink.setHref(href);
+	}
+
+	@Override
 	public CellTable<Society> getSocietyTable() {
 		return societyTable;
 	}
@@ -164,7 +171,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			declarationChart.setAutoResize(true);
 			declarationChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyConsistencyIndex());
 			declarationChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyReportedVsUnreported());
-			declarationChart.setOption(new OptionPath("/chart/animation"), false);
+			declarationChart.setOption(new OptionPath("/chart/animation"), true);
 			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 25, 0, 25});
 			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			declarationChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");
@@ -206,7 +213,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 			perAreaChart.setAutoResize(true);
 			perAreaChart.setOption(new OptionPath("/title/text"), applicationMessages.getParlamentarianDistributionPerArea());
 			perAreaChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getParlamentarianAccordingToAreasOfSocietiesOrStocks());
-			perAreaChart.setOption(new OptionPath("/chart/animation"), false);
+			perAreaChart.setOption(new OptionPath("/chart/animation"), true);
 			perAreaChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 55, 0, 55});
 			perAreaChart.setOption(new OptionPath("/chart/plotShadow"), false);
 			perAreaChart.setOption(new OptionPath("/chart/backgroundColor"), "transparent");

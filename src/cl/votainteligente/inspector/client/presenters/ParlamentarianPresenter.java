@@ -55,6 +55,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		void setParlamentarianImage(String url);
 		void setInterestDeclarationLink(String interestDeclarationLink);
 		void setPatrimonyDeclarationLink(String patrimonyDeclarationLink);
+		void setReportConflictLink(String href);
 		CellTable<Society> getSocietyTable();
 		CellTable<Stock> getStockTable();
 		void setConsistencyChartData(Map<String, Double> chartData);
@@ -98,6 +99,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 			getParlamentarian(parlamentarianId);
 		}
 		getView().setparliamentarianUrlToVotainteligente(VOTAINTELIGENTE_PARLIAMENTARIAN_URL + parlamentarianId, applicationMessages.getGeneralViewParliamentarianOnVotainteligente());
+		showReportConflictForm();
 	}
 
 	@Override
@@ -561,5 +563,16 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	@Override
 	public Boolean getPatrimonyDeclaration() {
 		return patrimonyDeclaration;
+	}
+
+	public void showReportConflictForm() {
+		if (parlamentarianId != null) {
+			PlaceRequest placeRequest = new PlaceRequest(ReportConflictPresenter.PLACE)
+			.with(ReportConflictPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString());
+			String href = placeManager.buildHistoryToken(placeRequest);
+			getView().setReportConflictLink("#" + href);
+		} else {
+			getView().setReportConflictLink(null);
+		}
 	}
 }
