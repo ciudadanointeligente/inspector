@@ -63,9 +63,4 @@ public class ReportConflict extends LightEntity implements Comparable<ReportConf
 
 		return getId().equals(((ReportConflict) other).getId());
 	}
-
-	@Override
-	public int hashCode() {
-			return this.id.hashCode();
-	}
 }
