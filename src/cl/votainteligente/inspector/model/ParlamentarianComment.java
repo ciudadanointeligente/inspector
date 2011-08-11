@@ -1,5 +1,7 @@
 package cl.votainteligente.inspector.model;
 
+import com.google.gwt.view.client.ProvidesKey;
+
 import net.sf.gilead.pojo.gwt.LightEntity;
 
 import java.util.Date;
@@ -12,6 +14,12 @@ public class ParlamentarianComment extends LightEntity implements Comparable<Par
 	private String body;
 	private Date creationDate;
 	private Boolean aproved;
+
+	public static final ProvidesKey<ParlamentarianComment> KEY_PROVIDER = new ProvidesKey<ParlamentarianComment>() {
+		public Object getKey(ParlamentarianComment parlamentarianComment) {
+			return parlamentarianComment == null ? null : parlamentarianComment.getId();
+		}
+	};
 
 	public Long getId() {
 		return id;
