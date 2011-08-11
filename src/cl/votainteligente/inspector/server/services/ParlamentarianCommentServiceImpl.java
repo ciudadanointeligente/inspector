@@ -22,12 +22,15 @@ public class ParlamentarianCommentServiceImpl implements ParlamentarianCommentSe
 	}
 
 	@Override
-	public List<ParlamentarianComment> getAllParlamentarianComments() throws Exception {
+	public List<ParlamentarianComment> getAllParlamentarianComments(Long parlamentarianId) throws Exception {
 		Session hibernate = sessionFactory.getCurrentSession();
 
 		try {
 			hibernate.beginTransaction();
+			Parlamentarian parlamentarian = (Parlamentarian) hibernate.load(Parlamentarian.class, parlamentarianId);
 			Criteria criteria = hibernate.createCriteria(ParlamentarianComment.class);
+			criteria.add(Restrictions.eq("parlamentarian", parlamentarian));
+			criteria.add(Restrictions.eq("aproved", true));
 			criteria.addOrder(Order.asc("creationDate"));
 			List<ParlamentarianComment> parlamentarianComments = criteria.list();
 			hibernate.getTransaction().commit();

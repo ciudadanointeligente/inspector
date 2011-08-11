@@ -9,7 +9,7 @@ import java.util.List;
 
 @RemoteServiceRelativePath("gwtrpc/parlamentarianComment")
 public interface ParlamentarianCommentService extends RemoteService {
-	List<ParlamentarianComment> getAllParlamentarianComments() throws Exception;
+	List<ParlamentarianComment> getAllParlamentarianComments(Long parlamentarianId) throws Exception;
 	ParlamentarianComment getParlamentarianComment(Long parlamentarianCommentId) throws Exception;
 	ParlamentarianComment saveParlamentarianComment(ParlamentarianComment parlamentarianComment, Long parlamentarianId) throws Exception;
 	ParlamentarianComment aproveParlamentarianComment(String key) throws Exception;
