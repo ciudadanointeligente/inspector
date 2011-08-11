@@ -1,4 +1,4 @@
-package cl.votainteligente.inspector.client.presenters;
+package cl.votainteligente.inspector.client.uihandlers;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 

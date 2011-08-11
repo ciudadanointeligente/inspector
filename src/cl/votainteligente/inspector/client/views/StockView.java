@@ -1,7 +1,7 @@
 package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.StockPresenter;
-import cl.votainteligente.inspector.client.presenters.StockUiHandlers;
+import cl.votainteligente.inspector.client.uihandlers.StockUiHandlers;
 
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 

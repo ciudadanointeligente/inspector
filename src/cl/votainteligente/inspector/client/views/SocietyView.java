@@ -1,7 +1,7 @@
 package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.SocietyPresenter;
-import cl.votainteligente.inspector.client.presenters.SocietyUiHandlers;
+import cl.votainteligente.inspector.client.uihandlers.SocietyUiHandlers;
 
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
