@@ -4,6 +4,7 @@ import cl.votainteligente.inspector.client.InlineHyperLinkCellData;
 import cl.votainteligente.inspector.client.MultipleInlineHyperLinkCell;
 import cl.votainteligente.inspector.client.MultipleInlineHyperLinkCellData;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
+import cl.votainteligente.inspector.client.services.ParlamentarianCommentServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianUiHandlers;
 import cl.votainteligente.inspector.model.*;
@@ -32,6 +33,8 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 
 import java.util.*;
@@ -46,9 +49,6 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		void setParlamentarianName(String parlamentarianName);
 		void setParlamentarianDescription(String parlamentarianDescription);
 		void setParlamentarianBirthDate(String parlamentarianBirthDate);
-		void setParlamentarianCivilStatus(String parlamentarianCivilStatus);
-		void setParlamentarianSpouse(String parlamentarianSpouse);
-		void setParlamentarianChildren(String parlamentarianChildren);
 		void setParlamentarianPermanentCommissions(String parlamentarianPermanentCommissions);
 		void setParlamentarianSpecialCommissions(String parlamentarianSpecialCommissions);
 		void setParlamentarianParty(String parlamentarianParty);
@@ -58,6 +58,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		void setReportConflictLink(String href);
 		CellTable<Society> getSocietyTable();
 		CellTable<Stock> getStockTable();
+		CellTable<ParlamentarianComment> getParlamentarianCommentTable();
 		void setConsistencyChartData(Map<String, Double> chartData);
 		void setPerAreaChartData(Map<String, Double> categoryChartData);
 		void setparliamentarianUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente);
@@ -74,10 +75,15 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	private PlaceManager placeManager;
 	@Inject
 	private ParlamentarianServiceAsync parlamentarianService;
+	@Inject
+	private ParlamentarianCommentServiceAsync parlamentarianCommentService;
 	private Long parlamentarianId;
 	private Parlamentarian parlamentarian;
 	private Boolean interestDeclaration;
 	private Boolean patrimonyDeclaration;
+	private ListDataProvider<Society> societyData;
+	private ListDataProvider<Stock> stockData;
+	private ListDataProvider<ParlamentarianComment> parlamentarianCommentData;
 
 	@Inject
 	public ParlamentarianPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
@@ -93,6 +99,13 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	protected void onReveal() {
 		initSocietyTableColumns();
 		initStockTableColumns();
+		initParlamentarianCommentTableColumns();
+		societyData = new ListDataProvider<Society>();
+		societyData.addDataDisplay(getView().getSocietyTable());
+		stockData = new ListDataProvider<Stock>();
+		stockData.addDataDisplay(getView().getStockTable());
+		parlamentarianCommentData = new ListDataProvider<ParlamentarianComment>();
+		parlamentarianCommentData.addDataDisplay(getView().getParlamentarianCommentTable());
 		getView().clearParlamentarianData();
 
 		if (parlamentarianId != null) {
@@ -137,6 +150,8 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 			public void onSuccess(Parlamentarian result) {
 				parlamentarian = result;
 
+				getParlamentarianComments();
+
 				getView().setParlamentarianName(parlamentarian.toString());
 
 				if (parlamentarian.getImage() != null) {
@@ -155,46 +170,6 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 				if (parlamentarian.getBirthDate() != null) {
 					getView().setParlamentarianBirthDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(parlamentarian.getBirthDate()));
-				}
-
-				if (parlamentarian.getCivilStatus() != null) {
-					switch (parlamentarian.getCivilStatus()) {
-						case SINGLE:
-							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusSingle());
-							break;
-						case MARRIED:
-							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusMarried());
-							break;
-						case SEPARATED:
-							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusSeparated());
-							break;
-						case DIVORCED:
-							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusDivorced());
-							break;
-						case WIDOWED:
-							getView().setParlamentarianCivilStatus(applicationMessages.getCivilStatusWidowed());
-					}
-				}
-
-				if (parlamentarian.getSpouse() != null) {
-					getView().setParlamentarianSpouse(parlamentarian.getSpouse().toString());
-				}
-
-				if (parlamentarian.getChildren() != null && !parlamentarian.getChildren().isEmpty()) {
-					StringBuilder sb = new StringBuilder();
-					Iterator<Person> iterator = parlamentarian.getChildren().iterator();
-
-					while (iterator.hasNext()) {
-						sb.append(iterator.next().getFirstName());
-
-						if (iterator.hasNext()) {
-							sb.append(", ");
-						} else {
-							sb.append(".");
-						}
-					}
-
-					getView().setParlamentarianChildren(sb.toString());
 				}
 
 				if (parlamentarian.getPermanentCommissions() != null && !parlamentarian.getPermanentCommissions().isEmpty()) {
@@ -249,10 +224,10 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 					patrimonyDeclaration = false;
 				}
 
-				ListDataProvider<Society> societyData = new ListDataProvider<Society>(new ArrayList<Society>(result.getSocieties().keySet()));
+				societyData = new ListDataProvider<Society>(new ArrayList<Society>(result.getSocieties().keySet()));
 				societyData.addDataDisplay(getView().getSocietyTable());
 
-				ListDataProvider<Stock> stockData = new ListDataProvider<Stock>(new ArrayList<Stock>(result.getStocks().keySet()));
+				stockData = new ListDataProvider<Stock>(new ArrayList<Stock>(result.getStocks().keySet()));
 				stockData.addDataDisplay(getView().getStockTable());
 
 				Double reportedSocieties = 0d;
@@ -304,6 +279,24 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 					categoryChartData.put(categoryName, 100d * categoryChartData.get(categoryName) / numCategories);
 				}
 				getView().setPerAreaChartData(categoryChartData);
+			}
+		});
+	}
+
+	public void getParlamentarianComments() {
+		parlamentarianCommentService.getAllParlamentarianComments(parlamentarianId, new AsyncCallback<List<ParlamentarianComment>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(applicationMessages.getErrorParlamentarianList());
+			}
+
+			@Override
+			public void onSuccess(List<ParlamentarianComment> result) {
+				if (result != null) {
+					parlamentarianCommentData = new ListDataProvider<ParlamentarianComment>(result);
+					parlamentarianCommentData.addDataDisplay(getView().getParlamentarianCommentTable());
+				}
 			}
 		});
 	}
@@ -544,6 +537,34 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		};
 
 		getView().getStockTable().addColumn(viewStockColumn, applicationMessages.getStockViewMore());
+	}
+
+	private void initParlamentarianCommentTableColumns() {
+
+		while (getView().getParlamentarianCommentTable().getColumnCount() > 0) {
+			getView().getParlamentarianCommentTable().removeColumn(0);
+		}
+
+		TextColumn<ParlamentarianComment> subjectColumn = new TextColumn<ParlamentarianComment>() {
+			@Override
+			public String getValue(ParlamentarianComment parlamentarianComment) {
+				return parlamentarianComment.getSubject();
+			}
+		};
+
+		getView().getParlamentarianCommentTable().addColumn(subjectColumn, applicationMessages.getGeneralParlamentarianComments());
+
+		// Sets selection model for each row
+		final SingleSelectionModel<ParlamentarianComment> selectionModel = new SingleSelectionModel<ParlamentarianComment>(ParlamentarianComment.KEY_PROVIDER);
+		getView().getParlamentarianCommentTable().setSelectionModel(selectionModel);
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			public void onSelectionChange(SelectionChangeEvent event) {
+				if (selectionModel.getSelectedObject() != null) {
+					PlaceRequest placeRequest = new PlaceRequest(ParlamentarianCommentDisplayPresenter.PLACE);
+					placeManager.revealPlace(placeRequest.with(ParlamentarianCommentDisplayPresenter.PARAM_PARLAMENTARIAN_COMMENT_ID, selectionModel.getSelectedObject().getId().toString()));
+				}
+			}
+		});
 	}
 
 	@Override

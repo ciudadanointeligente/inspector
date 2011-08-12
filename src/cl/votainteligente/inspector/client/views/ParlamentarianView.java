@@ -4,14 +4,10 @@ import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianUiHandlers;
+import cl.votainteligente.inspector.model.ParlamentarianComment;
 import cl.votainteligente.inspector.model.Society;
 import cl.votainteligente.inspector.model.Stock;
 import cl.votainteligente.inspector.shared.NotificationEventType;
-
-import org.adapters.highcharts.codegen.sections.options.OptionPath;
-import org.adapters.highcharts.codegen.sections.options.types.RawStringType;
-import org.adapters.highcharts.codegen.types.SeriesType;
-import org.adapters.highcharts.gwt.widgets.HighChart;
 
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
@@ -22,6 +18,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.*;
+
+import org.adapters.highcharts.codegen.sections.options.OptionPath;
+import org.adapters.highcharts.codegen.sections.options.types.RawStringType;
+import org.adapters.highcharts.codegen.types.SeriesType;
+import org.adapters.highcharts.gwt.widgets.HighChart;
 
 import java.util.Map;
 
@@ -38,9 +39,6 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@UiField Label parlamentarianName;
 	@UiField Label parlamentarianDescription;
 	@UiField Label parlamentarianBirthDate;
-	@UiField Label parlamentarianCivilStatus;
-	@UiField Label parlamentarianSpouse;
-	@UiField Label parlamentarianChildren;
 	@UiField Label parlamentarianPermanentCommissions;
 	@UiField Label parlamentarianSpecialCommissions;
 	@UiField Label parlamentarianParty;
@@ -53,8 +51,10 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@UiField HTMLPanel societyPanel;
 	@UiField HTMLPanel stockPanel;
 	@UiField Anchor parliamentarianUrlToVotainteligente;
+	@UiField HTMLPanel parlamentarianCommentPanel;
 	CellTable<Society> societyTable;
 	CellTable<Stock> stockTable;
+	CellTable<ParlamentarianComment> commentTable;
 
 	public ParlamentarianView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -63,6 +63,8 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 		societyPanel.add(societyTable);
 		stockTable = new CellTable<Stock>(15, displayResource);
 		stockPanel.add(stockTable);
+		commentTable = new CellTable<ParlamentarianComment>(15, displayResource);
+		parlamentarianCommentPanel.add(commentTable);
 	}
 
 	@Override
@@ -76,9 +78,6 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 		parlamentarianName.setText("");
 		parlamentarianDescription.setText("");
 		parlamentarianBirthDate.setText("");
-		parlamentarianCivilStatus.setText("");
-		parlamentarianSpouse.setText("");
-		parlamentarianChildren.setText("");
 		parlamentarianPermanentCommissions.setText("");
 		parlamentarianSpecialCommissions.setText("");
 		parlamentarianParty.setText("");
@@ -102,21 +101,6 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@Override
 	public void setParlamentarianBirthDate(String parlamentarianBirthDate) {
 		this.parlamentarianBirthDate.setText(parlamentarianBirthDate);
-	}
-
-	@Override
-	public void setParlamentarianCivilStatus(String parlamentarianCivilStatus) {
-		this.parlamentarianCivilStatus.setText(parlamentarianCivilStatus);
-	}
-
-	@Override
-	public void setParlamentarianSpouse(String parlamentarianSpouse) {
-		this.parlamentarianSpouse.setText(parlamentarianSpouse);
-	}
-
-	@Override
-	public void setParlamentarianChildren(String parlamentarianChildren) {
-		this.parlamentarianChildren.setText(parlamentarianChildren);
 	}
 
 	@Override
@@ -162,6 +146,11 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@Override
 	public CellTable<Stock> getStockTable() {
 		return stockTable;
+	}
+
+	@Override
+	public CellTable<ParlamentarianComment> getParlamentarianCommentTable() {
+		return commentTable;
 	}
 
 	@Override

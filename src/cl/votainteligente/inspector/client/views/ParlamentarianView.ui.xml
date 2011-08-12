@@ -51,12 +51,8 @@
 					<g:Label ui:field="parlamentarianSpecialCommissions" />
 				</li>
 			</ul>
-			<h3>Relaciones Familiares</h3>
-			<ul class="{style.whiteBlock}">
-				<li><span>Estado Civil:</span><g:Label ui:field="parlamentarianCivilStatus" /></li>
-				<li><span>Cónyuge:</span><g:Label ui:field="parlamentarianSpouse" /></li>
-				<li><span>Hijos:</span><g:Label ui:field="parlamentarianChildren" /></li>
-			</ul>
+			
+			<g:HTMLPanel ui:field="parlamentarianCommentPanel" addStyleNames="{style.whiteBlock}"/>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>
