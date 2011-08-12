@@ -1,0 +1,22 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style src="ParlamentarianCommentDisplayView.css" />
+	<g:HTMLPanel>
+		<div>
+			<g:Label ui:field="close" addStyleNames="{style.popupCloseButton}" />
+			<div class="{style.parlamentarianCommentTitleWrapper}">
+				<div class="{style.selectionDisplay}">
+					<g:HTMLPanel addStyleNames="{style.parlamentarianCommentHeader}">
+						<h1><g:Label ui:field="commentSubject" /></h1>
+						<h3>Fecha: </h3>
+						<h3><g:Label styleName="{style.parlamentarianCommentSubTitle}" ui:field="commentCreationDate" /></h3>
+					</g:HTMLPanel>
+				</div>
+				<div class="{style.parlamentarianCommentBody}">
+					<g:Label ui:field="commentBody" />
+				</div>
+			</div>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>
