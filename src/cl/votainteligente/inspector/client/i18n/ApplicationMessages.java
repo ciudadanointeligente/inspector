@@ -25,6 +25,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.parliamentariansInConflict")
 	public String getGeneralParlamentariansInConflict();
 
+	@Key("general.parlamentarianComments")
+	public String getGeneralParlamentarianComments();
+
 	@Key("general.party")
 	public String getGeneralParty();
 
@@ -103,8 +106,14 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.parlamentarian.categorySearch")
 	public String getErrorParlamentarianCategorySearch();
 
+	@Key("error.parlamentarianComment")
+	public String getErrorParlamentarianComment();
+
 	@Key("error.parlamentarianComment.save")
 	public String getErrorParlamentarianCommentSave();
+
+	@Key("error.parlamentarianComment.list")
+	public String getErrorParlamentarianCommentList();
 
 	@Key("error.reportConflict.save")
 	public String getErrorReportConflictSave();
