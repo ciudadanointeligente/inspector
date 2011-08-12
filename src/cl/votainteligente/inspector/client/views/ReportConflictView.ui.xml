@@ -5,7 +5,7 @@
 	<g:HTMLPanel>
 		<h2>Reportar posible conflicto</h2>
 		<g:HTMLPanel>
-			Parlamentario: <g:Label ui:field="parlamentarianName" />
+			Seleccione un parlamentario: <g:ListBox ui:field="parlamentarianList"></g:ListBox>
 			Reporte: <g:TextArea ui:field="report" />
 			<g:Button ui:field="submit">Enviar</g:Button>
 			<g:Button ui:field="clear">Limpiar</g:Button>

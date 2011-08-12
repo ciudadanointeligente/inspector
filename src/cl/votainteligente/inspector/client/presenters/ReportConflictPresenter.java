@@ -20,6 +20,8 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.MyView, ReportConflictPresenter.MyProxy> implements ReportConflictUiHandlers {
@@ -28,8 +30,12 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 
 	public interface MyView extends View, HasUiHandlers<ReportConflictUiHandlers> {
 		void setNotification(String message);
+		void setSelectedParlamentarian(Integer selectedParlamentarianIndex);
+		void setupParlamentarianList();
+		void addParlamentarian(Parlamentarian parlamentarian);
+		void clearForm();
+		Long getSelectedParlamentarianId();
 		String getReport();
-		void setParlamentarianName(String parlamentarianName);
 	}
 
 	@ProxyStandard
@@ -40,10 +46,9 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 	@Inject
 	private ApplicationMessages applicationMessages;
 	@Inject
-	ReportConflictServiceAsync reportConflictService;
+	private ReportConflictServiceAsync reportConflictService;
 	@Inject
 	private ParlamentarianServiceAsync parlamentarianService;
-	private Parlamentarian parlamentarian;
 	private Long parlamentarianId;
 
 	@Inject
@@ -58,9 +63,13 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 
 	@Override
 	protected void onReveal() {
-		if (parlamentarianId != null) {
-			getParlamentarian(parlamentarianId);
-		}
+		getView().clearForm();
+		getParlamentarianList();
+	}
+
+	@Override
+	protected void revealInParent() {
+		fireEvent(new RevealContentEvent(MainPresenter.SLOT_MAIN_CONTENT, this));
 	}
 
 	@Override
@@ -74,8 +83,40 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 		}
 	}
 
-	public void getParlamentarian(Long parlamentarianId) {
+	public void getParlamentarianList() {
+		parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(applicationMessages.getErrorParlamentarianList());
+			}
+
+			@Override
+			public void onSuccess(List<Parlamentarian> result) {
+				if (result != null) {
+					getView().setupParlamentarianList();
+					Integer selectedParlamentarianIndex = 0;
+					Integer i = 1;
+					for (Parlamentarian parlamentarian : result) {
+						getView().addParlamentarian(parlamentarian);
+						if (parlamentarianId != null && parlamentarian.getId().equals(parlamentarianId)) {
+							selectedParlamentarianIndex = i;
+						}
+						i++;
+					}
+					if (parlamentarianId != null) {
+						getView().setSelectedParlamentarian(selectedParlamentarianIndex);
+					}
+				}
+			}
+		});
+	}
+
+	@Override
+	public void submit() {
+		parlamentarianId = getView().getSelectedParlamentarianId();
 		parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
+
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert(applicationMessages.getErrorParlamentarian());
@@ -83,39 +124,20 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 
 			@Override
 			public void onSuccess(Parlamentarian result) {
-				parlamentarian = result;
-				getView().setParlamentarianName((parlamentarian.getFirstName() + ' ' + parlamentarian.getLastName()).toString());
-			}
-		});
-	}
+				ReportConflict reportConflict = new ReportConflict();
+				reportConflict.setReport(getView().getReport());
+				reportConflictService.saveReportConflict(reportConflict, parlamentarianId, new AsyncCallback<ReportConflict>() {
 
-	public Long getParlamentarianId() {
-		return parlamentarianId;
-	}
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert(applicationMessages.getErrorReportConflictSave());
+					}
 
-	public void setParlamentarianId(Long parlamentarianId) {
-		this.parlamentarianId = parlamentarianId;
-	}
-
-	@Override
-	protected void revealInParent() {
-		fireEvent(new RevealContentEvent(MainPresenter.SLOT_MAIN_CONTENT, this));
-	}
-
-	@Override
-	public void submit() {
-		ReportConflict reportConflict = new ReportConflict();
-		reportConflict.setReport(getView().getReport());
-		reportConflictService.saveReportConflict(reportConflict, parlamentarianId, new AsyncCallback<ReportConflict>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorReportConflictSave());
-			}
-
-			@Override
-			public void onSuccess(ReportConflict result) {
-				Window.alert(applicationMessages.getReportConflictSuccess());
+					@Override
+					public void onSuccess(ReportConflict result) {
+						Window.alert(applicationMessages.getReportConflictSuccess());
+					}
+				});
 			}
 		});
 	}

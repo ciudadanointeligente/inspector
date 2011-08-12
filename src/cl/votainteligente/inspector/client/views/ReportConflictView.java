@@ -2,6 +2,7 @@ package cl.votainteligente.inspector.client.views;
 
 import cl.votainteligente.inspector.client.presenters.ReportConflictPresenter;
 import cl.votainteligente.inspector.client.uihandlers.ReportConflictUiHandlers;
+import cl.votainteligente.inspector.model.Parlamentarian;
 
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
@@ -18,7 +19,7 @@ public class ReportConflictView extends ViewWithUiHandlers<ReportConflictUiHandl
 	interface ReportConflictViewUiBinder extends UiBinder<Widget, ReportConflictView> {}
 	private final Widget widget;
 
-	@UiField Label parlamentarianName;
+	@UiField ListBox parlamentarianList;
 	@UiField TextArea report;
 	@UiField Button submit;
 	@UiField Button clear;
@@ -38,13 +39,35 @@ public class ReportConflictView extends ViewWithUiHandlers<ReportConflictUiHandl
 	}
 
 	@Override
-	public void setParlamentarianName(String parlamentarianFullName) {
-		parlamentarianName.setText(parlamentarianFullName);
+	public Long getSelectedParlamentarianId() {
+		return new Long(parlamentarianList.getValue(parlamentarianList.getSelectedIndex()));
+	}
+
+	@Override
+	public void setSelectedParlamentarian(Integer selectedParlamentarianIndex) {
+		parlamentarianList.setSelectedIndex(selectedParlamentarianIndex);
+	}
+
+	@Override
+	public void setupParlamentarianList() {
+		parlamentarianList.clear();
+		parlamentarianList.addItem("Seleccione un parlamentario");
+	}
+
+	@Override
+	public void addParlamentarian(Parlamentarian parlamentarian) {
+		parlamentarianList.addItem(parlamentarian.getLastName() + ", " + parlamentarian.getFirstName(), parlamentarian.getId().toString());
 	}
 
 	@Override
 	public String getReport() {
 		return report.getText();
+	}
+
+	@Override
+	public void clearForm() {
+		parlamentarianList.setSelectedIndex(0);
+		report.setText("");
 	}
 
 	@UiHandler("submit")
@@ -54,8 +77,6 @@ public class ReportConflictView extends ViewWithUiHandlers<ReportConflictUiHandl
 
 	@UiHandler("clear")
 	void onClearClick(ClickEvent event) {
-		report.setText("");
-		report.setFocus(true);
-
+		clearForm();
 	}
 }
