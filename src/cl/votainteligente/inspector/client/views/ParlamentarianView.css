@@ -84,6 +84,18 @@ h2 {
 	float: left;
 }
 
+.aside .parlamentarianComment {
+	background-color: white;
+	padding: 12px 15px;
+	margin-bottom: 12px;
+	overflow: hidden;
+	color: grey;
+}
+
+.aside .parlamentarianComment table tr td {
+	cursor: pointer;
+}
+
 .aside h3{
 	color: grey;
 	display: block;

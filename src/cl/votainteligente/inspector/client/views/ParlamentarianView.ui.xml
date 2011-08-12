@@ -52,7 +52,7 @@
 				</li>
 			</ul>
 			
-			<g:HTMLPanel ui:field="parlamentarianCommentPanel" addStyleNames="{style.whiteBlock}"/>
+			<g:HTMLPanel ui:field="parlamentarianCommentPanel" addStyleNames="{style.parlamentarianComment}"/>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>
