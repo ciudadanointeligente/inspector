@@ -88,7 +88,10 @@ h1, h3 {
 	border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
 	-moz-border-radius: 12px; /* FF1+ */
 	-webkit-border-radius: 12px; /* Saf3-4, iOS 1+, Android 1.5+ */
-	min-height: 200px;
+	min-height: 400px;
+	max-height: 400px;
+	overflow-x: none;
+	overflow-y: auto;
 	margin-top: -12px;
 	padding: 12px;
 }
