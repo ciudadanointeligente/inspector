@@ -14,6 +14,7 @@ public class Stock extends LightEntity implements Comparable<Stock> {
 	private String fantasyName;
 	private String classification;
 	private Long initialQuantity;
+	private Long totalEquivalentAmount;
 	private Set<Category> categories;
 
 	public Long getId() {
@@ -78,6 +79,14 @@ public class Stock extends LightEntity implements Comparable<Stock> {
 
 	public void setInitialQuantity(Long initialQuantity) {
 		this.initialQuantity = initialQuantity;
+	}
+
+	public Long getTotalEquivalentAmount() {
+		return totalEquivalentAmount;
+	}
+
+	public void setTotalEquivalentAmount(Long totalEquivalentAmount) {
+		this.totalEquivalentAmount = totalEquivalentAmount;
 	}
 
 	public Set<Category> getCategories() {

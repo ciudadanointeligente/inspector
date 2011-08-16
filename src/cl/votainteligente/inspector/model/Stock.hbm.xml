@@ -13,6 +13,7 @@
 		<property name="fantasyName" />
 		<property name="classification" />
 		<property name="initialQuantity" />
+		<property name="totalEquivalentAmount" />
 		<set name="categories" table="StockCategories">
 			<key column="stockId" />
 			<many-to-many column="categoryId" class="Category" />
