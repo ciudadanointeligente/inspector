@@ -109,11 +109,17 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.parlamentarianComment")
 	public String getErrorParlamentarianComment();
 
-	@Key("error.parlamentarianComment.save")
-	public String getErrorParlamentarianCommentSave();
+	@Key("error.parlamentarianComment.approval")
+	public String getErrorParlamentarianCommentApproval();
 
 	@Key("error.parlamentarianComment.list")
 	public String getErrorParlamentarianCommentList();
+
+	@Key("error.parlamentarianComment.rejected")
+	public String getErrorParlamentarianCommentRejected();
+
+	@Key("error.parlamentarianComment.save")
+	public String getErrorParlamentarianCommentSave();
 
 	@Key("error.reportConflict.save")
 	public String getErrorReportConflictSave();
@@ -219,6 +225,18 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("parlamentarian.accordingToAreasOfSocietiesOrStocks")
 	public String getParlamentarianAccordingToAreasOfSocietiesOrStocks();
+
+	@Key("parlamentarianComment.approved")
+	public String getParlamentarianCommentApproved();
+
+	@Key("parlamentarianComment.alreadyApproved")
+	public String getParlamentarianCommentAlreadyApproved();
+
+	@Key("parlamentarianComment.alreadyRejected")
+	public String getParlamentarianCommentAlreadyRejected();
+
+	@Key("parlamentarianComment.rejected")
+	public String getParlamentarianCommentRejected();
 
 	@Key("person.civilStatusSingle")
 	public String getCivilStatusSingle();
