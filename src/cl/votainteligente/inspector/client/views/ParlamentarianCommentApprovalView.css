@@ -1,0 +1,97 @@
+h1 {
+	font-family: DeliciousHeavyRegular;
+	font-size: 18px;
+	font-weight: normal;
+	color: white;
+	margin-top: 13px;
+}
+
+h3 {
+	font-family: Arial, Lucida Grande, Calibri, sans-serif;
+	font-size: 12px;
+	color: white;
+	margin-top: -2px;
+	display: block;
+}
+
+h1, h3 {
+	margin-left: 8px;
+}
+
+.parlamentarianCommentTable {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 90%;
+	background: none repeat scroll 0 0 #F3F3F3;
+	cellpadding: 3px;
+	margin: 10px;
+	width: 700px;
+}
+
+.popupCloseButton {
+	background: url("images/close.png") no-repeat scroll 0 0 transparent;
+	display: block;
+	float: left;
+	height: 19px;
+	margin: -42px;
+	position: relative;
+	right: -27px;
+	top: 28px;
+	width: 20px;
+	z-index: 2000;
+	cursor: pointer;
+}
+
+.parlamentarianCommentTitleWrapper {
+	border-bottom: 1px solid lightgrey;
+	border-left: 1px solid lightgrey;
+	border-right: 1px solid lightgrey;
+	-moz-border-radius: 13px; /* FF1+ */
+	-webkit-border-radius: 13px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 13px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	position: relative;
+	width: 718px;
+}
+
+.selectionDisplay {
+	border: 6px solid white;
+	-moz-border-radius: 12px; /* FF1+ */
+	-webkit-border-radius: 12px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	-moz-box-shadow: 0px 0px 16px #000000 inset; /* FF3.5+ */
+	-webkit-box-shadow: 0px 0px 16px #000000 inset; /* Saf3.0+, Chrome */
+	box-shadow: 0px 0px 16px #000000 inset;	/* Opera 10.5, IE9, Chrome 10+ */
+	font-size: 12px;
+	color: white;
+	overflow: hidden;
+	position: relative;
+	height: 46px;
+}
+
+.parlamentarianCommentHeader {
+	margin-top: -5px;
+}
+
+.parlamentarianCommentSubTitle {
+	padding-left: 118px;
+	margin-top: -15px;
+}
+
+.parlamentarianCommentBody {
+	background: #FFF;
+	border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-border-radius: 12px; /* FF1+ */
+	-webkit-border-radius: 12px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	min-height: 400px;
+	max-height: 400px;
+	overflow-x: none;
+	overflow-y: auto;
+	margin-top: -12px;
+	padding: 12px;
+}

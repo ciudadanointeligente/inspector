@@ -1,0 +1,27 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style src="ParlamentarianCommentApprovalView.css" />
+	<g:HTMLPanel>
+		<div>
+			<div class="{style.parlamentarianCommentTitleWrapper}">
+				<div class="{style.selectionDisplay}">
+					<g:HTMLPanel addStyleNames="{style.parlamentarianCommentHeader}">
+						<h1><g:Label ui:field="commentSubject" /></h1>
+						<h3>Fecha: </h3>
+						<h3><g:Label styleName="{style.parlamentarianCommentSubTitle}" ui:field="commentCreationDate" /></h3>
+					</g:HTMLPanel>
+				</div>
+				<div class="{style.parlamentarianCommentBody}">
+					<g:Label ui:field="commentBody" />
+				</div>
+			</div>
+			<g:HTMLPanel ui:field="messagePanel">
+				<g:Label ui:field="message"/>
+				<g:Anchor ui:field="profile">Ver perfil</g:Anchor>
+			</g:HTMLPanel>
+			<g:Button ui:field="approve">Aprobar</g:Button>
+			<g:Button ui:field="reject">Rechazar</g:Button>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>
