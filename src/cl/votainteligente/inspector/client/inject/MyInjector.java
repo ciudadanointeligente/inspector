@@ -25,6 +25,7 @@ public interface MyInjector extends Ginjector {
 	Provider<ParlamentarianPresenter> getParlamentarianPresenter();
 	Provider<ParlamentarianCommentPresenter> getParlamentarianCommentPresenter();
 	Provider<ParlamentarianCommentDisplayPresenter> getParlamentarianCommentDisplayPresenter();
+	Provider<ParlamentarianCommentApprovalPresenter> getParlamentarianCommentApprovalPresenter();
 	Provider<PermalinkPresenter> getPermalinkPresenter();
 	Provider<ReportConflictPresenter> getReportConflictPresenter();
 	Provider<SocietyPresenter> getSocietyPresenter();
