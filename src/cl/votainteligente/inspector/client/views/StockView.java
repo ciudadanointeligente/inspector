@@ -21,10 +21,10 @@ public class StockView extends ViewWithUiHandlers<StockUiHandlers> implements St
 	@UiField Label stockName;
 	@UiField Label stockFantasyName;
 	@UiField Label stockInitialQuantity;
-	@UiField Label parlamentarianStock;
 	@UiField Label stockUnit;
 	@UiField Label stockEmissionDate;
 	@UiField Label stockRemark;
+	@UiField Label stockTotalEquivalentAmount;
 	@UiField Label close;
 
 	public StockView() {
@@ -41,10 +41,10 @@ public class StockView extends ViewWithUiHandlers<StockUiHandlers> implements St
 		stockName.setText("");
 		stockFantasyName.setText("");
 		stockInitialQuantity.setText("");
-		parlamentarianStock.setText("");
 		stockUnit.setText("");
 		stockEmissionDate.setText("");
 		stockRemark.setText("");
+		stockTotalEquivalentAmount.setText("");
 	}
 
 	@Override
@@ -63,8 +63,8 @@ public class StockView extends ViewWithUiHandlers<StockUiHandlers> implements St
 	}
 
 	@Override
-	public void setParlamentarianStock(String parlamentarianStock) {
-		this.parlamentarianStock.setText(parlamentarianStock);
+	public void setStockTotalEquivalentAmount(String stockTotalEquivalentAmount) {
+		this.stockTotalEquivalentAmount.setText(stockTotalEquivalentAmount);
 	}
 
 	@Override

@@ -32,10 +32,10 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 		void setStockName(String stockName);
 		void setStockFantasyName(String stockFantasyName);
 		void setStockInitialQuantity(String stockInitialQuantity);
-		void setParlamentarianStock(String parlamentarianStock);
 		void setStockUnit(String stockUnit);
 		void setStockEmissionDate(String stockEmissionDate);
 		void setStockRemark(String stockRemark);
+		void setStockTotalEquivalentAmount(String stockTotalEquivalentAmount);
 	}
 
 	@ProxyStandard
@@ -124,6 +124,10 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 
 				if (stock.getRemark() != null) {
 					getView().setStockRemark(stock.getRemark());
+				}
+
+				if (stock.getTotalEquivalentAmount() != null) {
+					getView().setStockTotalEquivalentAmount(NumberFormat.getCurrencyFormat().format(stock.getTotalEquivalentAmount()));
 				}
 			}
 		});

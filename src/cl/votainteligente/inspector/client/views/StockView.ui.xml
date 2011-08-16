@@ -21,7 +21,7 @@
 				</tr>
 				<tr>
 					<th><div>Valor en pesos:</div></th>
-					<td class="{style.altTd}"><g:Label ui:field="parlamentarianStock" /></td>
+					<td class="{style.altTd}"><g:Label ui:field="stockTotalEquivalentAmount" /></td>
 				</tr>
 				<tr>
 					<th><div>Unidad:</div></th>
