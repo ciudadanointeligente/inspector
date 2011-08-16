@@ -288,7 +288,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorParlamentarianList());
+				Window.alert(applicationMessages.getErrorParlamentarianCommentList());
 			}
 
 			@Override
