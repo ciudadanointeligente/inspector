@@ -13,7 +13,8 @@ public class ParlamentarianComment extends LightEntity implements Comparable<Par
 	private String subject;
 	private String body;
 	private Date creationDate;
-	private Boolean aproved;
+	private Boolean approved;
+	private Boolean rejected;
 
 	public static final ProvidesKey<ParlamentarianComment> KEY_PROVIDER = new ProvidesKey<ParlamentarianComment>() {
 		public Object getKey(ParlamentarianComment parlamentarianComment) {
@@ -69,12 +70,20 @@ public class ParlamentarianComment extends LightEntity implements Comparable<Par
 		this.creationDate = creationDate;
 	}
 
-	public Boolean getAproved() {
-		return aproved;
+	public Boolean getApproved() {
+		return approved;
 	}
 
-	public void setAproved(Boolean aproved) {
-		this.aproved = aproved;
+	public void setApproved(Boolean aproved) {
+		this.approved = aproved;
+	}
+
+	public Boolean getRejected() {
+		return rejected;
+	}
+
+	public void setRejected(Boolean rejected) {
+		this.rejected = rejected;
 	}
 
 	@Override

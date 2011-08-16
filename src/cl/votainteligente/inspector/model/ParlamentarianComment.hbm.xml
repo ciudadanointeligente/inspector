@@ -13,6 +13,7 @@
 			<column name="body" sql-type="text"/>
 		</property>
 		<property name="creationDate" />
-		<property name="aproved" />
+		<property name="approved" />
+		<property name="rejected" />
 	</class>
 </hibernate-mapping>

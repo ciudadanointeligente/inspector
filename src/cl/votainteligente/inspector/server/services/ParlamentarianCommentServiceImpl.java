@@ -68,7 +68,8 @@ public class ParlamentarianCommentServiceImpl implements ParlamentarianCommentSe
 
 		try {
 			hibernate.beginTransaction();
-			parlamentarianComment.setAproved(false);
+			parlamentarianComment.setApproved(false);
+			parlamentarianComment.setRejected(false);
 			parlamentarianComment.setKey(RandomPassword.getRandomString(100));
 			Parlamentarian parlamentarian = (Parlamentarian) hibernate.load(Parlamentarian.class, parlamentarianId);
 			parlamentarianComment.setParlamentarian(parlamentarian);
@@ -86,15 +87,45 @@ public class ParlamentarianCommentServiceImpl implements ParlamentarianCommentSe
 	}
 
 	@Override
-	public ParlamentarianComment aproveParlamentarianComment(String key) throws Exception {
+	public ParlamentarianComment approveParlamentarianComment(String key, Long id, Long parlamentarianId) throws Exception {
 		Session hibernate = sessionFactory.getCurrentSession();
 
 		try {
 			hibernate.beginTransaction();
+			Parlamentarian parlamentarian = (Parlamentarian) hibernate.load(Parlamentarian.class, parlamentarianId);
 			Criteria criteria = hibernate.createCriteria(ParlamentarianComment.class);
 			criteria.add(Restrictions.eq("key", key));
+			criteria.add(Restrictions.eq("id", id));
+			criteria.add(Restrictions.eq("parlamentarian", parlamentarian));
+			criteria.add(Restrictions.eq("rejected", false));
 			ParlamentarianComment parlamentarianComment = (ParlamentarianComment) criteria.uniqueResult();
-			parlamentarianComment.setAproved(true);
+			parlamentarianComment.setApproved(true);
+			hibernate.saveOrUpdate(parlamentarianComment);
+			hibernate.getTransaction().commit();
+			return parlamentarianComment;
+		} catch (Exception ex) {
+			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
+				hibernate.getTransaction().rollback();
+			}
+
+			throw ex;
+		}
+	}
+
+	@Override
+	public ParlamentarianComment rejectParlamentarianComment(String key, Long id, Long parlamentarianId) throws Exception {
+		Session hibernate = sessionFactory.getCurrentSession();
+
+		try {
+			hibernate.beginTransaction();
+			Parlamentarian parlamentarian = (Parlamentarian) hibernate.load(Parlamentarian.class, parlamentarianId);
+			Criteria criteria = hibernate.createCriteria(ParlamentarianComment.class);
+			criteria.add(Restrictions.eq("key", key));
+			criteria.add(Restrictions.eq("id", id));
+			criteria.add(Restrictions.eq("parlamentarian", parlamentarian));
+			criteria.add(Restrictions.eq("approved", false));
+			ParlamentarianComment parlamentarianComment = (ParlamentarianComment) criteria.uniqueResult();
+			parlamentarianComment.setRejected(true);
 			hibernate.saveOrUpdate(parlamentarianComment);
 			hibernate.getTransaction().commit();
 			return parlamentarianComment;

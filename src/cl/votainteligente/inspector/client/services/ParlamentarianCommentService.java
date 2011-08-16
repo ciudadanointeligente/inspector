@@ -12,6 +12,7 @@ public interface ParlamentarianCommentService extends RemoteService {
 	List<ParlamentarianComment> getAllParlamentarianComments(Long parlamentarianId) throws Exception;
 	ParlamentarianComment getParlamentarianComment(Long parlamentarianCommentId) throws Exception;
 	ParlamentarianComment saveParlamentarianComment(ParlamentarianComment parlamentarianComment, Long parlamentarianId) throws Exception;
-	ParlamentarianComment aproveParlamentarianComment(String key) throws Exception;
+	ParlamentarianComment approveParlamentarianComment(String key, Long id, Long parlamentarianId) throws Exception;
+	ParlamentarianComment rejectParlamentarianComment(String key, Long id, Long parlamentarianId) throws Exception;
 	void deleteParlamentarianComment(ParlamentarianComment parlamentarianComment) throws Exception;
 }

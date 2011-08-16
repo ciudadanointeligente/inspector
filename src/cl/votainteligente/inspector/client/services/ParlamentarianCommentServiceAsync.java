@@ -10,6 +10,7 @@ public interface ParlamentarianCommentServiceAsync {
 	void getAllParlamentarianComments(Long parlamentarianId, AsyncCallback<List<ParlamentarianComment>> callback);
 	void getParlamentarianComment(Long parlamentarianCommentId, AsyncCallback<ParlamentarianComment> callback);
 	void saveParlamentarianComment(ParlamentarianComment parlamentarianComment, Long parlamentarianId, AsyncCallback<ParlamentarianComment> callback);
-	void aproveParlamentarianComment(String key, AsyncCallback<ParlamentarianComment> callback);
+	void approveParlamentarianComment(String key, Long id, Long parlamentarianId, AsyncCallback<ParlamentarianComment> callback);
+	void rejectParlamentarianComment(String key, Long id, Long parlamentarianId, AsyncCallback<ParlamentarianComment> callback);
 	void deleteParlamentarianComment(ParlamentarianComment parlamentarianComment, AsyncCallback<Void> callback);
 }
