@@ -8,6 +8,7 @@ import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -69,6 +70,14 @@ public class ParlamentarianCommentView extends ViewWithUiHandlers<Parlamentarian
 		parlamentarianList.setSelectedIndex(0);
 		commentSubject.setText("");
 		commentBody.setText("");
+	}
+
+	@UiHandler("commentSubject")
+	public void onCommentSubjectKeyDown(KeyDownEvent event) {
+		String subject = commentSubject.getText();
+		if (subject.length() >= 109) {
+			event.preventDefault();
+		}
 	}
 
 	@UiHandler("commentSubmit")
