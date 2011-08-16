@@ -30,7 +30,7 @@ public class ParlamentarianCommentServiceImpl implements ParlamentarianCommentSe
 			Parlamentarian parlamentarian = (Parlamentarian) hibernate.load(Parlamentarian.class, parlamentarianId);
 			Criteria criteria = hibernate.createCriteria(ParlamentarianComment.class);
 			criteria.add(Restrictions.eq("parlamentarian", parlamentarian));
-			criteria.add(Restrictions.eq("aproved", true));
+			criteria.add(Restrictions.eq("approved", true));
 			criteria.addOrder(Order.asc("creationDate"));
 			List<ParlamentarianComment> parlamentarianComments = criteria.list();
 			hibernate.getTransaction().commit();
