@@ -552,7 +552,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 			}
 		};
 
-		getView().getParlamentarianCommentTable().addColumn(subjectColumn, applicationMessages.getGeneralParlamentarianComments());
+		getView().getParlamentarianCommentTable().addColumn(subjectColumn);
 
 		// Sets selection model for each row
 		final SingleSelectionModel<ParlamentarianComment> selectionModel = new SingleSelectionModel<ParlamentarianComment>(ParlamentarianComment.KEY_PROVIDER);

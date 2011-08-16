@@ -51,7 +51,7 @@
 					<g:Label ui:field="parlamentarianSpecialCommissions" />
 				</li>
 			</ul>
-			
+			<h3>Comentarios del parlamentario</h3>
 			<g:HTMLPanel ui:field="parlamentarianCommentPanel" addStyleNames="{style.parlamentarianComment}"/>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
