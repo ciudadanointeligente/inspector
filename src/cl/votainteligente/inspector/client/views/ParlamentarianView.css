@@ -83,17 +83,66 @@ h2 {
 	margin-right:10px;
 	float: left;
 }
+.aside h3.comments{
+	background: url("images/bg_dark.jpg") repeat scroll 0 0 padding-box transparent;
+	border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	box-shadow: 0 0 23px #000000 inset;
+	color: #F3F3F3;
+	display: block;
+	padding: 5px 12px;
+	border-style: solid solid none;
+	border-width: none 3px 3px;
+	border-color: white;
+}
 
 .aside .parlamentarianComment {
-	background-color: white;
-	padding: 12px 15px;
+	background: url("images/bg_dark.jpg") repeat scroll 0 0 padding-box transparent;
+	border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0px 0px 6px 6px;
+	-webkit-border-radius: 0px 0px 6px 6px;
+	color: grey;
 	margin-bottom: 12px;
 	overflow: hidden;
-	color: grey;
+	border-style: none solid solid;
+	border-width: 3px 3px none;
+	border-color: white;
+
 }
 
 .aside .parlamentarianComment table tr td {
+	background: url("images/ic_comment_outline.png") no-repeat scroll 6px 11px padding-box transparent;
+	color: white;
 	cursor: pointer;
+	font-size: 0.95em;
+	padding: 10px 12px 11px 35px;
+	border-bottom: 1px solid #272727;
+		border-top: 1px solid #4D4D4D;
+}
+.aside .parlamentarianComment table tr td:hover {
+	background-color: #292929;
+
+}
+
+
+.aside .parlamentarianComment table tr{
+	background: url("images/bg_dark.jpg") repeat scroll 0 0 padding-box transparent;
+}
+
+
+.aside .parlamentarianComment table tr td {
+	cursor: pointer;
+}
+
+
+.parlamentarianComment .cellTableEvenRow {
+	background-color: transparent;
+}
+
+
+.parlamentarianComment .cellTableOddRow {
+	background-color: transparent;
 }
 
 .aside h3{
