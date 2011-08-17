@@ -1,23 +1,37 @@
-h1 {
-	font-family: DeliciousHeavyRegular;
-	font-size: 18px;
-	font-weight: normal;
+.selectionDisplay h1 {
+	font-family: DeliciousBold;
+	font-weight: lighter;
 	color: white;
-	margin-top: 13px;
 }
 
-h3 {
+.selectionDisplay h3 {
 	font-family: Arial, Lucida Grande, Calibri, sans-serif;
 	font-size: 12px;
 	color: white;
-	margin-top: -2px;
-	display: block;
+	float: left;
+	margin-right: 10px;
 }
 
-h1, h3 {
-	margin-left: 8px;
-}
+.selectionDisplay {
+	border: 6px solid white;
+	-moz-border-radius: 12px; /* FF1+ */
+	-webkit-border-radius: 12px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	-moz-box-shadow: 0px 0px 16px #000000 inset; /* FF3.5+ */
+	-webkit-box-shadow: 0px 0px 16px #000000 inset; /* Saf3.0+, Chrome */
+	box-shadow: 0px 0px 16px #000000 inset;	/* Opera 10.5, IE9, Chrome 10+ */
+	font-size: 12px;
+	color: white;
+	overflow: hidden;
+	position: relative;
+	height: 26px;
+	padding: 10px;
 
+}
 .societyTable {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 90%;
@@ -87,25 +101,6 @@ h1, h3 {
 	background-clip: padding-box;
 	position: relative;
 	width: 718px;
-}
-
-.selectionDisplay {
-	border: 6px solid white;
-	-moz-border-radius: 12px; /* FF1+ */
-	-webkit-border-radius: 12px; /* Saf3-4, iOS 1+, Android 1.5+ */
-	border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
-	background: url(images/bg_dark.jpg) repeat scroll 0 0 transparent;
-	-moz-background-clip: padding;
-	-webkit-background-clip: padding-box;
-	background-clip: padding-box;
-	-moz-box-shadow: 0px 0px 16px #000000 inset; /* FF3.5+ */
-	-webkit-box-shadow: 0px 0px 16px #000000 inset; /* Saf3.0+, Chrome */
-	box-shadow: 0px 0px 16px #000000 inset;	/* Opera 10.5, IE9, Chrome 10+ */
-	font-size: 12px;
-	color: white;
-	overflow: hidden;
-	position: relative;
-	height: 46px;
 }
 
 .societyHeader {
