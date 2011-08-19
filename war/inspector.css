@@ -270,24 +270,29 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .success,.error,.notice {
-	display: block;
-	font-family: Trebuchet MS, Calibri, Arial, Sans Serif;
-	font-size: 9pt;
-	font-style: italic;
-	font-weight: normal;
-	letter-spacing: 1pt;
-	line-height: 120%;
-	overflow: hidden;
-	padding: 13px 10px 7px 40px;
-	border: 0px;
-	border-radius: 5px 5px 5px 5px;
-	-moz-border-radius: 5px 5px 5px 5px;
-	-webkit-border-radius: 5px 5px 5px 5px;
-	-khtml-border-radius: 5px 5px 5px 5px;
-	behavior: url(border-radius.htc);
-	position: fixed;
-	float: right;
-	bottom: 0px;
+
+		border-radius: 0 0 10px 10px;
+		border-right: 5px solid white;
+		border-top: none;
+		border-left: 5px solid white;
+		border-bottom: 5px solid white;
+		box-shadow: 3px 7px 20px #000000;
+		-moz-box-shadow: 3px 7px 20px #000000;
+		-webkit-box-shadow: 3px 7px 20px #000000;
+		display: block;
+		float: right;
+		font-family: Trebuchet MS,Calibri,Arial,Sans Serif;
+		font-size: 9pt;
+		font-style: italic;
+		font-weight: normal;
+		height: 22px;
+		letter-spacing: 1pt;
+		line-height: 120%;
+		margin-left: 600px;
+		overflow: hidden;
+		padding: 16px 10px 7px 40px;
+		position: fixed;
+		top: 0;
 }
 
 .success {
