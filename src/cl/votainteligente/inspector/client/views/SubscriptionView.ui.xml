@@ -2,10 +2,11 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style src="SubscriptionView.css" />
-	<g:FocusPanel ui:field="subscriptionPanel">
+	<g:FocusPanel ui:field="subscriptionPanel" addStyleNames="{style.popupSubscriptionPanel}">
 		<g:HTMLPanel>
 			<g:Label ui:field="close" addStyleNames="{style.popupCloseButton}" />
 			<g:Label ui:field="notification"></g:Label>
+			<h4>Ingresa tu mail para recibir noticias de este tema</h4>
 			<g:TextBox ui:field="email"/>
 			<g:Button ui:field="subscribe">Suscribir</g:Button>
 		</g:HTMLPanel>
