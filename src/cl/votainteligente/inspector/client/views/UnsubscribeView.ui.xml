@@ -2,8 +2,8 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style src="UnsubscribeView.css" />
-	<g:HTMLPanel>
-		<g:Label ui:field="unsubscribeDetails"></g:Label>
+	<g:HTMLPanel addStyleNames="{style.container}">
+		<g:Label ui:field="unsubscribeDetails" addStyleNames="{style.unsuscribeText}"></g:Label>
 		<g:Button ui:field="unsubscribe">Eliminar suscripción</g:Button>
 	</g:HTMLPanel>
 </ui:UiBinder>
