@@ -389,7 +389,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 			}
 		};
 
-		getView().getSocietyTable().addColumn(societyIsInConflictColumn, applicationMessages.getSocietyIsInConflict());
+		getView().getSocietyTable().addColumn(societyIsInConflictColumn, applicationMessages.getSocietyPotentialConflict());
 
 		Column<Society, Society> viewSocietyColumn = new Column<Society, Society>(new ActionCell<Society>("", new ActionCell.Delegate<Society>() {
 
@@ -508,7 +508,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 			}
 		};
 
-		getView().getStockTable().addColumn(stockIsInConflictColumn, applicationMessages.getStockIsInConflict());
+		getView().getStockTable().addColumn(stockIsInConflictColumn, applicationMessages.getStockPotentialConflict());
 
 		Column<Stock, Stock> viewStockColumn = new Column<Stock, Stock>(new ActionCell<Stock>("", new ActionCell.Delegate<Stock>() {
 

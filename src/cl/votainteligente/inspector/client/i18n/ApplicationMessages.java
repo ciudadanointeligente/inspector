@@ -271,8 +271,8 @@ public interface ApplicationMessages extends Messages {
 	@Key("society.reportedThis")
 	public String getSocietyReportedThis();
 
-	@Key("society.isInConflict")
-	public String getSocietyIsInConflict();
+	@Key("society.potentialConflict")
+	public String getSocietyPotentialConflict();
 
 	@Key("society.viewMore")
 	public String getSocietyViewMore();
@@ -298,8 +298,8 @@ public interface ApplicationMessages extends Messages {
 	@Key("stock.reportedThis")
 	public String getStockReportedThis();
 
-	@Key("stock.isInConflict")
-	public String getStockIsInConflict();
+	@Key("stock.potentialConflict")
+	public String getStockPotentialConflict();
 
 	@Key("stock.viewMore")
 	public String getStockViewMore();
