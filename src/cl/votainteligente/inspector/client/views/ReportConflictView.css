@@ -1,0 +1,38 @@
+.container{
+	background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	-webkit-background-clip: padding-box;
+	background-color: rgba(0, 0, 0, 0.2);
+	border: 10px solid white;
+	border-radius: 17px 17px 17px 17px;
+	-moz-border-radius: 17px 17px 17px 17px;
+	-webkit-border-radius: 17px 17px 17px 17px;
+	box-shadow: 0 0 1px #7E7C7C inset, 0 3px 3px #C9C9C9;
+	-moz-box-shadow: 0 0 1px #7E7C7C inset, 0 3px 3px #C9C9C9;
+	-webkit-box-shadow: 0 0 1px #7E7C7C inset, 0 3px 3px #C9C9C9;
+	display: block;
+	float: left;
+	margin: 4px;
+	padding: 35px 35px 50px;
+	width: 850px;
+}
+
+.textAreaReport{
+	width: 400px;
+	height: 200px;
+	margin: 0 0 10px;
+}
+
+.container h2{
+	margin-bottom: 10px;
+}
+
+.listBoxReport{
+	min-width: 400px;
+}
+
+.container p {
+	font-size: 1.1em;
+	font-weight: bold;
+	margin: 20px 0 3px;
+}
