@@ -1,4 +1,35 @@
-h1 {
+.CommentApproval{
+	margin: 0px 100px;
+}
+
+.CommentApprovalProfileButton {
+	background: url("images/profile_button.png") no-repeat scroll -6px top transparent;
+	cursor: pointer;
+	display: block;
+	float: right;
+	font-family: DeliciousBold;
+	font-size: 1.3em;
+	height: 27px;
+	line-height: 31px;
+	padding-left: 37px;
+	text-decoration: none;
+}
+
+.CommentApprovalProfileButton:hover {
+	background-position: -6px -54px;
+}
+
+.CommentApprovalMessage{
+	background-color: white;
+	border: 1px dotted lightgrey;
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-bottom: 10px;
+	padding: 10px;
+	text-align: center;
+}
+
+.CommentApproval h1 {
 	font-family: DeliciousHeavyRegular;
 	font-size: 18px;
 	font-weight: normal;
@@ -6,40 +37,19 @@ h1 {
 	margin-top: 13px;
 }
 
-h3 {
+.CommentApproval h3 {
 	font-family: Arial, Lucida Grande, Calibri, sans-serif;
 	font-size: 12px;
 	color: white;
 	margin-top: -2px;
 	display: block;
+	float: left;
 }
 
-h1, h3 {
+.CommentApproval h1, .CommentApproval h3 {
 	margin-left: 8px;
 }
 
-.parlamentarianCommentTable {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 90%;
-	background: none repeat scroll 0 0 #F3F3F3;
-	cellpadding: 3px;
-	margin: 10px;
-	width: 700px;
-}
-
-.popupCloseButton {
-	background: url("images/close.png") no-repeat scroll 0 0 transparent;
-	display: block;
-	float: left;
-	height: 19px;
-	margin: -42px;
-	position: relative;
-	right: -27px;
-	top: 28px;
-	width: 20px;
-	z-index: 2000;
-	cursor: pointer;
-}
 
 .parlamentarianCommentTitleWrapper {
 	border-bottom: 1px solid lightgrey;
@@ -52,7 +62,7 @@ h1, h3 {
 	-webkit-background-clip: padding-box;
 	background-clip: padding-box;
 	position: relative;
-	width: 718px;
+	margin-bottom: 15px;
 }
 
 .selectionDisplay {
@@ -79,19 +89,18 @@ h1, h3 {
 }
 
 .parlamentarianCommentSubTitle {
-	padding-left: 118px;
-	margin-top: -15px;
 }
 
 .parlamentarianCommentBody {
-	background: #FFF;
-	border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
-	-moz-border-radius: 12px; /* FF1+ */
-	-webkit-border-radius: 12px; /* Saf3-4, iOS 1+, Android 1.5+ */
-	min-height: 400px;
-	max-height: 400px;
-	overflow-x: none;
-	overflow-y: auto;
-	margin-top: -12px;
-	padding: 12px;
+	background-color: #FFF;
+	border-radius: 0 0 12px 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+	-moz-border-radius: 0 0 12px 12px; /* FF1+ */
+	-webkit-border-radius: 0 0 12px 12px; /* Saf3-4, iOS 1+, Android 1.5+ */
+	line-height: 160%;
+	margin-top: -8px;
+	padding: 27px 27px 40px;
+}
+
+.bottom{
+	text-align: center;
 }
