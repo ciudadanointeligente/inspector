@@ -178,19 +178,34 @@ h2 {
 }
 
 .aside a.reportButton{
-	color: white;
-	font-size: 1.1em;
-	text-decoration: none;
-	background: url("images/polaroid.png") no-repeat scroll right 0pt, url("images/bg_darkred.png") repeat scroll 0 0 padding-box transparent;
+	background: url("images/polaroid.png") no-repeat scroll 197px 15px, url("images/bg_darkred.png") repeat scroll 0 0 padding-box transparent;
 	border-color: white;
 	border-radius: 6px 6px 6px 6px;
+	-moz-border-radius: 6px 6px 6px 6px;
+	-webkit-border-radius: 6px 6px 6px 6px;
 	border-style: solid;
 	box-shadow: 0 0 23px #590000 inset, 0 2px 2px #4D4D4D;
+	-moz-box-shadow: 0 0 23px #590000 inset, 0 2px 2px #4D4D4D;
+	-webkit-box-shadow: 0 0 23px #590000 inset, 0 2px 2px #4D4D4D;
+	color: #FFFFFF;
 	display: block;
-	padding: 8px 12px;
-	position: relative;
-	top: 0px;
+	line-height: 190%;
 	margin: 5px 0 20px;
+	padding: 5px 12px;
+	position: relative;
+	text-decoration: none;
+	top: 0;
+}
+
+
+
+.aside a.reportButton span{
+	color: white;
+	font-family: TrashHandRegular;
+	font-size: 21px;
+	font-weight: normal;
+	letter-spacing: 0.5pt;
+	word-spacing: 2pt;
 }
 
 .aside a.reportButton:hover{

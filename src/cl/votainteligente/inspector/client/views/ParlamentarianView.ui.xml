@@ -35,7 +35,10 @@
 			<g:HTMLPanel ui:field="stockPanel" addStyleNames="{style.stockPanel}"/>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.aside}">
-			<g:Anchor ui:field="reportConflictLink" addStyleNames="{style.reportButton}">Reportar un posible conflicto</g:Anchor>
+			<g:Anchor ui:field="reportConflictLink" addStyleNames="{style.reportButton}">¿Sabes algo que nosotros no?
+				<br />
+				<span>Reporta posibles conflicto</span>
+			</g:Anchor>
 			<h3>Partido</h3>
 			<div class="{style.whiteBlock}">
 				<g:Label ui:field="parlamentarianParty" />
