@@ -258,7 +258,6 @@ td.selectedCategory div {
 	right: 32px;
 	top: 28px;
 	width: 20px;
-	z-index: 20000;
 	cursor: pointer;
 }
 
