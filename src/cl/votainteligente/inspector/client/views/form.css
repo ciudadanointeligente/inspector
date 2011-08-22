@@ -1,4 +1,4 @@
-.container{
+.formContainer{
 	background-clip: padding-box;
 	-moz-background-clip: padding-box;
 	-webkit-background-clip: padding-box;
@@ -17,21 +17,21 @@
 	width: 850px;
 }
 
-.textAreaReport{
-	width: 400px;
+.formTextArea{
+	width: 500px;
 	height: 200px;
 	margin: 0 0 10px;
 }
 
-.container h2{
+.formContainer h2{
 	margin-bottom: 10px;
 }
 
-.listBoxReport{
-	min-width: 400px;
+.formListBox{
+	min-width: 300px;
 }
 
-.container p {
+.formContainer p {
 	font-size: 1.1em;
 	font-weight: bold;
 	margin: 20px 0 3px;

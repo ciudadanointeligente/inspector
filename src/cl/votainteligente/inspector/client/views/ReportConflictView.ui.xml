@@ -1,14 +1,14 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<ui:style src="ReportConflictView.css" />
-	<g:HTMLPanel addStyleNames="{style.container}">
+	<ui:style src="form.css" />
+	<g:HTMLPanel addStyleNames="{style.formContainer}">
 		<h2>Reportar posible conflicto</h2>
 		<g:HTMLPanel>
 			<p>Seleccione un parlamentario:</p>
-			<g:ListBox ui:field="parlamentarianList" addStyleNames="{style.listBoxReport}" ></g:ListBox>
+			<g:ListBox ui:field="parlamentarianList" addStyleNames="{style.formListBox}" ></g:ListBox>
 			<p>Reporte:</p>
-			<g:TextArea addStyleNames="{style.textAreaReport}" ui:field="report" />
+			<g:TextArea addStyleNames="{style.formTextArea}" ui:field="report" />
 			<br />
 			<g:Button ui:field="submit">Enviar</g:Button>
 			<g:Button ui:field="clear">Limpiar</g:Button>
