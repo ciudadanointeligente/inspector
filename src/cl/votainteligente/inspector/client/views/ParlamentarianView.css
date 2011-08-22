@@ -178,7 +178,7 @@ h2 {
 }
 
 .aside a.reportButton{
-	background: url("images/polaroid.png") no-repeat scroll 197px 15px, url("images/bg_darkred.png") repeat scroll 0 0 padding-box transparent;
+	background: url("images/polaroid.png") no-repeat scroll 201px 15px, url("images/bg_darkred.png") repeat scroll 0 0 padding-box transparent;
 	border-color: white;
 	border-radius: 6px 6px 6px 6px;
 	-moz-border-radius: 6px 6px 6px 6px;
@@ -202,10 +202,10 @@ h2 {
 .aside a.reportButton span{
 	color: white;
 	font-family: TrashHandRegular;
-	font-size: 21px;
+	font-size: 20px;
 	font-weight: normal;
 	letter-spacing: 0.5pt;
-	word-spacing: 2pt;
+	word-spacing: 0;
 }
 
 .aside a.reportButton:hover{

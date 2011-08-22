@@ -37,7 +37,7 @@
 		<g:HTMLPanel addStyleNames="{style.aside}">
 			<g:Anchor ui:field="reportConflictLink" addStyleNames="{style.reportButton}">¿Sabes algo que nosotros no?
 				<br />
-				<span>Reporta posibles conflicto</span>
+				<span>Reporta posibles conflictos</span>
 			</g:Anchor>
 			<h3>Partido</h3>
 			<div class="{style.whiteBlock}">
