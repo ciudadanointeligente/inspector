@@ -161,30 +161,53 @@ h1,h2,h3,h4,h5,h6 {
 
 /* -----------------------index ----------------------- */
 #headerLine {
-	background: url("images/bg_menubar.png") repeat-x scroll 0 18px
-		transparent;
+	background: url("images/bg_menubar.png") repeat-x scroll 0 18px transparent;
+	display: block;
+	height: 120px;
+	width: 100%;
 }
 
 #header {
 	width: 1050px;
 	margin: auto;
+	position: relative;
 }
 
 #headLogo {
-	background: url(images/logo_inspector.png) no-repeat scroll -10px 0
-		transparent;
-	height: 118px;
+	background: url("images/logo_inspector.png") no-repeat scroll -10px 0 transparent;
 	cursor: pointer;
-	width: 336px;
 	display: block;
+	float: left;
+	height: 118px;
+	width: 336px;
+}
+
+#etiquetaFCI {
+	background-color: white;
+	border: 1px solid #CCCCCC;
+	border-radius: 0 0 3px 3px;
+	box-shadow: 0 0 14px #000000;
+	float: right;
+	height: 68px;
+	padding: 0;
+	position: relative;
+	right: 50px;
+	text-align: center;
+	top: -4px;
+	width: 188px;
+}
+
+#etiquetaFCI img {
+	margin: 8px 0 0;
 }
 
 #container {
-	width: 950px;
-	margin: auto;
 	display: block;
-	margin: auto;
+	margin: 0 auto auto;
 	overflow: hidden;
+	position: relative;
+	top: -10px;
+	width: 950px;
 }
 
 /*---exceptions---*/
@@ -340,3 +363,4 @@ h1,h2,h3,h4,h5,h6 {
 .clickableCell:hover {
 	text-decoration: underline;
 }
+
