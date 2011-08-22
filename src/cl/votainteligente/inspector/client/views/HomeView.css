@@ -153,24 +153,24 @@
 }
 
 .selectionTable td.parlamentarianImage {
-	width: 65px;
-	padding: 0px 5px 0px 0px;
+	padding: 0 0 0 15px;
+	width: 42px;
 }
 
 .selectionTable td.parlamentarianImage img {
 	margin: 0 0 -4px -1px;
-	width: 95%;
+	width: 90%;
 }
 
 td.selectedParlamentarian {
-	width: 284px;
+	width: 292px;
 	padding-right: 20px;
 }
 
 td.plus {
 	background: url(images/plus.png) no-repeat scroll center center
 		transparent;
-	width: 80px;
+	width: 91px;
 }
 
 td.selectedCategory div {

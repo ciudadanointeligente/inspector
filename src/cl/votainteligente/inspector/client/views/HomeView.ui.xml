@@ -50,7 +50,7 @@
 							<div class="{style.linkProfile}"><g:Label ui:field="parlamentarianProfileLink" visible="false">ver su perfil de intereses</g:Label></div>
 						</td>
 						<td class="{style.plus}"></td>
-						<td class="{style.selectedCategory"><g:Label ui:field="categoryDisplay"></g:Label></td>
+						<td class="{style.selectedCategory}"><g:Label ui:field="categoryDisplay"></g:Label></td>
 					</tr>
 				</table>
 			</g:HTMLPanel>
