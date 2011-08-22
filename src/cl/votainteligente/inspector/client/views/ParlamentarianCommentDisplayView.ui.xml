@@ -13,10 +13,11 @@
 						<h3><g:Label styleName="{style.parlamentarianCommentSubTitle}" ui:field="commentCreationDate" /></h3>
 					</g:HTMLPanel>
 				</div>
+			</div>
 				<div class="{style.parlamentarianCommentBody}">
 					<g:Label ui:field="commentBody" />
 				</div>
-			</div>
+
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>
