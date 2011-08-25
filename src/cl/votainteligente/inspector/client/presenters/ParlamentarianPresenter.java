@@ -368,28 +368,28 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 		getView().getSocietyTable().addColumn(societyReportedThisColumn, applicationMessages.getSocietyReportedThis());
 
-		TextColumn<Society> societyIsInConflictColumn = new TextColumn<Society>() {
+		Column<Society, String> societyPotentialConflictColumn = new Column<Society, String>(new ImageCell()) {
 			@Override
 			public String getValue(Society society) {
 				for (Category category : society.getCategories()) {
 					for (Bill bill : parlamentarian.getAuthoredBills()) {
 						if (bill.getCategories().contains(category)) {
-							return applicationMessages.getGeneralYes();
+							return "images/conflict_beacon.png";
 						}
 					}
 
 					for (Bill bill : parlamentarian.getVotedBills()) {
 						if (bill.getCategories().contains(category)) {
-							return applicationMessages.getGeneralYes();
+							return "images/conflict_beacon.png";
 						}
 					}
 				}
 
-				return applicationMessages.getGeneralNo();
+				return null;
 			}
 		};
 
-		getView().getSocietyTable().addColumn(societyIsInConflictColumn, applicationMessages.getSocietyPotentialConflict());
+		getView().getSocietyTable().addColumn(societyPotentialConflictColumn, applicationMessages.getSocietyPotentialConflict());
 
 		Column<Society, Society> viewSocietyColumn = new Column<Society, Society>(new ActionCell<Society>("", new ActionCell.Delegate<Society>() {
 
@@ -487,28 +487,28 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 		getView().getStockTable().addColumn(stockReportedThisColumn, applicationMessages.getStockReportedThis());
 
-		TextColumn<Stock> stockIsInConflictColumn = new TextColumn<Stock>() {
+		Column<Stock, String> stockPotentialConflictColumn = new Column<Stock, String>(new ImageCell()) {
 			@Override
 			public String getValue(Stock stock) {
 				for (Category category : stock.getCategories()) {
 					for (Bill bill : parlamentarian.getAuthoredBills()) {
 						if (bill.getCategories().contains(category)) {
-							return applicationMessages.getGeneralYes();
+							return "images/conflict_beacon.png";
 						}
 					}
 
 					for (Bill bill : parlamentarian.getVotedBills()) {
 						if (bill.getCategories().contains(category)) {
-							return applicationMessages.getGeneralYes();
+							return "images/conflict_beacon.png";
 						}
 					}
 				}
 
-				return applicationMessages.getGeneralNo();
+				return null;
 			}
 		};
 
-		getView().getStockTable().addColumn(stockIsInConflictColumn, applicationMessages.getStockPotentialConflict());
+		getView().getStockTable().addColumn(stockPotentialConflictColumn, applicationMessages.getStockPotentialConflict());
 
 		Column<Stock, Stock> viewStockColumn = new Column<Stock, Stock>(new ActionCell<Stock>("", new ActionCell.Delegate<Stock>() {
 
