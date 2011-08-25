@@ -3,6 +3,8 @@ package cl.votainteligente.inspector.server.services;
 import cl.votainteligente.inspector.client.services.ParlamentarianCommentService;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.ParlamentarianComment;
+import cl.votainteligente.inspector.server.ApplicationProperties;
+import cl.votainteligente.inspector.server.Emailer;
 import cl.votainteligente.inspector.server.RandomPassword;
 
 import org.hibernate.Criteria;
@@ -75,7 +77,23 @@ public class ParlamentarianCommentServiceImpl implements ParlamentarianCommentSe
 			parlamentarianComment.setParlamentarian(parlamentarian);
 			parlamentarianComment.setCreationDate(new Date());
 			hibernate.saveOrUpdate(parlamentarianComment);
+
+			String parlamentarianCommentLink = ApplicationProperties.getProperty("server.address") + "#parlamentarianComment";
+			parlamentarianCommentLink += ";parlamentarianId=" + parlamentarian.getId().toString();
+			parlamentarianCommentLink += ";parlamentarianCommentId=" + parlamentarianComment.getId().toString();
+			parlamentarianCommentLink += ";parlamentarianCommentKey=" + parlamentarianComment.getKey();
+			String parlamentarianName = parlamentarian.getFirstName() + " " + parlamentarian.getLastName();
+			String messageBody = String.format(ApplicationProperties.getProperty("email.parlamentarian.body"), parlamentarianName, parlamentarianCommentLink);
+			messageBody += ApplicationProperties.getProperty("email.signature");
+
 			hibernate.getTransaction().commit();
+
+			Emailer emailer = new Emailer();
+			emailer.setSubject(ApplicationProperties.getProperty("email.parlamentarian.subject"));
+			emailer.setBody(messageBody);
+			emailer.setRecipient(parlamentarian.getEmail());
+			emailer.connectAndSend();
+
 			return parlamentarianComment;
 		} catch (Exception ex) {
 			if (hibernate.isOpen() && hibernate.getTransaction().isActive()) {
