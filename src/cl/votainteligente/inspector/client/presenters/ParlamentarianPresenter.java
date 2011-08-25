@@ -93,13 +93,13 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 	@Override
 	protected void onReset() {
+		initParlamentarianCommentTableColumns();
 	}
 
 	@Override
 	protected void onReveal() {
 		initSocietyTableColumns();
 		initStockTableColumns();
-		initParlamentarianCommentTableColumns();
 		societyData = new ListDataProvider<Society>();
 		societyData.addDataDisplay(getView().getSocietyTable());
 		stockData = new ListDataProvider<Stock>();
