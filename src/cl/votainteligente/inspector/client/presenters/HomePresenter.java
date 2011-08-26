@@ -262,24 +262,34 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			}
 
 			List<String> keyWordList = new ArrayList<String>(Arrays.asList(keyWordArray));
-			String keyWordPattern = "(";
+			String keyWordPattern = "";
+			String keyWordReversePattern = "";
+			String filterPattern;
+			String word;
+			String name;
 			Iterator<String> keyWordIterator = keyWordList.iterator();
 
 			while (keyWordIterator.hasNext()) {
-				keyWordPattern += keyWordIterator.next();
+				word = keyWordIterator.next();
+				keyWordPattern += "(" + word + ")";
+				keyWordReversePattern = word + keyWordReversePattern;
+
 				if (keyWordIterator.hasNext()) {
-					keyWordPattern += "|";
+					keyWordPattern += ".+";
+					keyWordReversePattern = ".+" + keyWordReversePattern;
 				}
 			}
-			keyWordPattern += ")";
-
 			List<Parlamentarian> result = new ArrayList<Parlamentarian>();
+			filterPattern = ".*("+ keyWordPattern + "|" + keyWordReversePattern + ").*";
 
 			for (Parlamentarian parlamentarian : parlamentarianFetchedData) {
-				if (parlamentarian.getFirstName().toLowerCase().matches(".*"+ keyWordPattern + ".*")) {
+				name = parlamentarian.getFirstName().toLowerCase() + " " + parlamentarian.getLastName().toLowerCase();
+
+				if (name.matches(filterPattern)) {
 					result.add(parlamentarian);
 				} else {
-					if (parlamentarian.getLastName().toLowerCase().matches(".*"+ keyWordPattern + ".*")) {
+					name = parlamentarian.getLastName().toLowerCase() + ", " + parlamentarian.getFirstName().toLowerCase();
+					if (name.matches(filterPattern)) {
 						result.add(parlamentarian);
 					}
 				}
@@ -371,21 +381,26 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			}
 
 			List<String> keyWordList = new ArrayList<String>(Arrays.asList(keyWordArray));
-			String keyWordPattern = "(";
+			String keyWordPattern = "";
+			String filterPattern;
+			String word;
+			String name;
 			Iterator<String> keyWordIterator = keyWordList.iterator();
 
 			while (keyWordIterator.hasNext()) {
-				keyWordPattern += keyWordIterator.next();
+				word = keyWordIterator.next();
+				keyWordPattern += "(" + word + ")";
+
 				if (keyWordIterator.hasNext()) {
-					keyWordPattern += "|";
+					keyWordPattern += ".+";
 				}
 			}
-			keyWordPattern += ")";
-
 			List<Category> result = new ArrayList<Category>();
+			filterPattern = ".*("+ keyWordPattern + ").*";
 
 			for (Category category : categoryFetchedData) {
-				if (category.getName().toLowerCase().matches(".*"+ keyWordPattern + ".*")) {
+				name = category.getName().toLowerCase();
+				if (name.matches(filterPattern)) {
 					result.add(category);
 				}
 			}
