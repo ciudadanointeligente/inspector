@@ -30,7 +30,7 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 		widget = uiBinder.createAndBindUi(this);
 		popup = new PopupPanel();
 		popup.setGlassEnabled(true);
-		popup.setModal(true);
+		popup.setModal(false);
 		popup.setAutoHideOnHistoryEventsEnabled(true);
 
 		popup.addCloseHandler(new CloseHandler<PopupPanel>() {
