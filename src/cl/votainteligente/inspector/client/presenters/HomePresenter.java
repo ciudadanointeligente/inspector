@@ -239,6 +239,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		}
 
 		if (selectedType.equals(SelectionType.SELECTED_CATEGORY) && selectedCategory == null) {
+			if (keyWord != null && keyWord.length() > 0) {
+				Window.alert(applicationMessages.getParlamentarianSelectCategoryFirst());
+			}
 			return;
 		} else if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
 			if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
@@ -360,6 +363,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		}
 
 		if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN) && selectedParlamentarian == null) {
+			if (keyWord != null && keyWord.length() > 0) {
+				Window.alert(applicationMessages.getCategorySelectParlamentarianFirst());
+			}
 			return;
 		} else if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
 			if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {

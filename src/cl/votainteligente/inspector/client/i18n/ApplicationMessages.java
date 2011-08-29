@@ -193,6 +193,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("category.notificationSelectParliamentarian")
 	public String getCategoryNotificationSelectParliamentarian();
 
+	@Key("category.selectParlamentarianFirst")
+	public String getCategorySelectParlamentarianFirst();
+
 	@Key("parlamentarian.societies")
 	public String getParlamentarianSocieties();
 
@@ -225,6 +228,9 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("parlamentarian.accordingToAreasOfSocietiesOrStocks")
 	public String getParlamentarianAccordingToAreasOfSocietiesOrStocks();
+
+	@Key("parlamentarian.selectCategoryFirst")
+	public String getParlamentarianSelectCategoryFirst();
 
 	@Key("parlamentarianComment.approved")
 	public String getParlamentarianCommentApproved();

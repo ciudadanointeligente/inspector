@@ -291,7 +291,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 			(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
 			event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
 			getUiHandlers().searchCategory(categorySearch.getText());
-			categorySearch.setText(applicationMessages.getCategorySearchMessage());
+			parlamentarianSearch.setText(applicationMessages.getParlamentarianSearchMessage());
 		}
 	}
 
