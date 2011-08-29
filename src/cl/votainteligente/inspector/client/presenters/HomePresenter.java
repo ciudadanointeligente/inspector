@@ -30,6 +30,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.*;
@@ -638,6 +639,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						getView().setParlamentarianImage("images/parlamentarian/large/" + selectedParlamentarian.getImage());
 					}
 					showPermalink();
+					setHistoryToken();
 				}
 			}
 		});
@@ -713,6 +715,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						setBillTable();
 					}
 					showPermalink();
+					setHistoryToken();
 				}
 			}
 		});
@@ -896,6 +899,20 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			getView().showPermalink();
 		} else {
 			getView().hidePermalink();
+		}
+	}
+
+	public void setHistoryToken() {
+		if (selectedParlamentarian != null && selectedCategory != null) {
+			PlaceRequest placeRequest = null;
+			String href = null;
+
+			placeRequest = new PlaceRequest(HomePresenter.PLACE)
+			.with(HomePresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString())
+			.with(HomePresenter.PARAM_CATEGORY_ID, selectedCategory.getId().toString());
+			href = placeManager.buildHistoryToken(placeRequest);
+			placeManager.revealPlace(placeRequest);
+			History.newItem(href);
 		}
 	}
 
