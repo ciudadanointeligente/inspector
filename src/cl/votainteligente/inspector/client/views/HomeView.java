@@ -13,10 +13,7 @@ import cl.votainteligente.inspector.model.Parlamentarian;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -294,7 +291,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 			(event.getNativeKeyCode() >= 97 && event.getNativeKeyCode() <= 122)||
 			event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
 			getUiHandlers().searchCategory(categorySearch.getText());
-			parlamentarianSearch.setText(applicationMessages.getParlamentarianSearchMessage());
+			categorySearch.setText(applicationMessages.getCategorySearchMessage());
 		}
 	}
 

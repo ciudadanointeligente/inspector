@@ -238,7 +238,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			selectedParlamentarian = null;
 		}
 
-		if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
+		if (selectedType.equals(SelectionType.SELECTED_CATEGORY) && selectedCategory == null) {
+			return;
+		} else if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
 			if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN)) {
 				ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(parlamentarianFetchedData);
 				setParlamentarianData(data);
@@ -357,7 +359,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			selectedCategory = null;
 		}
 
-		if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
+		if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN) && selectedParlamentarian == null) {
+			return;
+		} else if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
 			if (selectedType.equals(SelectionType.SELECTED_CATEGORY)) {
 				ListDataProvider<Category> data = new ListDataProvider<Category>(categoryFetchedData);
 				setCategoryData(data);
