@@ -244,6 +244,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("parlamentarianComment.rejected")
 	public String getParlamentarianCommentRejected();
 
+	@Key("parlamentarianComment.saved")
+	public String getParlamentarianCommentSaved();
+
 	@Key("person.civilStatusSingle")
 	public String getCivilStatusSingle();
 
