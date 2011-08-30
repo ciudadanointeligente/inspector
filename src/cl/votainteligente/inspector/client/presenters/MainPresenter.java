@@ -1,9 +1,7 @@
 package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.uihandlers.MainUiHandlers;
-import cl.votainteligente.inspector.shared.NotificationEvent;
-import cl.votainteligente.inspector.shared.NotificationEventHandler;
-import cl.votainteligente.inspector.shared.NotificationEventParams;
+import cl.votainteligente.inspector.shared.*;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -18,7 +16,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;
 
-public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter.MyProxy> implements MainUiHandlers, NotificationEventHandler {
+public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter.MyProxy> implements MainUiHandlers, NotificationEventHandler, ShowLoadingEventHandler, HideLoadingEventHandler {
 	@ContentSlot
 	public static final Type<RevealContentHandler<?>> SLOT_MAIN_CONTENT = new Type<RevealContentHandler<?>>();
 
@@ -28,7 +26,11 @@ public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter
 	public interface MyView extends View, HasUiHandlers<MainUiHandlers> {
 		void setNotificationMessage(NotificationEventParams params);
 		void clearNotifications();
+		void showLoading();
+		void hideLoading();
 	}
+
+	private Integer loadingCount;
 
 	@ProxyStandard
 	public interface MyProxy extends Proxy<MainPresenter> {
@@ -38,11 +40,14 @@ public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter
 	public MainPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
 		super(eventBus, view, proxy);
 		getView().setUiHandlers(this);
+		loadingCount = 0;
 	}
 
 	@Override
 	protected void onBind() {
 		addHandler(NotificationEvent.TYPE, this);
+		addHandler(ShowLoadingEvent.TYPE, this);
+		addHandler(HideLoadingEvent.TYPE, this);
 	}
 
 	@Override
@@ -64,5 +69,35 @@ public class MainPresenter extends Presenter<MainPresenter.MyView, MainPresenter
 
 	public void clearNotifications() {
 		getView().clearNotifications();
+	}
+
+	@Override
+	public void onShowLoading(ShowLoadingEvent showLoadingEvent) {
+		if (loadingCount == null) {
+			loadingCount = 0;
+		}
+
+		loadingCount++;
+
+		if (loadingCount <= 1) {
+			getView().showLoading();
+		}
+	}
+
+	@Override
+	public void onHideLoading(HideLoadingEvent hideLoadingEvent) {
+		if (loadingCount == null) {
+			loadingCount = 0;
+		} else {
+			loadingCount--;
+		}
+
+		if (loadingCount < 0) {
+			loadingCount = 0;
+		}
+
+		if (loadingCount == 0) {
+			getView().hideLoading();
+		}
 	}
 }

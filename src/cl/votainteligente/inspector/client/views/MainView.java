@@ -25,6 +25,7 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 	@UiField FlowPanel mainPanel;
 	@UiField FlowPanel notificationPanel;
 	private PopupPanel popup;
+	private PopupPanel loading;
 
 	public MainView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -39,6 +40,11 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 				getUiHandlers().clearPopupSlot();
 			}
 		});
+
+		loading = new PopupPanel();
+		loading.setGlassEnabled(true);
+		loading.setModal(false);
+		loading.setAutoHideOnHistoryEventsEnabled(true);
 	}
 
 	@Override
@@ -114,5 +120,17 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 	@Override
 	public void clearNotifications() {
 		notificationPanel.clear();
+	}
+
+	@Override
+	public void showLoading() {
+		popup.clear();
+		popup.add(new Image("images/loading.gif"));
+		popup.center();
+	}
+
+	@Override
+	public void hideLoading() {
+		popup.hide();
 	}
 }
