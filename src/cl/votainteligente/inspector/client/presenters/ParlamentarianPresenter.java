@@ -8,9 +8,7 @@ import cl.votainteligente.inspector.client.services.ParlamentarianCommentService
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianUiHandlers;
 import cl.votainteligente.inspector.model.*;
-import cl.votainteligente.inspector.shared.NotificationEvent;
-import cl.votainteligente.inspector.shared.NotificationEventParams;
-import cl.votainteligente.inspector.shared.NotificationEventType;
+import cl.votainteligente.inspector.shared.*;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -140,9 +138,11 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	}
 
 	public void getParlamentarian(Long parlamentarianId) {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarian());
 			}
 
@@ -279,15 +279,18 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 					categoryChartData.put(categoryName, 100d * categoryChartData.get(categoryName) / numCategories);
 				}
 				getView().setPerAreaChartData(categoryChartData);
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
 
 	public void getParlamentarianComments() {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianCommentService.getAllParlamentarianComments(parlamentarianId, new AsyncCallback<List<ParlamentarianComment>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarianCommentList());
 			}
 
@@ -297,6 +300,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 					parlamentarianCommentData = new ListDataProvider<ParlamentarianComment>(result);
 					parlamentarianCommentData.addDataDisplay(getView().getParlamentarianCommentTable());
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}

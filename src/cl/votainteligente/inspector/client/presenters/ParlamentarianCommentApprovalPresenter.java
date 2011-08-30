@@ -4,6 +4,8 @@ import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianCommentServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianCommentApprovalUiHandlers;
 import cl.votainteligente.inspector.model.ParlamentarianComment;
+import cl.votainteligente.inspector.shared.HideLoadingEvent;
+import cl.votainteligente.inspector.shared.ShowLoadingEvent;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -89,10 +91,12 @@ public class ParlamentarianCommentApprovalPresenter extends Presenter<Parlamenta
 	}
 
 	public void getParlamentarianComment(Long parlamentarianCommentId) {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianCommentService.getParlamentarianComment(parlamentarianCommentId, new AsyncCallback<ParlamentarianComment>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarianComment());
 			}
 
@@ -123,6 +127,7 @@ public class ParlamentarianCommentApprovalPresenter extends Presenter<Parlamenta
 						getView().setMessage(applicationMessages.getParlamentarianCommentAlreadyRejected());
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
@@ -130,15 +135,18 @@ public class ParlamentarianCommentApprovalPresenter extends Presenter<Parlamenta
 	@Override
 	public void approveComment() {
 		if (parlamentarianId != null && parlamentarianCommentId != null && parlamentarianCommentKey != null) {
+			fireEvent(new ShowLoadingEvent());
 			parlamentarianCommentService.approveParlamentarianComment(parlamentarianCommentKey, parlamentarianCommentId, parlamentarianId, new AsyncCallback<ParlamentarianComment>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
+					fireEvent(new HideLoadingEvent());
 					Window.alert(applicationMessages.getErrorParlamentarianCommentApproval());
 				}
 
 				@Override
 				public void onSuccess(ParlamentarianComment result) {
+					fireEvent(new HideLoadingEvent());
 					Window.alert(applicationMessages.getParlamentarianCommentApproved());
 					placeManager.revealPlace(new PlaceRequest(ParlamentarianPresenter.PLACE).with(PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString()));
 				}
@@ -152,15 +160,18 @@ public class ParlamentarianCommentApprovalPresenter extends Presenter<Parlamenta
 	@Override
 	public void rejectComment() {
 		if (parlamentarianId != null && parlamentarianCommentId != null && parlamentarianCommentKey != null) {
+			fireEvent(new ShowLoadingEvent());
 			parlamentarianCommentService.rejectParlamentarianComment(parlamentarianCommentKey, parlamentarianCommentId, parlamentarianId, new AsyncCallback<ParlamentarianComment>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
+					fireEvent(new HideLoadingEvent());
 					Window.alert(applicationMessages.getErrorParlamentarianCommentRejected());
 				}
 
 				@Override
 				public void onSuccess(ParlamentarianComment result) {
+					fireEvent(new HideLoadingEvent());
 					Window.alert(applicationMessages.getParlamentarianCommentRejected());
 					placeManager.revealPlace(new PlaceRequest(ParlamentarianPresenter.PLACE).with(PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString()));
 				}

@@ -6,6 +6,8 @@ import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianCommentUiHandlers;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.ParlamentarianComment;
+import cl.votainteligente.inspector.shared.HideLoadingEvent;
+import cl.votainteligente.inspector.shared.ShowLoadingEvent;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -83,10 +85,12 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 	}
 
 	public void getParlamentarianList() {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarianList());
 			}
 
@@ -107,21 +111,25 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 						getView().setSelectedParlamentarian(selectedParlamentarianIndex);
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
 
 	@Override
 	public void saveParlamentarianComment() {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianService.getParlamentarian(getView().getSelectedParlamentarianId(), new AsyncCallback<Parlamentarian>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarian());
 			}
 
 			@Override
 			public void onSuccess(Parlamentarian result) {
+				fireEvent(new ShowLoadingEvent());
 				ParlamentarianComment parlamentarianComment = new ParlamentarianComment();
 				parlamentarianComment.setSubject(getView().getCommentSubject());
 				parlamentarianComment.setBody(getView().getCommentBody());
@@ -130,14 +138,17 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 
 					@Override
 					public void onFailure(Throwable caught) {
+						fireEvent(new HideLoadingEvent());
 						Window.alert(applicationMessages.getErrorParlamentarianCommentSave());
 					}
 
 					@Override
 					public void onSuccess(ParlamentarianComment result) {
+						fireEvent(new HideLoadingEvent());
 						Window.alert(applicationMessages.getParlamentarianCommentSaved());
 					}
 				});
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}

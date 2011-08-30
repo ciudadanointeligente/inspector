@@ -96,10 +96,12 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 			return;
 		}
 
+		fireEvent(new ShowLoadingEvent());
 		subcriberService.getSubscriberByEmail(email, new AsyncCallback<Subscriber>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				NotificationEventParams params = new NotificationEventParams();
 				params.setMessage(applicationMessages.getErrorSubscriber());
 				params.setType(NotificationEventType.ERROR);
@@ -112,10 +114,12 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 				if (result == null) {
 					Subscriber subscriber = new Subscriber();
 					subscriber.setEmail(email);
+					fireEvent(new ShowLoadingEvent());
 					subcriberService.saveSubscriber(subscriber, new AsyncCallback<Subscriber>() {
 
 						@Override
 						public void onFailure(Throwable caught) {
+							fireEvent(new HideLoadingEvent());
 							NotificationEventParams params = new NotificationEventParams();
 							params.setMessage(applicationMessages.getErrorSubscriber());
 							params.setType(NotificationEventType.ERROR);
@@ -132,6 +136,7 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 									addBillSubscription(result.getId());
 								}
 							}
+							fireEvent(new HideLoadingEvent());
 						}
 					});
 				} else {
@@ -141,15 +146,18 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 						addBillSubscription(result.getId());
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
 
 	public void addCategorySubscription(Long subscriberId) {
+		fireEvent(new ShowLoadingEvent());
 		subcriberService.addCategorySubscription(subscriberId, categoryId, new AsyncCallback<Subscriber>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				NotificationEventParams params = new NotificationEventParams();
 				params.setMessage(applicationMessages.getErrorSubscriber());
 				params.setType(NotificationEventType.ERROR);
@@ -159,6 +167,7 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 
 			@Override
 			public void onSuccess(Subscriber result) {
+				fireEvent(new HideLoadingEvent());
 				NotificationEventParams params = new NotificationEventParams();
 				params.setMessage(applicationMessages.getSubscriberSuscriptionSuccessful());
 				params.setType(NotificationEventType.SUCCESS);
@@ -170,10 +179,12 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 	}
 
 	public void addBillSubscription(Long subscriberId) {
+		fireEvent(new ShowLoadingEvent());
 		subcriberService.addCategorySubscription(subscriberId, billId, new AsyncCallback<Subscriber>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				NotificationEventParams params = new NotificationEventParams();
 				params.setMessage(applicationMessages.getErrorSubscriber());
 				params.setType(NotificationEventType.ERROR);
@@ -183,6 +194,7 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 
 			@Override
 			public void onSuccess(Subscriber result) {
+				fireEvent(new HideLoadingEvent());
 				NotificationEventParams params = new NotificationEventParams();
 				params.setMessage(applicationMessages.getSubscriberSuscriptionSuccessful());
 				params.setType(NotificationEventType.SUCCESS);

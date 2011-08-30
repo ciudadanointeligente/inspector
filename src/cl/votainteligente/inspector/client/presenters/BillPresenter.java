@@ -7,6 +7,8 @@ import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.client.services.SocietyServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
 import cl.votainteligente.inspector.model.*;
+import cl.votainteligente.inspector.shared.HideLoadingEvent;
+import cl.votainteligente.inspector.shared.ShowLoadingEvent;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -165,10 +167,12 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	}
 
 	public void showBill() {
+		fireEvent(new ShowLoadingEvent());
 		billService.getBill(billId, new AsyncCallback<Bill>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorBill());
 			}
 
@@ -206,14 +210,17 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 					getBillAuthors(result);
 					getParlamentarians(result);
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
 
 	public void loadSelectedParlamentarian() {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarian());
 			}
 
@@ -221,6 +228,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			public void onSuccess(Parlamentarian result) {
 				setSelectedParlamentarian(result);
 				showSelectedParlamentarian();
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
@@ -270,10 +278,12 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	}
 
 	public void getParlamentarians(Bill bill) {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianService.getParlamentariansByBill(bill, new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarianBillSearch());
 			}
 
@@ -283,15 +293,18 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 					ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(result);
 					setParlamentarianData(data);
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
 
 	public void getBillAuthors(Bill bill) {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianService.getBillAuthors(bill, new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorBillAuthors());
 			}
 
@@ -310,6 +323,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 						getView().addBillAuthors(parlamentarian, href, iterator.hasNext());
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}

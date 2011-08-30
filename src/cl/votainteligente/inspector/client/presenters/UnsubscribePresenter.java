@@ -8,6 +8,8 @@ import cl.votainteligente.inspector.client.uihandlers.UnsubscribeUiHandlers;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Subscriber;
+import cl.votainteligente.inspector.shared.HideLoadingEvent;
+import cl.votainteligente.inspector.shared.ShowLoadingEvent;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -117,10 +119,12 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 	}
 
 	public void getCategory() {
+		fireEvent(new ShowLoadingEvent());
 		categoryService.getCategory(categoryId, new AsyncCallback<Category>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorCategory());
 			}
 
@@ -130,15 +134,18 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 				if (category != null) {
 					getView().setUnsubscribeDetails(applicationMessages.getSubscriberUnsubscribeMessage(applicationMessages.getGeneralCategory(), category.getName()));
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
 
 	public void getBill() {
+		fireEvent(new ShowLoadingEvent());
 		billService.getBill(billId, new AsyncCallback<Bill>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorBill());
 			}
 
@@ -148,6 +155,7 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 				if (bill != null) {
 					getView().setUnsubscribeDetails(applicationMessages.getSubscriberUnsubscribeMessage(applicationMessages.getGeneralBill(), bill.getTitle()));
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
@@ -159,10 +167,12 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 			return;
 		}
 
+		fireEvent(new ShowLoadingEvent());
 		subcriberService.getSubscriber(subscriberId, new AsyncCallback<Subscriber>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorSubscriberLoad());
 			}
 
@@ -179,7 +189,9 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 					} else if (unsubscribeType.equals(UnsubscribeType.UNSUBSCRIBE_CATEGORY)) {
 						removeCategorySubscription(result.getId());
 					}
+					fireEvent(new HideLoadingEvent());
 				} else {
+					fireEvent(new HideLoadingEvent());
 					Window.alert(applicationMessages.getErrorSubscriberUnsubscribe());
 				}
 			}
@@ -187,15 +199,18 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 	}
 
 	public void removeCategorySubscription(Long subscriberId) {
+		fireEvent(new ShowLoadingEvent());
 		subcriberService.deleteCategorySubscription(subscriberId, subscriberKey, categoryId, new AsyncCallback<Boolean>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorSubscriberUnsubscribe());
 			}
 
 			@Override
 			public void onSuccess(Boolean result) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getSubscriberUnsubscribeSuccesful());
 				placeManager.revealPlace(new PlaceRequest(HomePresenter.PLACE));
 			}
@@ -203,15 +218,18 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 	}
 
 	public void removeBillSubscription(Long subscriberId) {
+		fireEvent(new ShowLoadingEvent());
 		subcriberService.deleteBillSubscription(subscriberId, subscriberKey, billId, new AsyncCallback<Boolean>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorSubscriberUnsubscribe());
 			}
 
 			@Override
 			public void onSuccess(Boolean result) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getSubscriberUnsubscribeSuccesful());
 				placeManager.revealPlace(new PlaceRequest(HomePresenter.PLACE));
 			}

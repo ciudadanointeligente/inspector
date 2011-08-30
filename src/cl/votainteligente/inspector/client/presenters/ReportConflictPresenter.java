@@ -6,6 +6,8 @@ import cl.votainteligente.inspector.client.services.ReportConflictServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ReportConflictUiHandlers;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.ReportConflict;
+import cl.votainteligente.inspector.shared.HideLoadingEvent;
+import cl.votainteligente.inspector.shared.ShowLoadingEvent;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -84,10 +86,12 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 	}
 
 	public void getParlamentarianList() {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarianList());
 			}
 
@@ -108,36 +112,43 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 						getView().setSelectedParlamentarian(selectedParlamentarianIndex);
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
 
 	@Override
 	public void submit() {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianId = getView().getSelectedParlamentarianId();
 		parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarian());
 			}
 
 			@Override
 			public void onSuccess(Parlamentarian result) {
+				fireEvent(new ShowLoadingEvent());
 				ReportConflict reportConflict = new ReportConflict();
 				reportConflict.setReport(getView().getReport());
 				reportConflictService.saveReportConflict(reportConflict, parlamentarianId, new AsyncCallback<ReportConflict>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
+						fireEvent(new HideLoadingEvent());
 						Window.alert(applicationMessages.getErrorReportConflictSave());
 					}
 
 					@Override
 					public void onSuccess(ReportConflict result) {
+						fireEvent(new HideLoadingEvent());
 						Window.alert(applicationMessages.getReportConflictSuccess());
 					}
 				});
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
