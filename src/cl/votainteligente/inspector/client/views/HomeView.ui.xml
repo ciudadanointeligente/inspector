@@ -3,9 +3,6 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style src="HomeView.css" />
 	<g:HTMLPanel>
-		<g:HTMLPanel addStyleNames="{style.permalinkPanel}">
-			<g:Label ui:field="permalink" addStyleNames="{style.permalinkLabelOff}">Comparte este descubrimiento</g:Label>
-		</g:HTMLPanel>
 		<g:HTMLPanel ui:field="parlamentarianPanel" addStyleNames="{style.parlamentarianPanel}">
 			<div class="{style.searchTitle}">
 				<g:Label ui:field="parliamentarianStatusLight"/>

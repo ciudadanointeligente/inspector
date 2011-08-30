@@ -7,8 +7,6 @@ import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 
-import java.util.List;
-
 public interface HomeUiHandlers extends UiHandlers {
 	void searchParlamentarian(String keyWord);
 	void searchParlamentarian(Category category);
@@ -19,6 +17,5 @@ public interface HomeUiHandlers extends UiHandlers {
 	void switchSelectionType();
 	void setupSelection(SelectionType changeType);
 	void searchCleaner();
-	void getPermalink();
 	void showNotification(String message, NotificationEventType type);
 }

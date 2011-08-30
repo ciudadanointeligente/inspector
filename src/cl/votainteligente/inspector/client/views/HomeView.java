@@ -40,7 +40,6 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiField HTMLPanel parliamentarianMessageContent;
 	@UiField Label selectionType;
 	@UiField Label notificationSelectedType;
-	@UiField Label permalink;
 	@UiField HTMLPanel categoryPanel;
 	@UiField HTMLPanel categoryContent;
 	@UiField HTMLPanel categoryTableContainer;
@@ -226,16 +225,6 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	}
 
 	@Override
-	public void showPermalink() {
-		permalink.setStyleName(ResourceBundle.INSTANCE.HomeView().permalinkLabelOn());
-	}
-
-	@Override
-	public void hidePermalink() {
-		permalink.setStyleName(ResourceBundle.INSTANCE.HomeView().permalinkLabelOff());
-	}
-
-	@Override
 	public void showParliamentarianConflictImage() {
 		parliamentarianConflict.setVisible(true);
 		parliamentarianConflict.setUrl("images/without_conflict.png");
@@ -323,10 +312,5 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	@UiHandler("selectionType")
 	public void onSelectionTypeClick(ClickEvent event) {
 		getUiHandlers().switchSelectionType();
-	}
-
-	@UiHandler("permalink")
-	public void onPermalinkClick(ClickEvent event) {
-		getUiHandlers().getPermalink();
 	}
 }

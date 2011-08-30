@@ -19,14 +19,12 @@ public interface MyInjector extends Ginjector {
 	ProxyFailureHandler getProxyFailureHandler ();
 
 	Provider<MainPresenter> getMainPresenter();
-	Provider<PopupPresenter> getPopupPresenter();
 	Provider<HomePresenter> getHomePresenter();
 	Provider<BillPresenter> getBillPresenter();
 	Provider<ParlamentarianPresenter> getParlamentarianPresenter();
 	Provider<ParlamentarianCommentPresenter> getParlamentarianCommentPresenter();
 	Provider<ParlamentarianCommentDisplayPresenter> getParlamentarianCommentDisplayPresenter();
 	Provider<ParlamentarianCommentApprovalPresenter> getParlamentarianCommentApprovalPresenter();
-	Provider<PermalinkPresenter> getPermalinkPresenter();
 	Provider<ReportConflictPresenter> getReportConflictPresenter();
 	Provider<SocietyPresenter> getSocietyPresenter();
 	Provider<StockPresenter> getStockPresenter();

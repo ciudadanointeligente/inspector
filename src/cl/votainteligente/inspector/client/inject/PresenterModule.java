@@ -24,14 +24,12 @@ public class PresenterModule extends AbstractPresenterModule {
 		bind(RootPresenter.class).to(MyRootPresenter.class).asEagerSingleton();
 		bind(ProxyFailureHandler.class).to(DefaultProxyFailureHandler.class).in(Singleton.class);
 		bindPresenter(MainPresenter.class, MainPresenter.MyView.class, MainView.class, MainPresenter.MyProxy.class);
-		bindPresenter(PopupPresenter.class, PopupPresenter.MyView.class, PopupView.class, PopupPresenter.MyProxy.class);
 		bindPresenter(HomePresenter.class, HomePresenter.MyView.class, HomeView.class, HomePresenter.MyProxy.class);
 		bindPresenter(BillPresenter.class, BillPresenter.MyView.class, BillView.class, BillPresenter.MyProxy.class);
 		bindPresenter(ParlamentarianPresenter.class, ParlamentarianPresenter.MyView.class, ParlamentarianView.class, ParlamentarianPresenter.MyProxy.class);
 		bindPresenter(ParlamentarianCommentPresenter.class, ParlamentarianCommentPresenter.MyView.class, ParlamentarianCommentView.class, ParlamentarianCommentPresenter.MyProxy.class);
 		bindPresenter(ParlamentarianCommentDisplayPresenter.class, ParlamentarianCommentDisplayPresenter.MyView.class, ParlamentarianCommentDisplayView.class, ParlamentarianCommentDisplayPresenter.MyProxy.class);
 		bindPresenter(ParlamentarianCommentApprovalPresenter.class, ParlamentarianCommentApprovalPresenter.MyView.class, ParlamentarianCommentApprovalView.class, ParlamentarianCommentApprovalPresenter.MyProxy.class);
-		bindPresenter(PermalinkPresenter.class, PermalinkPresenter.MyView.class, PermalinkView.class, PermalinkPresenter.MyProxy.class);
 		bindPresenter(ReportConflictPresenter.class, ReportConflictPresenter.MyView.class, ReportConflictView.class, ReportConflictPresenter.MyProxy.class);
 		bindPresenter(SocietyPresenter.class, SocietyPresenter.MyView.class, SocietyView.class, SocietyPresenter.MyProxy.class);
 		bindPresenter(StockPresenter.class, StockPresenter.MyView.class, StockView.class, StockPresenter.MyProxy.class);

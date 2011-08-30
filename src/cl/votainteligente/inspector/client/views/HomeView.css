@@ -314,41 +314,6 @@ td.selectedCategory div {
 	border-radius: 0 0 9px 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
 }
 
-.permalinkPanel {
-	position: relative;
-	float: left;
-	left: 12px;
-	height: 25px;
-	width: 872px;
-	padding: 0px;
-	font-family: DeliciousRegular;
-	font-size: 15px;
-}
-
-.permalinkPanel div {
-	margin-left: 490px;
-	height: 25px;
-	padding: 0px;
-	padding-top: 10px;
-	padding-left: 10px;
-}
-
-.permalinkLabelOff {
-	visibility: hidden;
-}
-
-.permalinkLabelOn {
-	color: #9D9D9C;
-	background: url("images/share_discovery.png") no-repeat scroll 215px -63px  transparent;
-	cursor: pointer;
-}
-
-.permalinkLabelOn:hover {
-	color: #000;
-	background: url("images/share_discovery.png") no-repeat scroll 215px 0px transparent;
-	cursor: pointer;
-}
-
 .conflictStatusImage {
 	margin: 14px 0px 0px 70px;
 	border: 0px none;

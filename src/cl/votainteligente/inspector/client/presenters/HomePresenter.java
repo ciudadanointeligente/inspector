@@ -66,8 +66,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		void displaySelectionNone();
 		void displaySelectionParliamentarian();
 		void displaySelectionCategory();
-		void showPermalink();
-		void hidePermalink();
 		void showParliamentarianConflictImage();
 		void showCategoryConflictImage();
 		void hideConflictImage();
@@ -654,7 +652,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 					} else {
 						getView().setParlamentarianImage("images/parlamentarian/large/" + selectedParlamentarian.getImage());
 					}
-					showPermalink();
 					setHistoryToken();
 				}
 			}
@@ -730,7 +727,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						getView().setCategoryDisplay(selectedCategory.getName());
 						setBillTable();
 					}
-					showPermalink();
 					setHistoryToken();
 				}
 			}
@@ -910,14 +906,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().setSelectedType(selectedType);
 	}
 
-	public void showPermalink() {
-		if (selectedParlamentarian != null && selectedCategory != null) {
-			getView().showPermalink();
-		} else {
-			getView().hidePermalink();
-		}
-	}
-
 	public void setHistoryToken() {
 		if (selectedParlamentarian != null && selectedCategory != null) {
 			PlaceRequest placeRequest = null;
@@ -930,15 +918,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			placeManager.revealPlace(placeRequest);
 			History.newItem(href);
 		}
-	}
-
-	@Override
-	public void getPermalink() {
-		PlaceRequest placeRequest = new PlaceRequest(PermalinkPresenter.PLACE)
-			.with(PermalinkPresenter.PARAM_PLACE_TOKEN, PLACE)
-			.with(PermalinkPresenter.PARAM_PARLAMENTARIAN_ID, selectedParlamentarian.getId().toString())
-			.with(PermalinkPresenter.PARAM_CATEGORY_ID, selectedCategory.getId().toString());
-		placeManager.revealPlace(placeRequest);
 	}
 
 	@Override
@@ -964,7 +943,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		getView().hideParlamentarianMessage();
 		getView().hideCategoryMessage();
 		getView().hideBillMessage();
-		getView().hidePermalink();
 	}
 
 	public void resetNoConflicts() {
