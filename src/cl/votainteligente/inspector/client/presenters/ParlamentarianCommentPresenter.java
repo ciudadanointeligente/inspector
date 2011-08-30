@@ -135,7 +135,7 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 
 					@Override
 					public void onSuccess(ParlamentarianComment result) {
-						Window.alert("Comentario guardado exitosamente");
+						Window.alert(applicationMessages.getParlamentarianCommentSaved());
 					}
 				});
 			}
