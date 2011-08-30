@@ -3,7 +3,6 @@ package cl.votainteligente.inspector.client.presenters;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.SocietyServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.SocietyUiHandlers;
-import cl.votainteligente.inspector.client.uihandlers.SubscriptionUiHandlers;
 import cl.votainteligente.inspector.model.Person;
 import cl.votainteligente.inspector.model.Society;
 
@@ -109,8 +108,6 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 
 			@Override
 			public void onSuccess(Society result) {
-				// TODO: parlamentarian data
-
 				society = result;
 
 				if (society.getName() != null) {

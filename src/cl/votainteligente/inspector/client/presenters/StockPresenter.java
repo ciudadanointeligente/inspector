@@ -98,8 +98,6 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 
 			@Override
 			public void onSuccess(Stock result) {
-				// TODO: parlamentarian data
-
 				stock = result;
 
 				if (stock.getName() != null) {
