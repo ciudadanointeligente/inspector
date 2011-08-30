@@ -10,9 +10,7 @@ import cl.votainteligente.inspector.client.uihandlers.HomeUiHandlers;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
-import cl.votainteligente.inspector.shared.NotificationEvent;
-import cl.votainteligente.inspector.shared.NotificationEventParams;
-import cl.votainteligente.inspector.shared.NotificationEventType;
+import cl.votainteligente.inspector.shared.*;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -155,10 +153,12 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	}
 
 	public void initDataLoad() {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarianList());
 			}
 
@@ -186,13 +186,16 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						// TODO: add else and send invalid parlamentarian notice
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 
+		fireEvent(new ShowLoadingEvent());
 		categoryService.getAllCategories(new AsyncCallback<List<Category>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorCategoryList());
 			}
 
@@ -219,6 +222,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						// TODO: add else and send invalid category notice
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 		setBillTable();
@@ -322,6 +326,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	public void searchParlamentarian(Category category) {
+		fireEvent(new ShowLoadingEvent());
 		getView().hideParlamentarianMessage();
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
@@ -334,6 +339,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorParlamentarianCategorySearch());
 			}
 
@@ -350,6 +356,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						getView().setParlamentarianMessage(applicationMessages.getGeneralNoConflictCategory());
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
@@ -437,6 +444,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	public void searchCategory(Parlamentarian parlamentarian) {
+		fireEvent(new ShowLoadingEvent());
 		getView().hideCategoryMessage();
 		getView().setCategoryDisplay(applicationMessages.getGeneralCategory());
 		if (selectedCategory != null) {
@@ -448,6 +456,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorCategoryParlamentarianSearch());
 			}
 
@@ -477,17 +486,20 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						getView().setCategoryMessage(applicationMessages.getGeneralNoConflictParliamentarian());
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
 
 	@Override
 	public void searchBill(Long parlamentarianId, Long categoryId) {
+		fireEvent(new ShowLoadingEvent());
 		getView().hideBillMessage();
 		billService.searchBills(parlamentarianId, categoryId, new AsyncCallback<List<Bill>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getErrorBillList());
 			}
 
@@ -500,15 +512,18 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 						getView().setBillMessage(applicationMessages.getGeneralNoMatches());
 					}
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 		});
 	}
 
 	public void getParlamentarian(Parlamentarian parlamentarian) {
+		fireEvent(new ShowLoadingEvent());
 		parlamentarianService.getParlamentarian(selectedParlamentarian.getId(), new AsyncCallback<Parlamentarian>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
 				Window.alert(applicationMessages.getGeneralParlamentarian());
 			}
 
@@ -518,6 +533,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 					selectedParlamentarian = result;
 					setBillTable();
 				}
+				fireEvent(new HideLoadingEvent());
 			}
 
 		});
