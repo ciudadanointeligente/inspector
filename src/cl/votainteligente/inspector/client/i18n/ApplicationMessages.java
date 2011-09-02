@@ -4,6 +4,9 @@ import com.google.gwt.i18n.client.Messages;
 
 public interface ApplicationMessages extends Messages {
 
+	@Key("general.appName")
+	public String getGeneralAppName();
+
 	@Key("general.bill")
 	public String getGeneralBill();
 
