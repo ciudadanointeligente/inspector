@@ -104,7 +104,6 @@ public class BillServiceImpl implements BillService {
 
 		try {
 			hibernate.beginTransaction();
-			// TODO: optimize method
 			Parlamentarian parlamentarian = (Parlamentarian) hibernate.get(Parlamentarian.class, parlamentarianId);
 			Category category = (Category) hibernate.get(Category.class, categoryId);
 

@@ -126,6 +126,7 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 	@Override
 	public List<Parlamentarian> searchParlamentarian(Category category) throws Exception {
+		// TODO: Optimize method
 		Session hibernate = sessionFactory.getCurrentSession();
 
 		try {
@@ -198,6 +199,7 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 	@Override
 	public List<Parlamentarian> getParlamentariansByBill(Bill bill) throws Exception {
+		// TODO: Optimize method
 		Session hibernate = sessionFactory.getCurrentSession();
 
 		try {

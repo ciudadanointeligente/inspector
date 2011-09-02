@@ -181,7 +181,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 							data.setList(parlamentarians);
 							getView().getParlamentarianTable().getSelectionModel().setSelected(selectedParlamentarian, true);
 						}
-						// TODO: add else and send invalid parlamentarian notice
 					}
 				}
 				fireEvent(new HideLoadingEvent());
@@ -217,7 +216,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 							data.setList(categories);
 							getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, true);
 						}
-						// TODO: add else and send invalid category notice
 					}
 				}
 				fireEvent(new HideLoadingEvent());
@@ -477,7 +475,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 							data.setList(categories);
 							getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, true);
 						}
-						// TODO: add else and send invalid category notice
 					}
 					if (result.size() == 0) {
 						getView().showCategoryConflictImage();
@@ -679,7 +676,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 			@Override
 			public void execute(Category category) {
-				// TODO: add category suscription servlet
 				PlaceRequest placeRequest = new PlaceRequest(SubscriptionPresenter.PLACE);
 				placeManager.revealPlace(placeRequest.with(SubscriptionPresenter.PARAM_CATEGORY_ID, category.getId().toString()));
 			}
@@ -827,7 +823,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 			@Override
 			public void execute(Bill bill) {
-				// TODO: add bill suscription servlet
 				PlaceRequest placeRequest = new PlaceRequest(SubscriptionPresenter.PLACE);
 				placeManager.revealPlace(placeRequest.with(SubscriptionPresenter.PARAM_BILL_ID, bill.getId().toString()));
 			}
