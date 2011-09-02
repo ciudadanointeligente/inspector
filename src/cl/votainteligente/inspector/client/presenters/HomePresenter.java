@@ -69,6 +69,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		void showParliamentarianConflictImage();
 		void showCategoryConflictImage();
 		void hideConflictImage();
+		void setShare(String href);
 	}
 
 	public enum SelectionType {
@@ -126,6 +127,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		initBillTable();
 		initDataLoad();
 		getView().displaySelectionNone();
+		getView().setShare(Window.Location.getHref());
 	}
 
 	@Override

@@ -55,5 +55,6 @@
 		<g:HTMLPanel ui:field="billPanel" addStyleNames="{style.billPanel}" visible="false">
 			<g:Label ui:field="billMessage" visible="false"/>
 		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="sharePanel"/>
 	</g:HTMLPanel>
 </ui:UiBinder>

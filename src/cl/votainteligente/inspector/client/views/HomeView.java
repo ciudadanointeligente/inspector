@@ -6,6 +6,7 @@ import cl.votainteligente.inspector.client.presenters.HomePresenter.SelectionTyp
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
 import cl.votainteligente.inspector.client.resources.SearchCellTableResource;
 import cl.votainteligente.inspector.client.uihandlers.HomeUiHandlers;
+import cl.votainteligente.inspector.client.widgets.ShareThis;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Parlamentarian;
@@ -59,6 +60,9 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 	CellTable<Bill> billTable;
 	@UiField Image parliamentarianConflict;
 	@UiField Image categoryConflict;
+
+	@UiField HTMLPanel sharePanel;
+	private ShareThis share;
 
 	public HomeView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -241,6 +245,18 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 		parliamentarianConflict.setVisible(false);
 		categoryConflict.setVisible(false);
 	}
+
+	@Override
+	public void setShare(String href) {
+		share = new ShareThis();
+		share.setHref(href);
+		// TODO: define social network messages
+		share.setTitle(applicationMessages.getGeneralAppName());
+		share.setMessage(applicationMessages.getGeneralAppName());
+		share.setup();
+		sharePanel.add(share);
+	}
+
 
 	@UiHandler("parlamentarianSearch")
 	public void onParlamentarianSearchKeyUp(KeyUpEvent event) {
