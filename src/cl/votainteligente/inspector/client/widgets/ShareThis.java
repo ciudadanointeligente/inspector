@@ -13,27 +13,21 @@ public class ShareThis extends Composite {
 	interface ShareThisUiBinder extends UiBinder<Widget, ShareThis> {}
 
 	public enum Align {
-		VERTICAL("vertical", "normal-count", "tall", "box_count"),
-		HORIZONTAL("horizontal", "small-count", "medium", "button_count");
+		VERTICAL("vertical", "tall", "box_count"),
+		HORIZONTAL("horizontal", "medium", "button_count");
 
 		private String twitterPropertyName;
-		private String googleBuzzPropertyName;
 		private String googlePlusPropertyName;
 		private String facebookPropertyName;
 
-		private Align(String twitterPropertyName, String googleBuzzPropertyName, String googlePlusPropertyName, String facebookPropertyName) {
+		private Align(String twitterPropertyName, String googlePlusPropertyName, String facebookPropertyName) {
 			this.twitterPropertyName = twitterPropertyName;
-			this.googleBuzzPropertyName = googleBuzzPropertyName;
 			this.googlePlusPropertyName = googlePlusPropertyName;
 			this.facebookPropertyName = facebookPropertyName;
 		}
 
 		public String getTwitterPropertyName() {
 			return twitterPropertyName;
-		}
-
-		public String getGoogleBuzzPropertyName() {
-			return googleBuzzPropertyName;
 		}
 
 		public String getGooglePlusPropertyName() {
@@ -48,13 +42,13 @@ public class ShareThis extends Composite {
 	@UiField HTMLPanel shareThisPanel;
 
 	private HTML htmlTwitter;
-	private HTML htmlGoogleBuzz;
 	private HTML htmlGooglePlus;
 	private HTML htmlFacebook;
 	private String href = "";
 	private String title = "";
 	private String message = "";
-	private String lang = "";
+	private String langLong = "";
+	private String langShort = "";
 	private String via = "";
 	private Align align = Align.VERTICAL;
 	private Panel shareThisContainer;
@@ -62,6 +56,8 @@ public class ShareThis extends Composite {
 	public ShareThis() {
 		initWidget(uiBinder.createAndBindUi(this));
 		clear();
+		setLangShort(getLocaleLang(true));
+		setLangLong(getLocaleLang(false));
 	}
 
 	public HTML getHtmlTwitter() {
@@ -70,14 +66,6 @@ public class ShareThis extends Composite {
 
 	public void setHtmlTwitter(HTML twitter) {
 		this.htmlTwitter = twitter;
-	}
-
-	public HTML getHtmlGoogleBuzz() {
-		return htmlGoogleBuzz;
-	}
-
-	public void setHtmlGoogleBuzz(HTML googleBuzz) {
-		this.htmlGoogleBuzz = googleBuzz;
 	}
 
 	public HTML getHtmlGooglePlus() {
@@ -120,12 +108,20 @@ public class ShareThis extends Composite {
 		this.message = message;
 	}
 
-	public String getLang() {
-		return lang;
+	public String getLangLong() {
+		return langLong;
 	}
 
-	public void setLang(String lang) {
-		this.lang = lang;
+	public void setLangLong(String langLong) {
+		this.langLong = langLong;
+	}
+
+	public String getLangShort() {
+		return langShort;
+	}
+
+	public void setLangShort(String langShort) {
+		this.langShort = langShort;
 	}
 
 	public String getVia() {
@@ -146,11 +142,8 @@ public class ShareThis extends Composite {
 
 	public void setup() {
 		setupTwitterScript();
-		setupGoogleBuzzScript();
 		setupGooglePlusScript();
 		setupFacebookScript();
-
-		setLang(getLocaleLang(true));
 
 		if (align == Align.VERTICAL) {
 			shareThisContainer = new VerticalPanel();
@@ -159,7 +152,6 @@ public class ShareThis extends Composite {
 		}
 
 		drawTwitterButton();
-		drawGoogleBuzzButton();
 		drawGooglePlusButton();
 		drawFacebookButton();
 
@@ -177,29 +169,16 @@ public class ShareThis extends Composite {
 		html += "data-count=\"" + align.getTwitterPropertyName() + "\" ";
 		html += "data-text=\"" + message + "\" ";
 		html += "data-url=\"" + href + "\" ";
-		html += "data-lang=\"" + lang + "\" ";
+		html += "data-lang=\"" + langShort + "\" ";
 
 		if (via != null && via.length() > 0) {
 			html += "data-via=\"" + via + "\" ";
 		}
 
 		html += ">Tweet</a>";
+
 		setHtmlTwitter(new HTML(html));
 		shareThisContainer.add(htmlTwitter);
-	}
-
-	private void drawGoogleBuzzButton() {
-		String html = "<a ";
-		html += "href=\"http://www.google.com/buzz/post\" ";
-		html += "class=\"google-buzz-button\" ";
-		html += "title=\"" + title +  "\" ";
-		html += "data-message=\"" + message + "\" ";
-		html += "data-url=\"" + href +"\" ";
-		html += "data-locale=\"en\" ";
-		html += "data-button-style=\"" + align.getGoogleBuzzPropertyName() + "\"></a>";
-
-		setHtmlGoogleBuzz(new HTML(html));
-		shareThisContainer.add(htmlGoogleBuzz);
 	}
 
 	private void drawGooglePlusButton() {
@@ -234,19 +213,11 @@ public class ShareThis extends Composite {
 		doc.getBody().appendChild(script);
 	}
 
-	private void setupGoogleBuzzScript() {
-		Document doc = Document.get();
-		ScriptElement script = doc.createScriptElement();
-		script.setSrc("http://www.google.com/buzz/api/button.js");
-		script.setType("text/javascript");
-		script.setLang("javascript");
-		doc.getBody().appendChild(script);
-	}
-
 	private void setupGooglePlusScript() {
 		Document doc = Document.get();
 		ScriptElement script = doc.createScriptElement();
-		script.setSrc("https://apis.google.com/js/plusone.js");
+		script.setSrc("http://apis.google.com/js/plusone.js");
+
 		script.setType("text/javascript");
 		script.setLang("javascript");
 		doc.getBody().appendChild(script);
@@ -255,20 +226,20 @@ public class ShareThis extends Composite {
 	private void setupFacebookScript() {
 		Document doc = Document.get();
 		ScriptElement script = doc.createScriptElement();
-		script.setSrc("http://connect.facebook.net/" + getLocaleLang(false).trim() + "/all.js#xfbml=1");
+		script.setSrc("http://connect.facebook.net/" + langLong + "/all.js#xfbml=1");
 		script.setType("text/javascript");
 		script.setLang("javascript");
 		doc.getBody().appendChild(script);
 	}
 
-	private String getLocaleLang(Boolean shortName) {
+	public String getLocaleLang(Boolean shortName) {
 		LocaleInfo localeInfo = LocaleInfo.getCurrentLocale();
-		String localeName = null;
+		String localeName = localeInfo.getLocaleName();
 
 		if (shortName == true) {
-			localeName = localeInfo.getLocaleName().substring(0, localeInfo.getLocaleName().indexOf("_"));
-		} else {
-			localeName = localeInfo.getLocaleName();
+			if (localeName.matches("_")) {
+				localeName = localeName.substring(0, localeName.indexOf("_"));
+			}
 		}
 
 		return localeName;
