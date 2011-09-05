@@ -1,9 +1,11 @@
 package cl.votainteligente.inspector.client.views;
 
+import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.presenters.BillPresenter;
 import cl.votainteligente.inspector.client.resources.BillDisplayCellTableResource;
 import cl.votainteligente.inspector.client.resources.BillSearchCellTableResource;
 import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
+import cl.votainteligente.inspector.client.widgets.ShareThis;
 import cl.votainteligente.inspector.model.*;
 
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
@@ -19,10 +21,15 @@ import com.google.gwt.user.client.ui.*;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+
 public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements BillPresenter.MyView {
 	private static BillViewUiBinder uiBinder = GWT.create(BillViewUiBinder.class);
 	interface BillViewUiBinder extends UiBinder<Widget, BillView> {}
 	private final Widget widget;
+
+	@Inject
+	private ApplicationMessages applicationMessages;
 
 	@UiField Label billBulletinNumber;
 	@UiField Label billTitle;
@@ -45,9 +52,11 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@UiField HTMLPanel parlamentarianPanel;
 	@UiField HTMLPanel parlamentarianTableContainer;
 	@UiField Anchor billUrlToVotainteligente;
+	@UiField HTMLPanel sharePanel;
 	CellTable<Society> societyTable;
 	CellTable<Stock> stockTable;
 	CellTable<Parlamentarian> parlamentarianTable;
+	private ShareThis share;
 
 	public BillView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -194,6 +203,17 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	public void setbillUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente) {
 		billUrlToVotainteligente.setText(messageToVotainteligente);
 		billUrlToVotainteligente.setHref(hrefToVotainteligente);
+	}
+
+	@Override
+	public void setShare(String href, String billTitle) {
+		share = new ShareThis();
+		share.setHref(href);
+		// TODO: define social network messages
+		share.setTitle(applicationMessages.getGeneralAppName());
+		share.setMessage(applicationMessages.getBillLookThePotentialConflicts() + " '" + billTitle + "...'");
+		share.setup();
+		sharePanel.add(share);
 	}
 
 	@UiHandler("parlamentarianProfileLink")

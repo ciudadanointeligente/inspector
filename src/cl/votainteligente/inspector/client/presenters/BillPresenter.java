@@ -62,6 +62,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		void setSocietyTable(CellTable<Society> societyTable);
 		void setStockTable(CellTable<Stock> stockTable);
 		void setbillUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente);
+		void setShare(String href, String billTitle);
 	}
 
 	@ProxyStandard
@@ -210,6 +211,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 					getBillAuthors(result);
 					getParlamentarians(result);
 				}
+				getView().setShare(Window.Location.getHref(), selectedBill.getTitle().substring(0, 40));
 				fireEvent(new HideLoadingEvent());
 			}
 		});
