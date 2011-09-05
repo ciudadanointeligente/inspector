@@ -60,6 +60,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		void setConsistencyChartData(Map<String, Double> chartData);
 		void setPerAreaChartData(Map<String, Double> categoryChartData);
 		void setparliamentarianUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente);
+		void setShare(String href, String parliamentarianName);
 	}
 
 	@ProxyStandard
@@ -153,6 +154,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				getParlamentarianComments();
 
 				getView().setParlamentarianName(parlamentarian.toString());
+				getView().setShare(Window.Location.getHref(), parlamentarian.toString());
 
 				if (parlamentarian.getImage() != null) {
 					getView().setParlamentarianImage("images/parlamentarian/large/" + parlamentarian.getImage());

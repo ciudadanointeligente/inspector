@@ -34,6 +34,7 @@
 			</div>
 			<g:HTMLPanel ui:field="stockPanel" addStyleNames="{style.stockPanel}"/>
 		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="sharePanel"/>
 		<g:HTMLPanel addStyleNames="{style.aside}">
 			<g:Anchor ui:field="reportConflictLink" addStyleNames="{style.reportButton}">¿Sabes algo que nosotros no?
 				<br />

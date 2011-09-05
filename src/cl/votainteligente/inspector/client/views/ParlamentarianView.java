@@ -4,6 +4,7 @@ import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.presenters.ParlamentarianPresenter;
 import cl.votainteligente.inspector.client.resources.DisplayCellTableResource;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianUiHandlers;
+import cl.votainteligente.inspector.client.widgets.ShareThis;
 import cl.votainteligente.inspector.model.ParlamentarianComment;
 import cl.votainteligente.inspector.model.Society;
 import cl.votainteligente.inspector.model.Stock;
@@ -52,9 +53,11 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@UiField HTMLPanel stockPanel;
 	@UiField Anchor parliamentarianUrlToVotainteligente;
 	@UiField HTMLPanel parlamentarianCommentPanel;
+	@UiField HTMLPanel sharePanel;
 	CellTable<Society> societyTable;
 	CellTable<Stock> stockTable;
 	CellTable<ParlamentarianComment> commentTable;
+	private ShareThis share;
 
 	public ParlamentarianView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -238,6 +241,17 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	public void setparliamentarianUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente) {
 		parliamentarianUrlToVotainteligente.setText(messageToVotainteligente);
 		parliamentarianUrlToVotainteligente.setHref(hrefToVotainteligente);
+	}
+
+	@Override
+	public void setShare(String href, String parliamentarianName) {
+		share = new ShareThis();
+		share.setHref(href);
+		// TODO: define social network messages
+		share.setTitle(applicationMessages.getGeneralAppName());
+		share.setMessage(applicationMessages.getParlamentarianLookAtInterestsOf() + " " + parliamentarianName);
+		share.setup();
+		sharePanel.add(share);
 	}
 
 	@UiHandler("interestDeclarationLink")
