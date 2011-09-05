@@ -190,6 +190,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("bill.votedInChamber")
 	public String getBillVotedInChamber();
 
+	@Key("bill.lookThePotentialConflicts")
+	public String getBillLookThePotentialConflicts();
+
 	@Key("category.searchMessage")
 	public String getCategorySearchMessage();
 
