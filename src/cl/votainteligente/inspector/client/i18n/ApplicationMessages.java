@@ -238,6 +238,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("parlamentarian.selectCategoryFirst")
 	public String getParlamentarianSelectCategoryFirst();
 
+	@Key("parlamentarian.lookAtInterestsOf")
+	public String getParlamentarianLookAtInterestsOf();
+
 	@Key("parlamentarianComment.approved")
 	public String getParlamentarianCommentApproved();
 
