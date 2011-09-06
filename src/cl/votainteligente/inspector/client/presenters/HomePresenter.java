@@ -448,6 +448,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		if (selectedCategory != null) {
 			getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, false);
 			selectedCategory = null;
+			categoryId = null;
 		}
 
 		categoryService.searchCategory(parlamentarian, new AsyncCallback<List<Category>>() {
@@ -640,7 +641,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 					}
 					if (selectedType.equals(SelectionType.SELECTED_CATEGORY) && selectedCategory == null) {
 						getView().getParlamentarianTable().getSelectionModel().setSelected(selectionModel.getSelectedObject(), false);
-						selectedCategory = null;
+						selectedParlamentarian = null;
 					} else {
 						selectedParlamentarian = selectionModel.getSelectedObject();
 						getView().setParlamentarianDisplay(selectedParlamentarian.toString());
