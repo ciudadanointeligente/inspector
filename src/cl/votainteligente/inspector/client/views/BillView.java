@@ -207,6 +207,7 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 
 	@Override
 	public void setShare(String href, String billTitle) {
+		sharePanel.clear();
 		share = new ShareThis();
 		share.setHref(href);
 		// TODO: define social network messages

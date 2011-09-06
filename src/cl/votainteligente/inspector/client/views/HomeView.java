@@ -248,6 +248,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 
 	@Override
 	public void setShare(String href) {
+		sharePanel.clear();
 		share = new ShareThis();
 		share.setHref(href);
 		// TODO: define social network messages

@@ -245,6 +245,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 
 	@Override
 	public void setShare(String href, String parliamentarianName) {
+		sharePanel.clear();
 		share = new ShareThis();
 		share.setHref(href);
 		// TODO: define social network messages
