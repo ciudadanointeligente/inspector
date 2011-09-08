@@ -197,7 +197,7 @@ public class ShareThis extends Composite {
 		html += "layout=\"" + align.getFacebookPropertyName() + "\" ";
 		html += "show_faces=\"false\" ";
 		html += "send=\"true\" ";
-		html += "width=\"200\">";
+		html += "width=\"80\">";
 		html += "</fb:like>";
 
 		setHtmlFacebook(new HTML(html));
