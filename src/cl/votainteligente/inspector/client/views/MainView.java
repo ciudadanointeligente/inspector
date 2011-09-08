@@ -43,7 +43,7 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 
 		loading = new PopupPanel();
 		loading.setGlassEnabled(true);
-		loading.setModal(false);
+		loading.setModal(true);
 		loading.setAutoHideOnHistoryEventsEnabled(true);
 	}
 
@@ -124,13 +124,13 @@ public class MainView extends ViewWithUiHandlers<MainUiHandlers> implements Main
 
 	@Override
 	public void showLoading() {
-		popup.clear();
-		popup.add(new Image("images/loading.gif"));
-		popup.center();
+		loading.clear();
+		loading.add(new Image("images/loading.gif"));
+		loading.center();
 	}
 
 	@Override
 	public void hideLoading() {
-		popup.hide();
+		loading.hide();
 	}
 }
