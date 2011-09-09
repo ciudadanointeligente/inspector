@@ -124,6 +124,12 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.parlamentarianComment.save")
 	public String getErrorParlamentarianCommentSave();
 
+	@Key("error.recaptcha.validationSystem")
+	public String getErrorRecaptchaValidationSystem();
+
+	@Key("error.recaptcha.validationCodeIsIncorrect")
+	public String getErrorRecaptchaValidationCodeIsIncorrect();
+
 	@Key("error.reportConflict.save")
 	public String getErrorReportConflictSave();
 
