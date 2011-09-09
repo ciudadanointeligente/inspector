@@ -14,6 +14,8 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
+import com.claudiushauptmann.gwt.recaptcha.client.RecaptchaWidget;
+
 public class ReportConflictView extends ViewWithUiHandlers<ReportConflictUiHandlers> implements ReportConflictPresenter.MyView {
 	private static ReportConflictViewUiBinder uiBinder = GWT.create(ReportConflictViewUiBinder.class);
 	interface ReportConflictViewUiBinder extends UiBinder<Widget, ReportConflictView> {}
@@ -23,6 +25,9 @@ public class ReportConflictView extends ViewWithUiHandlers<ReportConflictUiHandl
 	@UiField TextArea report;
 	@UiField Button submit;
 	@UiField Button clear;
+	@UiField HTMLPanel recaptchaPanel;
+	private RecaptchaWidget recaptcha;
+	private String recaptchaPublicKey = "6Lec-ccSAAAAAMqR4VuGXbnvKBRT6GtCy_IkUHgx";
 
 	public ReportConflictView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -68,6 +73,17 @@ public class ReportConflictView extends ViewWithUiHandlers<ReportConflictUiHandl
 	public void clearForm() {
 		parlamentarianList.setSelectedIndex(0);
 		report.setText("");
+	}
+
+	@Override
+	public void setRecaptcha() {
+		recaptcha = new RecaptchaWidget(recaptchaPublicKey);
+		recaptchaPanel.add(recaptcha);
+	}
+
+	@Override
+	public RecaptchaWidget getRecaptcha() {
+		return recaptcha;
 	}
 
 	@UiHandler("submit")

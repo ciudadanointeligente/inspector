@@ -10,6 +10,8 @@
 			<p>Reporte:</p>
 			<g:TextArea addStyleNames="{style.formTextArea}" ui:field="report" />
 			<br />
+			<g:HTMLPanel ui:field="recaptchaPanel"/>
+			<br />
 			<g:Button ui:field="submit">Enviar</g:Button>
 			<g:Button ui:field="clear">Limpiar</g:Button>
 		</g:HTMLPanel>

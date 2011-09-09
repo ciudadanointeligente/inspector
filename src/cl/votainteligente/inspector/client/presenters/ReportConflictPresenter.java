@@ -2,6 +2,7 @@ package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
+import cl.votainteligente.inspector.client.services.RecaptchaRemoteServiceAsync;
 import cl.votainteligente.inspector.client.services.ReportConflictServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ReportConflictUiHandlers;
 import cl.votainteligente.inspector.model.Parlamentarian;
@@ -22,6 +23,8 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import com.claudiushauptmann.gwt.recaptcha.client.RecaptchaWidget;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -38,6 +41,8 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 		void clearForm();
 		Long getSelectedParlamentarianId();
 		String getReport();
+		void setRecaptcha();
+		RecaptchaWidget getRecaptcha();
 	}
 
 	@ProxyStandard
@@ -47,6 +52,8 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 
 	@Inject
 	private ApplicationMessages applicationMessages;
+	@Inject
+	private RecaptchaRemoteServiceAsync recaptchaService;
 	@Inject
 	private ReportConflictServiceAsync reportConflictService;
 	@Inject
@@ -67,6 +74,7 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 	protected void onReveal() {
 		getView().clearForm();
 		getParlamentarianList();
+		getView().setRecaptcha();
 	}
 
 	@Override
@@ -120,34 +128,52 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 	@Override
 	public void submit() {
 		fireEvent(new ShowLoadingEvent());
-		parlamentarianId = getView().getSelectedParlamentarianId();
-		parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
+		RecaptchaWidget rw = getView().getRecaptcha();
+		recaptchaService.verifyChallenge(rw.getChallenge(), rw.getResponse(), new AsyncCallback<Boolean>() {
 
-			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorParlamentarian());
+				Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
 			}
 
-			@Override
-			public void onSuccess(Parlamentarian result) {
-				fireEvent(new ShowLoadingEvent());
-				ReportConflict reportConflict = new ReportConflict();
-				reportConflict.setReport(getView().getReport());
-				reportConflictService.saveReportConflict(reportConflict, parlamentarianId, new AsyncCallback<ReportConflict>() {
+			public void onSuccess(Boolean result) {
+				if (!result) {
+					fireEvent(new HideLoadingEvent());
+					Window.alert(applicationMessages.getErrorRecaptchaValidationCodeIsIncorrect());
+				} else {
+					fireEvent(new ShowLoadingEvent());
+					parlamentarianId = getView().getSelectedParlamentarianId();
+					parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
 
-					@Override
-					public void onFailure(Throwable caught) {
-						fireEvent(new HideLoadingEvent());
-						Window.alert(applicationMessages.getErrorReportConflictSave());
-					}
+						@Override
+						public void onFailure(Throwable caught) {
+							fireEvent(new HideLoadingEvent());
+							Window.alert(applicationMessages.getErrorParlamentarian());
+						}
 
-					@Override
-					public void onSuccess(ReportConflict result) {
-						fireEvent(new HideLoadingEvent());
-						Window.alert(applicationMessages.getReportConflictSuccess());
-					}
-				});
+						@Override
+						public void onSuccess(Parlamentarian result) {
+							fireEvent(new ShowLoadingEvent());
+							ReportConflict reportConflict = new ReportConflict();
+							reportConflict.setReport(getView().getReport());
+							reportConflictService.saveReportConflict(reportConflict, parlamentarianId, new AsyncCallback<ReportConflict>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									fireEvent(new HideLoadingEvent());
+									Window.alert(applicationMessages.getErrorReportConflictSave());
+								}
+
+								@Override
+								public void onSuccess(ReportConflict result) {
+									fireEvent(new HideLoadingEvent());
+									Window.alert(applicationMessages.getReportConflictSuccess());
+								}
+							});
+							fireEvent(new HideLoadingEvent());
+						}
+					});
+				}
 				fireEvent(new HideLoadingEvent());
 			}
 		});
