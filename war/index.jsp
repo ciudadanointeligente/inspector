@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/highcharts.js"></script>
 		<script type="text/javascript" src="js/highcharts-gwt-adapter.js"></script>
+		<script type="text/javascript" src="js/recaptcha_ajax.js"></script>
 	</head>
 
 	<body class="body">

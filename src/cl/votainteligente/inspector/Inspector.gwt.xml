@@ -15,6 +15,7 @@
 	<inherits name="net.sf.gilead.Gilead4Gwt"/>
 	<inherits name="com.google.gwt.i18n.I18N"/>
 	<inherits name="org.adapters.highcharts.gwt.gwthighcharts"/>
+	<inherits name="com.claudiushauptmann.gwt.recaptcha.gwt-recaptcha"/>
 
 	<define-configuration-property name="gin.ginjector" is-multi-valued="false"/>
 	<set-configuration-property name="gin.ginjector" value="cl.votainteligente.inspector.client.inject.MyInjector"/>
