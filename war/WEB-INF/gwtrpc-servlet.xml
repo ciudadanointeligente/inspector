@@ -38,6 +38,7 @@
 				<entry key="/parlamentarianComment" value-ref="gileadParlamentarianCommentService" />
 				<entry key="/party" value-ref="gileadPartyService" />
 				<entry key="/person" value-ref="gileadPersonService" />
+				<entry key="/recaptcha" value-ref="gileadRecaptchaService" />
 				<entry key="/reportConflict" value-ref="gileadReportConflictService" />
 				<entry key="/society" value-ref="gileadSocietyService" />
 				<entry key="/societyType" value-ref="gileadSocietyTypeService" />
@@ -203,6 +204,17 @@
 
 	<bean id="personService"
 		class="cl.votainteligente.inspector.server.services.PersonServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="gileadRecaptchaService"
+		class="org.gwtwidgets.server.spring.gilead.GileadRPCServiceExporter">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="service" ref="recaptchaService" />
+	</bean>
+
+	<bean id="recaptchaService"
+		class="cl.votainteligente.inspector.server.services.RecaptchaRemoteServiceImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
