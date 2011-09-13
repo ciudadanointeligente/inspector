@@ -26,6 +26,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.*;
@@ -416,6 +417,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			public void onSelectionChange(SelectionChangeEvent event) {
 				if (selectionModel.getSelectedObject() != null) {
 					parlamentarianId = selectionModel.getSelectedObject().getId();
+					setHistoryToken();
 					loadSelectedParlamentarian();
 				}
 			}
@@ -628,6 +630,20 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 		// Adds action profile column to table
 		getView().getStockTable().addColumn(profileColumn, applicationMessages.getGeneralViewMore());
+	}
+
+	public void setHistoryToken() {
+		if (selectedParlamentarian != null && selectedBill != null) {
+			PlaceRequest placeRequest = null;
+			String href = null;
+
+			placeRequest = new PlaceRequest(BillPresenter.PLACE)
+			.with(BillPresenter.PARAM_BILL_ID, billId.toString())
+			.with(BillPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString());
+			href = placeManager.buildHistoryToken(placeRequest);
+			placeManager.revealPlace(placeRequest);
+			History.newItem(href);
+		}
 	}
 
 	@Override
