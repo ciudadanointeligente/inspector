@@ -318,3 +318,10 @@ td.selectedCategory div {
 	margin: 14px 0px 0px 70px;
 	border: 0px none;
 }
+
+.sharePanel {
+	position:fixed;
+	top: 120px;
+	margin-left: -80px;
+	z-index: 1;
+}

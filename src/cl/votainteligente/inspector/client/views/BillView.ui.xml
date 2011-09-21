@@ -62,6 +62,6 @@
 				</div>
 			</g:HTMLPanel>
 		</div>
-		<g:HTMLPanel ui:field="sharePanel"/>
+		<g:HTMLPanel ui:field="sharePanel" addStyleNames="{style.sharePanel}" />
 	</g:HTMLPanel>
 </ui:UiBinder>

@@ -34,7 +34,6 @@
 			</div>
 			<g:HTMLPanel ui:field="stockPanel" addStyleNames="{style.stockPanel}"/>
 		</g:HTMLPanel>
-		<g:HTMLPanel ui:field="sharePanel"/>
 		<g:HTMLPanel addStyleNames="{style.aside}">
 			<g:Anchor ui:field="reportConflictLink" addStyleNames="{style.reportButton}">¿Sabes algo que nosotros no?
 				<br />
@@ -58,5 +57,6 @@
 			<h3 class="{style.comments}">Comentarios del parlamentario</h3>
 			<g:HTMLPanel ui:field="parlamentarianCommentPanel" addStyleNames="{style.parlamentarianComment}"/>
 		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="sharePanel" addStyleNames="{style.sharePanel}" />
 	</g:HTMLPanel>
 </ui:UiBinder>

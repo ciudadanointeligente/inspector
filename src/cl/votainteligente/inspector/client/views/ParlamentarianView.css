@@ -260,3 +260,10 @@ h2 {
 	margin-top: -7px;
 	margin-bottom: 60px;
 }
+
+.sharePanel {
+	position:fixed;
+	top: 120px;
+	margin-left: -80px;
+	z-index: 1;
+}

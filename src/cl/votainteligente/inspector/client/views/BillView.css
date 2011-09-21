@@ -255,3 +255,10 @@ h2 {
 	background: url("images/bg_darker.jpg") repeat scroll 0 0 transparent;
 	width: 280px;
 }
+
+.sharePanel {
+	position:fixed;
+	top: 120px;
+	margin-left: -80px;
+	z-index: 1;
+}
