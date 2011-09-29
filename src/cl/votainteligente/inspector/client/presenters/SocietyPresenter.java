@@ -1,6 +1,7 @@
 package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.GoogleAnalytics;
+import cl.votainteligente.inspector.client.GoogleAnalytics.Action;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.SocietyServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.SocietyUiHandlers;
@@ -78,7 +79,10 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 
 	@Override
 	protected void onReveal() {
-		GoogleAnalytics.trackHit(Window.Location.getHref());
+		GoogleAnalytics.trackHit(PLACE);
+		if (societyId != null) {
+			GoogleAnalytics.trackEvent(PLACE, Action.VIEW, PARAM_SOCIETY_ID, societyId.toString());
+		}
 	}
 
 	@Override

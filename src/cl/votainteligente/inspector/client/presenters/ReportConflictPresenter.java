@@ -1,6 +1,7 @@
 package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.GoogleAnalytics;
+import cl.votainteligente.inspector.client.GoogleAnalytics.Action;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.client.services.RecaptchaRemoteServiceAsync;
@@ -76,7 +77,10 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 		getView().clearForm();
 		getParlamentarianList();
 		getView().setRecaptcha();
-		GoogleAnalytics.trackHit(Window.Location.getHref());
+		GoogleAnalytics.trackHit(PLACE);
+		if (parlamentarianId != null) {
+			GoogleAnalytics.trackEvent(PLACE, Action.VIEW, PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString());
+		}
 	}
 
 	@Override

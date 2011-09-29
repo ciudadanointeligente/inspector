@@ -1,6 +1,7 @@
 package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.GoogleAnalytics;
+import cl.votainteligente.inspector.client.GoogleAnalytics.Action;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.StockServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.StockUiHandlers;
@@ -68,7 +69,10 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 
 	@Override
 	protected void onReveal() {
-		GoogleAnalytics.trackHit(Window.Location.getHref());
+		GoogleAnalytics.trackHit(PLACE);
+		if (stockId != null) {
+			GoogleAnalytics.trackEvent(PLACE, Action.VIEW, PARAM_STOCK_ID, stockId.toString());
+		}
 	}
 
 	@Override

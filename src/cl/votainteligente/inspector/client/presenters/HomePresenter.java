@@ -129,7 +129,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		initDataLoad();
 		getView().displaySelectionNone();
 		getView().setShare(Window.Location.getHref());
-		GoogleAnalytics.trackHit(Window.Location.getHref());
+		GoogleAnalytics.trackHit(PLACE);
 	}
 
 	@Override
