@@ -25,5 +25,9 @@
 		</set>
 		<property name="lastUpdate"/>
 		<property name="lastNotification"/>
+		<set name="relatedParlamentarians" table="BillRelatedParlamentarians">
+			<key column="billId" />
+			<many-to-many column="parlamentarianId" class="Parlamentarian" />
+		</set>
 	</class>
 </hibernate-mapping>
