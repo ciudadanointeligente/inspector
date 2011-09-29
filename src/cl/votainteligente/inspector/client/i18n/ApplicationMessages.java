@@ -88,6 +88,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.viewParliamentarianOnVotainteligente")
 	public String getGeneralViewParliamentarianOnVotainteligente();
 
+	@Key("error.emptyField")
+	public String getErrorEmptyField();
+
 	@Key("error.incorrectParameters")
 	public String getErrorIncorrectParameters();
 
