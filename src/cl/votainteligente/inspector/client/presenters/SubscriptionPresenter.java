@@ -1,5 +1,6 @@
 package cl.votainteligente.inspector.client.presenters;
 
+import cl.votainteligente.inspector.client.GoogleAnalytics;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.SubscriberServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.SubscriptionUiHandlers;
@@ -17,6 +18,7 @@ import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import javax.inject.Inject;
@@ -54,6 +56,11 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 	@Override
 	protected void onReset() {
 		getView().setEmail("");
+	}
+
+	@Override
+	protected void onReveal() {
+		GoogleAnalytics.trackHit(Window.Location.getHref());
 	}
 
 	@Override

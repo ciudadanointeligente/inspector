@@ -120,6 +120,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 		getView().setbillUrlToVotainteligente(VOTAINTELIGENTE_BILL_URL+billId, applicationMessages.getGeneralViewProjectOnVotainteligente());
+		GoogleAnalytics.trackHit(Window.Location.getHref());
 	}
 
 	@Override

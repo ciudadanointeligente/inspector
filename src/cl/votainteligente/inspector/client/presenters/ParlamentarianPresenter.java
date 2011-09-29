@@ -1,8 +1,6 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.InlineHyperLinkCellData;
-import cl.votainteligente.inspector.client.MultipleInlineHyperLinkCell;
-import cl.votainteligente.inspector.client.MultipleInlineHyperLinkCellData;
+import cl.votainteligente.inspector.client.*;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianCommentServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
@@ -112,6 +110,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		}
 		getView().setparliamentarianUrlToVotainteligente(VOTAINTELIGENTE_PARLIAMENTARIAN_URL + parlamentarianId, applicationMessages.getGeneralViewParliamentarianOnVotainteligente());
 		showReportConflictForm();
+		GoogleAnalytics.trackHit(Window.Location.getHref());
 	}
 
 	@Override

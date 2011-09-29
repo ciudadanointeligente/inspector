@@ -1,5 +1,6 @@
 package cl.votainteligente.inspector.client.presenters;
 
+import cl.votainteligente.inspector.client.GoogleAnalytics;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianCommentServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
@@ -66,6 +67,7 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 	protected void onReveal() {
 		getView().clearForm();
 		getParlamentarianList();
+		GoogleAnalytics.trackHit(Window.Location.getHref());
 	}
 
 	@Override
