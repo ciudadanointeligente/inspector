@@ -643,6 +643,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			href = placeManager.buildHistoryToken(placeRequest);
 			placeManager.revealPlace(placeRequest);
 			History.newItem(href);
+			getView().setShare(Window.Location.getHref(), selectedBill.getTitle().substring(0, 40));
 		}
 	}
 

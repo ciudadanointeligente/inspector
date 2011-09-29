@@ -915,6 +915,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			href = placeManager.buildHistoryToken(placeRequest);
 			placeManager.revealPlace(placeRequest);
 			History.newItem(href);
+			getView().setShare(Window.Location.getHref());
 		}
 	}
 
