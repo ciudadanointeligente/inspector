@@ -4,10 +4,8 @@ import cl.votainteligente.inspector.client.services.ParlamentarianService;
 import cl.votainteligente.inspector.model.*;
 
 import org.hibernate.*;
-import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinFragment;
 
 import java.util.*;
 
@@ -126,7 +124,6 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 	@Override
 	public List<Parlamentarian> searchParlamentarian(Category category) throws Exception {
-		// TODO: Optimize method
 		Session hibernate = sessionFactory.getCurrentSession();
 
 		try {
@@ -136,49 +133,9 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 			Criteria parlamentarianCriteria = hibernate.createCriteria(Parlamentarian.class);
 			parlamentarianCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			parlamentarianCriteria.setFetchMode("party", FetchMode.JOIN);
+			parlamentarianCriteria.createAlias("relatedCategories", "cat").add(Restrictions.eq("cat.id", category.getId()));
 			parlamentarians = (List<Parlamentarian>)parlamentarianCriteria.list();
 
-			Set<Parlamentarian> billRelatedParlamentarians = new HashSet<Parlamentarian>();
-			Set<Parlamentarian> societyRelatedParlamentarians = new HashSet<Parlamentarian>();
-			Set<Parlamentarian> stockRelatedParlamentarians = new HashSet<Parlamentarian>();
-			Set<Parlamentarian> resultSet = new HashSet<Parlamentarian>();
-
-			forParlamentarian:
-			for (Parlamentarian parlamentarian : parlamentarians) {
-				for (Society society : parlamentarian.getSocieties().keySet()) {
-					if (society.getCategories().contains(category)) {
-						societyRelatedParlamentarians.add(parlamentarian);
-					}
-				}
-
-				for (Stock stock : parlamentarian.getStocks().keySet()) {
-					if (stock.getCategories().contains(category)) {
-						stockRelatedParlamentarians.add(parlamentarian);
-					}
-				}
-
-				for (Bill bill : parlamentarian.getAuthoredBills()) {
-					if (bill.getCategories().contains(category)) {
-						billRelatedParlamentarians.add(parlamentarian);
-						continue forParlamentarian;
-					}
-				}
-
-				for (Bill bill : parlamentarian.getVotedBills()) {
-					if (bill.getCategories().contains(category)) {
-						billRelatedParlamentarians.add(parlamentarian);
-						continue forParlamentarian;
-					}
-				}
-			}
-
-			for (Parlamentarian parlamentarian : billRelatedParlamentarians) {
-				if (societyRelatedParlamentarians.contains(parlamentarian) || stockRelatedParlamentarians.contains(parlamentarian)) {
-					resultSet.add(parlamentarian);
-				}
-			}
-
-			parlamentarians = new ArrayList<Parlamentarian>(resultSet);
 			Collections.sort(parlamentarians, new Comparator<Parlamentarian>() {
 
 				@Override
@@ -199,50 +156,14 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 
 	@Override
 	public List<Parlamentarian> getParlamentariansByBill(Bill bill) throws Exception {
-		// TODO: Optimize method
 		Session hibernate = sessionFactory.getCurrentSession();
 
 		try {
 			hibernate.beginTransaction();
 
-			bill = (Bill) hibernate.load(Bill.class, bill.getId());
+			bill = (Bill) hibernate.get(Bill.class, bill.getId());
+			List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>(bill.getRelatedParlamentarians());
 
-			Criteria criteria = hibernate.createCriteria(Parlamentarian.class);
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-			criteria.setFetchMode("authoredBills", FetchMode.JOIN);
-
-			// Adds subcriterias used to search in collections
-			criteria.createCriteria("authoredBills", "ab", JoinFragment.LEFT_OUTER_JOIN);
-			criteria.createCriteria("votedBills", "vb", JoinFragment.LEFT_OUTER_JOIN);
-
-			Disjunction disjunction = Restrictions.disjunction();
-			disjunction.add(Restrictions.eq("vb.id", bill.getId()));
-			disjunction.add(Restrictions.eq("ab.id", bill.getId()));
-			criteria.add(disjunction);
-
-			List<Parlamentarian> parlamentarians = criteria.list();
-			Set<Parlamentarian> resultSet = new HashSet<Parlamentarian>();
-			Set<Category> intersection = new HashSet<Category>();
-
-			for (Parlamentarian parlamentarian : parlamentarians) {
-				for (Society society : parlamentarian.getSocieties().keySet()) {
-					intersection = new HashSet<Category>(society.getCategories());
-					intersection.retainAll(bill.getCategories());
-					if (intersection.size() > 0) {
-						resultSet.add(parlamentarian);
-					}
-				}
-
-				for (Stock stock : parlamentarian.getStocks().keySet()) {
-					intersection = new HashSet<Category>(stock.getCategories());
-					intersection.retainAll(bill.getCategories());
-					if (intersection.size() > 0) {
-						resultSet.add(parlamentarian);
-					}
-				}
-			}
-
-			parlamentarians = new ArrayList<Parlamentarian>(resultSet);
 			Collections.sort(parlamentarians, new Comparator<Parlamentarian>() {
 
 				@Override
@@ -250,6 +171,7 @@ public class ParlamentarianServiceImpl implements ParlamentarianService {
 					return o1.compareTo(o2);
 				}
 			});
+
 			hibernate.getTransaction().commit();
 			return parlamentarians;
 		} catch (Exception ex) {
