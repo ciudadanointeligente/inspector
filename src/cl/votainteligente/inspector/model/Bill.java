@@ -1,8 +1,8 @@
 package cl.votainteligente.inspector.model;
 
-import net.sf.gilead.pojo.gwt.LightEntity;
-
 import com.google.gwt.view.client.ProvidesKey;
+
+import net.sf.gilead.pojo.gwt.LightEntity;
 
 import java.util.Date;
 import java.util.Set;
@@ -21,6 +21,7 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 	private Set<Category> categories;
 	private Date lastUpdate;
 	private Date lastNotification;
+	private Set<Parlamentarian> relatedParlamentarians;
 
 	public static final ProvidesKey<Bill> KEY_PROVIDER = new ProvidesKey<Bill>() {
 		public Object getKey(Bill bill) {
@@ -130,6 +131,14 @@ public class Bill extends LightEntity implements Comparable<Bill> {
 
 	public void setLastNotification(Date lastNotification) {
 		this.lastNotification = lastNotification;
+	}
+
+	public Set<Parlamentarian> getRelatedParlamentarians() {
+		return relatedParlamentarians;
+	}
+
+	public void setRelatedParlamentarians(Set<Parlamentarian> relatedParlamentarians) {
+		this.relatedParlamentarians = relatedParlamentarians;
 	}
 
 	@Override
