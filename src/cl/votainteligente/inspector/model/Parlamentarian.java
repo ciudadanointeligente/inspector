@@ -20,6 +20,7 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 	private String patrimonyDeclarationFile;
 	private String image;
 	private String email;
+	private Set<Category> relatedCategories;
 
 	public static final ProvidesKey<Parlamentarian> KEY_PROVIDER = new ProvidesKey<Parlamentarian>() {
 		public Object getKey(Parlamentarian parlamentarian) {
@@ -137,6 +138,14 @@ public class Parlamentarian extends Person implements Comparable<Parlamentarian>
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<Category> getRelatedCategories() {
+		return relatedCategories;
+	}
+
+	public void setRelatedCategories(Set<Category> relatedCategories) {
+		this.relatedCategories = relatedCategories;
 	}
 
 	@Override

@@ -38,5 +38,9 @@
 		<property name="patrimonyDeclarationFile" />
 		<property name="image" />
 		<property name="email" />
+		<set name="relatedCategories" table="ParlamentarianRelatedCategories">
+			<key column="parlamentarianId" />
+			<many-to-many column="categoryId" class="Category" />
+		</set>
 	</joined-subclass>
 </hibernate-mapping>
