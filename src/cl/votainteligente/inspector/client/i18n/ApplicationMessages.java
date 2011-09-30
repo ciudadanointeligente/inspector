@@ -91,6 +91,15 @@ public interface ApplicationMessages extends Messages {
 	@Key("error.emptyField")
 	public String getErrorEmptyField();
 
+	@Key("error.emptyCommentField")
+	public String getErrorEmptyCommentField();
+
+	@Key("error.emptyReportField")
+	public String getErrorEmptyReportField();
+
+	@Key("error.emptySubject")
+	public String getErrorEmptySubject();
+
 	@Key("error.incorrectParameters")
 	public String getErrorIncorrectParameters();
 
@@ -180,6 +189,9 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("error.subscriber.unsubscribe")
 	public String getErrorSubscriberUnsubscribe();
+
+	@Key("error.unselectedParliamentarian")
+	public String getErrorUnselectedParliamentarian();
 
 	@Key("bill.bulletin")
 	public String getBillBulletin();
