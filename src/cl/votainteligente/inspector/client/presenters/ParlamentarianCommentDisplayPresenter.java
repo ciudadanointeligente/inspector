@@ -1,7 +1,5 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.GoogleAnalytics;
-import cl.votainteligente.inspector.client.GoogleAnalytics.Action;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianCommentServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianCommentDisplayUiHandlers;
@@ -65,10 +63,6 @@ public class ParlamentarianCommentDisplayPresenter extends Presenter<Parlamentar
 		} else {
 			Window.alert(applicationMessages.getErrorParlamentarianComment());
 			close();
-		}
-		GoogleAnalytics.trackHit(PLACE);
-		if (parlamentarianCommentId != null) {
-			GoogleAnalytics.trackEvent(PLACE, Action.VIEW, PARAM_PARLAMENTARIAN_COMMENT_ID, parlamentarianCommentId.toString());
 		}
 	}
 

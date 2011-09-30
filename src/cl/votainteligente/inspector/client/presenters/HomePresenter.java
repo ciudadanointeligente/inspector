@@ -1,6 +1,5 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.GoogleAnalytics;
 import cl.votainteligente.inspector.client.InlineHyperLinkCell;
 import cl.votainteligente.inspector.client.InlineHyperLinkCellData;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
@@ -129,7 +128,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		initDataLoad();
 		getView().displaySelectionNone();
 		getView().setShare(Window.Location.getHref());
-		GoogleAnalytics.trackHit(PLACE);
 	}
 
 	@Override

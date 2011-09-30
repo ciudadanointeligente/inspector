@@ -1,7 +1,5 @@
 package cl.votainteligente.inspector.client.presenters;
 
-import cl.votainteligente.inspector.client.GoogleAnalytics;
-import cl.votainteligente.inspector.client.GoogleAnalytics.Action;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.SubscriberServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.SubscriptionUiHandlers;
@@ -60,12 +58,6 @@ public class SubscriptionPresenter extends Presenter<SubscriptionPresenter.MyVie
 
 	@Override
 	protected void onReveal() {
-		GoogleAnalytics.trackHit(PLACE);
-		if (billId != null) {
-			GoogleAnalytics.trackEvent(PLACE, Action.VIEW, PARAM_BILL_ID, billId.toString());
-		} else {
-			GoogleAnalytics.trackEvent(PLACE, Action.VIEW, PARAM_CATEGORY_ID, categoryId.toString());
-		}
 	}
 
 	@Override

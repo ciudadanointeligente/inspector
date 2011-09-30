@@ -1,19 +1,19 @@
 package cl.votainteligente.inspector.client.places;
 
+import cl.votainteligente.inspector.client.GoogleAnalytics;
 import cl.votainteligente.inspector.client.presenters.HomePresenter;
 
-import com.gwtplatform.mvp.client.proxy.PlaceManagerImpl;
-import com.gwtplatform.mvp.client.proxy.PlaceRequest;
-import com.gwtplatform.mvp.client.proxy.TokenFormatter;
+import com.gwtplatform.mvp.client.proxy.*;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.inject.Inject;
 
-public class MyPlaceManager extends PlaceManagerImpl {
+public class MyPlaceManager extends PlaceManagerImpl implements NavigationHandler {
 
 	@Inject
 	public MyPlaceManager(EventBus eventBus, TokenFormatter tokenFormatter) {
 		super(eventBus, tokenFormatter);
+		eventBus.addHandler (NavigationEvent.getType (), this);
 	}
 
 	@Override
@@ -21,4 +21,8 @@ public class MyPlaceManager extends PlaceManagerImpl {
 		revealPlace(new PlaceRequest(HomePresenter.PLACE));
 	}
 
+	@Override
+	public void onNavigation(NavigationEvent navigationEvent) {
+		GoogleAnalytics.trackHit (buildHistoryToken (navigationEvent.getRequest ()));
+	}
 }

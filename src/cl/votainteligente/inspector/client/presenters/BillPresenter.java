@@ -1,7 +1,6 @@
 package cl.votainteligente.inspector.client.presenters;
 
 import cl.votainteligente.inspector.client.*;
-import cl.votainteligente.inspector.client.GoogleAnalytics.Action;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.BillServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
@@ -121,10 +120,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		getView().setParlamentarianDisplay(applicationMessages.getGeneralParlamentarian());
 		getView().setParlamentarianImage("images/parlamentarian/large/avatar.png");
 		getView().setbillUrlToVotainteligente(VOTAINTELIGENTE_BILL_URL+billId, applicationMessages.getGeneralViewProjectOnVotainteligente());
-		GoogleAnalytics.trackHit(PLACE);
-		if (billId != null) {
-			GoogleAnalytics.trackEvent(PLACE, Action.VIEW, PARAM_BILL_ID, billId.toString());
-		}
 	}
 
 	@Override
