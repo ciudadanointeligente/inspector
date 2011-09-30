@@ -14,4 +14,6 @@ public interface RecaptchaRemoteService extends RemoteService {
 			return GWT.create(RecaptchaRemoteService.class);
 		}
 	}
+
+	String getPublicKey() throws Exception;
 }
