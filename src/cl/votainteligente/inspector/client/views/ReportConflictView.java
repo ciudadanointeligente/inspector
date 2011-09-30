@@ -27,7 +27,6 @@ public class ReportConflictView extends ViewWithUiHandlers<ReportConflictUiHandl
 	@UiField Button clear;
 	@UiField HTMLPanel recaptchaPanel;
 	private RecaptchaWidget recaptcha;
-	private String recaptchaPublicKey = "6Lec-ccSAAAAAMqR4VuGXbnvKBRT6GtCy_IkUHgx";
 
 	public ReportConflictView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -76,7 +75,7 @@ public class ReportConflictView extends ViewWithUiHandlers<ReportConflictUiHandl
 	}
 
 	@Override
-	public void setRecaptcha() {
+	public void setRecaptcha(String recaptchaPublicKey) {
 		recaptcha = new RecaptchaWidget(recaptchaPublicKey);
 		recaptchaPanel.add(recaptcha);
 	}

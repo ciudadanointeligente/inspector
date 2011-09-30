@@ -43,7 +43,7 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 		void clearForm();
 		Long getSelectedParlamentarianId();
 		String getReport();
-		void setRecaptcha();
+		void setRecaptcha(String recaptchaPublicKey);
 		RecaptchaWidget getRecaptcha();
 	}
 
@@ -76,7 +76,7 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 	protected void onReveal() {
 		getView().clearForm();
 		getParlamentarianList();
-		getView().setRecaptcha();
+		createReCaptcha();
 		GoogleAnalytics.trackHit(PLACE);
 		if (parlamentarianId != null) {
 			GoogleAnalytics.trackEvent(PLACE, Action.VIEW, PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString());
@@ -188,5 +188,20 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 				}
 			});
 		}
+	}
+
+	public void createReCaptcha() {
+		recaptchaService.getPublicKey(new AsyncCallback<String>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				getView().setRecaptcha(result);
+			}
+		});
 	}
 }
