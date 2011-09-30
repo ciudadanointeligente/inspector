@@ -8,7 +8,7 @@
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
 			_gaq.push(['_setAccount', 'UA-26017381-1']);
-			_gaq.push(['_setDomainName', 'inspectordeintereses.cl']);
+			_gaq.push(['_setDomainName', 'app.inspectordeintereses.cl']);
 
 			(function() {
 				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
