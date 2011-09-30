@@ -4,6 +4,9 @@ import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianCommentServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianCommentDisplayUiHandlers;
 import cl.votainteligente.inspector.model.ParlamentarianComment;
+import cl.votainteligente.inspector.shared.NotificationEvent;
+import cl.votainteligente.inspector.shared.NotificationEventParams;
+import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -18,7 +21,6 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -61,7 +63,11 @@ public class ParlamentarianCommentDisplayPresenter extends Presenter<Parlamentar
 		if (parlamentarianCommentId != null) {
 			getParlamentarianComment(parlamentarianCommentId);
 		} else {
-			Window.alert(applicationMessages.getErrorParlamentarianComment());
+			NotificationEventParams params = new NotificationEventParams();
+			params.setMessage(applicationMessages.getErrorParlamentarianComment());
+			params.setType(NotificationEventType.ERROR);
+			params.setDuration(NotificationEventParams.DURATION_SHORT);
+			fireEvent(new NotificationEvent(params));
 			close();
 		}
 	}
@@ -87,7 +93,11 @@ public class ParlamentarianCommentDisplayPresenter extends Presenter<Parlamentar
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorParlamentarianComment());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorParlamentarianComment());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override

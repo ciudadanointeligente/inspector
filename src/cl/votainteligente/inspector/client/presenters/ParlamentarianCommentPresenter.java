@@ -7,8 +7,7 @@ import cl.votainteligente.inspector.client.services.RecaptchaRemoteServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianCommentUiHandlers;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.ParlamentarianComment;
-import cl.votainteligente.inspector.shared.HideLoadingEvent;
-import cl.votainteligente.inspector.shared.ShowLoadingEvent;
+import cl.votainteligente.inspector.shared.*;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -18,7 +17,6 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.*;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -99,7 +97,11 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorParlamentarianList());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorParlamentarianList());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -129,27 +131,47 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 		fireEvent(new ShowLoadingEvent());
 		if (getView().getSelectedParlamentarianId() == 0) {
 			fireEvent(new HideLoadingEvent());
-			Window.alert(applicationMessages.getErrorUnselectedParliamentarian());
+			NotificationEventParams params = new NotificationEventParams();
+			params.setMessage(applicationMessages.getErrorUnselectedParliamentarian());
+			params.setType(NotificationEventType.ERROR);
+			params.setDuration(NotificationEventParams.DURATION_SHORT);
+			fireEvent(new NotificationEvent(params));
 		} else {
 			if (getView().getCommentBody() == null || getView().getCommentBody().length() == 0 || getView().getCommentBody().equals("")) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorEmptyCommentField());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorEmptyCommentField());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			} else if (getView().getCommentSubject() == null || getView().getCommentSubject().length() == 0 || getView().getCommentSubject().equals("")) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorEmptySubject());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorEmptySubject());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			} else {
 				RecaptchaWidget rw = getView().getRecaptcha();
 				recaptchaService.verifyChallenge(rw.getChallenge(), rw.getResponse(), new AsyncCallback<Boolean>() {
 
 					public void onFailure(Throwable caught) {
 						fireEvent(new HideLoadingEvent());
-						Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
+						NotificationEventParams params = new NotificationEventParams();
+						params.setMessage(applicationMessages.getErrorRecaptchaValidationSystem());
+						params.setType(NotificationEventType.ERROR);
+						params.setDuration(NotificationEventParams.DURATION_SHORT);
+						fireEvent(new NotificationEvent(params));
 					}
 
 					public void onSuccess(Boolean result) {
 						if (!result) {
 							fireEvent(new HideLoadingEvent());
-							Window.alert(applicationMessages.getErrorRecaptchaValidationCodeIsIncorrect());
+							NotificationEventParams params = new NotificationEventParams();
+							params.setMessage(applicationMessages.getErrorRecaptchaValidationCodeIsIncorrect());
+							params.setType(NotificationEventType.ERROR);
+							params.setDuration(NotificationEventParams.DURATION_SHORT);
+							fireEvent(new NotificationEvent(params));
 						} else {
 							fireEvent(new ShowLoadingEvent());
 							parlamentarianId = getView().getSelectedParlamentarianId();
@@ -158,7 +180,11 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 								@Override
 								public void onFailure(Throwable caught) {
 									fireEvent(new HideLoadingEvent());
-									Window.alert(applicationMessages.getErrorParlamentarian());
+									NotificationEventParams params = new NotificationEventParams();
+									params.setMessage(applicationMessages.getErrorParlamentarian());
+									params.setType(NotificationEventType.ERROR);
+									params.setDuration(NotificationEventParams.DURATION_SHORT);
+									fireEvent(new NotificationEvent(params));
 								}
 
 								@Override
@@ -172,13 +198,21 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 										@Override
 										public void onFailure(Throwable caught) {
 											fireEvent(new HideLoadingEvent());
-											Window.alert(applicationMessages.getErrorParlamentarianCommentSave());
+											NotificationEventParams params = new NotificationEventParams();
+											params.setMessage(applicationMessages.getErrorParlamentarianCommentSave());
+											params.setType(NotificationEventType.ERROR);
+											params.setDuration(NotificationEventParams.DURATION_SHORT);
+											fireEvent(new NotificationEvent(params));
 										}
 
 										@Override
 										public void onSuccess(ParlamentarianComment result) {
 											fireEvent(new HideLoadingEvent());
-											Window.alert(applicationMessages.getParlamentarianCommentSaved());
+											NotificationEventParams params = new NotificationEventParams();
+											params.setMessage(applicationMessages.getParlamentarianCommentSaved());
+											params.setType(NotificationEventType.SUCCESS);
+											params.setDuration(NotificationEventParams.DURATION_NORMAL);
+											fireEvent(new NotificationEvent(params));
 											PlaceRequest placeRequest = new PlaceRequest(ParlamentarianPresenter.PLACE)
 											.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString());
 											placeManager.revealPlace(placeRequest.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString()));
@@ -200,7 +234,11 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorRecaptchaValidationSystem());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override

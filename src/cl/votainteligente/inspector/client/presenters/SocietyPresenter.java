@@ -5,6 +5,9 @@ import cl.votainteligente.inspector.client.services.SocietyServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.SocietyUiHandlers;
 import cl.votainteligente.inspector.model.Person;
 import cl.votainteligente.inspector.model.Society;
+import cl.votainteligente.inspector.shared.NotificationEvent;
+import cl.votainteligente.inspector.shared.NotificationEventParams;
+import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -20,7 +23,6 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -107,7 +109,11 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 		societyService.getSociety(societyId, new AsyncCallback<Society>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorSociety());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorSociety());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override

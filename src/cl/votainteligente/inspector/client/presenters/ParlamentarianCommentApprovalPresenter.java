@@ -4,8 +4,7 @@ import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianCommentServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianCommentApprovalUiHandlers;
 import cl.votainteligente.inspector.model.ParlamentarianComment;
-import cl.votainteligente.inspector.shared.HideLoadingEvent;
-import cl.votainteligente.inspector.shared.ShowLoadingEvent;
+import cl.votainteligente.inspector.shared.*;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -17,7 +16,6 @@ import com.gwtplatform.mvp.client.proxy.*;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -65,7 +63,11 @@ public class ParlamentarianCommentApprovalPresenter extends Presenter<Parlamenta
 			getParlamentarianComment(parlamentarianCommentId);
 			getView().setProfileLink("#" + placeManager.buildHistoryToken(new PlaceRequest(ParlamentarianPresenter.PLACE).with(PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString())));
 		} else {
-			Window.alert(applicationMessages.getErrorParlamentarianCommentApproval());
+			NotificationEventParams params = new NotificationEventParams();
+			params.setMessage(applicationMessages.getErrorParlamentarianCommentApproval());
+			params.setType(NotificationEventType.ERROR);
+			params.setDuration(NotificationEventParams.DURATION_SHORT);
+			fireEvent(new NotificationEvent(params));
 			placeManager.revealPlace(new PlaceRequest(HomePresenter.PLACE));
 		}
 	}
@@ -97,7 +99,11 @@ public class ParlamentarianCommentApprovalPresenter extends Presenter<Parlamenta
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorParlamentarianComment());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorParlamentarianComment());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -141,18 +147,30 @@ public class ParlamentarianCommentApprovalPresenter extends Presenter<Parlamenta
 				@Override
 				public void onFailure(Throwable caught) {
 					fireEvent(new HideLoadingEvent());
-					Window.alert(applicationMessages.getErrorParlamentarianCommentApproval());
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getErrorParlamentarianCommentApproval());
+					params.setType(NotificationEventType.ERROR);
+					params.setDuration(NotificationEventParams.DURATION_SHORT);
+					fireEvent(new NotificationEvent(params));
 				}
 
 				@Override
 				public void onSuccess(ParlamentarianComment result) {
 					fireEvent(new HideLoadingEvent());
-					Window.alert(applicationMessages.getParlamentarianCommentApproved());
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getParlamentarianCommentApproved());
+					params.setType(NotificationEventType.SUCCESS);
+					params.setDuration(NotificationEventParams.DURATION_NORMAL);
+					fireEvent(new NotificationEvent(params));
 					placeManager.revealPlace(new PlaceRequest(ParlamentarianPresenter.PLACE).with(PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString()));
 				}
 			});
 		} else {
-			Window.alert(applicationMessages.getErrorParlamentarianCommentApproval());
+			NotificationEventParams params = new NotificationEventParams();
+			params.setMessage(applicationMessages.getErrorParlamentarianCommentApproval());
+			params.setType(NotificationEventType.ERROR);
+			params.setDuration(NotificationEventParams.DURATION_SHORT);
+			fireEvent(new NotificationEvent(params));
 			placeManager.revealPlace(new PlaceRequest(HomePresenter.PLACE));
 		}
 	}
@@ -166,18 +184,30 @@ public class ParlamentarianCommentApprovalPresenter extends Presenter<Parlamenta
 				@Override
 				public void onFailure(Throwable caught) {
 					fireEvent(new HideLoadingEvent());
-					Window.alert(applicationMessages.getErrorParlamentarianCommentRejected());
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getErrorParlamentarianCommentRejected());
+					params.setType(NotificationEventType.ERROR);
+					params.setDuration(NotificationEventParams.DURATION_SHORT);
+					fireEvent(new NotificationEvent(params));
 				}
 
 				@Override
 				public void onSuccess(ParlamentarianComment result) {
 					fireEvent(new HideLoadingEvent());
-					Window.alert(applicationMessages.getParlamentarianCommentRejected());
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getParlamentarianCommentRejected());
+					params.setType(NotificationEventType.SUCCESS);
+					params.setDuration(NotificationEventParams.DURATION_NORMAL);
+					fireEvent(new NotificationEvent(params));
 					placeManager.revealPlace(new PlaceRequest(ParlamentarianPresenter.PLACE).with(PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString()));
 				}
 			});
 		} else {
-			Window.alert(applicationMessages.getErrorParlamentarianCommentRejected());
+			NotificationEventParams params = new NotificationEventParams();
+			params.setMessage(applicationMessages.getErrorParlamentarianCommentRejected());
+			params.setType(NotificationEventType.ERROR);
+			params.setDuration(NotificationEventParams.DURATION_SHORT);
+			fireEvent(new NotificationEvent(params));
 			placeManager.revealPlace(new PlaceRequest(HomePresenter.PLACE));
 		}
 	}

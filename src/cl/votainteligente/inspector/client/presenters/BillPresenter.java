@@ -7,8 +7,7 @@ import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
 import cl.votainteligente.inspector.client.services.SocietyServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
 import cl.votainteligente.inspector.model.*;
-import cl.votainteligente.inspector.shared.HideLoadingEvent;
-import cl.votainteligente.inspector.shared.ShowLoadingEvent;
+import cl.votainteligente.inspector.shared.*;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -175,7 +174,11 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorBill());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorBill());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -224,7 +227,11 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorParlamentarian());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorParlamentarian());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -287,7 +294,11 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorParlamentarianBillSearch());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorParlamentarianBillSearch());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -308,7 +319,11 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorBillAuthors());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorBillAuthors());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override

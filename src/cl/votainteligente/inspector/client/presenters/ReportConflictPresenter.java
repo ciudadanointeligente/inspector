@@ -7,8 +7,7 @@ import cl.votainteligente.inspector.client.services.ReportConflictServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ReportConflictUiHandlers;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.ReportConflict;
-import cl.votainteligente.inspector.shared.HideLoadingEvent;
-import cl.votainteligente.inspector.shared.ShowLoadingEvent;
+import cl.votainteligente.inspector.shared.*;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -18,7 +17,6 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.*;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import com.claudiushauptmann.gwt.recaptcha.client.RecaptchaWidget;
@@ -100,7 +98,11 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorParlamentarianList());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorParlamentarianList());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -130,12 +132,20 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 		fireEvent(new ShowLoadingEvent());
 		if (getView().getSelectedParlamentarianId() == 0) {
 			fireEvent(new HideLoadingEvent());
-			Window.alert(applicationMessages.getErrorUnselectedParliamentarian());
+			NotificationEventParams params = new NotificationEventParams();
+			params.setMessage(applicationMessages.getErrorUnselectedParliamentarian());
+			params.setType(NotificationEventType.ERROR);
+			params.setDuration(NotificationEventParams.DURATION_SHORT);
+			fireEvent(new NotificationEvent(params));
 			return;
 		}
 		if (getView().getReport() == null || getView().getReport().length() == 0 || getView().getReport().equals("")) {
 			fireEvent(new HideLoadingEvent());
-			Window.alert(applicationMessages.getErrorEmptyReportField());
+			NotificationEventParams params = new NotificationEventParams();
+			params.setMessage(applicationMessages.getErrorEmptyReportField());
+			params.setType(NotificationEventType.ERROR);
+			params.setDuration(NotificationEventParams.DURATION_SHORT);
+			fireEvent(new NotificationEvent(params));
 			return;
 		}
 
@@ -144,13 +154,21 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorRecaptchaValidationSystem());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			public void onSuccess(Boolean result) {
 				if (!result) {
 					fireEvent(new HideLoadingEvent());
-					Window.alert(applicationMessages.getErrorRecaptchaValidationCodeIsIncorrect());
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getErrorRecaptchaValidationCodeIsIncorrect());
+					params.setType(NotificationEventType.ERROR);
+					params.setDuration(NotificationEventParams.DURATION_SHORT);
+					fireEvent(new NotificationEvent(params));
 				} else {
 					fireEvent(new ShowLoadingEvent());
 					parlamentarianId = getView().getSelectedParlamentarianId();
@@ -159,7 +177,11 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 						@Override
 						public void onFailure(Throwable caught) {
 							fireEvent(new HideLoadingEvent());
-							Window.alert(applicationMessages.getErrorParlamentarian());
+							NotificationEventParams params = new NotificationEventParams();
+							params.setMessage(applicationMessages.getErrorParlamentarian());
+							params.setType(NotificationEventType.ERROR);
+							params.setDuration(NotificationEventParams.DURATION_SHORT);
+							fireEvent(new NotificationEvent(params));
 						}
 
 						@Override
@@ -172,13 +194,21 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 								@Override
 								public void onFailure(Throwable caught) {
 									fireEvent(new HideLoadingEvent());
-									Window.alert(applicationMessages.getErrorReportConflictSave());
+									NotificationEventParams params = new NotificationEventParams();
+									params.setMessage(applicationMessages.getErrorReportConflictSave());
+									params.setType(NotificationEventType.ERROR);
+									params.setDuration(NotificationEventParams.DURATION_SHORT);
+									fireEvent(new NotificationEvent(params));
 								}
 
 								@Override
 								public void onSuccess(ReportConflict result) {
 									fireEvent(new HideLoadingEvent());
-									Window.alert(applicationMessages.getReportConflictSuccess());
+									NotificationEventParams params = new NotificationEventParams();
+									params.setMessage(applicationMessages.getReportConflictSuccess());
+									params.setType(NotificationEventType.SUCCESS);
+									params.setDuration(NotificationEventParams.DURATION_NORMAL);
+									fireEvent(new NotificationEvent(params));
 									PlaceRequest placeRequest = new PlaceRequest(ParlamentarianPresenter.PLACE)
 									.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString());
 									placeManager.revealPlace(placeRequest.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString()));
@@ -198,7 +228,11 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorRecaptchaValidationSystem());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override

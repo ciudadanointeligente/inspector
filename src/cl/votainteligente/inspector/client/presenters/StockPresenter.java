@@ -4,6 +4,9 @@ import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.StockServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.StockUiHandlers;
 import cl.votainteligente.inspector.model.Stock;
+import cl.votainteligente.inspector.shared.NotificationEvent;
+import cl.votainteligente.inspector.shared.NotificationEventParams;
+import cl.votainteligente.inspector.shared.NotificationEventType;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -19,7 +22,6 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -97,7 +99,11 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 		stockService.getStock(stockId, new AsyncCallback<Stock>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(applicationMessages.getErrorStock());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorStock());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override

@@ -159,7 +159,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorParlamentarianList());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorParlamentarianList());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -195,7 +199,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorCategoryList());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorCategoryList());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -243,7 +251,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 		if (selectedType.equals(SelectionType.SELECTED_CATEGORY) && selectedCategory == null) {
 			if (keyWord != null && keyWord.length() > 0) {
-				Window.alert(applicationMessages.getParlamentarianSelectCategoryFirst());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getParlamentarianSelectCategoryFirst());
+				params.setType(NotificationEventType.NOTICE);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 			return;
 		} else if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
@@ -338,7 +350,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorParlamentarianCategorySearch());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorParlamentarianCategorySearch());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -370,7 +386,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 		if (selectedType.equals(SelectionType.SELECTED_PARLAMENTARIAN) && selectedParlamentarian == null) {
 			if (keyWord != null && keyWord.length() > 0) {
-				Window.alert(applicationMessages.getCategorySelectParlamentarianFirst());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getCategorySelectParlamentarianFirst());
+				params.setType(NotificationEventType.NOTICE);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 			return;
 		} else if (keyWord == null || keyWord.length() == 0 || keyWord.equals("")) {
@@ -456,7 +476,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorCategoryParlamentarianSearch());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorCategoryParlamentarianSearch());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -498,7 +522,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorBillList());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorBillList());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -522,7 +550,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getGeneralParlamentarian());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getGeneralParlamentarian());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override

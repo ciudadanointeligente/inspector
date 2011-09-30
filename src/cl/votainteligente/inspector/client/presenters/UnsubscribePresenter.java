@@ -8,8 +8,7 @@ import cl.votainteligente.inspector.client.uihandlers.UnsubscribeUiHandlers;
 import cl.votainteligente.inspector.model.Bill;
 import cl.votainteligente.inspector.model.Category;
 import cl.votainteligente.inspector.model.Subscriber;
-import cl.votainteligente.inspector.shared.HideLoadingEvent;
-import cl.votainteligente.inspector.shared.ShowLoadingEvent;
+import cl.votainteligente.inspector.shared.*;
 
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -19,7 +18,6 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.*;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import javax.inject.Inject;
@@ -125,7 +123,11 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorCategory());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorCategory());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -146,7 +148,11 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorBill());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorBill());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
@@ -163,7 +169,11 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 	@Override
 	public void unsubscribe() {
 		if (subscriberId == null || subscriberKey == null || unsubscribeType == null) {
-			Window.alert(applicationMessages.getErrorIncorrectParameters());
+			NotificationEventParams params = new NotificationEventParams();
+			params.setMessage(applicationMessages.getErrorIncorrectParameters());
+			params.setType(NotificationEventType.ERROR);
+			params.setDuration(NotificationEventParams.DURATION_SHORT);
+			fireEvent(new NotificationEvent(params));
 			return;
 		}
 
@@ -173,14 +183,22 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorSubscriberLoad());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorSubscriberLoad());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
 			public void onSuccess(Subscriber result) {
 				if (result != null) {
 					if (!result.getSuscriberKey().equals(subscriberKey)) {
-						Window.alert(applicationMessages.getErrorSubscriberKey());
+						NotificationEventParams params = new NotificationEventParams();
+						params.setMessage(applicationMessages.getErrorSubscriberKey());
+						params.setType(NotificationEventType.ERROR);
+						params.setDuration(NotificationEventParams.DURATION_SHORT);
+						fireEvent(new NotificationEvent(params));
 						return;
 					}
 
@@ -192,7 +210,11 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 					fireEvent(new HideLoadingEvent());
 				} else {
 					fireEvent(new HideLoadingEvent());
-					Window.alert(applicationMessages.getErrorSubscriberUnsubscribe());
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getErrorSubscriberUnsubscribe());
+					params.setType(NotificationEventType.ERROR);
+					params.setDuration(NotificationEventParams.DURATION_SHORT);
+					fireEvent(new NotificationEvent(params));
 				}
 			}
 		});
@@ -205,13 +227,21 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorSubscriberUnsubscribe());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorSubscriberUnsubscribe());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
 			public void onSuccess(Boolean result) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getSubscriberUnsubscribeSuccesful());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getSubscriberUnsubscribeSuccesful());
+				params.setType(NotificationEventType.SUCCESS);
+				params.setDuration(NotificationEventParams.DURATION_NORMAL);
+				fireEvent(new NotificationEvent(params));
 				placeManager.revealPlace(new PlaceRequest(HomePresenter.PLACE));
 			}
 		});
@@ -224,13 +254,21 @@ public class UnsubscribePresenter extends Presenter<UnsubscribePresenter.MyView,
 			@Override
 			public void onFailure(Throwable caught) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorSubscriberUnsubscribe());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getErrorSubscriberUnsubscribe());
+				params.setType(NotificationEventType.ERROR);
+				params.setDuration(NotificationEventParams.DURATION_SHORT);
+				fireEvent(new NotificationEvent(params));
 			}
 
 			@Override
 			public void onSuccess(Boolean result) {
 				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getSubscriberUnsubscribeSuccesful());
+				NotificationEventParams params = new NotificationEventParams();
+				params.setMessage(applicationMessages.getSubscriberUnsubscribeSuccesful());
+				params.setType(NotificationEventType.SUCCESS);
+				params.setDuration(NotificationEventParams.DURATION_NORMAL);
+				fireEvent(new NotificationEvent(params));
 				placeManager.revealPlace(new PlaceRequest(HomePresenter.PLACE));
 			}
 		});
