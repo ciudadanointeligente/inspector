@@ -23,7 +23,7 @@ public class MyPlaceManager extends PlaceManagerImpl implements NavigationHandle
 
 	@Override
 	public void onNavigation(NavigationEvent navigationEvent) {
-		String historyToken = "/Inspector/#" + buildHistoryToken(navigationEvent.getRequest());
+		String historyToken = "Inspector/#" + buildHistoryToken(navigationEvent.getRequest());
 		GoogleAnalytics.trackHit(historyToken);
 	}
 }
