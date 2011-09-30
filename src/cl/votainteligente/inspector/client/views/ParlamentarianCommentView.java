@@ -14,6 +14,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 
+import com.claudiushauptmann.gwt.recaptcha.client.RecaptchaWidget;
+
 public class ParlamentarianCommentView extends ViewWithUiHandlers<ParlamentarianCommentUiHandlers> implements ParlamentarianCommentPresenter.MyView {
 	private static ParlamentarianCommentViewUiBinder uiBinder = GWT.create(ParlamentarianCommentViewUiBinder.class);
 	interface ParlamentarianCommentViewUiBinder extends UiBinder<Widget, ParlamentarianCommentView> {}
@@ -24,6 +26,8 @@ public class ParlamentarianCommentView extends ViewWithUiHandlers<Parlamentarian
 	@UiField TextArea commentBody;
 	@UiField Button commentSubmit;
 	@UiField Button commentClear;
+	@UiField HTMLPanel recaptchaPanel;
+	private RecaptchaWidget recaptcha;
 
 	public ParlamentarianCommentView() {
 		widget = uiBinder.createAndBindUi(this);
@@ -47,7 +51,7 @@ public class ParlamentarianCommentView extends ViewWithUiHandlers<Parlamentarian
 	@Override
 	public void setupParlamentarianList() {
 		parlamentarianList.clear();
-		parlamentarianList.addItem("Seleccione un parlamentario");
+		parlamentarianList.addItem("Seleccione un parlamentario", "0");
 	}
 
 	@Override
@@ -70,6 +74,17 @@ public class ParlamentarianCommentView extends ViewWithUiHandlers<Parlamentarian
 		parlamentarianList.setSelectedIndex(0);
 		commentSubject.setText("");
 		commentBody.setText("");
+	}
+
+	@Override
+	public void setRecaptcha(String recaptchaPublicKey) {
+		recaptcha = new RecaptchaWidget(recaptchaPublicKey);
+		recaptchaPanel.add(recaptcha);
+	}
+
+	@Override
+	public RecaptchaWidget getRecaptcha() {
+		return recaptcha;
 	}
 
 	@UiHandler("commentSubject")

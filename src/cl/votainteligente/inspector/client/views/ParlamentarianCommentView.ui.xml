@@ -3,12 +3,14 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style src="Form.css" />
 	<g:HTMLPanel addStyleNames="{style.formContainer}">
-	<h2>Hacer un Comentario</h2>
+		<h2>Hacer un Comentario</h2>
 		<p>Seleccione un parlamentario:</p>
 		<g:ListBox ui:field="parlamentarianList"  addStyleNames="{style.formListBox}"></g:ListBox>
 		<p>Titulo:</p> <g:TextBox ui:field="commentSubject"></g:TextBox>
 		<p>Comentario:</p> <g:TextArea ui:field="commentBody" addStyleNames="{style.formTextArea}"></g:TextArea>
-		<br/>
+		<br />
+		<g:HTMLPanel ui:field="recaptchaPanel"/>
+		<br />
 		<g:Button ui:field="commentSubmit">Enviar</g:Button>
 		<g:Button ui:field="commentClear">Limpiar</g:Button>
 	</g:HTMLPanel>

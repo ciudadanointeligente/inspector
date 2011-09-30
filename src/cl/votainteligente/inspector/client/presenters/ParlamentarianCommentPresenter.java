@@ -4,6 +4,7 @@ import cl.votainteligente.inspector.client.GoogleAnalytics;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.ParlamentarianCommentServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
+import cl.votainteligente.inspector.client.services.RecaptchaRemoteServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.ParlamentarianCommentUiHandlers;
 import cl.votainteligente.inspector.model.Parlamentarian;
 import cl.votainteligente.inspector.model.ParlamentarianComment;
@@ -15,14 +16,14 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
-import com.gwtplatform.mvp.client.proxy.PlaceRequest;
-import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
+import com.gwtplatform.mvp.client.proxy.*;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+
+import com.claudiushauptmann.gwt.recaptcha.client.RecaptchaWidget;
 
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 		String getCommentSubject();
 		String getCommentBody();
 		void clearForm();
+		void setRecaptcha(String recaptchaPublicKey);
+		RecaptchaWidget getRecaptcha();
 	}
 
 	@ProxyStandard
@@ -47,6 +50,10 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 
 	@Inject
 	private ApplicationMessages applicationMessages;
+	@Inject
+	private PlaceManager placeManager;
+	@Inject
+	private RecaptchaRemoteServiceAsync recaptchaService;
 	@Inject
 	private ParlamentarianServiceAsync parlamentarianService;
 	@Inject
@@ -67,6 +74,7 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 	protected void onReveal() {
 		getView().clearForm();
 		getParlamentarianList();
+		createReCaptcha();
 		GoogleAnalytics.trackHit(Window.Location.getHref());
 	}
 
@@ -121,36 +129,85 @@ public class ParlamentarianCommentPresenter extends Presenter<ParlamentarianComm
 	@Override
 	public void saveParlamentarianComment() {
 		fireEvent(new ShowLoadingEvent());
-		parlamentarianService.getParlamentarian(getView().getSelectedParlamentarianId(), new AsyncCallback<Parlamentarian>() {
+		if (getView().getSelectedParlamentarianId() == 0) {
+			fireEvent(new HideLoadingEvent());
+			Window.alert(applicationMessages.getErrorUnselectedParliamentarian());
+		} else {
+			if (getView().getCommentBody() == null || getView().getCommentBody().length() == 0 || getView().getCommentBody().equals("")) {
+				fireEvent(new HideLoadingEvent());
+				Window.alert(applicationMessages.getErrorEmptyCommentField());
+			} else if (getView().getCommentSubject() == null || getView().getCommentSubject().length() == 0 || getView().getCommentSubject().equals("")) {
+				fireEvent(new HideLoadingEvent());
+				Window.alert(applicationMessages.getErrorEmptySubject());
+			} else {
+				RecaptchaWidget rw = getView().getRecaptcha();
+				recaptchaService.verifyChallenge(rw.getChallenge(), rw.getResponse(), new AsyncCallback<Boolean>() {
+
+					public void onFailure(Throwable caught) {
+						fireEvent(new HideLoadingEvent());
+						Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
+					}
+
+					public void onSuccess(Boolean result) {
+						if (!result) {
+							fireEvent(new HideLoadingEvent());
+							Window.alert(applicationMessages.getErrorRecaptchaValidationCodeIsIncorrect());
+						} else {
+							fireEvent(new ShowLoadingEvent());
+							parlamentarianId = getView().getSelectedParlamentarianId();
+							parlamentarianService.getParlamentarian(getView().getSelectedParlamentarianId(), new AsyncCallback<Parlamentarian>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									fireEvent(new HideLoadingEvent());
+									Window.alert(applicationMessages.getErrorParlamentarian());
+								}
+
+								@Override
+								public void onSuccess(Parlamentarian result) {
+									fireEvent(new ShowLoadingEvent());
+									ParlamentarianComment parlamentarianComment = new ParlamentarianComment();
+									parlamentarianComment.setSubject(getView().getCommentSubject());
+									parlamentarianComment.setBody(getView().getCommentBody());
+									parlamentarianCommentService.saveParlamentarianComment(parlamentarianComment, parlamentarianId, new AsyncCallback<ParlamentarianComment>() {
+
+										@Override
+										public void onFailure(Throwable caught) {
+											fireEvent(new HideLoadingEvent());
+											Window.alert(applicationMessages.getErrorParlamentarianCommentSave());
+										}
+
+										@Override
+										public void onSuccess(ParlamentarianComment result) {
+											fireEvent(new HideLoadingEvent());
+											Window.alert(applicationMessages.getParlamentarianCommentSaved());
+											PlaceRequest placeRequest = new PlaceRequest(ParlamentarianPresenter.PLACE)
+											.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString());
+											placeManager.revealPlace(placeRequest.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString()));
+										}
+									});
+									fireEvent(new HideLoadingEvent());
+								}
+							});
+						}
+						fireEvent(new HideLoadingEvent());
+					}
+				});
+			}
+		}
+	}
+
+	public void createReCaptcha() {
+		recaptchaService.getPublicKey(new AsyncCallback<String>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				fireEvent(new HideLoadingEvent());
-				Window.alert(applicationMessages.getErrorParlamentarian());
+				Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
 			}
 
 			@Override
-			public void onSuccess(Parlamentarian result) {
-				fireEvent(new ShowLoadingEvent());
-				ParlamentarianComment parlamentarianComment = new ParlamentarianComment();
-				parlamentarianComment.setSubject(getView().getCommentSubject());
-				parlamentarianComment.setBody(getView().getCommentBody());
-
-				parlamentarianCommentService.saveParlamentarianComment(parlamentarianComment, result.getId(), new AsyncCallback<ParlamentarianComment>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						fireEvent(new HideLoadingEvent());
-						Window.alert(applicationMessages.getErrorParlamentarianCommentSave());
-					}
-
-					@Override
-					public void onSuccess(ParlamentarianComment result) {
-						fireEvent(new HideLoadingEvent());
-						Window.alert(applicationMessages.getParlamentarianCommentSaved());
-					}
-				});
-				fireEvent(new HideLoadingEvent());
+			public void onSuccess(String result) {
+				getView().setRecaptcha(result);
 			}
 		});
 	}
