@@ -15,9 +15,7 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
-import com.gwtplatform.mvp.client.proxy.PlaceRequest;
-import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
+import com.gwtplatform.mvp.client.proxy.*;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
@@ -52,6 +50,8 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 
 	@Inject
 	private ApplicationMessages applicationMessages;
+	@Inject
+	private PlaceManager placeManager;
 	@Inject
 	private RecaptchaRemoteServiceAsync recaptchaService;
 	@Inject
@@ -128,60 +128,69 @@ public class ReportConflictPresenter extends Presenter<ReportConflictPresenter.M
 	@Override
 	public void submit() {
 		fireEvent(new ShowLoadingEvent());
+		if (getView().getSelectedParlamentarianId() == 0) {
+			fireEvent(new HideLoadingEvent());
+			Window.alert(applicationMessages.getErrorUnselectedParliamentarian());
+			return;
+		}
 		if (getView().getReport() == null || getView().getReport().length() == 0 || getView().getReport().equals("")) {
 			fireEvent(new HideLoadingEvent());
-			Window.alert(applicationMessages.getErrorEmptyField());
-		} else {
-			RecaptchaWidget rw = getView().getRecaptcha();
-			recaptchaService.verifyChallenge(rw.getChallenge(), rw.getResponse(), new AsyncCallback<Boolean>() {
-
-				public void onFailure(Throwable caught) {
-					fireEvent(new HideLoadingEvent());
-					Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
-				}
-
-				public void onSuccess(Boolean result) {
-					if (!result) {
-						fireEvent(new HideLoadingEvent());
-						Window.alert(applicationMessages.getErrorRecaptchaValidationCodeIsIncorrect());
-					} else {
-						fireEvent(new ShowLoadingEvent());
-						parlamentarianId = getView().getSelectedParlamentarianId();
-						parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
-
-							@Override
-							public void onFailure(Throwable caught) {
-								fireEvent(new HideLoadingEvent());
-								Window.alert(applicationMessages.getErrorParlamentarian());
-							}
-
-							@Override
-							public void onSuccess(Parlamentarian result) {
-								fireEvent(new ShowLoadingEvent());
-								ReportConflict reportConflict = new ReportConflict();
-								reportConflict.setReport(getView().getReport());
-								reportConflictService.saveReportConflict(reportConflict, parlamentarianId, new AsyncCallback<ReportConflict>() {
-
-									@Override
-									public void onFailure(Throwable caught) {
-										fireEvent(new HideLoadingEvent());
-										Window.alert(applicationMessages.getErrorReportConflictSave());
-									}
-
-									@Override
-									public void onSuccess(ReportConflict result) {
-										fireEvent(new HideLoadingEvent());
-										Window.alert(applicationMessages.getReportConflictSuccess());
-									}
-								});
-								fireEvent(new HideLoadingEvent());
-							}
-						});
-					}
-					fireEvent(new HideLoadingEvent());
-				}
-			});
+			Window.alert(applicationMessages.getErrorEmptyReportField());
+			return;
 		}
+
+		RecaptchaWidget rw = getView().getRecaptcha();
+		recaptchaService.verifyChallenge(rw.getChallenge(), rw.getResponse(), new AsyncCallback<Boolean>() {
+
+			public void onFailure(Throwable caught) {
+				fireEvent(new HideLoadingEvent());
+				Window.alert(applicationMessages.getErrorRecaptchaValidationSystem());
+			}
+
+			public void onSuccess(Boolean result) {
+				if (!result) {
+					fireEvent(new HideLoadingEvent());
+					Window.alert(applicationMessages.getErrorRecaptchaValidationCodeIsIncorrect());
+				} else {
+					fireEvent(new ShowLoadingEvent());
+					parlamentarianId = getView().getSelectedParlamentarianId();
+					parlamentarianService.getParlamentarian(parlamentarianId, new AsyncCallback<Parlamentarian>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+							fireEvent(new HideLoadingEvent());
+							Window.alert(applicationMessages.getErrorParlamentarian());
+						}
+
+						@Override
+						public void onSuccess(Parlamentarian result) {
+							fireEvent(new ShowLoadingEvent());
+							ReportConflict reportConflict = new ReportConflict();
+							reportConflict.setReport(getView().getReport());
+							reportConflictService.saveReportConflict(reportConflict, parlamentarianId, new AsyncCallback<ReportConflict>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									fireEvent(new HideLoadingEvent());
+									Window.alert(applicationMessages.getErrorReportConflictSave());
+								}
+
+								@Override
+								public void onSuccess(ReportConflict result) {
+									fireEvent(new HideLoadingEvent());
+									Window.alert(applicationMessages.getReportConflictSuccess());
+									PlaceRequest placeRequest = new PlaceRequest(ParlamentarianPresenter.PLACE)
+									.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString());
+									placeManager.revealPlace(placeRequest.with(ParlamentarianPresenter.PARAM_PARLAMENTARIAN_ID, parlamentarianId.toString()));
+								}
+							});
+							fireEvent(new HideLoadingEvent());
+						}
+					});
+				}
+				fireEvent(new HideLoadingEvent());
+			}
+		});
 	}
 
 	public void createReCaptcha() {

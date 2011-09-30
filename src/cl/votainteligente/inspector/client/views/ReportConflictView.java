@@ -55,7 +55,7 @@ public class ReportConflictView extends ViewWithUiHandlers<ReportConflictUiHandl
 	@Override
 	public void setupParlamentarianList() {
 		parlamentarianList.clear();
-		parlamentarianList.addItem("Seleccione un parlamentario");
+		parlamentarianList.addItem("Seleccione un parlamentario", "0");
 	}
 
 	@Override
