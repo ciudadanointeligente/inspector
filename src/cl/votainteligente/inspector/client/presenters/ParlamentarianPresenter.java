@@ -377,7 +377,12 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		TextColumn<Society> societyLegalNameColumn = new TextColumn<Society>() {
 			@Override
 			public String getValue(Society society) {
-				return society.getName();
+				if (society.getFantasyName() != null) {
+					return society.getFantasyName();
+				} else if (society.getName() != null) {
+					return society.getName();
+				}
+				return applicationMessages.getGeneralWithoutInformation();
 			}
 		};
 
@@ -496,7 +501,12 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		TextColumn<Stock> stockLegalNameColumn = new TextColumn<Stock>() {
 			@Override
 			public String getValue(Stock stock) {
-				return stock.getName();
+				if (stock.getName() != null) {
+					return stock.getName();
+				} else if (stock.getFantasyName() != null) {
+					return stock.getFantasyName();
+				}
+				return applicationMessages.getGeneralWithoutInformation();
 			}
 		};
 
