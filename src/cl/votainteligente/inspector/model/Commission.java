@@ -2,7 +2,7 @@ package cl.votainteligente.inspector.model;
 
 import net.sf.gilead.pojo.gwt.LightEntity;
 
-public class Commission extends LightEntity {
+public class Commission extends LightEntity implements Comparable<Commission> {
 	private Long id;
 	private String name;
 
@@ -25,5 +25,10 @@ public class Commission extends LightEntity {
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	@Override
+	public int compareTo(Commission obj) {
+		return (obj == null || obj.getName() == null) ? -1 : -obj.getName().compareTo(this.getName());
 	}
 }
