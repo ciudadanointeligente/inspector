@@ -180,7 +180,15 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 				if (parlamentarian.getPermanentCommissions() != null && !parlamentarian.getPermanentCommissions().isEmpty()) {
 					StringBuilder sb = new StringBuilder();
-					Iterator<Commission> iterator = parlamentarian.getPermanentCommissions().iterator();
+					List<Commission> commissions = new ArrayList<Commission>(parlamentarian.getPermanentCommissions());
+					Collections.sort(commissions, new Comparator<Commission>() {
+
+						@Override
+						public int compare(Commission o1, Commission o2) {
+							return o1.compareTo(o2);
+						}
+					});
+					Iterator<Commission> iterator = commissions.iterator();
 
 					while (iterator.hasNext()) {
 						sb.append(iterator.next().toString());
@@ -197,7 +205,15 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 				if (parlamentarian.getSpecialCommissions() != null && !parlamentarian.getSpecialCommissions().isEmpty()) {
 					StringBuilder sb = new StringBuilder();
-					Iterator<Commission> iterator = parlamentarian.getSpecialCommissions().iterator();
+					List<Commission> commissions = new ArrayList<Commission>(parlamentarian.getSpecialCommissions());
+					Collections.sort(commissions, new Comparator<Commission>() {
+
+						@Override
+						public int compare(Commission o1, Commission o2) {
+							return o1.compareTo(o2);
+						}
+					});
+					Iterator<Commission> iterator = commissions.iterator();
 
 					while (iterator.hasNext()) {
 						sb.append(iterator.next().toString());
