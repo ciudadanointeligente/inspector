@@ -88,6 +88,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.viewParliamentarianOnVotainteligente")
 	public String getGeneralViewParliamentarianOnVotainteligente();
 
+	@Key("general.withoutInformation")
+	public String getGeneralWithoutInformation();
+
 	@Key("error.emptyCommentField")
 	public String getErrorEmptyCommentField();
 
