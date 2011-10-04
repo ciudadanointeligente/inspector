@@ -3,9 +3,10 @@ package cl.votainteligente.inspector.server.services;
 import cl.votainteligente.inspector.client.services.CategoryService;
 import cl.votainteligente.inspector.model.*;
 
-import org.hibernate.*;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 import java.util.*;
 
@@ -101,6 +102,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 			Set<Bill> bills = new HashSet<Bill>();
 			Set<Category> societyCategories = new HashSet<Category>();
+			Set<Category> stockCategories = new HashSet<Category>();
 			Set<Category> resultSet = new HashSet<Category>();
 
 			for (Bill bill : parlamentarian.getAuthoredBills()) {
@@ -117,9 +119,15 @@ public class CategoryServiceImpl implements CategoryService {
 				}
 			}
 
+			for (Stock stock : parlamentarian.getStocks().keySet()) {
+				for (Category category : stock.getCategories()) {
+					stockCategories.add(category);
+				}
+			}
+
 			for (Bill bill : bills) {
 				for (Category category : bill.getCategories()) {
-					if (societyCategories.contains(category)) {
+					if (societyCategories.contains(category) || stockCategories.contains(category)) {
 						resultSet.add(category);
 					}
 				}
