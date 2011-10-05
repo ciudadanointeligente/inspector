@@ -1,20 +1,20 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<ui:style src="SocietyView.css" />
+	<ui:style src="popupCard.css" />
 	<g:HTMLPanel>
 		<div>
 			<g:Label ui:field="close" addStyleNames="{style.popupCloseButton}" />
-			<div class="{style.societyTitleWrapper}">
+			<div class="{style.popupCardTitleWrapper}">
 				<div class="{style.selectionDisplay}">
-					<g:HTMLPanel addStyleNames="{style.societyHeader}">
-						<h1><g:Label ui:field="societyName" /></h1>
-						<h3>Nombre de fantasía: </h3>
-						<h3><strong><g:Label styleName="{style.societySubTitle}" ui:field="societyFantasyName" /></strong></h3>
+					<g:HTMLPanel addStyleNames="{style.popupCardHeader}">
+						<h1><g:Label  ui:field="societyFantasyName" /></h1>
+						<h3>Razón Social:</h3>
+						<h3><strong><g:Label styleName="{style.popupCardSubTitle}" ui:field="societyName" /></strong></h3>
 					</g:HTMLPanel>
 				</div>
 			</div>
-			<table class="{style.societyTable}">
+			<table class="{style.popupCardTable}">
 				<tr>
 					<th scope="row"><div>RUT Sociedad:</div></th>
 					<td class="{style.normalTd}"><g:Label ui:field="societyUid" /></td>
@@ -44,12 +44,12 @@
 					<td class="{style.normalTd}"><g:Label ui:field="societyMembers" /></td>
 				</tr>
 			</table>
-			<div class="{style.societyTitleWrapper}">
+			<div class="{style.popupCardTitleWrapper}">
 				<div class="{style.selectionDisplay}">
 					<h1>Otros datos de la sociedad</h1>
 				</div>
 			</div>
-			<table class="{style.societyTable}">
+			<table class="{style.popupCardTable}">
 				<tr>
 					<th><div>Capital inicial:</div></th>
 					<td class="{style.normalTd}"><g:Label ui:field="societyInitialStock" /></td>

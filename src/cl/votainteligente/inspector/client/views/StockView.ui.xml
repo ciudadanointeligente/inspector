@@ -1,20 +1,20 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<ui:style src="StockView.css" />
+	<ui:style src="popupCard.css" />
 	<g:HTMLPanel>
 		<div>
 			<g:Label ui:field="close" addStyleNames="{style.popupCloseButton}" />
-			<div class="{style.stockTitleWrapper}">
+			<div class="{style.popupCardTitleWrapper}">
 				<div class="{style.selectionDisplay}">
-					<g:HTMLPanel addStyleNames="{style.stockHeader}">
-						<h1><g:Label ui:field="stockName" /></h1>
-						<h3>Nombre de fantasía: </h3>
-						<h3><strong><g:Label styleName="{style.stockSubTitle}" ui:field="stockFantasyName" /></strong></h3>
+					<g:HTMLPanel addStyleNames="{style.popupCardHeader}">
+						<h1><g:Label ui:field="stockFantasyName" /></h1>
+						<h3>Razón social: </h3>
+						<h3><g:Label styleName="{style.popupCardSubTitle}"  ui:field="stockName" /></h3>
 					</g:HTMLPanel>
 				</div>
 			</div>
-			<table class="{style.stockTable}">
+			<table class="{style.popupCardTable}">
 				<tr>
 					<th><div>Cantidad de la unidad:</div></th>
 					<td class="{style.normalTd}"><g:Label ui:field="stockInitialQuantity" /></td>
