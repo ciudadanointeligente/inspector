@@ -250,11 +250,11 @@ public interface ApplicationMessages extends Messages {
 	@Key("parlamentarian.noPatrimonyDeclarationFile")
 	public String getParlamentarianNoPatrimonyDeclarationFile();
 
-	@Key("parlamentarian.distributionPerArea")
-	public String getParlamentarianDistributionPerArea();
+	@Key("parlamentarian.inWhatAreasHaveInterests")
+	public String getParlamentarianInWhatAreasHaveInterests();
 
-	@Key("parlamentarian.accordingToAreasOfSocietiesOrStocks")
-	public String getParlamentarianAccordingToAreasOfSocietiesOrStocks();
+	@Key("parlamentarian.interestsPerAreaOfSocietiesAndStocks")
+	public String getParlamentarianInterestsPerAreaOfSocietiesAndStocks();
 
 	@Key("parlamentarian.selectCategoryFirst")
 	public String getParlamentarianSelectCategoryFirst();
@@ -316,11 +316,11 @@ public interface ApplicationMessages extends Messages {
 	@Key("society.viewMore")
 	public String getSocietyViewMore();
 
-	@Key("society.consistencyIndex")
-	public String getSocietyConsistencyIndex();
+	@Key("society.howManySocietiesDeclared")
+	public String getSocietyHowManySocietiesDeclared();
 
-	@Key("society.reportedVsUnreported")
-	public String getSocietyReportedVsUnreported();
+	@Key("society.declarationOfSocietiesExcludeStocks")
+	public String getSocietyDeclarationOfSocietiesExcludeStocks();
 
 	@Key("stock.reported")
 	public String getStockReported();
