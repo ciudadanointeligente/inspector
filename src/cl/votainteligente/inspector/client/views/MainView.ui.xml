@@ -3,7 +3,35 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style src="MainView.css" />
 	<g:HTMLPanel>
-		<g:FlowPanel ui:field="mainPanel"/>
-		<g:FlowPanel ui:field="notificationPanel"/>
+		<g:HTMLPanel>
+			<nav id="mainNav">
+				<g:MenuBar>
+					<g:MenuItem >
+						Sobre el inspector
+						<g:MenuBar vertical="true">
+							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=que-podras-encontrar-aqui">Qué podrás encontrar aquí</a></g:MenuItem>
+							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=metodologia-del-estudio">Metodología del estudio</a></g:MenuItem>
+							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=como-funciona-el-inspector">Cómo funciona el inspector</a></g:MenuItem>
+						</g:MenuBar>
+					</g:MenuItem>
+					<g:MenuItemSeparator />
+					<g:MenuItem >
+						Sobre los conflictos de interés
+						<g:MenuBar vertical="true">
+							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=que-es-un-conflicto-de-interes">¿Por qué hablamos de posible conflicto?</a></g:MenuItem>
+							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=%C2%BFpor-que-hablamos-de-posible-conflicto">¿Por qué hablamos de posible conflicto?</a></g:MenuItem>
+							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=%C2%BFque-dice-la-ley"> Qué dice la ley</a></g:MenuItem>
+							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=preguntas-frecuentes">Preguntas frecuentes sobre intereses</a></g:MenuItem>
+						</g:MenuBar>
+					</g:MenuItem>
+					<g:MenuItemSeparator />
+					<g:MenuItem ><a href="http://www.ciudadanointeligente.cl/organigramas/organigrama2011Ejecutivo.html" target="_blank">Quiénes somos</a></g:MenuItem>
+				</g:MenuBar>
+			</nav>
+		</g:HTMLPanel>
+		<g:HTMLPanel>
+			<g:FlowPanel ui:field="mainPanel"/>
+			<g:FlowPanel ui:field="notificationPanel"/>
+		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>
