@@ -381,6 +381,8 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 					return society.getFantasyName();
 				} else if (society.getName() != null) {
 					return society.getName();
+				} else if (society.getUid() != null) {
+					return society.getUid();
 				}
 				return applicationMessages.getGeneralWithoutInformation();
 			}
@@ -501,10 +503,10 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		TextColumn<Stock> stockLegalNameColumn = new TextColumn<Stock>() {
 			@Override
 			public String getValue(Stock stock) {
-				if (stock.getName() != null) {
-					return stock.getName();
-				} else if (stock.getFantasyName() != null) {
+				if (stock.getFantasyName() != null) {
 					return stock.getFantasyName();
+				} else if (stock.getName() != null) {
+					return stock.getName();
 				}
 				return applicationMessages.getGeneralWithoutInformation();
 			}
