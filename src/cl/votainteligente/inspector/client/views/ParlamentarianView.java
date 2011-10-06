@@ -161,8 +161,8 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 		try {
 			HighChart declarationChart = new HighChart();
 			declarationChart.setAutoResize(true);
-			declarationChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyConsistencyIndex());
-			declarationChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyReportedVsUnreported());
+			declarationChart.setOption(new OptionPath("/title/text"), applicationMessages.getSocietyHowManySocietiesDeclared());
+			declarationChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getSocietyDeclarationOfSocietiesExcludeStocks());
 			declarationChart.setOption(new OptionPath("/chart/animation"), true);
 			declarationChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 25, 0, 25});
 			declarationChart.setOption(new OptionPath("/chart/plotShadow"), false);
@@ -203,8 +203,8 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 		try {
 			HighChart perAreaChart = new HighChart();
 			perAreaChart.setAutoResize(true);
-			perAreaChart.setOption(new OptionPath("/title/text"), applicationMessages.getParlamentarianDistributionPerArea());
-			perAreaChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getParlamentarianAccordingToAreasOfSocietiesOrStocks());
+			perAreaChart.setOption(new OptionPath("/title/text"), applicationMessages.getParlamentarianInWhatAreasHaveInterests());
+			perAreaChart.setOption(new OptionPath("/subtitle/text"), applicationMessages.getParlamentarianInterestsPerAreaOfSocietiesAndStocks());
 			perAreaChart.setOption(new OptionPath("/chart/animation"), true);
 			perAreaChart.setOption(new OptionPath("/chart/margin"), new Integer[] {30, 55, 0, 55});
 			perAreaChart.setOption(new OptionPath("/chart/plotShadow"), false);
