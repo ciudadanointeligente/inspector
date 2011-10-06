@@ -8,4 +8,7 @@ public interface ResourceBundle extends ClientBundle {
 
 	@Source("HomeView.css")
 	HomeViewCss HomeView();
+
+	@Source("ParlamentarianView.css")
+	ParlamentarianViewCss ParlamentarianView();
 }
