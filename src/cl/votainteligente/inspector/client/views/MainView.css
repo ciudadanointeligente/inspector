@@ -1,0 +1,26 @@
+.baliza{
+	background: url("images/baliza_nav.png") no-repeat scroll right -2px transparent;
+	color: #474747;
+	display: block;
+	font-family: "TrashHandRegular";
+	font-size: 17px;
+	height: 54px;
+	line-height: 63px;
+	padding-right: 55px;
+	width: 108px;
+	cursor: pointer;
+}
+
+.balizaContainer{
+	height: 38px;
+	left: 665px;
+	position: absolute;
+	top: -19px;
+}
+
+.baliza:hover{
+	margin-top: -1px;
+}
+.baliza:active{
+	margin-top: 0px;
+}
