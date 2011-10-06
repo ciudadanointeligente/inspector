@@ -37,6 +37,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@Inject
 	private ApplicationMessages applicationMessages;
 
+	ParlamentarianViewCss parlamentarianViewCss;
 	@UiField Label parlamentarianName;
 	@UiField Label parlamentarianDescription;
 	@UiField Label parlamentarianBirthDate;
@@ -64,6 +65,8 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	public ParlamentarianView() {
 		widget = uiBinder.createAndBindUi(this);
 		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
+		ResourceBundle.INSTANCE.ParlamentarianView().ensureInjected();
+		parlamentarianViewCss = ResourceBundle.INSTANCE.ParlamentarianView();
 		societyTable = new CellTable<Society>(15, displayResource);
 		societyPanel.add(societyTable);
 		stockTable = new CellTable<Stock>(15, displayResource);
@@ -277,6 +280,20 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	@Override
 	public void setPerAreaImageHide() {
 		perAreaImageType.setVisible(false);
+	}
+
+	public String getEmptySocietyTableWidget() {
+		return parlamentarianViewCss.emptySocietyTableWidget();
+	}
+
+	@Override
+	public String getEmptyStockTableWidget() {
+		return parlamentarianViewCss.emptyStockTableWidget();
+	}
+
+	@Override
+	public String getEmptyParlamentarianCommentTableWidgetStyle() {
+		return parlamentarianViewCss.emptyParlamentarianCommentTableWidget();
 	}
 
 	@UiHandler("interestDeclarationLink")

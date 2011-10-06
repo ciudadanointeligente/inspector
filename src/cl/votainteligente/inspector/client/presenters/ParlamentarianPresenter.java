@@ -30,6 +30,7 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -65,6 +66,9 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		void setConsistencyIndexImageHide();
 		void setPerAreaImageType(String href);
 		void setPerAreaImageHide();
+		String getEmptySocietyTableWidget();
+		String getEmptyStockTableWidget();
+		String getEmptyParlamentarianCommentTableWidgetStyle();
 	}
 
 	@ProxyStandard
@@ -469,6 +473,10 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		};
 
 		getView().getSocietyTable().addColumn(viewSocietyColumn, applicationMessages.getSocietyViewMore());
+
+		HTMLPanel emptyTableWidget = new HTMLPanel(applicationMessages.getSocietyNoSocietiesFound());
+		emptyTableWidget.addStyleName(getView().getEmptySocietyTableWidget());
+		getView().getStockTable().setEmptyTableWidget(emptyTableWidget);
 	}
 
 	private void initStockTableColumns() {
@@ -589,6 +597,10 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		};
 
 		getView().getStockTable().addColumn(viewStockColumn, applicationMessages.getStockViewMore());
+
+		HTMLPanel emptyTableWidget = new HTMLPanel(applicationMessages.getStockNoStocksFound());
+		emptyTableWidget.addStyleName(getView().getEmptyStockTableWidget());
+		getView().getStockTable().setEmptyTableWidget(emptyTableWidget);
 	}
 
 	private void initParlamentarianCommentTableColumns() {
@@ -617,6 +629,10 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				}
 			}
 		});
+
+		HTMLPanel emptyTableWidget = new HTMLPanel(applicationMessages.getParlamentarianCommentNoComments());
+		emptyTableWidget.addStyleName(getView().getEmptyParlamentarianCommentTableWidgetStyle());
+		getView().getParlamentarianCommentTable().setEmptyTableWidget(emptyTableWidget);
 	}
 
 	@Override
