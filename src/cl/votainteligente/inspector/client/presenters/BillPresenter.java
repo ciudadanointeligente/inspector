@@ -454,6 +454,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 				PlaceRequest placeRequest = null;
 				String href = null;
 				Category category = null;
+				InlineHyperLinkCellData param;
 
 				while (iterator.hasNext()) {
 					category = iterator.next();
@@ -461,13 +462,8 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 					placeRequest = placeRequest.with(HomePresenter.PARAM_CATEGORY_ID, category.getId().toString());
 					href = placeManager.buildHistoryToken(placeRequest);
 
-					InlineHyperLinkCellData param = new InlineHyperLinkCellData();
-					if (iterator.hasNext()) {
-						param.setValue(category.getName() + ", ");
-					} else {
-						param.setValue(category.getName() + ".");
-					}
-
+					param = new InlineHyperLinkCellData();
+					param.setValue(category.getName());
 					param.setHref(href);
 					param.setStyleNames("");
 					params.add(param);
@@ -558,6 +554,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 				PlaceRequest placeRequest = null;
 				String href = null;
 				Category category = null;
+				InlineHyperLinkCellData param;
 
 				while (iterator.hasNext()) {
 					category = iterator.next();
@@ -565,13 +562,8 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 					placeRequest = placeRequest.with(HomePresenter.PARAM_CATEGORY_ID, category.getId().toString());
 					href = placeManager.buildHistoryToken(placeRequest);
 
-					InlineHyperLinkCellData param = new InlineHyperLinkCellData();
-					if (iterator.hasNext()) {
-						param.setValue(category.getName() + ", ");
-					} else {
-						param.setValue(category.getName() + ".");
-					}
-
+					param = new InlineHyperLinkCellData();
+					param.setValue(category.getName());
 					param.setHref(href);
 					param.setStyleNames("");
 					params.add(param);
