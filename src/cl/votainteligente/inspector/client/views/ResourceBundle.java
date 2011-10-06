@@ -11,4 +11,7 @@ public interface ResourceBundle extends ClientBundle {
 
 	@Source("ParlamentarianView.css")
 	ParlamentarianViewCss ParlamentarianView();
+
+	@Source("BillView.css")
+	BillViewCss BillView();
 }
