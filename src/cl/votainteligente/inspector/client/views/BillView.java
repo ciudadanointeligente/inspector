@@ -31,6 +31,7 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 	@Inject
 	private ApplicationMessages applicationMessages;
 
+	BillViewCss billViewCss;
 	@UiField Label billBulletinNumber;
 	@UiField Label billTitle;
 	@UiField Label billDescription;
@@ -62,6 +63,8 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 		widget = uiBinder.createAndBindUi(this);
 		BillSearchCellTableResource searchResource = GWT.create(BillSearchCellTableResource.class);
 		BillDisplayCellTableResource displayResource = GWT.create(BillDisplayCellTableResource.class);
+		ResourceBundle.INSTANCE.BillView().ensureInjected();
+		billViewCss = ResourceBundle.INSTANCE.BillView();
 		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
 		parlamentarianTableContainer.add(parlamentarianTable);
 		societyTable = new CellTable<Society>(15, displayResource);
@@ -215,6 +218,16 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 		share.setMessage(applicationMessages.getBillLookThePotentialConflicts() + " '" + billTitle + "...'");
 		share.setup();
 		sharePanel.add(share);
+	}
+
+	@Override
+	public String getEmptySocietyTableWidget() {
+		return billViewCss.emptySocietyTableWidget();
+	}
+
+	@Override
+	public String getEmptyStockTableWidget() {
+		return billViewCss.emptyStockTableWidget();
 	}
 
 	@UiHandler("parlamentarianProfileLink")

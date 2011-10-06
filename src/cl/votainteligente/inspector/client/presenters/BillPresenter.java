@@ -4,7 +4,6 @@ import cl.votainteligente.inspector.client.*;
 import cl.votainteligente.inspector.client.i18n.ApplicationMessages;
 import cl.votainteligente.inspector.client.services.BillServiceAsync;
 import cl.votainteligente.inspector.client.services.ParlamentarianServiceAsync;
-import cl.votainteligente.inspector.client.services.SocietyServiceAsync;
 import cl.votainteligente.inspector.client.uihandlers.BillUiHandlers;
 import cl.votainteligente.inspector.model.*;
 import cl.votainteligente.inspector.shared.*;
@@ -28,6 +27,7 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.view.client.*;
 import com.google.inject.Inject;
 
@@ -63,6 +63,8 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 		void setStockTable(CellTable<Stock> stockTable);
 		void setbillUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente);
 		void setShare(String href, String billTitle);
+		String getEmptySocietyTableWidget();
+		String getEmptyStockTableWidget();
 	}
 
 	@ProxyStandard
@@ -78,8 +80,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	private BillServiceAsync billService;
 	@Inject
 	private ParlamentarianServiceAsync parlamentarianService;
-	@Inject
-	private SocietyServiceAsync societyService;
 
 	private Long billId;
 	private Long parlamentarianId;
@@ -537,6 +537,10 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 		// Adds action profile column to table
 		getView().getSocietyTable().addColumn(profileColumn, applicationMessages.getGeneralViewMore());
+
+		HTMLPanel emptyTableWidget = new HTMLPanel(applicationMessages.getSocietyNoSocietiesFound());
+		emptyTableWidget.addStyleName(getView().getEmptySocietyTableWidget());
+		getView().getStockTable().setEmptyTableWidget(emptyTableWidget);
 	}
 
 	public void initStockTable() {
@@ -637,6 +641,10 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 		// Adds action profile column to table
 		getView().getStockTable().addColumn(profileColumn, applicationMessages.getGeneralViewMore());
+
+		HTMLPanel emptyTableWidget = new HTMLPanel(applicationMessages.getStockNoStocksFound());
+		emptyTableWidget.addStyleName(getView().getEmptyStockTableWidget());
+		getView().getStockTable().setEmptyTableWidget(emptyTableWidget);
 	}
 
 	public void setHistoryToken() {
