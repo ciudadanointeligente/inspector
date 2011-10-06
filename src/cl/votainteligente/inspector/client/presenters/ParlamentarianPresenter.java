@@ -61,6 +61,10 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		void setPerAreaChartData(Map<String, Double> categoryChartData);
 		void setparliamentarianUrlToVotainteligente(String hrefToVotainteligente, String messageToVotainteligente);
 		void setShare(String href, String parliamentarianName);
+		void setConsistencyIndexImageType(String href);
+		void setConsistencyIndexImageHide();
+		void setPerAreaImageType(String href);
+		void setPerAreaImageHide();
 	}
 
 	@ProxyStandard
@@ -112,6 +116,8 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 		}
 		getView().setparliamentarianUrlToVotainteligente(VOTAINTELIGENTE_PARLIAMENTARIAN_URL + parlamentarianId, applicationMessages.getGeneralViewParliamentarianOnVotainteligente());
 		showReportConflictForm();
+		getView().setConsistencyIndexImageHide();
+		getView().setPerAreaImageHide();
 	}
 
 	@Override
@@ -268,6 +274,14 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				chartData.put(applicationMessages.getSocietyUnreported(), 100d * unreportedSocieties / (reportedSocieties + unreportedSocieties));
 				getView().setConsistencyChartData(chartData);
 
+				if (reportedSocieties == 0d && unreportedSocieties == 0d) {
+					getView().setConsistencyIndexImageType("images/chart_without_issue.png");
+				} else if (reportedSocieties == 1d && unreportedSocieties == 0d) {
+					getView().setConsistencyIndexImageType("images/chart_all_declared.png");
+				} else if (reportedSocieties == 0d && unreportedSocieties == 1d) {
+					getView().setConsistencyIndexImageType("images/chart_all_undeclared.png");
+				}
+
 				Map<String, Double> categoryChartData = new HashMap<String, Double>();
 				Double numCategories = 0d;
 
@@ -301,6 +315,10 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 					categoryChartData.put(categoryName, 100d * categoryChartData.get(categoryName) / numCategories);
 				}
 				getView().setPerAreaChartData(categoryChartData);
+
+				if (numCategories == 0d) {
+					getView().setPerAreaImageType("images/chart_without_issue.png");
+				}
 				fireEvent(new HideLoadingEvent());
 			}
 		});

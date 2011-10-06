@@ -57,6 +57,8 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 	CellTable<Society> societyTable;
 	CellTable<Stock> stockTable;
 	CellTable<ParlamentarianComment> commentTable;
+	@UiField Image perAreaImageType;
+	@UiField Image consistencyIndexImageType;
 	private ShareThis share;
 
 	public ParlamentarianView() {
@@ -253,6 +255,28 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 		share.setMessage(applicationMessages.getParlamentarianLookAtInterestsOf() + " " + parliamentarianName);
 		share.setup();
 		sharePanel.add(share);
+	}
+
+	@Override
+	public void setConsistencyIndexImageType(String href) {
+		consistencyIndexImageType.setVisible(true);
+		consistencyIndexImageType.setUrl(href);
+	}
+
+	@Override
+	public void setConsistencyIndexImageHide() {
+		consistencyIndexImageType.setVisible(false);
+	}
+
+	@Override
+	public void setPerAreaImageType(String href) {
+		perAreaImageType.setVisible(true);
+		perAreaImageType.setUrl(href);
+	}
+
+	@Override
+	public void setPerAreaImageHide() {
+		perAreaImageType.setVisible(false);
 	}
 
 	@UiHandler("interestDeclarationLink")

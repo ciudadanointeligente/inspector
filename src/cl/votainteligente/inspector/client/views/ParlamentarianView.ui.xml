@@ -19,6 +19,8 @@
 			</g:HTMLPanel>
 		</g:HTMLPanel>
 		<g:HTMLPanel addStyleNames="{style.content}">
+			<g:Image ui:field="perAreaImageType" addStyleNames="{style.imgPerAreaContent}" />
+			<g:Image ui:field="consistencyIndexImageType" addStyleNames="{style.imgConsistencyContent}" />
 			<g:FlowPanel ui:field="perAreaChartPanel" styleName="{style.chartPerAreaContent}" />
 			<g:FlowPanel ui:field="consistencyIndexChartPanel" styleName="{style.chartConsistencyContent}" />
 			<div class="{style.titleWrapper}">
