@@ -277,6 +277,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("parlamentarianComment.saved")
 	public String getParlamentarianCommentSaved();
 
+	@Key("parlamentarianComment.noComments")
+	public String getParlamentarianCommentNoComments();
+
 	@Key("person.civilStatusSingle")
 	public String getCivilStatusSingle();
 
@@ -322,6 +325,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("society.declarationOfSocietiesExcludeStocks")
 	public String getSocietyDeclarationOfSocietiesExcludeStocks();
 
+	@Key("society.noSocietiesFound")
+	public String getSocietyNoSocietiesFound();
+
 	@Key("stock.reported")
 	public String getStockReported();
 
@@ -342,6 +348,9 @@ public interface ApplicationMessages extends Messages {
 
 	@Key("stock.viewMore")
 	public String getStockViewMore();
+
+	@Key("stock.noStocksFound")
+	public String getStockNoStocksFound();
 
 	@Key("subscriber.subscribe")
 	public String getSubscriberSuscribe();
