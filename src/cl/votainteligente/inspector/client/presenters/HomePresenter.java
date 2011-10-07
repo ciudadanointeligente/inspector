@@ -827,7 +827,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			public String getValue(Bill bill) {
 				if (selectedParlamentarian != null && selectedParlamentarian.getAuthoredBills() != null) {
 					if (selectedParlamentarian.getAuthoredBills().contains(bill)) {
-						return "images/shoeprints.png";
+						return "images/conflict_beacon.png";
 					}
 				}
 				return "images/shoeprints_hidden.png";
@@ -843,7 +843,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			public String getValue(Bill bill) {
 				if (selectedParlamentarian != null && selectedParlamentarian.getVotedBills() != null) {
 					if (selectedParlamentarian.getVotedBills().contains(bill)) {
-						return "images/shoeprints.png";
+						return "images/conflict_beacon.png";
 					}
 				}
 				return "images/shoeprints_hidden.png";
