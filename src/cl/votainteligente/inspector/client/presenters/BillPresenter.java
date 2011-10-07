@@ -482,7 +482,14 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 			@Override
 			public String getValue(Society society) {
-				return society.getName();
+				if (society.getFantasyName() != null) {
+					return society.getFantasyName();
+				} else if (society.getName() != null) {
+					return society.getName();
+				} else if (society.getUid() != null) {
+					return society.getUid();
+				}
+				return applicationMessages.getGeneralWithoutInformation();
 			}
 		};
 
@@ -586,7 +593,12 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 			@Override
 			public String getValue(Stock stock) {
-				return stock.getName();
+				if (stock.getFantasyName() != null) {
+					return stock.getFantasyName();
+				} else if (stock.getName() != null) {
+					return stock.getName();
+				}
+				return applicationMessages.getGeneralWithoutInformation();
 			}
 		};
 
