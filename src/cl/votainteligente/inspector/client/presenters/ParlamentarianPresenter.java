@@ -279,7 +279,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				getView().setConsistencyChartData(chartData);
 
 				if (reportedSocieties == 0d && unreportedSocieties == 0d) {
-					getView().setConsistencyIndexImageType("images/chart_without_issue.png");
+					getView().setConsistencyIndexImageType("images/chart_without_societies.png");
 				} else if (reportedSocieties == 1d && unreportedSocieties == 0d) {
 					getView().setConsistencyIndexImageType("images/chart_all_declared.png");
 				} else if (reportedSocieties == 0d && unreportedSocieties == 1d) {
@@ -321,7 +321,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				getView().setPerAreaChartData(categoryChartData);
 
 				if (numCategories == 0d) {
-					getView().setPerAreaImageType("images/chart_without_issue.png");
+					getView().setPerAreaImageType("images/chart_without_soc_and_stocks.png");
 				}
 				fireEvent(new HideLoadingEvent());
 			}
