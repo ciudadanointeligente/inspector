@@ -1,8 +1,8 @@
 .cellTableWidget {
-	margin-bottom: 20px;
-		position: relative;
-		top: -11px;
-		width: 100%;
+	margin: 5px 10px 20px;
+	position: relative;
+	top: -11px;
+	width: 615px;
 }
 
 .cellTableFirstColumn {
@@ -29,7 +29,7 @@
 	font-size: 14px;
 	font-weight: normal;
 	overflow: hidden;
-	padding: 18px 15px 5px;
+	padding: 8px 15px 5px;
 	text-align: left;
 }
 

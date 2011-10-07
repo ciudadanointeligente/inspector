@@ -32,7 +32,7 @@
 		</g:HTMLPanel>
 		<div class="{style.conflictWrapper}">
 			<div class="{style.parliamentarianSelection}">
-				<h2>Sociedades en conflicto:</h2>
+
 				<div class="selectionWrapper">
 					<g:HTMLPanel addStyleNames="{style.selectionDisplay}">
 						<g:Image ui:field="parlamentarianImage" addStyleNames="{style.parlamentarianImage}" />
@@ -40,6 +40,9 @@
 						<g:Label ui:field="parlamentarianProfileLink" title="ver su perfil de intereses" addStyleNames="{style.profileButton}" > ver su perfil de intereses</g:Label>
 					</g:HTMLPanel>
 				</div>
+				<br />
+				<h2>Sociedades en conflicto:</h2>
+				<br />
 				<g:HTMLPanel ui:field="societyPanel">
 					<g:HTMLPanel ui:field="societyTableContainer"></g:HTMLPanel>
 				</g:HTMLPanel>
