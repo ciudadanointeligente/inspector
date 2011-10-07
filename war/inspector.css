@@ -291,54 +291,50 @@ h1,h2,h3,h4,h5,h6 {
 
 /*---notifications---*/
 .fRightNotice {
-	float: right;
+	text-align: left;
 }
 
+
+
 .success .fRightNotice,.error .fRightNotice,.notice .fRightNotice {
-	max-width: 600px;
+
 }
 
 .success,.error,.notice {
-		border-radius: 0 0 10px 10px;
-		border-right: 5px solid white;
-		border-top: none;
-		border-left: 5px solid white;
-		border-bottom: 5px solid white;
+		border-color: white;
+		border-radius: 10px 10px 10px 10px;
+		-moz-border-radius: 10px 10px 10px 10px;
+		-webkitborder-radius: 10px 10px 10px 10px;
+		border-style: solid;
+		border-width: 5px;
 		box-shadow: 3px 7px 20px #000000;
 		-moz-box-shadow: 3px 7px 20px #000000;
-		-webkit-box-shadow: 3px 7px 20px #000000;
-		display: block;
-		float: right;
-		font-family: Trebuchet MS,Calibri,Arial,Sans Serif;
-		font-size: 9pt;
-		font-style: italic;
-		font-weight: normal;
-		height: 22px;
+		-webkitbox-shadow: 3px 7px 20px #000000;
+		clear: both;
+		float: left;
 		letter-spacing: 1pt;
-		line-height: 120%;
-		margin-left: 600px;
+		margin: 0 10px 10px;
+		min-height: 22px;
 		overflow: hidden;
 		padding: 16px 10px 7px 40px;
-		position: fixed;
-		top: 0;
-		z-index: 5002;
+		width: 284px;
 }
 
 .success {
 	color: #42973D;
-	background: url(images/layout/success.png) no-repeat scroll 5px 50%
+	background: url(images/layout/success.png) no-repeat scroll 5px 11px
 		#CEEAAC;
 }
 
 .error {
 	color: #EF3C39;
-	background: url(images/layout/error.png) no-repeat scroll 5px 50%
+	background: url(images/layout/error.png) no-repeat scroll 5px 11px
 		#FCDBDB;
 }
 
 .notice {
 	color: #f38612;
-	background: url(images/layout/notify.png) no-repeat scroll 5px 50%
+	background: url(images/layout/notify.png) no-repeat scroll 5px 11px
 		#fff277;
 }
 

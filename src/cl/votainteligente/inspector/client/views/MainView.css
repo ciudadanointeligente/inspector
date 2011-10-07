@@ -24,3 +24,13 @@
 .baliza:active{
 	margin-top: 0px;
 }
+
+.notificationContainer {
+	display: block;
+		margin-left: 600px;
+		overflow: hidden;
+		padding: 0 15px 16px;
+		position: fixed;
+		top: -7px;
+
+}

@@ -32,7 +32,9 @@
 		</g:HTMLPanel>
 		<g:HTMLPanel>
 			<g:FlowPanel ui:field="mainPanel"/>
-			<g:FlowPanel ui:field="notificationPanel"/>
+				<g:HTMLPanel ui:field="notificationContainer" addStyleNames="{style.notificationContainer}">
+					<g:FlowPanel ui:field="notificationPanel"/>
+				</g:HTMLPanel>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>
