@@ -279,11 +279,19 @@ h2 {
 	z-index: 1;
 }
 
-.emptySocietyTableWidget {
+.emptySocietyTableWidget, .emptyStockTableWidget {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border-bottom: 1px solid #DDDDDD;
+	border-radius: 0 0 8px 8px;
+	-moz-border-radius: 0 0 8px 8px;
+	-webkit-border-radius: 0 0 8px 8px;
+	display: block;
+	font-size: 122%;
+	font-weight: bold;
+	padding: 22px;
 }
 
-.emptyStockTableWidget {
-}
+
 
 .emptyParlamentarianCommentTableWidget {
 }
