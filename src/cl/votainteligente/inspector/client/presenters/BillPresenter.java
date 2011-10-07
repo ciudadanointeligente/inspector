@@ -540,7 +540,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 		HTMLPanel emptyTableWidget = new HTMLPanel(applicationMessages.getSocietyNoSocietiesFound());
 		emptyTableWidget.addStyleName(getView().getEmptySocietyTableWidget());
-		getView().getStockTable().setEmptyTableWidget(emptyTableWidget);
+		getView().getSocietyTable().setEmptyTableWidget(emptyTableWidget);
 	}
 
 	public void initStockTable() {

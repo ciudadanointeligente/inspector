@@ -476,7 +476,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 		HTMLPanel emptyTableWidget = new HTMLPanel(applicationMessages.getSocietyNoSocietiesFound());
 		emptyTableWidget.addStyleName(getView().getEmptySocietyTableWidget());
-		getView().getStockTable().setEmptyTableWidget(emptyTableWidget);
+		getView().getSocietyTable().setEmptyTableWidget(emptyTableWidget);
 	}
 
 	private void initStockTableColumns() {
