@@ -27,7 +27,7 @@
 					<g:MenuItemSeparator />
 					<g:MenuItem ><a href="http://www.ciudadanointeligente.cl/organigramas/organigrama2011Ejecutivo.html" target="_blank">Quiénes somos</a></g:MenuItem>
 				</g:MenuBar>
-				<div class="{style.balizaContainer}"><a class="{style.baliza}">Ver los conflictos</a></div>
+				<div class="{style.balizaContainer}"><a href="#home" class="{style.baliza}">Ver los conflictos</a></div>
 			</nav>
 		</g:HTMLPanel>
 		<g:HTMLPanel>
