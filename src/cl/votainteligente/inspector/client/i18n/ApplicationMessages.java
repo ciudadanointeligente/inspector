@@ -91,6 +91,30 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.withoutInformation")
 	public String getGeneralWithoutInformation();
 
+	@Key("general.windowTitle")
+	public String getGeneralWindowTitle(String detail, String place, String appName);
+
+	@Key("general.homeViewTitle")
+	public String getGeneralHomeViewTitle();
+
+	@Key("general.doYourSearch")
+	public String getGeneralDoYourSearch();
+
+	@Key("general.parlamentarianViewTitle")
+	public String getGeneralParlamentarianViewTitle();
+
+	@Key("general.billViewTitle")
+	public String getGeneralBillViewTitle();
+
+	@Key("general.societyViewTitle")
+	public String getGeneralSocietyViewTitle();
+
+	@Key("general.stockViewTitle")
+	public String getGeneralStockViewTitle();
+
+	@Key("general.parlamentarianCommentViewTitle")
+	public String getGeneralParlamentarianCommentViewTitle();
+
 	@Key("error.emptyCommentField")
 	public String getErrorEmptyCommentField();
 
