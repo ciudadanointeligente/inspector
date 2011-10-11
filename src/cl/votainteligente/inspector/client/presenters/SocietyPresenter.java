@@ -118,7 +118,7 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 
 			@Override
 			public void onSuccess(Society result) {
-				if (society != null) {
+				if (result != null) {
 					society = result;
 
 					if (society.getName() != null) {
