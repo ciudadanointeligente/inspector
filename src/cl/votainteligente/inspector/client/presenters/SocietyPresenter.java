@@ -118,67 +118,76 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 
 			@Override
 			public void onSuccess(Society result) {
-				society = result;
+				if (society != null) {
+					society = result;
 
-				if (society.getName() != null) {
-					getView().setSocietyName(society.getName());
-				}
-
-				if (society.getFantasyName() != null) {
-					getView().setSocietyFantasyName(society.getFantasyName());
-				}
-
-				if (society.getUid() != null) {
-					getView().setSocietyUid(society.getUid());
-				}
-
-				if (society.getCreationDate() != null) {
-					getView().setSocietyCreationDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(society.getCreationDate()));
-				}
-
-				if (society.getCurrentStock() != null) {
-					getView().setSocietyCurrentStock(NumberFormat.getCurrencyFormat().format(society.getCurrentStock()));
-				}
-
-				if (society.getSocietyStatus() != null) {
-					getView().setSocietyStatus(society.getSocietyStatus().getName());
-				}
-
-				if (society.getSocietyType() != null) {
-					getView().setSocietyType(society.getSocietyType().getName());
-				}
-
-				if (society.getMembers() != null && !society.getMembers().isEmpty()) {
-					StringBuilder sb = new StringBuilder();
-					Iterator<Person> iterator = society.getMembers().iterator();
-
-					while (iterator.hasNext()) {
-						sb.append(iterator.next().toString());
-
-						if (iterator.hasNext()) {
-							sb.append(", ");
-						} else {
-							sb.append(".");
-						}
+					if (society.getName() != null) {
+						getView().setSocietyName(society.getName());
 					}
 
-					getView().setSocietyMembers(sb.toString());
-				}
+					if (society.getFantasyName() != null) {
+						getView().setSocietyFantasyName(society.getFantasyName());
+					}
 
-				if (society.getInitialStock() != null) {
-					getView().setSocietyInitialStock(NumberFormat.getCurrencyFormat().format(society.getInitialStock()));
-				}
+					if (society.getUid() != null) {
+						getView().setSocietyUid(society.getUid());
+					}
 
-				if (society.getAddress() != null) {
-					getView().setSocietyAddress(society.getAddress());
-				}
+					if (society.getCreationDate() != null) {
+						getView().setSocietyCreationDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(society.getCreationDate()));
+					}
 
-				if (society.getPublishDate() != null) {
-					getView().setSocietyPublishDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(society.getPublishDate()));
-				}
+					if (society.getCurrentStock() != null) {
+						getView().setSocietyCurrentStock(NumberFormat.getCurrencyFormat().format(society.getCurrentStock()));
+					}
 
-				if (society.getNotary() != null) {
-					getView().setNotaryName(society.getNotary().getName());
+					if (society.getSocietyStatus() != null) {
+						getView().setSocietyStatus(society.getSocietyStatus().getName());
+					}
+
+					if (society.getSocietyType() != null) {
+						getView().setSocietyType(society.getSocietyType().getName());
+					}
+
+					if (society.getMembers() != null && !society.getMembers().isEmpty()) {
+						StringBuilder sb = new StringBuilder();
+						Iterator<Person> iterator = society.getMembers().iterator();
+
+						while (iterator.hasNext()) {
+							sb.append(iterator.next().toString());
+
+							if (iterator.hasNext()) {
+								sb.append(", ");
+							} else {
+								sb.append(".");
+							}
+						}
+
+						getView().setSocietyMembers(sb.toString());
+					}
+
+					if (society.getInitialStock() != null) {
+						getView().setSocietyInitialStock(NumberFormat.getCurrencyFormat().format(society.getInitialStock()));
+					}
+
+					if (society.getAddress() != null) {
+						getView().setSocietyAddress(society.getAddress());
+					}
+
+					if (society.getPublishDate() != null) {
+						getView().setSocietyPublishDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(society.getPublishDate()));
+					}
+
+					if (society.getNotary() != null) {
+						getView().setNotaryName(society.getNotary().getName());
+					}
+				} else {
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getErrorSociety());
+					params.setType(NotificationEventType.ERROR);
+					params.setDuration(NotificationEventParams.DURATION_SHORT);
+					fireEvent(new NotificationEvent(params));
+					History.back();
 				}
 			}
 		});
