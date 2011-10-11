@@ -116,6 +116,13 @@ public class ParlamentarianCommentDisplayPresenter extends Presenter<Parlamentar
 					if (parlamentarianComment.getCreationDate() != null) {
 						getView().setCommentCreationDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(parlamentarianComment.getCreationDate()));
 					}
+				} else {
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getErrorParlamentarianComment());
+					params.setType(NotificationEventType.ERROR);
+					params.setDuration(NotificationEventParams.DURATION_SHORT);
+					fireEvent(new NotificationEvent(params));
+					History.back();
 				}
 			}
 		});
