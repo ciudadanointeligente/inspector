@@ -27,9 +27,9 @@
 	<body class="body">
 		<div id="headerLine">
 				<div id="header">
-					<a id="headLogo" href="#home"></a>
+					<a id="headLogo" href="http://www.inspectordeintereses.cl"></a>
 					<a id="etiquetaFCI" href="http://www.ciudadanointeligente.cl">
-						<img alt="Ciudadano Inteligente" src="http://blogs.ciudadanointeligente.cl/inspector/wp-content/themes/element/assets/images/custom/logo-fci-tag.png" />
+						<img alt="Ciudadano Inteligente" src="images/logo-fci-tag.png" />
 					</a>
 				</div>
 			</div>
