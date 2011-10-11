@@ -98,6 +98,9 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	@Override
 	protected void onReset() {
 		loadSelectedParlamentarian();
+		if (selectedBill != null) {
+			Window.setTitle(applicationMessages.getGeneralWindowTitle(selectedBill.getTitle().substring(0, 40), applicationMessages.getGeneralBillViewTitle(), applicationMessages.getGeneralAppName()));
+		}
 	}
 
 	@Override
