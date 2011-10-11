@@ -23,6 +23,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -181,6 +182,22 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 					if (society.getNotary() != null) {
 						getView().setNotaryName(society.getNotary().getName());
 					}
+
+					String displayName = society.getFantasyName();
+
+					if (society.getFantasyName() == null) {
+						displayName = society.getName();
+
+						if (society.getName() == null) {
+							displayName = society.getUid();
+
+							if (society.getUid() == null) {
+								displayName = applicationMessages.getGeneralWithoutInformation();
+							}
+						}
+					}
+
+					Window.setTitle(applicationMessages.getGeneralWindowTitle(displayName, applicationMessages.getGeneralSocietyViewTitle(), applicationMessages.getGeneralAppName()));
 				} else {
 					NotificationEventParams params = new NotificationEventParams();
 					params.setMessage(applicationMessages.getErrorSociety());

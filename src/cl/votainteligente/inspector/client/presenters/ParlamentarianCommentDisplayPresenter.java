@@ -21,6 +21,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -116,6 +117,10 @@ public class ParlamentarianCommentDisplayPresenter extends Presenter<Parlamentar
 					if (parlamentarianComment.getCreationDate() != null) {
 						getView().setCommentCreationDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(parlamentarianComment.getCreationDate()));
 					}
+
+					String subject = parlamentarianComment.getSubject();
+					Window.setTitle(applicationMessages.getGeneralWindowTitle((subject.length() > 40)? subject.substring(0, 40): subject, applicationMessages.getGeneralParlamentarianCommentViewTitle(), applicationMessages.getGeneralAppName()));
+
 				} else {
 					NotificationEventParams params = new NotificationEventParams();
 					params.setMessage(applicationMessages.getErrorParlamentarianComment());

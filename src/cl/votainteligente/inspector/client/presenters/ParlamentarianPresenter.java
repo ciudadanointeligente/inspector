@@ -323,6 +323,7 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 				if (numCategories == 0d) {
 					getView().setPerAreaImageType("images/chart_without_soc_and_stocks.png");
 				}
+				Window.setTitle(applicationMessages.getGeneralWindowTitle(parlamentarian.toString(), applicationMessages.getGeneralParlamentarianViewTitle(), applicationMessages.getGeneralAppName()));
 				fireEvent(new HideLoadingEvent());
 			}
 		});

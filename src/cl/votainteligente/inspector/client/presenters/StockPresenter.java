@@ -22,6 +22,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -138,6 +139,19 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 					if (stock.getTotalEquivalentAmount() != null) {
 						getView().setStockTotalEquivalentAmount(NumberFormat.getCurrencyFormat().format(stock.getTotalEquivalentAmount()));
 					}
+
+					String displayName = stock.getFantasyName();
+
+					if (stock.getFantasyName() == null) {
+						displayName = stock.getName();
+
+						if (stock.getName() == null) {
+							displayName = applicationMessages.getGeneralWithoutInformation();
+						}
+					}
+
+					Window.setTitle(applicationMessages.getGeneralWindowTitle(displayName, applicationMessages.getGeneralStockViewTitle(), applicationMessages.getGeneralAppName()));
+
 				} else {
 					NotificationEventParams params = new NotificationEventParams();
 					params.setMessage(applicationMessages.getErrorStock());

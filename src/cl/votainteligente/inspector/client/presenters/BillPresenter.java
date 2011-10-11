@@ -217,6 +217,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 					getParlamentarians(result);
 				}
 				getView().setShare(Window.Location.getHref(), selectedBill.getTitle().substring(0, 40));
+				Window.setTitle(applicationMessages.getGeneralWindowTitle(selectedBill.getTitle().substring(0, 40), applicationMessages.getGeneralBillViewTitle(), applicationMessages.getGeneralAppName()));
 				fireEvent(new HideLoadingEvent());
 			}
 		});

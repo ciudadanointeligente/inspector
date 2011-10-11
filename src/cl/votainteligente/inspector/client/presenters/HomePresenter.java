@@ -116,6 +116,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	protected void onReveal() {
+		Window.setTitle(applicationMessages.getGeneralWindowTitle(applicationMessages.getGeneralDoYourSearch(), applicationMessages.getGeneralHomeViewTitle(), applicationMessages.getGeneralAppName()));
 		parlamentarianData = new ListDataProvider<Parlamentarian>();
 		categoryData = new ListDataProvider<Category>();
 		billData = new ListDataProvider<Bill>();
