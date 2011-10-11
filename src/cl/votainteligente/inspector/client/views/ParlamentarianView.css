@@ -64,16 +64,16 @@ h2 {
 .imgPerAreaContent {
 	background: url(images/bg_grey.jpg) repeat scroll 0 0 transparent;
 	position: absolute;
-	margin-left: 340px;
-	margin-top: 45px;
+	margin-left: 398px;
+	margin-top: 72px;
 	z-index: 1;
 }
 
 .imgConsistencyContent {
 	background: url(images/bg_grey.jpg) repeat scroll 0 0 transparent;
 	position: absolute;
-	margin-left: 0px;
-	margin-top: 45px;
+	margin-left: 52px;
+	margin-top: 72px;
 	z-index: 1;
 }
 
