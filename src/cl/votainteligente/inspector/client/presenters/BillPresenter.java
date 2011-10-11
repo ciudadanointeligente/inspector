@@ -97,6 +97,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 	@Override
 	protected void onReset() {
+		loadSelectedParlamentarian();
 	}
 
 	@Override
@@ -433,7 +434,6 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 				if (selectionModel.getSelectedObject() != null) {
 					parlamentarianId = selectionModel.getSelectedObject().getId();
 					setHistoryToken();
-					loadSelectedParlamentarian();
 				}
 			}
 		});
