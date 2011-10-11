@@ -280,9 +280,9 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 
 				if (reportedSocieties == 0d && unreportedSocieties == 0d) {
 					getView().setConsistencyIndexImageType("images/chart_without_societies.png");
-				} else if (reportedSocieties == 1d && unreportedSocieties == 0d) {
+				} else if (reportedSocieties > 1d && unreportedSocieties == 0d) {
 					getView().setConsistencyIndexImageType("images/chart_all_declared.png");
-				} else if (reportedSocieties == 0d && unreportedSocieties == 1d) {
+				} else if (reportedSocieties == 0d && unreportedSocieties > 1d) {
 					getView().setConsistencyIndexImageType("images/chart_all_undeclared.png");
 				}
 
