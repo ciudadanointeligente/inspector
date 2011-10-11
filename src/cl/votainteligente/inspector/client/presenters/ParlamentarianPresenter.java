@@ -101,6 +101,9 @@ public class ParlamentarianPresenter extends Presenter<ParlamentarianPresenter.M
 	@Override
 	protected void onReset() {
 		initParlamentarianCommentTableColumns();
+		if (parlamentarian != null) {
+			Window.setTitle(applicationMessages.getGeneralWindowTitle(parlamentarian.toString(), applicationMessages.getGeneralParlamentarianViewTitle(), applicationMessages.getGeneralAppName()));
+		}
 	}
 
 	@Override
