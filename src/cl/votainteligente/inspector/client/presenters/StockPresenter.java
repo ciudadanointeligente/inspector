@@ -108,34 +108,43 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 
 			@Override
 			public void onSuccess(Stock result) {
-				stock = result;
+				if (result != null) {
+					stock = result;
 
-				if (stock.getName() != null) {
-					getView().setStockName(stock.getName());
-				}
+					if (stock.getName() != null) {
+						getView().setStockName(stock.getName());
+					}
 
-				if (stock.getFantasyName() != null) {
-					getView().setStockFantasyName(stock.getFantasyName());
-				}
+					if (stock.getFantasyName() != null) {
+						getView().setStockFantasyName(stock.getFantasyName());
+					}
 
-				if (stock.getInitialQuantity() != null) {
-					getView().setStockInitialQuantity(stock.getInitialQuantity().toString());
-				}
+					if (stock.getInitialQuantity() != null) {
+						getView().setStockInitialQuantity(stock.getInitialQuantity().toString());
+					}
 
-				if (stock.getUnit() != null) {
-					getView().setStockUnit(stock.getUnit());
-				}
+					if (stock.getUnit() != null) {
+						getView().setStockUnit(stock.getUnit());
+					}
 
-				if (stock.getEmissionDate() != null) {
-					getView().setStockEmissionDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(stock.getEmissionDate()));
-				}
+					if (stock.getEmissionDate() != null) {
+						getView().setStockEmissionDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM).format(stock.getEmissionDate()));
+					}
 
-				if (stock.getRemark() != null) {
-					getView().setStockRemark(stock.getRemark());
-				}
+					if (stock.getRemark() != null) {
+						getView().setStockRemark(stock.getRemark());
+					}
 
-				if (stock.getTotalEquivalentAmount() != null) {
-					getView().setStockTotalEquivalentAmount(NumberFormat.getCurrencyFormat().format(stock.getTotalEquivalentAmount()));
+					if (stock.getTotalEquivalentAmount() != null) {
+						getView().setStockTotalEquivalentAmount(NumberFormat.getCurrencyFormat().format(stock.getTotalEquivalentAmount()));
+					}
+				} else {
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getErrorStock());
+					params.setType(NotificationEventType.ERROR);
+					params.setDuration(NotificationEventParams.DURATION_SHORT);
+					fireEvent(new NotificationEvent(params));
+					History.back();
 				}
 			}
 		});
