@@ -30,9 +30,8 @@ h2 {
 	width: 100%;
 }
 
-}
 .conflictWrapper {
-	background: url("../images/arrow_right_hor.png") no-repeat scroll 600px -18px transparent;
+	background: url("images/arrow_right_hor.png") no-repeat scroll 600px -18px transparent;
 	clear: both;
 	margin-top: 11px;
 	overflow: hidden;
