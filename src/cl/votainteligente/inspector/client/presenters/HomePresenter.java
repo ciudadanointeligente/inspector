@@ -154,7 +154,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	}
 
 	public void initDataLoad() {
-		if (categoryId == null) {
+		if (categoryId == null || parlamentarianId != null) {
 			fireEvent(new ShowLoadingEvent());
 			parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
 
