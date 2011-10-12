@@ -154,7 +154,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	}
 
 	public void initDataLoad() {
-		if (selectedCategory == null) {
+		if (categoryId == null) {
 			fireEvent(new ShowLoadingEvent());
 			parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
 
@@ -196,7 +196,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 			});
 		}
 
-		if (selectedParlamentarian == null) {
+		if (parlamentarianId == null) {
 			fireEvent(new ShowLoadingEvent());
 			categoryService.getAllCategories(new AsyncCallback<List<Category>>() {
 
