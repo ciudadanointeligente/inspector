@@ -116,7 +116,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
 	@Override
 	protected void onReveal() {
-		Window.setTitle(applicationMessages.getGeneralWindowTitle(applicationMessages.getGeneralDoYourSearch(), applicationMessages.getGeneralHomeViewTitle(), applicationMessages.getGeneralAppName()));
 		parlamentarianData = new ListDataProvider<Parlamentarian>();
 		categoryData = new ListDataProvider<Category>();
 		billData = new ListDataProvider<Bill>();
@@ -129,6 +128,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 		initDataLoad();
 		getView().displaySelectionNone();
 		getView().setShare(Window.Location.getHref());
+		Window.setTitle(applicationMessages.getGeneralWindowTitle(applicationMessages.getGeneralDoYourSearch(), applicationMessages.getGeneralHomeViewTitle(), applicationMessages.getGeneralAppName()));
 	}
 
 	@Override
@@ -154,84 +154,88 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 	}
 
 	public void initDataLoad() {
-		fireEvent(new ShowLoadingEvent());
-		parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
+		if (selectedCategory == null) {
+			fireEvent(new ShowLoadingEvent());
+			parlamentarianService.getAllParlamentarians(new AsyncCallback<List<Parlamentarian>>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				fireEvent(new HideLoadingEvent());
-				NotificationEventParams params = new NotificationEventParams();
-				params.setMessage(applicationMessages.getErrorParlamentarianList());
-				params.setType(NotificationEventType.ERROR);
-				params.setDuration(NotificationEventParams.DURATION_SHORT);
-				fireEvent(new NotificationEvent(params));
-			}
+				@Override
+				public void onFailure(Throwable caught) {
+					fireEvent(new HideLoadingEvent());
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getErrorParlamentarianList());
+					params.setType(NotificationEventType.ERROR);
+					params.setDuration(NotificationEventParams.DURATION_SHORT);
+					fireEvent(new NotificationEvent(params));
+				}
 
-			@Override
-			public void onSuccess(List<Parlamentarian> result) {
-				if (result != null) {
-					parlamentarianFetchedData = result;
-					ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(parlamentarianFetchedData);
-					setParlamentarianData(data);
-					if (parlamentarianId != null) {
-						for (Parlamentarian parlamentarian : result) {
-							if (parlamentarian.getId().equals(parlamentarianId)) {
-								selectedParlamentarian = parlamentarian;
+				@Override
+				public void onSuccess(List<Parlamentarian> result) {
+					if (result != null) {
+						parlamentarianFetchedData = result;
+						ListDataProvider<Parlamentarian> data = new ListDataProvider<Parlamentarian>(parlamentarianFetchedData);
+						setParlamentarianData(data);
+						if (parlamentarianId != null) {
+							for (Parlamentarian parlamentarian : result) {
+								if (parlamentarian.getId().equals(parlamentarianId)) {
+									selectedParlamentarian = parlamentarian;
+									getView().getParlamentarianTable().getSelectionModel().setSelected(selectedParlamentarian, true);
+									break;
+								}
+							}
+							setupSelection(SelectionType.SELECTED_PARLAMENTARIAN);
+							if (selectedParlamentarian != null) {
+								List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
+								parlamentarians.add(selectedParlamentarian);
+								data.setList(parlamentarians);
 								getView().getParlamentarianTable().getSelectionModel().setSelected(selectedParlamentarian, true);
-								break;
 							}
 						}
-						setupSelection(SelectionType.SELECTED_PARLAMENTARIAN);
-						if (selectedParlamentarian != null) {
-							List<Parlamentarian> parlamentarians = new ArrayList<Parlamentarian>();
-							parlamentarians.add(selectedParlamentarian);
-							data.setList(parlamentarians);
-							getView().getParlamentarianTable().getSelectionModel().setSelected(selectedParlamentarian, true);
-						}
 					}
+					fireEvent(new HideLoadingEvent());
 				}
-				fireEvent(new HideLoadingEvent());
-			}
-		});
+			});
+		}
 
-		fireEvent(new ShowLoadingEvent());
-		categoryService.getAllCategories(new AsyncCallback<List<Category>>() {
+		if (selectedParlamentarian == null) {
+			fireEvent(new ShowLoadingEvent());
+			categoryService.getAllCategories(new AsyncCallback<List<Category>>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				fireEvent(new HideLoadingEvent());
-				NotificationEventParams params = new NotificationEventParams();
-				params.setMessage(applicationMessages.getErrorCategoryList());
-				params.setType(NotificationEventType.ERROR);
-				params.setDuration(NotificationEventParams.DURATION_SHORT);
-				fireEvent(new NotificationEvent(params));
-			}
+				@Override
+				public void onFailure(Throwable caught) {
+					fireEvent(new HideLoadingEvent());
+					NotificationEventParams params = new NotificationEventParams();
+					params.setMessage(applicationMessages.getErrorCategoryList());
+					params.setType(NotificationEventType.ERROR);
+					params.setDuration(NotificationEventParams.DURATION_SHORT);
+					fireEvent(new NotificationEvent(params));
+				}
 
-			@Override
-			public void onSuccess(List<Category> result) {
-				if (result != null) {
-					categoryFetchedData = result;
-					ListDataProvider<Category> data = new ListDataProvider<Category>(categoryFetchedData);
-					setCategoryData(data);
-					if (categoryId != null && parlamentarianId == null) {
-						for (Category category : result) {
-							if (category.getId().equals(categoryId)) {
-								selectedCategory = category;
-								break;
+				@Override
+				public void onSuccess(List<Category> result) {
+					if (result != null) {
+						categoryFetchedData = result;
+						ListDataProvider<Category> data = new ListDataProvider<Category>(categoryFetchedData);
+						setCategoryData(data);
+						if (categoryId != null && parlamentarianId == null) {
+							for (Category category : result) {
+								if (category.getId().equals(categoryId)) {
+									selectedCategory = category;
+									break;
+								}
+							}
+							setupSelection(SelectionType.SELECTED_CATEGORY);
+							if (selectedCategory != null) {
+								List<Category> categories = new ArrayList<Category>();
+								categories.add(selectedCategory);
+								data.setList(categories);
+								getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, true);
 							}
 						}
-						setupSelection(SelectionType.SELECTED_CATEGORY);
-						if (selectedCategory != null) {
-							List<Category> categories = new ArrayList<Category>();
-							categories.add(selectedCategory);
-							data.setList(categories);
-							getView().getCategoryTable().getSelectionModel().setSelected(selectedCategory, true);
-						}
 					}
+					fireEvent(new HideLoadingEvent());
 				}
-				fireEvent(new HideLoadingEvent());
-			}
-		});
+			});
+		}
 		setBillTable();
 		getView().hideParlamentarianMessage();
 		getView().hideCategoryMessage();
