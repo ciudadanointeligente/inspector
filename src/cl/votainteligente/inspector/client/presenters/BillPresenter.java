@@ -38,6 +38,9 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	public static final String PARAM_BILL_ID = "billId";
 	public static final String PARAM_PARLAMENTARIAN_ID = "parlamentarianId";
 	public static final String VOTAINTELIGENTE_BILL_URL = "http://legislativo.votainteligente.cl/ProyectoLey/show/id_proyecto_ley/";
+	public static final String BILL_TITLE_CONTINUE = "...";
+	public static final Integer BILL_TITLE_INIT = 0;
+	public static final Integer BILL_TITLE_SIZE = 40;
 
 	public interface MyView extends View, HasUiHandlers<BillUiHandlers> {
 		void setBillBulletinNumber(String billBulletinNumber);
@@ -97,9 +100,10 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 
 	@Override
 	protected void onReset() {
-		loadSelectedParlamentarian();
-		if (selectedBill != null) {
-			Window.setTitle(applicationMessages.getGeneralWindowTitle(selectedBill.getTitle().substring(0, 40), applicationMessages.getGeneralBillViewTitle(), applicationMessages.getGeneralAppName()));
+		if (History.getToken().matches("(.*)" + PLACE + "(.*)")) {
+			loadSelectedParlamentarian();
+			Window.setTitle(applicationMessages.getGeneralWindowTitle(selectedBill.getTitle().substring(BILL_TITLE_INIT, BILL_TITLE_SIZE) + BILL_TITLE_INIT,
+							applicationMessages.getGeneralBillViewTitle(), applicationMessages.getGeneralAppName()));
 		}
 	}
 
