@@ -28,6 +28,8 @@ import com.google.inject.Inject;
 public class ParlamentarianCommentDisplayPresenter extends Presenter<ParlamentarianCommentDisplayPresenter.MyView, ParlamentarianCommentDisplayPresenter.MyProxy> implements ParlamentarianCommentDisplayUiHandlers {
 	public static final String PLACE = "parlamentarianCommentDisplay";
 	public static final String PARAM_PARLAMENTARIAN_COMMENT_ID = "parlamentarianCommentId";
+	public static final Integer PARLAMENTARIAN_COMMENT_SUBJECT_INIT = 0;
+	public static final Integer PARLAMENTARIAN_COMMENT_SUBJECT_SIZE = 40;
 
 	public interface MyView extends View, HasUiHandlers<ParlamentarianCommentDisplayUiHandlers> {
 		void setCommentSubject(String commentSubject);
@@ -119,7 +121,7 @@ public class ParlamentarianCommentDisplayPresenter extends Presenter<Parlamentar
 					}
 
 					String subject = parlamentarianComment.getSubject();
-					Window.setTitle(applicationMessages.getGeneralWindowTitle((subject.length() > 40)? subject.substring(0, 40): subject, applicationMessages.getGeneralParlamentarianCommentViewTitle(), applicationMessages.getGeneralAppName()));
+					Window.setTitle(applicationMessages.getGeneralWindowTitle((subject.length() > PARLAMENTARIAN_COMMENT_SUBJECT_SIZE)? subject.substring(PARLAMENTARIAN_COMMENT_SUBJECT_INIT, PARLAMENTARIAN_COMMENT_SUBJECT_SIZE): subject, applicationMessages.getGeneralParlamentarianCommentViewTitle(), applicationMessages.getGeneralAppName()));
 
 				} else {
 					NotificationEventParams params = new NotificationEventParams();
