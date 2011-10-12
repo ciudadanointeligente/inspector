@@ -223,8 +223,9 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 					getBillAuthors(result);
 					getParlamentarians(result);
 				}
-				getView().setShare(Window.Location.getHref(), selectedBill.getTitle().substring(0, 40));
-				Window.setTitle(applicationMessages.getGeneralWindowTitle(selectedBill.getTitle().substring(0, 40), applicationMessages.getGeneralBillViewTitle(), applicationMessages.getGeneralAppName()));
+				getView().setShare(Window.Location.getHref(), selectedBill.getTitle().substring(BILL_TITLE_INIT, BILL_TITLE_SIZE));
+				Window.setTitle(applicationMessages.getGeneralWindowTitle(selectedBill.getTitle().substring(BILL_TITLE_INIT, BILL_TITLE_SIZE) + BILL_TITLE_INIT,
+								applicationMessages.getGeneralBillViewTitle(), applicationMessages.getGeneralAppName()));
 				fireEvent(new HideLoadingEvent());
 			}
 		});
@@ -678,7 +679,7 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 			href = placeManager.buildHistoryToken(placeRequest);
 			placeManager.revealPlace(placeRequest);
 			History.newItem(href);
-			getView().setShare(Window.Location.getHref(), selectedBill.getTitle().substring(0, 40));
+			getView().setShare(Window.Location.getHref(), selectedBill.getTitle().substring(BILL_TITLE_INIT, BILL_TITLE_SIZE));
 		}
 	}
 
