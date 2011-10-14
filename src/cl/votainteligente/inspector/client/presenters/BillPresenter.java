@@ -102,7 +102,9 @@ public class BillPresenter extends Presenter<BillPresenter.MyView, BillPresenter
 	protected void onReset() {
 		if (History.getToken().matches("(.*)" + PLACE + "(.*)")) {
 			loadSelectedParlamentarian();
-			Window.setTitle(applicationMessages.getGeneralWindowTitle(selectedBill.getTitle().substring(BILL_TITLE_INIT, BILL_TITLE_SIZE) + BILL_TITLE_INIT,
+		}
+		if (selectedBill != null) {
+			Window.setTitle(applicationMessages.getGeneralWindowTitle(selectedBill.getTitle().substring(BILL_TITLE_INIT, BILL_TITLE_SIZE) + BILL_TITLE_CONTINUE,
 							applicationMessages.getGeneralBillViewTitle(), applicationMessages.getGeneralAppName()));
 		}
 	}
