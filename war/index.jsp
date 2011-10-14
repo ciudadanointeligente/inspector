@@ -17,12 +17,13 @@
 			})();
 		</script>
 		<link type="text/css" rel="stylesheet" href="inspector.css">
+		<link rel="shortcut icon" href="images/favicon.ico">
 		<script type="text/javascript" src="inspector/inspector.nocache.js"></script>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/highcharts.js"></script>
 		<script type="text/javascript" src="js/highcharts-gwt-adapter.js"></script>
 		<script type="text/javascript" src="js/recaptcha_ajax.js"></script>
-	</head>
+			</head>
 
 	<body class="body">
 		<div id="headerLine">
