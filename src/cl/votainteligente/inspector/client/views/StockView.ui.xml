@@ -9,8 +9,8 @@
 				<div class="{style.selectionDisplay}">
 					<g:HTMLPanel addStyleNames="{style.popupCardHeader}">
 						<h1><g:Label ui:field="stockFantasyName" /></h1>
-						<h3>Razón social: </h3>
-						<h3><g:Label styleName="{style.popupCardSubTitle}"  ui:field="stockName" /></h3>
+						<h3>Tipo: </h3>
+						<h3><g:Label styleName="{style.popupCardSubTitle}"  ui:field="stockClassification" /></h3>
 					</g:HTMLPanel>
 				</div>
 			</div>

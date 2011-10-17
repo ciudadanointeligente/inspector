@@ -18,7 +18,7 @@ public class StockView extends ViewWithUiHandlers<StockUiHandlers> implements St
 	interface StockViewUiBinder extends UiBinder<Widget, StockView> {}
 	private final Widget widget;
 
-	@UiField Label stockName;
+	@UiField Label stockClassification;
 	@UiField Label stockFantasyName;
 	@UiField Label stockInitialQuantity;
 	@UiField Label stockUnit;
@@ -38,7 +38,7 @@ public class StockView extends ViewWithUiHandlers<StockUiHandlers> implements St
 
 	@Override
 	public void clearStockData() {
-		stockName.setText("");
+		stockClassification.setText("");
 		stockFantasyName.setText("");
 		stockInitialQuantity.setText("");
 		stockUnit.setText("");
@@ -48,8 +48,8 @@ public class StockView extends ViewWithUiHandlers<StockUiHandlers> implements St
 	}
 
 	@Override
-	public void setStockName(String stockName) {
-		this.stockName.setText(stockName);
+	public void setStockClassification(String stockClassification) {
+		this.stockClassification.setText(stockClassification);
 	}
 
 	@Override

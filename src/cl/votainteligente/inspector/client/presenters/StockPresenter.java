@@ -32,7 +32,7 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 
 	public interface MyView extends View, HasUiHandlers<StockUiHandlers> {
 		void clearStockData();
-		void setStockName(String stockName);
+		void setStockClassification(String stockClassification);
 		void setStockFantasyName(String stockFantasyName);
 		void setStockInitialQuantity(String stockInitialQuantity);
 		void setStockUnit(String stockUnit);
@@ -112,8 +112,8 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 				if (result != null) {
 					stock = result;
 
-					if (stock.getName() != null) {
-						getView().setStockName(stock.getName());
+					if (stock.getClassification() != null) {
+						getView().setStockClassification(stock.getClassification());
 					}
 
 					if (stock.getInitialQuantity() != null) {
