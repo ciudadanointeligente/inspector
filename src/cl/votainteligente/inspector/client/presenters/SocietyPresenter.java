@@ -126,10 +126,6 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 						getView().setSocietyName(society.getName());
 					}
 
-					if (society.getFantasyName() != null) {
-						getView().setSocietyFantasyName(society.getFantasyName());
-					}
-
 					if (society.getUid() != null) {
 						getView().setSocietyUid(society.getUid());
 					}
@@ -195,6 +191,10 @@ public class SocietyPresenter extends Presenter<SocietyPresenter.MyView, Society
 								displayName = applicationMessages.getGeneralWithoutInformation();
 							}
 						}
+					}
+
+					if (!displayName.equals(applicationMessages.getGeneralWithoutInformation())) {
+						getView().setSocietyFantasyName(displayName);
 					}
 
 					Window.setTitle(applicationMessages.getGeneralWindowTitle(displayName, applicationMessages.getGeneralSocietyViewTitle(), applicationMessages.getGeneralAppName()));

@@ -116,10 +116,6 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 						getView().setStockName(stock.getName());
 					}
 
-					if (stock.getFantasyName() != null) {
-						getView().setStockFantasyName(stock.getFantasyName());
-					}
-
 					if (stock.getInitialQuantity() != null) {
 						getView().setStockInitialQuantity(stock.getInitialQuantity().toString());
 					}
@@ -148,6 +144,10 @@ public class StockPresenter extends Presenter<StockPresenter.MyView, StockPresen
 						if (stock.getName() == null) {
 							displayName = applicationMessages.getGeneralWithoutInformation();
 						}
+					}
+
+					if (!displayName.equals(applicationMessages.getGeneralWithoutInformation())) {
+						getView().setStockFantasyName(displayName);
 					}
 
 					Window.setTitle(applicationMessages.getGeneralWindowTitle(displayName, applicationMessages.getGeneralStockViewTitle(), applicationMessages.getGeneralAppName()));
