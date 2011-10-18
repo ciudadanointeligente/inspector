@@ -9,6 +9,7 @@
 					<g:MenuItem >
 						Sobre el inspector
 						<g:MenuBar vertical="true">
+							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=%C2%BFque-buscamos-con-el-inspector-de-intereses">¿Qué buscamos?</a></g:MenuItem>
 							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=que-podras-encontrar-aqui">Qué podrás encontrar aquí</a></g:MenuItem>
 							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=metodologia-del-estudio">Metodología del estudio</a></g:MenuItem>
 							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=como-funciona-el-inspector">Cómo funciona el inspector</a></g:MenuItem>
