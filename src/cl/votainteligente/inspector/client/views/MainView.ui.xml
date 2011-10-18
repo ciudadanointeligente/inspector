@@ -19,7 +19,7 @@
 					<g:MenuItem >
 						Sobre los conflictos de interés
 						<g:MenuBar vertical="true">
-							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=que-es-un-conflicto-de-interes">¿Por qué hablamos de posible conflicto?</a></g:MenuItem>
+							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=que-es-un-conflicto-de-interes">Qué es un conflicto de interés</a></g:MenuItem>
 							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=%C2%BFpor-que-hablamos-de-posible-conflicto">¿Por qué hablamos de posible conflicto?</a></g:MenuItem>
 							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=%C2%BFque-dice-la-ley"> Qué dice la ley</a></g:MenuItem>
 							<g:MenuItem><a href="http://www.inspectordeintereses.cl/?project=preguntas-frecuentes">Preguntas frecuentes sobre intereses</a></g:MenuItem>
