@@ -36,6 +36,7 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 
 	@Inject
 	private ApplicationMessages applicationMessages;
+	static private Integer TABLE_MAX_RESULTS = 100;
 
 	ParlamentarianViewCss parlamentarianViewCss;
 	@UiField Label parlamentarianName;
@@ -67,11 +68,11 @@ public class ParlamentarianView extends ViewWithUiHandlers<ParlamentarianUiHandl
 		DisplayCellTableResource displayResource = GWT.create(DisplayCellTableResource.class);
 		ResourceBundle.INSTANCE.ParlamentarianView().ensureInjected();
 		parlamentarianViewCss = ResourceBundle.INSTANCE.ParlamentarianView();
-		societyTable = new CellTable<Society>(15, displayResource);
+		societyTable = new CellTable<Society>(TABLE_MAX_RESULTS, displayResource);
 		societyPanel.add(societyTable);
-		stockTable = new CellTable<Stock>(15, displayResource);
+		stockTable = new CellTable<Stock>(TABLE_MAX_RESULTS, displayResource);
 		stockPanel.add(stockTable);
-		commentTable = new CellTable<ParlamentarianComment>(15, displayResource);
+		commentTable = new CellTable<ParlamentarianComment>(TABLE_MAX_RESULTS, displayResource);
 		parlamentarianCommentPanel.add(commentTable);
 	}
 

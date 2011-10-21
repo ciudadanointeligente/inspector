@@ -30,6 +30,7 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 
 	@Inject
 	private ApplicationMessages applicationMessages;
+	static private Integer TABLE_MAX_RESULTS = 100;
 
 	BillViewCss billViewCss;
 	@UiField Label billBulletinNumber;
@@ -65,11 +66,11 @@ public class BillView extends ViewWithUiHandlers<BillUiHandlers> implements Bill
 		BillDisplayCellTableResource displayResource = GWT.create(BillDisplayCellTableResource.class);
 		ResourceBundle.INSTANCE.BillView().ensureInjected();
 		billViewCss = ResourceBundle.INSTANCE.BillView();
-		parlamentarianTable = new CellTable<Parlamentarian>(15, searchResource);
+		parlamentarianTable = new CellTable<Parlamentarian>(TABLE_MAX_RESULTS, searchResource);
 		parlamentarianTableContainer.add(parlamentarianTable);
-		societyTable = new CellTable<Society>(15, displayResource);
+		societyTable = new CellTable<Society>(TABLE_MAX_RESULTS, displayResource);
 		societyTableContainer.add(societyTable);
-		stockTable = new CellTable<Stock>(15, displayResource);
+		stockTable = new CellTable<Stock>(TABLE_MAX_RESULTS, displayResource);
 		stockTableContainer.add(stockTable);
 	}
 
