@@ -4,8 +4,8 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta property="og:title" content="Inspector de Intereses"/>
-		<meta property="og:description" content="Estoy fiscalizando, infórmate."/>
-		<meta property="og:image" content="images/thumb_inspector.png"/>
+		<meta property="og:description" content="¡Estoy fiscalizando! El inspector de @votainteligente te muestra posibles conflictos de intereses."/>
+		<meta property="og:image" content="http://app.inspectordeintereses.cl/Inspector/images/thumb_inspector.png"/>
 		<meta name="gwt:property" content="locale=es_CL">
 		<title>Inspector</title>
 		<script type="text/javascript">
@@ -26,7 +26,7 @@
 		<script type="text/javascript" src="js/highcharts.js"></script>
 		<script type="text/javascript" src="js/highcharts-gwt-adapter.js"></script>
 		<script type="text/javascript" src="js/recaptcha_ajax.js"></script>
-			</head>
+	</head>
 
 	<body class="body">
 		<div id="headerLine">
