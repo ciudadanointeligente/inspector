@@ -254,7 +254,7 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
 		share.setHref(href);
 		// TODO: define social network messages
 		share.setTitle(applicationMessages.getGeneralAppName());
-		share.setMessage(applicationMessages.getGeneralAppName());
+		share.setMessage(applicationMessages.getGeneralCheckOutTheParliamentarians());
 		share.setup();
 		sharePanel.add(share);
 	}
