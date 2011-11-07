@@ -115,6 +115,9 @@ public interface ApplicationMessages extends Messages {
 	@Key("general.parlamentarianCommentViewTitle")
 	public String getGeneralParlamentarianCommentViewTitle();
 
+	@Key("general.checkOutTheParliamentarians")
+	public String getGeneralCheckOutTheParliamentarians();
+
 	@Key("error.emptyCommentField")
 	public String getErrorEmptyCommentField();
 
