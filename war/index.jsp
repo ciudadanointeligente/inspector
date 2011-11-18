@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta property="og:title" content="Inspector de Intereses"/>
-		<meta property="og:description" content="¡Estoy fiscalizando! El inspector de @votainteligente te muestra posibles conflictos de intereses."/>
+		<meta property="og:description" content="¡Estoy fiscalizando! El inspector de @ciudadanoi te muestra posibles conflictos de intereses."/>
 		<meta property="og:image" content="http://app.inspectordeintereses.cl/Inspector/images/thumb_inspector.png"/>
 		<meta name="gwt:property" content="locale=es_CL">
 		<title>Inspector</title>
